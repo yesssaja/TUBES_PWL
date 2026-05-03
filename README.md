@@ -14,7 +14,7 @@ Proyek ini dibuat karena adanya kebutuhan untuk:
 1. Yessica Jaklin
 2. Dian Indriani
 3. Ryan Dani Stepanus Girsang
-4. Jeli Alvonso Laia
+4. Jeli Alvonzo Laia
 5. Naufal Awan harahap
 
 📸 Tampilan Website
