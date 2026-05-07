@@ -10,3 +10,6 @@ Route::get('/detail-loker', function () {
     return view('pages.detail_loker');
 });
 
+Route::get('/event', function () {
+    return view('pages.event');
+});
