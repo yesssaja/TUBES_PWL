@@ -12,4 +12,6 @@ Route::get('/detail-loker', function () {
 
 Route::get('/event', function () {
     return view('pages.event');
-});
+})->name('event');
+
+Route::view('/rsvp', 'pages.rsvp')->name('rsvp');
