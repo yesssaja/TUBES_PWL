@@ -67,3 +67,8 @@ Route::get('/admin/group', function () {
 Route::get('/admin/user', function () {
     return view('admin.user.index');
 });
+
+Route::get('/course',function(){
+    return view('course.index');
+});
+
