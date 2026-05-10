@@ -16,4 +16,8 @@ Route::get('/event', function () {
 
 Route::view('/rsvp', 'pages.rsvp')->name('rsvp');
 
+Route::get('/course',function(){
+    return view('course.index');
+});
+
 require __DIR__.'/auth.php';
