@@ -30,7 +30,7 @@
     <h1 class="text-c font-bold text-3xl uppercase tracking-widest text-center mb-10">Course</h1>
 
     <div class="max-w-3xl mx-auto space-y-4">
-        <div class="bg-white rounded-3xl border-4 border-c p-6 shadow-xl">
+        <div class="bg-white rounded-3xl border-4 border-c p-6 shadow-2xl">
             <div class="flex items-center gap-3">
                 <div class="w-7 h-7 rounded-full bg-c flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 rounded-full bg-white"></div>
