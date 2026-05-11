@@ -10,6 +10,11 @@ Route::get('/detail-loker', function () {
     return view('pages.detail_loker');
 });
 
+
+Route::get('/perusahaan/detail', function () {
+    return view('pages.perusahaan'); // Nama file: perusahaan.blade.php
+})->name('perusahaan.detail');
+
 Route::get('/event', function () {
     return view('pages.event');
 })->name('event');
@@ -71,4 +76,5 @@ Route::get('/admin/user', function () {
 Route::get('/course',function(){
     return view('course.index');
 });
+
 
