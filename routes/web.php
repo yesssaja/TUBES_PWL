@@ -28,8 +28,42 @@ Route::post('/lamaran-submit', function () {
 
 Route::view('/rsvp', 'pages.rsvp')->name('rsvp');
 
+
 Route::get('/course',function(){
     return view('course.index');
 });
 
 require __DIR__.'/auth.php';
+
+//admin
+Route::get('/admin', function () {
+    return view('admin.admin');
+})->name('admin');
+
+Route::get('/admin/event', function () {
+    return view('admin.event.index');
+});
+
+Route::get('/admin/event/create', function () {
+    return view('admin.event.create');
+});
+
+Route::get('/admin/event/edit', function () {
+    return view('admin.event.edit');
+});
+
+Route::get('/admin/loker', function () {
+    return view('admin.loker.index');
+});
+
+Route::get('/admin/loker/create', function () {
+    return view('admin.loker.create');
+});
+
+Route::get('/admin/group', function () {
+    return view('admin.group.index');
+});
+
+Route::get('/admin/user', function () {
+    return view('admin.user.index');
+});
