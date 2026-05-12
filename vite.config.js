@@ -8,7 +8,12 @@ export default defineConfig({
             refresh: true,
         })
     ],
+
     server: {
+        hmr: {
+            overlay: false,
+        },
+
         watch: {
             ignored: ['**/storage/framework/views/**'],
         },
