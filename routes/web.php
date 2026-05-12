@@ -80,3 +80,18 @@ Route::get('/course',function(){
 Route::get('/group',function(){
     return view('pages.group');
 });
+
+Route::get('/rsvp', function () {
+    return view('pages.rsvp');
+});
+
+Route::post('/rsvp-submit', function (Request $request) {
+
+    // nanti bisa simpan database di sini
+
+    return redirect('/berhasil_daftar_event');
+});
+
+Route::get('/berhasil_daftar_event', function () {
+    return view('pages.berhasil_daftar_event');
+});
