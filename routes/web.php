@@ -77,4 +77,6 @@ Route::get('/course',function(){
     return view('course.index');
 });
 
-
+Route::get('/group',function(){
+    return view('pages.group');
+});
