@@ -1,82 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Loker</title>
+    <title>Detail Lowongan | LOKER SEEKER</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap');
-        body {
-            font-family: 'Oswald', sans-serif;
-            background-color: #f6b333; 
-        }
-        .text-custom-red {
-            color: #d12026; 
-        }
-        .border-custom-red {
-            border-color: #d12026;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; background-color: #f9f9f9; }
+        .bg-yellow-brand { background-color: #F4D03F; } 
+        .bg-red-brand { background-color: #E74C3C; }    
+        .text-red-brand { color: #E74C3C; }
     </style>
 </head>
-<body class="p-0 m-0">
+<body>
 
-    <!-- Navbar -->
-    <nav class="flex justify-center gap-8 py-8">
-        <a href="#" class="text-custom-red font-bold text-xl uppercase hover:underline">Job Description</a>
-        <a href="#" class="text-custom-red font-bold text-xl uppercase hover:underline">Requirements</a>
-        <a href="#" class="text-custom-red font-bold text-xl uppercase hover:underline">About Company</a>
-    </nav>
-
-    <!-- Section Card Gambar Landscape (BARU) -->
-    <div class="max-w-5xl mx-auto px-4 mb-10">
-        <div class="bg-white rounded-3xl overflow-hidden shadow-2xl border-4 border-custom-red">
-           <img src= "{{ asset('foto_perusahaan/perusahaan_1.jpg') }}""
-                 alt="Company Landscape" 
-                 class="w-full h-[300px] md:h-[450px] object-cover">
+    <header class="bg-red-brand text-white p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold italic tracking-wider">LOKER SEEKER</h1>
+            <nav class="hidden md:flex space-x-6 font-medium">
+                <a href="#" class="hover:text-yellow-300">Home</a>
+                <a href="#" class="hover:text-yellow-300">About</a>
+                <a href="#" class="hover:text-yellow-300 border-b-2 border-yellow-300">Jobs</a>
+                <a href="#" class="hover:text-yellow-300">Schedule</a>
+            </nav>
         </div>
-    </div>
+    </header>
 
-    <!-- Konten Utama -->
-    <div class="max-w-4xl mx-auto text-center px-4 mt-10">
-        <div class="flex justify-center mb-4">
-            <svg class="w-8 h-8 text-custom-red" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-        </div>
-
-        <h2 class="text-custom-red font-bold text-2xl mb-6 tracking-widest uppercase">Detail Pekerjaan</h2>
-
-        <!-- Section 1: Job Description -->
-        <div class="mb-12">
-            <p class="text-custom-red font-bold text-lg md:text-2xl leading-relaxed uppercase">
-                Kami mencari individu yang kreatif dan bersemangat untuk bergabung sebagai Backend Developer. 
-                Tugas utamanya adalah membangun sistem yang kuat, mengelola database, 
-                dan memastikan integrasi API berjalan dengan sempurna demi kenyamanan pengguna.
-            </p>
-        </div>
-
-        <hr class="border-custom-red border-t-2 w-24 mx-auto my-8">
-
-        <!-- Section 2: Requirements -->
-        <div class="mb-12 text-custom-red">
-            <h3 class="font-bold text-xl mb-4">REQUIREMENTS</h3>
-            <ul class="font-bold text-md uppercase space-y-2">
-                <li>Mahir PHP & Framework Laravel</li>
-                <li>Paham Konsep Database MySQL (Port 3307)</li>
-                <li>Mampu Bekerja dalam Tim Kelompok Kom A-25</li>
-            </ul>
+    <main class="container mx-auto px-4 py-8 max-w-5xl">
+        
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
+            <div class="bg-yellow-brand h-32 w-full"></div> <div class="px-8 pb-8 -mt-12">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4">
+                    <div class="flex flex-col">
+                       <img src="{{ asset('foto_perusahaan/images.png') }}"  alt="Logo Perusahaan" class="w-24 h-24 rounded-xl border-4 border-white shadow-md bg-white object-contain mb-4">
+                        <h2 class="text-3xl font-bold text-gray-800">Maintenance Manager</h2>
+                        <p class="text-xl text-red-brand font-semibold">SHOPEE</p>
+                        
+                        <div class="flex flex-wrap gap-4 mt-3 text-gray-500 text-sm">
+                            <span><i class="fas fa-map-marker-alt mr-1"></i> Medan, Sumatera Utara</span>
+                            <span><i class="fas fa-briefcase mr-1"></i> Finance</span>
+                            <span><i class="fas fa-clock mr-1"></i> Dipublish 2 hari yang lalu</span>
+                        </div>
+                    </div>
+                    <button class="bg-red-brand hover:bg-red-700 text-white px-10 py-3 rounded-full font-bold shadow-lg transition-all transform hover:scale-105">
+                        Apply Now
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <!-- Section 3: About Company -->
-        <div class="pb-20 text-custom-red">
-            <h3 class="font-bold text-xl mb-4">ABOUT COMPANY</h3>
-            <p class="font-bold text-md uppercase">
-                Perusahaan kami bergerak di bidang teknologi informasi yang berlokasi di Medan. 
-                Kami fokus pada pengembangan solusi digital yang estetik dan fungsional.
-            </p>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-yellow-brand inline-block">Job Description</h3>
+                    <ul class="list-disc ml-5 space-y-2 text-gray-600 mt-4">
+                        <li>Coordinate and monitor the implementation of maintenance to be completed in accordance with the target time and results set.</li>
+                        <li>Monitor and ensure the running of preventive maintenance and maintenance of existing instruments and electrical equipment.</li>
+                        <li>Ensure calibration is on schedule.</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold mt-8 mb-4 border-b-2 border-yellow-brand inline-block">Job Requirements</h3>
+                    <ul class="list-disc ml-5 space-y-2 text-gray-600 mt-4">
+                        <li>Bachelor degree (Mechanical Engineering) from reputable University.</li>
+                        <li>Minimal 15 years experiences in chemical plant maintenance with minimal 5 years at managerial position.</li>
+                        <li>Strong leadership and communication skills.</li>
+                        <li>Willing to be placed in Medan.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold mb-6">About the company</h3>
+                    <div class="flex items-start gap-4 mb-4">
+                       <img src="/foto_perusahaan/images.png"  alt="Logo" class="rounded-md border">
+                        <div>
+                            <h4 class="font-bold text-lg">SHOPEE</h4>
+                            <p class="text-sm text-gray-500">956,439 followers</p>
+                            <button class="mt-2 text-blue-600 font-bold hover:underline flex items-center">
+                                <i class="fas fa-plus mr-1"></i> Follow
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                        Food and Beverage Manufacturing • 10,001+ employees • 13,382 on LOKER SEEKER
+                    </p>
+                    <p class="text-gray-600 text-sm italic">
+                        "Di Sinar Mas Agribusiness and Food, kami bertumbuh dengan tujuan. Minyak kelapa sawit menjadi awal dari perjalanan kami..."
+                    </p>
+                    <a href="{{ route('perusahaan.detail') }}" class="mt-6 w-full py-2 border-2 border-blue-600 text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition">
+                        Show more
+                    </a>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-yellow-brand p-6 rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-gray-800 mb-4">Ringkasan Pekerjaan</h3>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-700">Tipe Kontrak:</span>
+                            <span class="font-bold">Full-time</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-700">Gaji:</span>
+                            <span class="font-bold text-red-brand">Kompetitif</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-700">Level:</span>
+                            <span class="font-bold">Manager</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <p class="text-sm font-semibold mb-4 text-gray-600">Bagikan lowongan ini:</p>
+                    <div class="flex justify-center gap-4">
+                        <a href="#" class="text-blue-600 text-xl hover:scale-110 transition"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-blue-400 text-xl hover:scale-110 transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-green-500 text-xl hover:scale-110 transition"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="text-gray-600 text-xl hover:scale-110 transition"><i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 mt-12 text-center text-sm">
+        <p>&copy; 2026 LOKER SEEKER. Dibuat oleh Mahasiswa USU.</p>
+    </footer>
 
 </body>
 </html>
