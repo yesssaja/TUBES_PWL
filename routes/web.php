@@ -89,4 +89,17 @@ Route::get('/tawarkan-service', function () {
     return view('pages.tawarkan-service');
 });
 
+Route::get('/rsvp', function () {
+    return view('pages.rsvp');
+});
 
+Route::post('/rsvp-submit', function (Request $request) {
+
+    // nanti bisa simpan database di sini
+
+    return redirect('/berhasil_daftar_event');
+});
+
+Route::get('/berhasil_daftar_event', function () {
+    return view('pages.berhasil_daftar_event');
+});
