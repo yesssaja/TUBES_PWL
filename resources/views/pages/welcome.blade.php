@@ -11,30 +11,62 @@
 
     <!-- HEADER -->
     <header class="bg-red-600 shadow-lg">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <h1 class="text-white text-3xl font-black">
-               LOKER SEEKER🔥
-            </h1>
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
 
-            <div class="flex items-center gap-4">
-                <form action="#loker" class="flex items-center gap-2">
+        <h1 class="text-white text-3xl font-black">
+            LOKER SEEKER🔥
+        </h1>
 
-    <input type="text"
-           placeholder="Cari loker..."
-           class="w-80 p-3 rounded-xl">
+        <div class="flex items-center gap-4">
 
-    <button class="bg-white px-4 py-2 rounded-xl font-bold">
-        Cari
-    </button>
+            <form action="#loker" class="flex items-center gap-2">
+                <input type="text"
+                       placeholder="Cari loker..."
+                       class="w-80 p-3 rounded-xl">
 
-</form>
+                <button class="bg-white px-4 py-2 rounded-xl font-bold">
+                    Cari
+                </button>
+            </form>
 
-                <button class="text-white text-3xl">
+            <!-- Hamburger -->
+            <div class="relative">
+
+                <button onclick="toggleMenu()"
+                        class="text-white text-3xl font-bold">
                     ☰
                 </button>
+
+                <div id="menuDropdown"
+                     class="hidden absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-2xl p-4 z-50">
+
+                    <a href="/group"
+                        class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+                         Temukan Group Sesuai Minatmu
+                    </a>
+
+                    <a href="/detail-loker"
+                       class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+                        Maintenance Manager Shopee
+                    </a>
+
+                    <a href="/event"
+                       class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+                        Seminar Karir & Job Fair
+                    </a>
+
+                    <a href="/rsvp"
+                       class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+                        RSVP Event
+                    </a>
+
+                </div>
+
             </div>
+
         </div>
-    </header>
+    </div>
+</header>
 
     <!-- HERO -->
     <section class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
@@ -200,6 +232,13 @@
             </p>
         </div>
     </footer>
+
+
+<script>
+function toggleMenu() {
+    document.getElementById('menuDropdown').classList.toggle('hidden');
+}
+</script>
 
 </body>
 </html>
