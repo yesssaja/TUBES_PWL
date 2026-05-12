@@ -35,12 +35,32 @@
 
             </form>
 
-            <!-- Hamburger -->
-            <button class="text-3xl">
-                ☰
-            </button>
+       <div class="relative">
+    <button onclick="toggleMenu()" class="text-white text-3xl font-bold">
+        ☰
+    </button>
 
-        </div>
+    <div id="menuDropdown"
+         class="hidden absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-2xl p-4 z-50">
+
+        <a href="/" class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+            Cari Pekerjaan Impianmu
+        </a>
+
+        <a href="/detail-loker" class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+            Maintenance Manager Shopee
+        </a>
+
+        <a href="/event" class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+            Seminar Karir & Job Fair
+        </a>
+
+        <a href="/rsvp" class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+            RSVP Event
+        </a>
+
+    </div>
+</div>
 
     </div>
 
@@ -176,6 +196,12 @@
         </p>
     </div>
 </footer>
+
+<script>
+    function toggleMenu() {
+        document.getElementById('menuDropdown').classList.toggle('hidden');
+    }
+</script>
 
 </body>
 </html>
