@@ -1,5 +1,3 @@
-<!-- resources/views/pages/service.blade.php -->
-
 <!DOCTYPE html>
 <html lang="id">
 
@@ -61,7 +59,7 @@
     <!-- CONTAINER -->
     <div class="max-w-7xl mx-auto px-4 lg:px-6 py-8">
 
-        <!-- HERO -->
+        <!-- HEADER -->
         <section class="relative overflow-hidden rounded-[34px] p-8 lg:p-12 mb-10 shadow-soft bg-cover bg-center min-h-[420px] flex items-center"
                  style="background-image: url('{{ asset('images/banner-service.png') }}');">
 
@@ -113,7 +111,22 @@
 
                     <div class="w-12 h-12 rounded-2xl bg-green-100 flex items-center justify-center mb-4">
 
-                        📸
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6 text-green-600"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 7h4l2-2h6l2 2h4v12H3V7z" />
+
+                            <circle cx="12"
+                                cy="13"
+                                r="3" />
+
+                        </svg>
 
                     </div>
 
@@ -130,8 +143,19 @@
                 <div class="bg-white rounded-2xl p-5 shadow-soft border border-slate-100 hover:-translate-y-1 transition">
 
                     <div class="w-12 h-12 rounded-2xl bg-purple-100 flex items-center justify-center mb-4">
+                      
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6 text-purple-600"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2">
 
-                        🎨
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 4l8 4-8 4-8-4 8-4zm0 8l8 4-8 4-8-4 8-4z" />
+
+                        </svg>
 
                     </div>
 
@@ -149,7 +173,18 @@
 
                     <div class="w-12 h-12 rounded-2xl bg-red-100 flex items-center justify-center mb-4">
 
-                        🎬
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6 text-red-600"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+
+                        </svg>
 
                     </div>
 
@@ -167,7 +202,18 @@
 
                     <div class="w-12 h-12 rounded-2xl bg-yellow-100 flex items-center justify-center mb-4">
 
-                        🎵
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6 text-yellow-600"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M9 18V5l12-2v13" />
+
+                        </svg>
 
                     </div>
 
@@ -185,7 +231,18 @@
 
                     <div class="w-12 h-12 rounded-2xl bg-pink-100 flex items-center justify-center mb-4">
 
-                        🎤
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6 text-pink-600"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v3a3 3 0 01-3 3z" />
+
+                        </svg>
 
                     </div>
 
@@ -206,7 +263,18 @@
 
                         <div class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center mb-4">
 
-                            ➕
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-6 h-6 text-blue-600"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="2.2">
+
+                                <path stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 5v14M5 12h14" />
+
+                            </svg>
 
                         </div>
 
@@ -222,7 +290,7 @@
                         
 
                 </a>
-Lihat
+
             </div>
 
         </section>
@@ -373,7 +441,7 @@ Lihat
 
                 </div>
 
-                <!-- CARD 4 -->                <!-- CTA -->
+                <!-- CTA -->
                 <div class="rounded-[32px] bg-gradient-to-br from-[#FFF1F2] to-[#FFE4E6] p-7 shadow-card border border-red-100 flex flex-col justify-between relative overflow-hidden">
 
                     <!-- DECOR -->
@@ -417,22 +485,41 @@ Lihat
         </section>
 
         <!-- TRUST BAR -->
-        <section class="bg-[#FFFDF3] rounded-[32px] p-8 shadow-soft border border-slate-100">
+        <section class="mb-16">
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-3 gap-6">
 
-                <!-- ITEM -->
-                <div class="flex gap-4">
+                <!-- CARD 1 -->
+                <div class="bg-white rounded-[32px] p-7 border border-red-100 shadow-soft hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
 
-                    <div class="w-14 h-14 rounded-2xl bg-red-100 flex items-center justify-center text-2xl shrink-0">
+                    <!-- DECOR -->
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-red-100 opacity-40 rounded-full"></div>
 
-                        🔒
+                    <!-- ICON -->
+                    <div class="relative z-10 w-16 h-16 rounded-2xl bg-red-100 flex items-center justify-center mb-6">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-7 h-7 text-red-600"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 11c1.657 0 3-1.343 3-3V7a3 3 0 10-6 0v1c0 1.657 1.343 3 3 3z" />
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M5 11h14v8H5z" />
+
+                        </svg>
 
                     </div>
 
-                    <div>
+                    <div class="relative z-10">
 
-                        <h3 class="font-bold text-lg mb-2">
+                        <h3 class="font-bold text-xl mb-3 text-slate-800">
 
                             Aman & Terpercaya
 
@@ -440,8 +527,7 @@ Lihat
 
                         <p class="text-sm text-slate-500 leading-relaxed">
 
-                            Pembayaran aman dengan sistem escrow
-                            untuk melindungi transaksi pengguna.
+                            Profil jasa ditampilkan secara jelas agar pengguna lebih nyaman memilih layanan yang sesuai kebutuhan.
 
                         </p>
 
@@ -449,18 +535,40 @@ Lihat
 
                 </div>
 
-                <!-- ITEM -->
-                <div class="flex gap-4">
+                <!-- CARD 2 -->
+                <div class="bg-white rounded-[32px] p-7 border border-purple-100 shadow-soft hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
 
-                    <div class="w-14 h-14 rounded-2xl bg-purple-100 flex items-center justify-center text-2xl shrink-0">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-100 opacity-40 rounded-full"></div>
 
-                        👨‍💼
+                    <!-- ICON -->
+                    <div class="relative z-10 w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-7 h-7 text-purple-600"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M17 20h5V4H2v16h5" />
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M9 20h6" />
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 16v4" />
+
+                        </svg>
 
                     </div>
 
-                    <div>
+                    <div class="relative z-10">
 
-                        <h3 class="font-bold text-lg mb-2">
+                        <h3 class="font-bold text-xl mb-3 text-slate-800">
 
                             Freelancer Profesional
 
@@ -468,8 +576,7 @@ Lihat
 
                         <p class="text-sm text-slate-500 leading-relaxed">
 
-                            Semua freelancer telah diverifikasi
-                            agar kualitas jasa lebih terpercaya.
+                            Semua freelancer telah diverifikasi untuk menjaga kualitas layanan dan profesionalitas kerja.
 
                         </p>
 
@@ -477,18 +584,32 @@ Lihat
 
                 </div>
 
-                <!-- ITEM -->
-                <div class="flex gap-4">
+                <!-- CARD 3 -->
+                <div class="bg-white rounded-[32px] p-7 border border-blue-100 shadow-soft hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
 
-                    <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center text-2xl shrink-0">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-100 opacity-40 rounded-full"></div>
 
-                        ⚡
+                    <!-- ICON -->
+                    <div class="relative z-10 w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center mb-6">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-7 h-7 text-blue-600"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M13 3L4 14h7v7l9-11h-7V3z" />
+
+                        </svg>
 
                     </div>
 
-                    <div>
+                    <div class="relative z-10">
 
-                        <h3 class="font-bold text-lg mb-2">
+                        <h3 class="font-bold text-xl mb-3 text-slate-800">
 
                             Cepat & Praktis
 
@@ -496,8 +617,7 @@ Lihat
 
                         <p class="text-sm text-slate-500 leading-relaxed">
 
-                            Temukan jasa sesuai kebutuhanmu
-                            dengan cepat dan mudah.
+                            Temukan jasa sesuai kebutuhanmu dengan proses yang cepat, mudah, dan efisien.
 
                         </p>
 
