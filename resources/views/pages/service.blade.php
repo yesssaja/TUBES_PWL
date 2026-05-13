@@ -331,17 +331,45 @@
                     <div class="p-5">
 
                         <h3 class="font-bold text-lg mb-1">
-                            Rizky Febrian
+                            Billie Eilish
                         </h3>
 
                         <p class="text-sm text-slate-500 mb-2">
                             Fotografer Event & Wisuda
                         </p>
 
-                        <p class="text-xs text-slate-400 mb-5">
-                            📍 Bandung
-                        </p>
+                        <!-- KATEGORI -->
+                        <div class="flex flex-wrap gap-2 mb-4">
 
+                            <span class="px-3 py-1 bg-red-100 text-primary text-xs font-semibold rounded-full">
+                                Fotografi
+                            </span>
+
+                        </div>
+
+                         <div class="flex items-center gap-2 text-sm text-slate-500">
+
+                                <!-- ICON LOCATION -->
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-primary"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2">
+
+                                    <path stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+
+                                    <path stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+
+                                </svg>
+
+                                Bandung
+
+                            </div> 
                         <p class="text-xs text-slate-400">
                             Mulai dari
                         </p>
@@ -350,12 +378,12 @@
                             Rp350.000
                         </h4>
 
-                        <button
-                            class="w-full bg-primary text-white py-3 rounded-full text-sm font-bold hover:bg-red-700 transition">
+                        <a href="/service/detail"           
+                        class="block w-full bg-primary text-white py-3 rounded-full text-sm font-bold hover:bg-red-700 transition text-center">
 
                             Lihat Detail
-
-                        </button>
+       
+                        </a>
 
                     </div>
 
@@ -371,16 +399,45 @@
                     <div class="p-5">
 
                         <h3 class="font-bold text-lg mb-1">
-                            Nadya Putri
+                            Olivia Rodrigo
                         </h3>
 
                         <p class="text-sm text-slate-500 mb-2">
                             Desain Logo & Branding
                         </p>
 
-                        <p class="text-xs text-slate-400 mb-5">
-                            📍 Yogyakarta
-                        </p>
+                        <!-- KATEGORI -->
+                        <div class="flex flex-wrap gap-2 mb-4">
+
+                            <span class="px-3 py-1 bg-red-100 text-primary text-xs font-semibold rounded-full">
+                                Desain
+                            </span>
+
+                        </div>
+
+                         <div class="flex items-center gap-2 text-sm text-slate-500">
+
+                                <!-- ICON LOCATION -->
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-primary"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2">
+
+                                    <path stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+
+                                    <path stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+
+                                </svg>
+
+                                Yogyakarta
+
+                            </div> 
 
                         <p class="text-xs text-slate-400">
                             Mulai dari
@@ -390,12 +447,12 @@
                             Rp200.000
                         </h4>
 
-                        <button
-                            class="w-full bg-primary text-white py-3 rounded-full text-sm font-bold hover:bg-red-700 transition">
+                        <a href="/service/detail"
+                        class="block w-full bg-primary text-white py-3 rounded-full text-sm font-bold hover:bg-red-700 transition text-center">
 
                             Lihat Detail
 
-                        </button>
+                        </a>
 
                     </div>
 
@@ -411,16 +468,45 @@
                     <div class="p-5">
 
                         <h3 class="font-bold text-lg mb-1">
-                            Fajar Pratama
+                            Taylor Swift
                         </h3>
 
                         <p class="text-sm text-slate-500 mb-2">
                             Video Editor Profesional
                         </p>
 
-                        <p class="text-xs text-slate-400 mb-5">
-                            📍 Surabaya
-                        </p>
+                        <!-- KATEGORI -->
+                        <div class="flex flex-wrap gap-2 mb-4">
+
+                            <span class="px-3 py-1 bg-red-100 text-primary text-xs font-semibold rounded-full">
+                                Video Editing
+                            </span>
+
+                        </div>
+
+                         <div class="flex items-center gap-2 text-sm text-slate-500">
+
+                                <!-- ICON LOCATION -->
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-primary"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2">
+
+                                    <path stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+
+                                    <path stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+
+                                </svg>
+
+                                Medan
+
+                            </div> 
 
                         <p class="text-xs text-slate-400">
                             Mulai dari
@@ -430,12 +516,12 @@
                             Rp250.000
                         </h4>
 
-                        <button
-                            class="w-full bg-primary text-white py-3 rounded-full text-sm font-bold hover:bg-red-700 transition">
+                        <a href="/service/detail"
+                        class="block w-full bg-primary text-white py-3 rounded-full text-sm font-bold hover:bg-red-700 transition text-center">
 
                             Lihat Detail
 
-                        </button>
+                        </a>
 
                     </div>
 
@@ -449,11 +535,29 @@
 
                     <div class="relative z-10">
 
-                        <div class="w-16 h-16 rounded-2xl bg-primary text-white flex items-center justify-center text-3xl mb-6 shadow-lg">
+                    <div class="w-16 h-16 rounded-2xl bg-primary text-white flex items-center justify-center mb-6 shadow-lg">
 
-                            🚀
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-9 h-9"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round">
 
-                        </div>
+                            <!-- SPARK -->
+                            <path d="M12 3L13.8 8.2L19 10L13.8 11.8L12 17L10.2 11.8L5 10L10.2 8.2L12 3Z"/>
+
+                            <!-- MINI SPARK -->
+                            <path d="M19 3L19.7 5.3L22 6L19.7 6.7L19 9L18.3 6.7L16 6L18.3 5.3L19 3Z"/>
+
+                            <!-- MINI SPARK -->
+                            <path d="M5 15L5.7 17.3L8 18L5.7 18.7L5 21L4.3 18.7L2 18L4.3 17.3L5 15Z"/>
+
+                        </svg>
+
+                    </div>
 
                         <h3 class="text-2xl font-extrabold leading-snug mb-4">
 

@@ -89,6 +89,10 @@ Route::get('/tawarkan-service', function () {
     return view('pages.tawarkan-service');
 });
 
+Route::get('/service/detail', function () {
+    return view('pages.detail-service');
+});
+
 Route::get('/rsvp', function () {
     return view('pages.rsvp');
 });
