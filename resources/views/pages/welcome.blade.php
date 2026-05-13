@@ -120,18 +120,61 @@
     </section>
 
     <!-- MITRA -->
-    <section class="max-w-7xl mx-auto px-6 py-12">
-        <h2 class="text-4xl font-black text-center text-slate-900 mb-10">
-            Mitra <span class="text-red-600">Kerjasama</span>
-        </h2>
+   <section class="max-w-7xl mx-auto px-6 py-12">
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="bg-white p-8 rounded-3xl shadow-xl text-center font-black hover:scale-105 transition">Shopee</div>
-            <div class="bg-white p-8 rounded-3xl shadow-xl text-center font-black hover:scale-105 transition">Shopee Medan</div>
-              <div class="bg-white p-8 rounded-3xl shadow-xl text-center font-black hover:scale-105 transition">Shopee Bandung </div>
-            <div class="bg-white p-8 rounded-3xl shadow-xl text-center font-black hover:scale-105 transition">Shopee Indonesia</div>
+    <h2 class="text-4xl font-black text-center text-slate-900 mb-10">
+        Mitra <span class="text-red-600">Kerjasama</span>
+    </h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+        <!-- Shopee -->
+        <div class="bg-white p-6 rounded-3xl shadow-xl text-center hover:scale-105 transition">
+
+            <img src="{{ asset('images/shopee.png') }}"
+                 alt="Shopee"
+                 class="w-20 h-20 object-contain mx-auto mb-3">
+
+            <p class="font-black">Shopee</p>
+
         </div>
-    </section>
+
+        <!-- Tokopedia -->
+        <div class="bg-white p-6 rounded-3xl shadow-xl text-center hover:scale-105 transition">
+
+            <img src="{{ asset('images/tokopedia.png') }}"
+                 alt="Tokopedia"
+                 class="w-20 h-20 object-contain mx-auto mb-3">
+
+            <p class="font-black">Tokopedia</p>
+
+        </div>
+
+        <!-- Lazada -->
+        <div class="bg-white p-6 rounded-3xl shadow-xl text-center hover:scale-105 transition">
+
+            <img src="{{ asset('images/lazada.png') }}"
+                 alt="Lazada"
+                 class="w-20 h-20 object-contain mx-auto mb-3">
+
+            <p class="font-black">Lazada</p>
+
+        </div>
+
+        <!-- Blibli -->
+        <div class="bg-white p-6 rounded-3xl shadow-xl text-center hover:scale-105 transition">
+
+            <img src="{{ asset('images/blibli.png') }}"
+                 alt="Blibli"
+                 class="w-20 h-20 object-contain mx-auto mb-3">
+
+            <p class="font-black">Blibli</p>
+
+        </div>
+
+    </div>
+
+</section>
 
     <!-- KATEGORI -->
     <section class="max-w-7xl mx-auto px-6 py-12">
@@ -164,34 +207,96 @@
 </div>
 
     <!-- LOKER POPULER -->
-    <section id="loker" class="max-w-7xl mx-auto px-6 py-12">
-        <h2 class="text-4xl font-black text-center text-slate-900 mb-10">
-            Loker <span class="text-red-600">Populer</span>
-        </h2>
+    <!-- LOKER POPULER -->
+<section id="loker" class="max-w-7xl mx-auto px-6 py-12">
 
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white p-8 rounded-3xl shadow-xl">
-                <h3 class="text-2xl font-black text-slate-900">Backend Developer</h3>
-                <p class="text-gray-600 mt-2">PT Shopee Indonesia</p>
-                <p class="text-gray-500 mt-1">📍 Bandung</p>
-                <a href="/detail-loker" class="inline-block mt-6 bg-red-600 text-white px-6 py-3 rounded-2xl font-bold">Detail</a>
-            </div>
+    <h2 class="text-4xl font-black text-center text-slate-900 mb-10">
+        Loker <span class="text-red-600">Populer</span>
+    </h2>
 
-            <div class="bg-white p-8 rounded-3xl shadow-xl">
-                <h3 class="text-2xl font-black text-slate-900">UI/UX Designer</h3>
-                <p class="text-gray-600 mt-2">PT Shopee Indonesia</p>
-                <p class="text-gray-500 mt-1">📍 Jakarta</p>
-                <a href="/detail-loker" class="inline-block mt-6 bg-red-600 text-white px-6 py-3 rounded-2xl font-bold">Detail</a>
-            </div>
+    <div class="grid md:grid-cols-3 gap-6">
 
-            <div class="bg-white p-8 rounded-3xl shadow-xl">
-                <h3 class="text-2xl font-black text-slate-900">Marketing Staff</h3>
-                <p class="text-gray-600 mt-2">PT Shopee Indonesia</p>
-                <p class="text-gray-500 mt-1">📍 Medan</p>
-                <a href="/detail-loker" class="inline-block mt-6 bg-red-600 text-white px-6 py-3 rounded-2xl font-bold">Detail</a>
-            </div>
+        <!-- Backend -->
+        <div class="bg-white p-8 rounded-3xl shadow-xl text-center">
+
+            <img src="{{ asset('images/backend.png') }}"
+                 alt="Backend Developer"
+                 class="w-40 h-40 object-contain mx-auto mb-4">
+
+            <h3 class="text-2xl font-black text-slate-900">
+                Backend Developer
+            </h3>
+
+            <p class="text-gray-600 mt-2">
+                PT Shopee Indonesia
+            </p>
+
+            <p class="text-gray-500 mt-1">
+                📍 Bandung
+            </p>
+
+            <a href="/detail-loker"
+               class="inline-block mt-6 bg-red-600 text-white px-6 py-3 rounded-2xl font-bold">
+                Detail
+            </a>
+
         </div>
-    </section>
+
+        <!-- UI UX -->
+        <div class="bg-white p-8 rounded-3xl shadow-xl text-center">
+
+            <img src="{{ asset('images/uiux.png') }}"
+                 alt="UI UX Designer"
+                 class="w-40 h-40 object-contain mx-auto mb-4">
+
+            <h3 class="text-2xl font-black text-slate-900">
+                UI/UX Designer
+            </h3>
+
+            <p class="text-gray-600 mt-2">
+                PT Lazada Indonesia
+            </p>
+
+            <p class="text-gray-500 mt-1">
+                📍 Jakarta
+            </p>
+
+            <a href="/detail-loker"
+               class="inline-block mt-6 bg-red-600 text-white px-6 py-3 rounded-2xl font-bold">
+                Detail
+            </a>
+
+        </div>
+
+        <!-- Marketing -->
+        <div class="bg-white p-8 rounded-3xl shadow-xl text-center">
+
+            <img src="{{ asset('images/marketing.png') }}"
+                 alt="Marketing Staff"
+                 class="w-40 h-40 object-contain mx-auto mb-4">
+
+            <h3 class="text-2xl font-black text-slate-900">
+                Marketing Staff
+            </h3>
+
+            <p class="text-gray-600 mt-2">
+                PT Tokopedia Indonesia
+            </p>
+
+            <p class="text-gray-500 mt-1">
+                📍 Medan
+            </p>
+
+            <a href="/detail-loker"
+               class="inline-block mt-6 bg-red-600 text-white px-6 py-3 rounded-2xl font-bold">
+                Detail
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
 
     <!-- TESTIMONI -->
     <section class="max-w-7xl mx-auto px-6 py-12">
