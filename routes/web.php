@@ -81,9 +81,9 @@ Route::get('/group',function(){
     return view('pages.group');
 });
 
-Route::get('/rsvp', function () {
-    return view('pages.rsvp');
-});
+// Route::get('/rsvp', function () {
+//     return view('pages.rsvp');
+// });
 
 Route::post('/rsvp-submit', function (Request $request) {
 
