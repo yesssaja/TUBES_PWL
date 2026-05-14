@@ -11,32 +11,37 @@ class LokerController extends Controller
     public function index()
     {
         $loker = Loker::with('perusahaan')->get();
-        return view('loker.index', compact('loker'));
+
+        return view('pages.loker', compact('loker'));
     }
 
     public function create()
     {
         $perusahaan = Perusahaan::all();
-        return view('loker.create', compact('perusahaan'));
+
+        return view('pages.loker', compact('perusahaan'));
     }
 
     public function store(Request $request)
     {
         Loker::create($request->all());
+
         return redirect()->route('loker.index');
     }
 
     public function edit($id)
     {
         $loker = Loker::findOrFail($id);
+
         $perusahaan = Perusahaan::all();
 
-        return view('loker.edit', compact('loker', 'perusahaan'));
+        return view('pages.loker', compact('loker', 'perusahaan'));
     }
 
     public function update(Request $request, $id)
     {
         $loker = Loker::findOrFail($id);
+
         $loker->update($request->all());
 
         return redirect()->route('loker.index');
@@ -45,6 +50,7 @@ class LokerController extends Controller
     public function destroy($id)
     {
         $loker = Loker::findOrFail($id);
+
         $loker->delete();
 
         return redirect()->route('loker.index');

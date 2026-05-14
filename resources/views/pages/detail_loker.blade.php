@@ -44,7 +44,7 @@
                             <span><i class="fas fa-clock mr-1"></i> Dipublish 2 hari yang lalu</span>
                         </div>
                     </div>
-                      <a href="{{ route('lamaran') }}" class="bg-red-brand hover:bg-red-700 text-white px-10 py-3 rounded-full font-bold shadow-lg transition-all transform hover:scale-105">
+                      <a href="/lamaran" class="bg-red-brand hover:bg-red-700 text-white px-10 py-3 rounded-full font-bold shadow-lg transition-all transform hover:scale-105">
                         Apply Now
                       </a>
                 </div>
