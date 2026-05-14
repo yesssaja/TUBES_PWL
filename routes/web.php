@@ -41,12 +41,33 @@ Route::get('/group', function () {
 
 /*
 |--------------------------------------------------------------------------
+| Service Route
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/service', function () {
+    return view('pages.service');
+});
+
+Route::get('/service/detail', function () {
+    return view('pages.detail-service');
+});
+
+Route::get('/service/form', function () {
+    return view('pages.tawarkan-service');
+});
+
+Route::get('/service/all', function () {
+    return view('pages.all-service');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Auth Route
 |--------------------------------------------------------------------------
 */
 
 require __DIR__.'/auth.php';
-
 
 /*
 |--------------------------------------------------------------------------
