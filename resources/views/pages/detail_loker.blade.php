@@ -123,7 +123,7 @@
                     <p class="text-sm font-semibold mb-4 text-gray-600">Bagikan lowongan ini:</p>
                     <div class="flex justify-center gap-4">
                         <a href="https://web.facebook.com/?locale=id_ID&_rdc=1&_rdr#" class="text-blue-600 text-xl hover:scale-110 transition"><i class="fab fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/" class="text-pink-400 text-xl hover:scale-110 transition"><i class="fab fa-instagram"></i></a>
+                         <a href="https://www.instagram.com/" class="text-pink-400 text-xl hover:scale-110 transition"><i class="fab fa-instagram"></i></a>
                         <a href="https://web.whatsapp.com/" class="text-green-500 text-xl hover:scale-110 transition"><i class="fab fa-whatsapp"></i></a>
                         <a href="http://127.0.0.1:8000/detail-loker" class="text-gray-600 text-xl hover:scale-110 transition"><i class="fas fa-link"></i></a>
                     </div>
