@@ -12,13 +12,15 @@ class LamaranController extends Controller
     public function index()
     {
         $lamaran = Lamaran::with(['user', 'loker'])->get();
-        return view('lamaran.index', compact('lamaran'));
+
+        return view('pages.lamaran', compact('lamaran'));
     }
 
     public function create()
     {
         $loker = Loker::all();
-        return view('lamaran.create', compact('loker'));
+
+        return view('pages.lamaran', compact('loker'));
     }
 
     public function store(Request $request)

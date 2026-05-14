@@ -120,7 +120,7 @@
                 <h4 class="font-bold text-lg mb-2">Seminar Karir USU 2026</h4>
                 <p class="text-sm text-gray-500 mb-4 line-clamp-2">Tips dan trik sukses masuk ke dunia kerja agribisnis global.</p>
                 <!-- Menggunakan pink estetik untuk tombol -->
-              <a href="{{ route('event') }}" class="text-yellow-500 font-bold text-sm hover:underline">See More →</a>
+              <a href="/event" class="text-yellow-500 font-bold text-sm hover:underline">See More →</a>
             </div>
         </div>
 
@@ -131,7 +131,7 @@
                 <h4 class="font-bold text-lg mb-2">JOB FAIR</h4>
                 <p class="text-sm text-gray-500 mb-4 line-clamp-2">Temukan peluang karir impian Anda di acara Job Fair terbesar tahun ini.</p>
                 
-               <a href="{{ route('event') }}" class="text-yellow-500 font-bold text-sm hover:underline">See More →</a>
+               <a href="/event" class="text-yellow-500 font-bold text-sm hover:underline">See More →</a>
             </div>
         </div>
 
