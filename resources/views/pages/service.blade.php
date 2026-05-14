@@ -305,8 +305,8 @@
                     Rekomendasi Untukmu
 
                 </h2>
-                <a href="#"
-                class="inline-flex items-center gap-2 bg-primary text-white px-5 py-3 rounded-2xl shadow-md hover:bg-red-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-sm font-bold">
+                <a href="/service/all"
+                    class="inline-flex items-center gap-2 bg-primary text-white px-5 py-3 rounded-2xl shadow-md hover:bg-red-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-sm font-bold">
 
                     Lihat Semua
 

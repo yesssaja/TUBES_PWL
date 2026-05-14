@@ -85,17 +85,25 @@ Route::get('/service', function () {
     return view('pages.service');
 });
 
-Route::get('/tawarkan-service', function () {
+Route::get('/service/detail', function () {
+    return view('pages.detail-service');
+});
+
+Route::get('/service/form', function () {
     return view('pages.tawarkan-service');
 });
 
-Route::get('/service/detail', function () {
-    return view('pages.detail-service');
+Route::get('/service/all', function () {
+    return view('pages.all-service');
 });
 
 Route::get('/rsvp', function () {
     return view('pages.rsvp');
 });
+
+// Route::get('/rsvp', function () {
+//     return view('pages.rsvp');
+// });
 
 Route::post('/rsvp-submit', function (Request $request) {
 
