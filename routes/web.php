@@ -10,7 +10,6 @@ Route::get('/detail-loker', function () {
     return view('pages.detail_loker');
 })->name('detail.loker');
 
-
 Route::get('/perusahaan/detail', function () {
     return view('pages.perusahaan'); 
 })->name('perusahaan.detail');
@@ -83,6 +82,27 @@ Route::get('/course',function(){
 
 Route::get('/group',function(){
     return view('pages.group');
+});
+
+//service
+Route::get('/service', function () {
+    return view('pages.service');
+});
+
+Route::get('/service/detail', function () {
+    return view('pages.detail-service');
+});
+
+Route::get('/service/form', function () {
+    return view('pages.tawarkan-service');
+});
+
+Route::get('/service/all', function () {
+    return view('pages.all-service');
+});
+
+Route::get('/rsvp', function () {
+    return view('pages.rsvp');
 });
 
 // Route::get('/rsvp', function () {
