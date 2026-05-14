@@ -54,9 +54,9 @@
 </head>
 <body>
 
-    <header class="fixed top-0 left-0 w-full bg-red-600 text-white shadow-lg z-50">
-    <div class="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
-            <h1 class="text-3xl font-bold italic tracking-wider">LOKER SEEKER</h1>
+    <header class="bg-red-brand text-white p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold italic tracking-wider">LOKER SEEKER</h1>
             <nav class="hidden md:flex gap-8 font-semibold">
                 <a href="#about" class="hover:text-yellow-300">About</a>
                 <a href="#events" class="hover:text-yellow-300">Events</a>
@@ -75,14 +75,13 @@
                 <h2 class="text-4xl font-extrabold">SHOPEE <i class="fas fa-check-circle text-blue-500 text-2xl"></i></h2>
                 <p class="text-xl font-medium opacity-80">Agribusiness, Food & Beverage Manufacturing</p>
                 <div class="flex gap-3 mt-6 justify-center md:justify-start">
-                    <button 
-                    class="bg-red-brand text-white px-8 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition">+ Follow</button>
+                    <button class="bg-red-brand text-white px-8 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition">+ Follow</button>
                     <button class="bg-white px-8 py-2 rounded-full font-bold shadow-lg hover:bg-gray-100 transition border">Visit Website <i class="fas fa-external-link-alt ml-2 text-sm"></i></button>
                 </div>
             </div>
         </div>
     </section>
- class="bg-red-brand text-white px-8 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition">+ Follow</button>
+
     <main class="container mx-auto px-4 py-12 max-w-5xl">
 
        <section id="about" class="bg-white p-8 rounded-2xl shadow-sm border border-yellow-100">
