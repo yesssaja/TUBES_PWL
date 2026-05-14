@@ -27,6 +27,22 @@ Route::get('/perusahaan/detail', function () {
     return view('pages.perusahaan');
 })->name('perusahaan.detail');
 
+Route::get('/perusahaan/review', function () {
+    return view('pages.review'); 
+})->name('perusahaan.review');
+
+Route::get('/perusahaan/review/tulis', function () {
+    return view('pages.tulis_review'); 
+})->name('tulis.review');
+
+Route::get('/event', function () {
+    return view('pages.event');
+})->name('event');
+
+Route::get('/lamaran', function () {
+    return view('pages.lamaran');
+})->name('lamaran');
+
 Route::get('/success', function () {
     return view('pages.success');
 });
