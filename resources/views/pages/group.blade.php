@@ -86,100 +86,104 @@
     </section>
 
     <!-- Group Cards -->
-    <section class="max-w-7xl mx-auto px-6 pb-16">
+   <!-- Group Cards -->
+<section class="max-w-7xl mx-auto px-6 pb-16">
 
-        <div class="grid md:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-3 gap-8">
 
-            <!-- Card 1 -->
-        <a href="{{ route('join_group') }}"class="bg-white rounded-[30px] p-8 shadow-xl hover:scale-105 transition">
+        <!-- Card 1 -->
+        <a href="{{ route('join_group') }}"
+           class="bg-white rounded-[30px] p-8 shadow-xl hover:scale-105 transition block">
 
-                <div class="bg-red-600 text-white w-20 h-20 rounded-3xl
-                            flex items-center justify-center text-4xl font-black">
-                    W
-                </div>
-
-                <h2 class="text-3xl font-black text-slate-900 mt-6">
-                    Web Developer
-                </h2>
-
-                <p class="text-gray-600 mt-3">
-                    Komunitas programmer web untuk berbagi lowongan,
-                    project, dan belajar bersama.
-                </p>
-
-                <div class="mt-5 text-sm text-gray-500 font-bold">
-                    👥 12.4K Member
-                </div>
-
-                <button class="mt-6 bg-red-600 hover:bg-red-700
-                               transition text-white font-black
-                               px-6 py-3 rounded-2xl shadow-lg">
-                    Join Group
-                </button>
-
+            <div class="bg-red-600 text-white w-20 h-20 rounded-3xl
+                        flex items-center justify-center text-4xl font-black">
+                W
             </div>
 
-            <!-- Card 2 -->
-            <div class="bg-white rounded-[30px] p-8 shadow-xl hover:scale-105 transition">
+            <h2 class="text-3xl font-black text-slate-900 mt-6">
+                Web Developer
+            </h2>
 
-                <div class="bg-red-600 text-white w-20 h-20 rounded-3xl
-                            flex items-center justify-center text-4xl font-black">
-                    D
-                </div>
+            <p class="text-gray-600 mt-3">
+                Komunitas programmer web untuk berbagi lowongan,
+                project, dan belajar bersama.
+            </p>
 
-                <h2 class="text-3xl font-black text-slate-900 mt-6">
-                    Digital Marketing
-                </h2>
-
-                <p class="text-gray-600 mt-3">
-                    Tempat berbagi strategi marketing, freelance,
-                    dan peluang kerja digital.
-                </p>
-
-                <div class="mt-5 text-sm text-gray-500 font-bold">
-                    👥 8.7K Member
-                </div>
-
-                <button class="mt-6 bg-red-600 hover:bg-red-700
-                               transition text-white font-black
-                               px-6 py-3 rounded-2xl shadow-lg">
-                    Join Group
-                </button>
-
+            <div class="mt-5 text-sm text-gray-500 font-bold">
+                👥 12.4K Member
             </div>
 
-            <!-- Card 3 -->
-            <div class="bg-white rounded-[30px] p-8 shadow-xl hover:scale-105 transition">
+            <button class="mt-6 bg-red-600 hover:bg-red-700
+                           transition text-white font-black
+                           px-6 py-3 rounded-2xl shadow-lg">
+                Join Group
+            </button>
 
-                <div class="bg-red-600 text-white w-20 h-20 rounded-3xl
-                            flex items-center justify-center text-4xl font-black">
-                    U
-                </div>
+        </a>
 
-                <h2 class="text-3xl font-black text-slate-900 mt-6">
-                    UI/UX Designer
-                </h2>
+        <!-- Card 2 -->
+        <a href="{{ route('join_group') }}"
+           class="bg-white rounded-[30px] p-8 shadow-xl hover:scale-105 transition block">
 
-                <p class="text-gray-600 mt-3">
-                    Group desain UI/UX untuk sharing portfolio,
-                    tips desain, dan info internship.
-                </p>
-
-                <div class="mt-5 text-sm text-gray-500 font-bold">
-                    👥 5.2K Member
-                </div>
-
-                <button class="mt-6 bg-red-600 hover:bg-red-700
-                               transition text-white font-black
-                               px-6 py-3 rounded-2xl shadow-lg">
-                    Join Group
-                </button>
-
+            <div class="bg-red-600 text-white w-20 h-20 rounded-3xl
+                        flex items-center justify-center text-4xl font-black">
+                D
             </div>
 
-        </div>
+            <h2 class="text-3xl font-black text-slate-900 mt-6">
+                Digital Marketing
+            </h2>
 
-    </section>
+            <p class="text-gray-600 mt-3">
+                Tempat berbagi strategi marketing, freelance,
+                dan peluang kerja digital.
+            </p>
+
+            <div class="mt-5 text-sm text-gray-500 font-bold">
+                👥 8.7K Member
+            </div>
+
+            <button class="mt-6 bg-red-600 hover:bg-red-700
+                           transition text-white font-black
+                           px-6 py-3 rounded-2xl shadow-lg">
+                Join Group
+            </button>
+
+        </a>
+
+        <!-- Card 3 -->
+        <a href="{{ route('join_group') }}"
+           class="bg-white rounded-[30px] p-8 shadow-xl hover:scale-105 transition block">
+
+            <div class="bg-red-600 text-white w-20 h-20 rounded-3xl
+                        flex items-center justify-center text-4xl font-black">
+                U
+            </div>
+
+            <h2 class="text-3xl font-black text-slate-900 mt-6">
+                UI/UX Designer
+            </h2>
+
+            <p class="text-gray-600 mt-3">
+                Group desain UI/UX untuk sharing portfolio,
+                tips desain, dan info internship.
+            </p>
+
+            <div class="mt-5 text-sm text-gray-500 font-bold">
+                👥 5.2K Member
+            </div>
+
+            <button class="mt-6 bg-red-600 hover:bg-red-700
+                           transition text-white font-black
+                           px-6 py-3 rounded-2xl shadow-lg">
+                Join Group
+            </button>
+
+        </a>
+
+    </div>
+
+</section>
 
    <!-- FOOTER -->
 <footer class="bg-red-600 text-white py-8 mt-16">
@@ -205,3 +209,4 @@
 
 </body>
 </html>
+\
