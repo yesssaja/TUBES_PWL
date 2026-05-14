@@ -322,7 +322,7 @@
                     </div>
 
                     <!-- BUTTON -->
-                    <button
+                    <a href="https://web.whatsapp.com/"
                         class="w-full bg-primary hover:bg-red-700 transition-all duration-300 text-white py-4 rounded-2xl font-bold text-sm shadow-lg flex items-center justify-center gap-3 hover:-translate-y-1">
 
                         <!-- ICON PHONE -->
@@ -341,7 +341,7 @@
 
                         Hubungi Freelancer
 
-                    </button>
+                    </a>
 
                 </div>
 
