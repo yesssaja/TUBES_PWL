@@ -44,9 +44,9 @@
                             <span><i class="fas fa-clock mr-1"></i> Dipublish 2 hari yang lalu</span>
                         </div>
                     </div>
-                    <button class="bg-red-brand hover:bg-red-700 text-white px-10 py-3 rounded-full font-bold shadow-lg transition-all transform hover:scale-105">
+                      <a href="{{ route('lamaran') }}" class="bg-red-brand hover:bg-red-700 text-white px-10 py-3 rounded-full font-bold shadow-lg transition-all transform hover:scale-105">
                         Apply Now
-                    </button>
+                      </a>
                 </div>
             </div>
         </div>
@@ -76,18 +76,24 @@
                        <img src="/foto_perusahaan/images.png"  alt="Logo" class="rounded-md border">
                         <div>
                             <h4 class="font-bold text-lg">SHOPEE</h4>
-                            <p class="text-sm text-gray-500">956,439 followers</p>
+                            {{-- <p class="text-sm text-gray-500">956,439 followers</p>
                             <button class="mt-2 text-blue-600 font-bold hover:underline flex items-center">
                                 <i class="fas fa-plus mr-1"></i> Follow
-                            </button>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            </button> --}}
+                            <p class="text-sm text-gray-500">
                         Food and Beverage Manufacturing • 10,001+ employees • 13,382 on LOKER SEEKER
                     </p>
                     <p class="text-gray-600 text-sm italic">
                         "Di Sinar Mas Agribusiness and Food, kami bertumbuh dengan tujuan. Minyak kelapa sawit menjadi awal dari perjalanan kami..."
                     </p>
+                        </div>
+                    </div>
+                    {{-- <p class="text-sm text-gray-500">
+                        Food and Beverage Manufacturing • 10,001+ employees • 13,382 on LOKER SEEKER
+                    </p>
+                    <p class="text-gray-600 text-sm italic">
+                        "Di Sinar Mas Agribusiness and Food, kami bertumbuh dengan tujuan. Minyak kelapa sawit menjadi awal dari perjalanan kami..."
+                    </p> --}}
                     <a href="{{ route('perusahaan.detail') }}" class="mt-6 w-full py-2 border-2 border-blue-600 text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition">
                         Show more
                     </a>
@@ -116,10 +122,10 @@
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
                     <p class="text-sm font-semibold mb-4 text-gray-600">Bagikan lowongan ini:</p>
                     <div class="flex justify-center gap-4">
-                        <a href="#" class="text-blue-600 text-xl hover:scale-110 transition"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-blue-400 text-xl hover:scale-110 transition"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-green-500 text-xl hover:scale-110 transition"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" class="text-gray-600 text-xl hover:scale-110 transition"><i class="fas fa-link"></i></a>
+                        <a href="https://web.facebook.com/?locale=id_ID&_rdc=1&_rdr#" class="text-blue-600 text-xl hover:scale-110 transition"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/" class="text-pink-400 text-xl hover:scale-110 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="https://web.whatsapp.com/" class="text-green-500 text-xl hover:scale-110 transition"><i class="fab fa-whatsapp"></i></a>
+                        <a href="http://127.0.0.1:8000/detail-loker" class="text-gray-600 text-xl hover:scale-110 transition"><i class="fas fa-link"></i></a>
                     </div>
                 </div>
             </div>

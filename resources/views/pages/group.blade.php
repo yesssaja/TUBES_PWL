@@ -17,7 +17,7 @@
 
         <!-- Logo -->
         <h1 class="text-3xl font-black">
-            LOKER SEEKER🔥
+            LOKER SEEKER
         </h1>
 
         <!-- Search -->
@@ -91,7 +91,7 @@
         <div class="grid md:grid-cols-3 gap-8">
 
             <!-- Card 1 -->
-            <div class="bg-white rounded-[30px] p-8 shadow-xl hover:scale-105 transition">
+        <a href="{{ route('join_group') }}"class="bg-white rounded-[30px] p-8 shadow-xl hover:scale-105 transition">
 
                 <div class="bg-red-600 text-white w-20 h-20 rounded-3xl
                             flex items-center justify-center text-4xl font-black">

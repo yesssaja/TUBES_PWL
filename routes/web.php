@@ -8,11 +8,11 @@ Route::get('/', function () {
 
 Route::get('/detail-loker', function () {
     return view('pages.detail_loker');
-});
+})->name('detail.loker');
 
 
 Route::get('/perusahaan/detail', function () {
-    return view('pages.perusahaan'); // Nama file: perusahaan.blade.php
+    return view('pages.perusahaan'); 
 })->name('perusahaan.detail');
 
 Route::get('/event', function () {
@@ -21,7 +21,7 @@ Route::get('/event', function () {
 
 Route::get('/lamaran', function () {
     return view('pages.lamaran');
-});
+})->name('lamaran');
 
 Route::get('/success', function () {
     return view('pages.success');
@@ -68,6 +68,10 @@ Route::get('/admin/loker/create', function () {
 Route::get('/admin/group', function () {
     return view('admin.group.index');
 });
+
+Route::get('/join-group', function () {
+    return view('pages.join_group');
+})->name('join_group');
 
 Route::get('/admin/user', function () {
     return view('admin.user.index');
