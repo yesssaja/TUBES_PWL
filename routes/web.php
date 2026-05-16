@@ -34,7 +34,7 @@ Route::get('/perusahaan/review', function () {
     return view('pages.review'); 
 })->name('perusahaan.review');
 
-Route::get('/perusahaan/review/tulis', function () {
+Route::get('/review/tulis', function () {
     return view('pages.tulis_review'); 
 })->name('tulis.review');
 
