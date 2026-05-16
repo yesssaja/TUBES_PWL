@@ -166,7 +166,7 @@
           <div class="flex items-center gap-5">
             <span class="font-bold text-xl">09:00 - Finished</span>
 
-            <a href="{{ route('rsvp') }}"
+            <a href="/rsvp"
                class="bg-yellow-400 hover:bg-yellow-300 text-red-700 font-bold px-5 py-2 rounded-full transition duration-300 hover:scale-105 shadow-lg">
               RSVP
             </a>
@@ -195,7 +195,7 @@
           <div class="flex items-center gap-5">
             <span class="font-bold text-xl">13:30 - Finished</span>
 
-            <a href="{{ route('rsvp') }}"
+            <a href="/rsvp"
                class="bg-yellow-400 hover:bg-yellow-300 text-red-700 font-bold px-5 py-2 rounded-full transition duration-300 hover:scale-105 shadow-lg">
               RSVP
             </a>
@@ -224,7 +224,7 @@
           <div class="flex items-center gap-5">
             <span class="font-bold text-xl">16:00 - Finished</span>
 
-            <a href="{{ route('rsvp') }}"
+            <a href="/rsvp"
                class="bg-yellow-400 hover:bg-yellow-300 text-red-700 font-bold px-5 py-2 rounded-full transition duration-300 hover:scale-105 shadow-lg">
               RSVP
             </a>
