@@ -23,6 +23,9 @@ Route::get('/detail-loker', function () {
     return view('pages.detail_loker');
 })->name('detail.loker');
 
+Route::get('/lamaran', [LamaranController::class, 'create'])->name('lamaran.create');
+Route::post('/lamaran', [LamaranController::class, 'store'])->name('lamaran.store');
+
 Route::get('/perusahaan/detail', function () {
     return view('pages.perusahaan');
 })->name('perusahaan.detail');
@@ -39,9 +42,9 @@ Route::get('/event', function () {
     return view('pages.event');
 })->name('event');
 
-Route::get('/lamaran', function () {
-    return view('pages.lamaran');
-})->name('lamaran');
+// Route::get('/lamaran', function () {
+//     return view('pages.lamaran');
+// })->name('lamaran');
 
 Route::get('/success', function () {
     return view('pages.success');
@@ -93,7 +96,7 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::resource('lamaran', LamaranController::class);
+    // Route::resource('lamaran', LamaranController::class);
 
     Route::resource('rsvp', RsvpController::class);
 
