@@ -1,23 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< Updated upstream
-=======
-use Illuminate\Http\Request;
-
-use App\Http\Controllers\PerusahaanController;
-use App\Http\Controllers\LokerController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\RsvpController;
-use App\Http\Controllers\LamaranController;
-use GuzzleHttp\Middleware;
-
-/*
-|--------------------------------------------------------------------------
-| Public Route
-|--------------------------------------------------------------------------
-*/
->>>>>>> Stashed changes
 
 Route::get('/', function () {
     return view('pages.welcome');
@@ -57,28 +40,10 @@ Route::get('/course',function(){
 
 require __DIR__.'/auth.php';
 
-<<<<<<< Updated upstream
 //admin
 Route::get('/admin', function () {
     return view('admin.admin');
 })->name('admin');
-=======
-Route::get('/admin/dashboard',function(){
-    return 'Halaman Admin';
-})->middleware('auth');
-
-/*
-|--------------------------------------------------------------------------
-| User Route
-|--------------------------------------------------------------------------
-*/
-
-Route::middleware(['auth'])->group(function () {
-
-    Route::resource('lamaran', LamaranController::class);
-
-    Route::resource('rsvp', RsvpController::class);
->>>>>>> Stashed changes
 
 Route::get('/admin/event', function () {
     return view('admin.event.index');
