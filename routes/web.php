@@ -8,7 +8,9 @@ use App\Http\Controllers\LokerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RsvpController;
 use App\Http\Controllers\LamaranController;
-
+use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\RsvpController as AdminRsvpController;
+use App\Http\Controllers\ServiceController;
 /*
 |--------------------------------------------------------------------------
 | Public Route
@@ -38,9 +40,11 @@ Route::get('/review/tulis', function () {
     return view('pages.tulis_review'); 
 })->name('tulis.review');
 
-Route::get('/event', function () {
-    return view('pages.event');
-})->name('event');
+Route::get('/event', [EventController::class, 'index'])
+    ->name('event.index');
+
+Route::get('/event/{id}', [EventController::class, 'show'])
+    ->name('event.show');
 
 // Route::get('/lamaran', function () {
 //     return view('pages.lamaran');
@@ -64,17 +68,21 @@ Route::get('/group', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/service', function () {
-    return view('pages.service');
-});
+Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
+Route::get('/service/form', [ServiceController::class, 'create'])->name('service.create');
+Route::post('/service', [ServiceController::class, 'store'])->name('service.store');
+
+// Route::get('/service', function () {
+//     return view('pages.service');
+// });
 
 Route::get('/service/detail', function () {
     return view('pages.detail-service');
 });
 
-Route::get('/service/form', function () {
-    return view('pages.tawarkan-service');
-});
+// Route::get('/service/form', function () {
+//     return view('pages.tawarkan-service');
+// });
 
 Route::get('/service/all', function () {
     return view('pages.all-service');
@@ -98,7 +106,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Route::resource('lamaran', LamaranController::class);
 
-    Route::resource('rsvp', RsvpController::class);
+    Route::get('/rsvp', [RsvpController::class, 'create'])
+    ->name('rsvp.create');
+
+Route::post('/rsvp', [RsvpController::class, 'store'])
+    ->name('rsvp.store');
 
 });
 
@@ -108,18 +120,32 @@ Route::middleware(['auth'])->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'admin'])
+->prefix('admin')
+->name('admin.')
+->group(function () {
 
-    Route::get('/admin', function () {
+    Route::get('/', function () {
         return view('admin.admin');
-    })->name('admin');
+    })->name('dashboard');
 
     Route::resource('perusahaan', PerusahaanController::class);
 
     Route::resource('loker', LokerController::class);
 
-    Route::resource('event', EventController::class);
+    Route::resource('event', AdminEventController::class);
 
+
+     // RSVP ADMIN
+    //  Route::get('/rsvp', [AdminRsvpController::class, 'index'])
+    Route::get('/rsvp', [AdminRsvpController::class, 'index'])
+    ->name('rsvp.index');
+
+Route::put('/rsvp/{id}/approve', [AdminRsvpController::class, 'approve'])
+    ->name('rsvp.approve');
+
+Route::put('/rsvp/{id}/reject', [AdminRsvpController::class, 'reject'])
+    ->name('rsvp.reject');
 });
 
 /*
@@ -127,12 +153,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
 | RSVP Submit
 |--------------------------------------------------------------------------
 */
-
-Route::post('/rsvp-submit', function (Request $request) {
-
-    return redirect('/berhasil_daftar_event');
-
-});
 
 Route::get('/berhasil_daftar_event', function () {
     return view('pages.berhasil_daftar_event');

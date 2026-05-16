@@ -134,136 +134,71 @@
 
   </section>
 
-  <!-- Schedule -->
-  <section id="schedule" class="py-24 px-6 bg-red-600 text-white">
+ <!-- Schedule -->
+<section id="schedule" class="py-24 px-6 bg-red-600 text-white">
 
     <div class="max-w-5xl mx-auto">
 
-      <h2 class="text-5xl font-black text-center mb-16">
-        Jadwal Event
-      </h2>
+        <h2 class="text-5xl font-black text-center mb-16">
+            Jadwal Event
+        </h2>
 
-      <div class="space-y-6">
+        <div class="space-y-6">
 
-        <!-- Card 1 -->
-        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl flex justify-between items-center">
+            @foreach($events as $event)
 
-          <div>
-            <!-- Kategori -->
-            <span class="bg-yellow-400 text-red-700 text-sm font-bold px-4 py-1 rounded-full">
-              Workshop
-            </span>
+            <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-xl 
+                        hover:scale-[1.02] transition duration-300
+                        flex flex-col md:flex-row md:items-center md:justify-between gap-6">
 
-            <h3 class="text-2xl font-bold mt-3">
-              Bringing Your AI Models to Life
-            </h3>
+                <!-- Kiri -->
+                <div>
 
-            <p class="text-yellow-200">
-              Main Stage
-            </p>
-          </div>
+                    <h3 class="text-2xl font-bold mt-4">
+                        {{ $event->nama_event }}
+                    </h3>
 
-          <div class="flex items-center gap-5">
-            <span class="font-bold text-xl">09:00 - Finished</span>
+                    <p class="text-yellow-200 mt-2">
+                        {{ $event->lokasi }}
+                    </p>
 
-            <a href="/rsvp"
-               class="bg-yellow-400 hover:bg-yellow-300 text-red-700 font-bold px-5 py-2 rounded-full transition duration-300 hover:scale-105 shadow-lg">
-              RSVP
-            </a>
-          </div>
+                </div>
 
-        </div>
+                <!-- Kanan -->
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
 
-        <!-- Card 2 -->
-        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl flex justify-between items-center">
+                    <span class="font-bold text-lg bg-white/10 px-4 py-2 rounded-xl">
+                        {{ $event->jam }}
+                    </span>
 
-          <div>
-            <!-- Kategori -->
-            <span class="bg-yellow-400 text-red-700 text-sm font-bold px-4 py-1 rounded-full">
-              Seminar
-            </span>
+                    <form action="{{ route('rsvp.store') }}" method="POST">
+                        @csrf
 
-            <h3 class="text-2xl font-bold mt-3">
-              Navigating the Software Engineering Industry 
-            </h3>
+                        <input type="hidden"
+                               name="event_id"
+                               value="{{ $event->id }}">
 
-            <p class="text-yellow-200">
-              Live / Online
-            </p>
-          </div>
+                        <button type="submit"
+                            class="bg-yellow-400 hover:bg-yellow-300
+                                   text-red-700 font-bold
+                                   px-6 py-3 rounded-full
+                                   transition duration-300
+                                   hover:scale-105 shadow-lg">
+                            RSVP
+                        </button>
+                    </form>
 
-          <div class="flex items-center gap-5">
-            <span class="font-bold text-xl">13:30 - Finished</span>
+                </div>
 
-            <a href="/rsvp"
-               class="bg-yellow-400 hover:bg-yellow-300 text-red-700 font-bold px-5 py-2 rounded-full transition duration-300 hover:scale-105 shadow-lg">
-              RSVP
-            </a>
-          </div>
+            </div>
+
+            @endforeach
 
         </div>
-
-        <!-- Card 3 -->
-        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl flex justify-between items-center">
-
-          <div>
-            <!-- Kategori -->
-            <span class="bg-yellow-400 text-red-700 text-sm font-bold px-4 py-1 rounded-full">
-              Competition
-            </span>
-
-            <h3 class="text-2xl font-bold mt-3">
-              Essay Competition : Digital Inovation for Local Impact
-            </h3>
-
-            <p class="text-yellow-200">
-              Game Arena
-            </p>
-          </div>
-
-          <div class="flex items-center gap-5">
-            <span class="font-bold text-xl">16:00 - Finished</span>
-
-            <a href="/rsvp"
-               class="bg-yellow-400 hover:bg-yellow-300 text-red-700 font-bold px-5 py-2 rounded-full transition duration-300 hover:scale-105 shadow-lg">
-              RSVP
-            </a>
-          </div>
-
-        </div>
-
-      </div>
 
     </div>
 
-  </section>
-
-
-  <!-- Gallery -->
-  <section id="gallery" class="py-24 px-6">
-
-    <div class="max-w-7xl mx-auto">
-
-      <h2 class="text-5xl font-black text-center text-red-600 mb-16">
-        Gallery Event
-      </h2>
-
-      <div class="grid md:grid-cols-3 gap-6">
-
-        <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1200&auto=format&fit=crop"
-          class="rounded-3xl shadow-xl h-80 w-full object-cover hover:scale-105 transition duration-300">
-
-        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200&auto=format&fit=crop"
-          class="rounded-3xl shadow-xl h-80 w-full object-cover hover:scale-105 transition duration-300">
-
-        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop"
-          class="rounded-3xl shadow-xl h-80 w-full object-cover hover:scale-105 transition duration-300">
-
-      </div>
-
-    </div>
-
-  </section>
+</section>
 
   <!-- Footer -->
   <footer class="bg-gray-900 text-white py-10 text-center">

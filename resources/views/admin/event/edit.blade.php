@@ -28,7 +28,11 @@
         </div>
 
         <!-- Form -->
-        <form>
+        <form action="{{ route('admin.event.update', $event->id) }}"
+      method="POST">
+
+    @csrf
+    @method('PUT')
 
             <!-- Nama Event -->
             <div class="mb-5">
@@ -37,8 +41,8 @@
                     Nama Event
                 </label>
 
-                <input type="text"
-                       value="Seminar Teknologi"
+                <input type="text" name="nama_event"
+                       value="{{ $event->nama_event }}"
                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400">
 
             </div>
@@ -50,8 +54,8 @@
                     Tanggal Event
                 </label>
 
-                <input type="date"
-                       value="2026-05-10"
+                <input type="date" name="tanggal_event"
+                value="{{ $event->tanggal_event }}"
                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400">
 
             </div>
@@ -64,7 +68,7 @@
                 </label>
 
                 <input type="text"
-                       value="Medan"
+                      name="lokasi" value="{{ $event->lokasi }}"
                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400">
 
             </div>
@@ -77,9 +81,39 @@
                 </label>
 
                 <textarea rows="5"
-                          class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400">Seminar teknologi terbaru untuk mahasiswa.</textarea>
+                name="deskripsi"
+                          class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400">{{ $event->deskripsi }}</textarea>
 
             </div>
+
+<select name="perusahaan_id"
+        class="w-full border border-gray-300 rounded-xl px-4 py-3">
+
+    @foreach($perusahaan as $p)
+
+        <option value="{{ $p->id }}"
+            {{ $event->perusahaan_id == $p->id ? 'selected' : '' }}>
+
+            {{ $p->nama_perusahaan }}
+
+        </option>
+
+    @endforeach
+
+</select>
+
+<div class="mb-5">
+
+    <label class="block text-gray-700 font-semibold mb-2">
+        Kuota
+    </label>
+
+    <input type="number"
+           name="kuota"
+           value="{{ $event->kuota }}"
+           class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400">
+
+</div>
 
             <!-- Button -->
             <div class="flex justify-end gap-3">
