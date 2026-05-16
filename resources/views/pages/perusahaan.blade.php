@@ -65,9 +65,9 @@
             <p class="text-xl font-medium text-gray-700 mt-2 opacity-90 italic">Agribusiness, Food & Beverage Manufacturing</p>
             
             <div class="flex gap-4 mt-8 justify-center md:justify-start">
-                <button class="bg-red-brand hover:bg-red-700 text-white px-10 py-4 rounded-full font-black shadow-2xl transform hover:scale-105 transition">
+                <a href="/perusahaan/review" class="bg-red-brand hover:bg-red-700 text-white px-10 py-4 rounded-full font-black shadow-2xl transform hover:scale-105 transition">
                     REVIEW
-                </button>
+                </a>
                 <button class="bg-white text-gray-800 px-10 py-4 rounded-full font-black shadow-xl hover:bg-gray-100 transition border-2 border-gray-100">
                     WEBSITE <i class="fas fa-external-link-alt ml-2"></i>
                 </button>
@@ -148,8 +148,9 @@
                 </div>
             </div>
         </section>
-<section class="hero-gradient-bg pt-32 pb-20 px-6">
-        <section id="jobs" class="p-6">
+        
+        <section class="hero-gradient-bg pt-32 pb-20 px-6">
+        <section id="jobs" class="p-6 ">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-2xl font-bold mb-6 border-b-4 border-yellow-400 inline-block">Open Positions</h3>
                 <span class="text-sm text-gray-500">12 Lowongan Aktif</span>
@@ -157,8 +158,6 @@
 
           
             <div class="space-y-4">
-                
-                <!-- Job Item 1 -->
                 <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center hover:border-red-500 transition">
                     <div>
                         <h4 class="font-bold text-lg">Maintenance Manager</h4>

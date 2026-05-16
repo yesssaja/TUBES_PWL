@@ -109,9 +109,9 @@
         <!-- Filter & Header -->
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl font-bold text-gray-800">Ulasan Terbaru</h2>
-            <button class="bg-red-brand text-white px-5 py-2 rounded-lg font-semibold hover:bg-red-600 transition shadow-sm">
+            <a href="/review/tulis" class="bg-red-brand text-white px-5 py-2 rounded-lg font-semibold hover:bg-red-600 transition shadow-sm">
                 <i class="fas fa-pen-nib mr-2"></i>Tulis Ulasan
-            </button>
+            </a>
         </div>
 
         <!-- Review List -->
