@@ -10,11 +10,30 @@ return new class extends Migration
     {
         Schema::create('lamarans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('loker_id')->constrained('lokers')->onDelete('cascade');
-            $table->string('cv')->nullable();
+
+            // RELASI
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('loker_id')->nullable()->constrained('lokers')->nullOnDelete();
+
+            // DATA DIRI
+            $table->string('nama');
+            $table->string('email');
+            $table->string('hp');
+            $table->string('tempat_lahir');
+            $table->date('tanggal_lahir');
+            $table->string('gender');
+
+            // DOKUMEN
+            $table->string('cv');
+            $table->string('foto')->nullable();
+
+            // TAMBAHAN
             $table->string('portfolio')->nullable();
+            $table->text('motivasi')->nullable();
+
+            // STATUS
             $table->enum('status_lamaran', ['pending', 'diterima', 'ditolak'])->default('pending');
+
             $table->timestamps();
         });
     }

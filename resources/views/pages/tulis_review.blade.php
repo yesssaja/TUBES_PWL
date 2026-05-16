@@ -22,11 +22,11 @@
         .modal { transition: opacity 0.3s ease, visibility 0.3s ease; }
     </style>
 </head>
-<body class="text-gray-800">
+<body class="bg-gradient-to-b from-yellow-500 via-orange-50 to-red-100 text-gray-800 font-sans text-gray-800">
 
     <main class="max-w-6xl mx-auto px-4 py-12">
         <div class="mb-10 text-center">
-            <h1 class="text-3xl font-bold italic"><span class="text-red-brand">Berikan</span> <span class="text-yellow-brand text-4xl underline decoration-red-brand">Feedback</span></h1>
+            <h1 class="text-3xl font-bold italic"><span class="text-red-brand">Berikan</span> <span class="text-red-brand text-4xl underline decoration-red-brand">Feedback</span></h1>
             <p class="text-gray-500 mt-2">Suara Anda membantu pencari kerja lainnya membuat keputusan yang tepat.</p>
         </div>
 

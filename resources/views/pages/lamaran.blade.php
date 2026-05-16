@@ -167,7 +167,7 @@
 
                 <!-- FORM -->
                 <form
-                    action="/lamaran-submit"
+                    action="{{ route('lamaran.store') }}"
                     method="POST"
                     enctype="multipart/form-data"
                 >
@@ -494,14 +494,12 @@
                     <!-- BUTTON -->
                     <div class="flex flex-col md:flex-row gap-4 justify-between">
 
-                        <button
-                            type="button"
-                            class="border-2 border-primary text-primary px-7 py-3 rounded-full font-bold text-sm hover:bg-primary hover:text-white transition duration-300"
-                        >
+                    <a href="/detail-loker"
+                        class="inline-flex items-center justify-center border-2 border-primary text-primary px-7 py-3 rounded-full font-bold text-sm hover:bg-primary hover:text-white transition duration-300">
 
-                            ← Kembali
+                        ← Kembali
 
-                        </button>
+                    </a>
 
                         <button
                             type="submit"
