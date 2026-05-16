@@ -8,52 +8,55 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-yellow-500">
+<body class="bg-gradient-to-b from-yellow-500 to-red-500 min-h-screen">
 
-<section class="min-h-screen py-24 px-6">
+<section class="min-h-screen py-24 px-6 flex items-center">
 
-    <div class="max-w-3xl mx-auto bg-white p-10 rounded-3xl shadow-2xl">
+    <div class="max-w-3xl w-full mx-auto bg-white p-10 rounded-3xl shadow-2xl">
 
         <h1 class="text-5xl font-black text-red-600 text-center mb-10">
             RSVP Event
         </h1>
 
-        <form action="/berhasil_daftar_event" method="GET" class="space-y-6">
+        <form action="{{ route('rsvp.store') }}"
+              method="POST"
+              class="space-y-6">
+
+            @csrf
 
             <input type="text"
                    name="name"
                    placeholder="Full Name"
+                   required
                    class="w-full p-4 rounded-2xl border border-gray-300">
 
             <input type="email"
                    name="email"
                    placeholder="Email Address"
+                   required
                    class="w-full p-4 rounded-2xl border border-gray-300">
 
             <select
-                name="event"
+                name="event_id"
+                required
                 class="w-full p-4 rounded-2xl border border-gray-300">
 
-                <option selected>
-                    {{ request('event') }}
+                <option value="">
+                    -- Pilih Event --
                 </option>
 
-                <option>
-                    Bringing Your AI Models to Life
-                </option>
+                @foreach($events as $event)
 
-                <option>
-                    Navigating the Software Engineering Industry
-                </option>
+                    <option value="{{ $event->id }}">
+                        {{ $event->nama_event }}
+                    </option>
 
-                <option>
-                    Essay Competition : Digital Innovation for Local Impact
-                </option>
+                @endforeach
 
             </select>
 
             <button type="submit"
-                    class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl">
+                    class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl transition">
 
                 Submit RSVP
 
