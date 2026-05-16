@@ -51,29 +51,29 @@
 
     <style>
 
-        .glass {
-            backdrop-filter: blur(10px);
-        }
-
         .gradient-border {
             position: relative;
         }
 
         .gradient-border::before {
-
             content: '';
             position: absolute;
             inset: 0;
             border-radius: 28px;
             padding: 1px;
-            background: linear-gradient(135deg, rgba(231,31,37,0.2), rgba(255,255,255,0.8));
+            background: linear-gradient(
+                135deg,
+                rgba(231,31,37,0.2),
+                rgba(255,255,255,0.8)
+            );
+
             -webkit-mask:
                 linear-gradient(#fff 0 0) content-box,
                 linear-gradient(#fff 0 0);
+
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
-
         }
 
         .ql-toolbar.ql-snow {
@@ -240,9 +240,15 @@
                                 </label>
 
                                 <input type="text"
+                                    name="freelancer_name"
+                                    id="freelancerName"
                                     placeholder="Masukkan nama lengkap"
                                     class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
 
+                                <p id="freelancerError"
+                                    class="text-red-500 text-sm mt-2 hidden">
+                                    Silahkan masukkan nama lengkap Anda.   
+                                </p>
                             </div>
 
                             <div>
@@ -254,8 +260,15 @@
                                 </label>
 
                                 <input type="text"
+                                    name="service_name"
+                                    id="serviceName"
                                     placeholder="Contoh: Fotografer Wisuda"
                                     class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
+
+                                <p id="serviceError"
+                                    class="text-red-500 text-sm mt-2 hidden">
+                                    Silahkan masukkan nama jasa Anda.   
+                                </p>
 
                             </div>
 
@@ -270,6 +283,8 @@
                                     </label>
 
                                     <select
+                                        name="category"
+                                        required
                                         class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
 
                                         <option>Pilih Kategori</option>
@@ -291,9 +306,15 @@
                                     </label>
 
                                     <input type="number"
+                                        name="priceInput"
+                                        id="priceInput"
                                         placeholder="Contoh: 35000"
                                         class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
-
+                                    
+                                    <p id="priceError"
+                                        class="text-red-500 text-sm mt-2 hidden">
+                                        Silahkan masukkan harga jasa Anda.
+                                    </p>
                                 </div>
 
                             </div>
@@ -307,9 +328,14 @@
                                 </label>
 
                                 <input type="text"
+                                    name="location"
+                                    id="locationInput"
                                     placeholder="Contoh: Medan"
                                     class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
-
+                                <p id="locationError"
+                                    class="text-red-500 text-sm mt-2 hidden">
+                                    Silahkan masukkan lokasi Anda.
+                                </p>
                             </div>
 
                             <!-- EDITOR -->
@@ -436,7 +462,6 @@
                                 <div id="previewContainer"
                                     class="grid grid-cols-5 gap-3 mt-6">
 
-                                    <!-- Preview muncul disini -->
 
                                 </div>
 
@@ -462,9 +487,14 @@
                                         </label>
 
                                         <input type="text"
-                                            placeholder="Masukkan berapa lama pengalaman Anda bekerja"
+                                            name="work_experience"
+                                            id="experienceInput"
+                                            placeholder="Masukkan berapa lama pengalaman Anda bekerja"  
                                             class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
-
+                                        <p id="experienceError"
+                                            class="text-red-500 text-sm mt-2 hidden">
+                                            Silahkan masukkan pengalaman kerja Anda.
+                                        </p>
                                     </div>
 
                                     <!-- BAHASA YANG DIKUASAI -->
@@ -540,11 +570,92 @@
                                         </label>
 
                                         <input type="text"
+                                            name="skills"
+                                            id="skillsInput"
                                             placeholder="Contoh: fotografi, editing, retouch, photoshop"
                                             class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
+                                        <p id="skillsError"
+                                            class="text-red-500 text-sm mt-2 hidden">
+                                            Silahkan masukkan skill atau keahlian Anda.
+                                        </p>
+                                    </div>
+                                    <!-- INFORMASI KONTAK -->
+                                    <div class="pt-2">
+
+                                        <h3 class="text-xl font-extrabold mb-5">
+                                            Informasi Kontak
+                                        </h3>
+
+                                        <div class="space-y-5">
+
+                                            <!-- WHATSAPP -->
+                                            <div>
+
+                                                <label class="block text-sm font-semibold mb-3">
+                                                    Nomor WhatsApp
+                                                </label>
+
+                                                <div class="flex gap-3">
+
+                                                    <!-- SELECT NEGARA -->
+                                                    <select id="countryCode"
+                                                        class="w-[140px] px-4 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
+
+                                                        <option value="+62">🇮🇩 +62</option>
+                                                        <option value="+1">🇺🇸 +1</option>
+                                                        <option value="+60">🇲🇾 +60</option>
+                                                        <option value="+65">🇸🇬 +65</option>
+                                                        <option value="+81">🇯🇵 +81</option>
+
+                                                    </select>
+
+                                                    <!-- INPUT NOMOR -->
+                                                    <input
+                                                        type="tel"
+                                                        id="whatsappNumber"
+                                                        name="whatsapp"
+                                                        placeholder="81234567890"
+                                                        class="flex-1 px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
+
+                                                </div>
+
+                                                <!-- ERROR -->
+                                                <p id="waError"
+                                                    class="text-red-500 text-sm mt-2 hidden">
+
+                                                    Nomor WhatsApp wajib diisi.
+
+                                                </p>
+
+                                            </div>
+
+                                            <!-- EMAIL -->
+                                            <div>
+
+                                                <label class="block text-sm font-semibold mb-3">
+                                                    Email Aktif
+                                                </label>
+
+                                                <input
+                                                    type="email"
+                                                    id="emailInput"
+                                                    name="email"
+                                                    placeholder="contoh@email.com"
+                                                    class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
+
+                                                <!-- ERROR -->
+                                                <p id="emailError"
+                                                    class="text-red-500 text-sm mt-2 hidden">
+
+                                                    Format email tidak valid.
+
+                                                </p>
+
+                                            </div>
+
+                                        </div>
 
                                     </div>
-
                                 </div>
 
                             </div>
@@ -782,31 +893,134 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // =====================================================
-    // SUBMIT FORM
-    // =====================================================
+// =====================================================
+// SUBMIT FORM
+// =====================================================
 
-    const serviceForm = document.getElementById('serviceForm');
-    const successModal = document.getElementById('successModal');
+const serviceForm = document.getElementById('serviceForm');
+const successModal = document.getElementById('successModal');
 
-    serviceForm.addEventListener('submit', function (e) {
+serviceForm.addEventListener('submit', function (e) {
 
-        e.preventDefault();
+    e.preventDefault();
 
-        // VALIDASI JUMLAH GAMBAR
-        if (uploadedFiles.length !== 5) {
+    const freelancerName = document.getElementById('freelancerName');
+    const freelancerError = document.getElementById('freelancerError');
 
-            error.innerText = 'Anda wajib upload tepat 5 gambar.';
-            error.classList.remove('hidden');
+    const serviceName = document.getElementById('serviceName');
+    const serviceError = document.getElementById('serviceError');
 
-            return;
-        }
+    const locationInput = document.getElementById('locationInput');
+    const locationError = document.getElementById('locationError');
 
-        // TAMPILKAN MODAL SUCCESS
-        successModal.classList.remove('hidden');
-        successModal.classList.add('flex');
+    const priceInput = document.getElementById('priceInput');
+    const priceError = document.getElementById('priceError');
 
-    });
+    const experienceInput = document.getElementById('experienceInput');
+    const experienceError = document.getElementById('experienceError');
+
+    const skillsInput = document.getElementById('skillsInput');
+    const skillsError = document.getElementById('skillsError');
+
+    const waInput = document.getElementById('whatsappNumber');
+    const waError = document.getElementById('waError');
+
+    const emailInput = document.getElementById('emailInput');
+    const emailError = document.getElementById('emailError');
+
+    let hasError = false;
+
+    // VALIDASI NAMA FREELANCER
+    if (freelancerName.value.trim() === '') {
+        freelancerError.classList.remove('hidden');
+        hasError = true;
+    } else {
+        freelancerError.classList.add('hidden');
+    }
+
+    // VALIDASI NAMA JASA
+    if (serviceName.value.trim() === '') {
+        serviceError.classList.remove('hidden');
+        hasError = true;
+    } else {
+        serviceError.classList.add('hidden');
+    }
+
+    // VALIDASI LOKASI
+    if (locationInput.value.trim() === '') {
+        locationError.classList.remove('hidden');
+        hasError = true;
+    } else {
+        locationError.classList.add('hidden');
+    }
+
+    // VALIDASI HARGA
+    if (priceInput.value.trim() === '') {
+        priceError.classList.remove('hidden');
+        hasError = true;
+    } else {
+        priceError.classList.add('hidden');
+    }
+
+    // VALIDASI PENGALAMAN
+    if (experienceInput.value.trim() === '') {
+        experienceError.classList.remove('hidden');
+        hasError = true;
+    } else {
+        experienceError.classList.add('hidden');
+    }
+
+    // VALIDASI SKILL
+    if (skillsInput.value.trim() === '') {
+        skillsError.classList.remove('hidden');
+        hasError = true;
+    } else {
+        skillsError.classList.add('hidden');
+    }
+
+    // VALIDASI JUMLAH GAMBAR
+    if (uploadedFiles.length !== 5) {
+        error.innerText = 'Anda wajib upload tepat 5 gambar.';
+        error.classList.remove('hidden');
+        hasError = true;
+    } else {
+        error.classList.add('hidden');
+    }
+
+    // VALIDASI WHATSAPP
+    if (waInput.value.trim() === '') {
+        waError.classList.remove('hidden');
+        hasError = true;
+    } else {
+        waError.classList.add('hidden');
+    }
+
+    // VALIDASI EMAIL
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(emailInput.value)) {
+        emailError.classList.remove('hidden');
+        hasError = true;
+    } else {
+        emailError.classList.add('hidden');
+    }
+
+    // STOP JIKA ADA ERROR
+    if (hasError) return;
+
+    // FORMAT NOMOR WHATSAPP
+    const countryCode = document.getElementById('countryCode').value;
+    const fullWhatsapp = countryCode + waInput.value;
+
+    console.log("WhatsApp:", fullWhatsapp);
+    console.log("Email:", emailInput.value);
+
+    // TAMPILKAN MODAL SUCCESS
+    successModal.classList.remove('hidden');
+    successModal.classList.add('flex');
+
+});
+
 });
 </script>
 
@@ -864,5 +1078,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </div>
 </body>
-
 </html>
