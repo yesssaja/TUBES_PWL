@@ -14,16 +14,15 @@
         .text-red-brand { color: #E74C3C; }
     </style>
 </head>
-<body>
+<body  class="bg-gradient-to-b from-yellow-100 via-orange-50 to-yellow-200 text-gray-800 font-sans">
 
     <header class="bg-red-brand text-white p-4 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold italic tracking-wider">LOKER SEEKER</h1>
             <nav class="hidden md:flex space-x-6 font-medium">
                 <a href="#" class="hover:text-yellow-300">Home</a>
-                <a href="#" class="hover:text-yellow-300">About</a>
                 <a href="#" class="hover:text-yellow-300 border-b-2 border-yellow-300">Jobs</a>
-                <a href="#" class="hover:text-yellow-300">Schedule</a>
+                <a href="#" class="hover:text-yellow-300">Company</a>
             </nav>
         </div>
     </header>
@@ -41,7 +40,8 @@
                         <div class="flex flex-wrap gap-4 mt-3 text-gray-500 text-sm">
                             <span><i class="fas fa-map-marker-alt mr-1"></i> Medan, Sumatera Utara</span>
                             <span><i class="fas fa-briefcase mr-1"></i> Finance</span>
-                            <span><i class="fas fa-clock mr-1"></i> Dipublish 2 hari yang lalu</span>
+                            <span><i class="fas fa-pencil mr-1"></i> Dipublish 2 hari yang lalu</span>
+                            <span><i class="fas fa-clock mr-1"></i> 20 Juni 2026</span>
                         </div>
                     </div>
                       <a href="/lamaran" class="bg-red-brand hover:bg-red-700 text-white px-10 py-3 rounded-full font-bold shadow-lg transition-all transform hover:scale-105">
@@ -70,16 +70,12 @@
                     </ul>
                 </div>
 
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="bg-yellow-100 p-8 rounded-2xl shadow-sm border border-gray-100">
                     <h3 class="text-xl font-bold mb-6">About the company</h3>
                     <div class="flex items-start gap-4 mb-4">
                        <img src="/foto_perusahaan/images.png"  alt="Logo" class="rounded-md border">
                         <div>
                             <h4 class="font-bold text-lg">SHOPEE</h4>
-                            {{-- <p class="text-sm text-gray-500">956,439 followers</p>
-                            <button class="mt-2 text-blue-600 font-bold hover:underline flex items-center">
-                                <i class="fas fa-plus mr-1"></i> Follow
-                            </button> --}}
                             <p class="text-sm text-gray-500">
                         Food and Beverage Manufacturing • 10,001+ employees • 13,382 on LOKER SEEKER
                     </p>
@@ -88,13 +84,8 @@
                     </p>
                         </div>
                     </div>
-                    {{-- <p class="text-sm text-gray-500">
-                        Food and Beverage Manufacturing • 10,001+ employees • 13,382 on LOKER SEEKER
-                    </p>
-                    <p class="text-gray-600 text-sm italic">
-                        "Di Sinar Mas Agribusiness and Food, kami bertumbuh dengan tujuan. Minyak kelapa sawit menjadi awal dari perjalanan kami..."
-                    </p> --}}
-                    <a href="{{ route('perusahaan.detail') }}" class="mt-6 w-full py-2 border-2 border-blue-600 text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition">
+
+                    <a href="{{ route('perusahaan.detail') }}" class="mt-6 w-full py-2 border-2 border-red-600 text-yellow-600 font-bold rounded-lg hover:bg-blue-50 transition">
                         Show more
                     </a>
                 </div>
@@ -132,7 +123,7 @@
         </div>
     </main>
 
-    <footer class="bg-gray-800 text-white py-6 mt-12 text-center text-sm">
+    <footer class="bg-red-800 text-white py-6 mt-12 text-center text-sm">
         <p>&copy; 2026 LOKER SEEKER. Dibuat oleh Mahasiswa USU.</p>
     </footer>
 
