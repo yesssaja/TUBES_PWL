@@ -64,6 +64,15 @@
 
             </div>
 
+            <div class="text-white font-bold">
+                @auth
+                <form action="{{route('logout')}}" method="post">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
+                @endauth
+            </div>
+
         </div>
     </div>
 </header>
