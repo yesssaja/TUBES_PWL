@@ -17,7 +17,7 @@
 
         <!-- Logo -->
         <h1 class="text-3xl font-black">
-            LOKER SEEKER
+            LOKER SEEKER🔥
         </h1>
 
         <!-- Search -->
