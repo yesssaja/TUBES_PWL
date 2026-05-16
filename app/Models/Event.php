@@ -9,14 +9,14 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nama_event',
-        'deskripsi',
-        'tanggal_event',
-        'lokasi',
-        'poster',
-        'kuota'
-    ];
+   protected $fillable = [
+    'perusahaan_id',
+    'nama_event',
+    'deskripsi',
+    'tanggal_event',
+    'lokasi',
+    'kuota',
+];
 
     public function rsvp()
     {

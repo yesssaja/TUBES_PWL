@@ -2,66 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rsvp;
 use App\Models\Event;
+use App\Models\Rsvp;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class RsvpController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $rsvp = Rsvp::with(['user', 'event'])->get();
-
-        return view('pages.rsvp', compact('rsvp'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
+    // FORM USER RSVP
     public function create()
     {
-        $event = Event::all();
+        $events = Event::all();
 
-        return view('pages.rsvp', compact('event'));
+        return view('pages.rsvp', compact('events'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // SIMPAN RSVP USER
     public function store(Request $request)
     {
-        Rsvp::create([
-            'user_id' => Auth::id(),
-            'event_id' => $request->event_id,
-            'status_kehadiran' => 'pending'
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'event_id' => 'required'
         ]);
 
-        return redirect()->route('rsvp.index');
+        Rsvp::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'event_id' => $request->event_id
+        ]);
+
+        return redirect('/event')
+            ->with('success', 'Berhasil RSVP Event!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // ADMIN LIHAT RSVP
+    public function adminIndex()
     {
-        $rsvp = Rsvp::findOrFail($id);
+        $rsvps = Rsvp::with('event')->latest()->get();
 
-        return view('pages.rsvp', compact('rsvp'));
+        return view('admin.rsvp.index', compact('rsvps'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    // HAPUS RSVP
+    public function destroy($id)
     {
         $rsvp = Rsvp::findOrFail($id);
 
         $rsvp->delete();
 
-        return redirect()->route('rsvp.index');
+        return back()->with('success', 'RSVP berhasil dihapus');
     }
 }

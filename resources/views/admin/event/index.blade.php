@@ -25,7 +25,7 @@
             </p>
         </div>
 
-        <a href="/admin/event/create"
+        <a href="{{ route('admin.event.create') }}"
            class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-5 py-3 rounded-xl shadow transition">
 
             + Tambah Event
@@ -52,39 +52,54 @@
 
             <tbody>
 
-                <tr class="border-b hover:bg-yellow-50 transition">
+@foreach($events as $event)
 
-                    <td class="p-4">1</td>
+<tr class="border-b hover:bg-yellow-50 transition">
 
-                    <td class="p-4 font-semibold">
-                        Seminar Teknologi
-                    </td>
+    <td class="p-4">
+        {{ $loop->iteration }}
+    </td>
 
-                    <td class="p-4">
-                        10 Mei 2026
-                    </td>
+    <td class="p-4 font-semibold">
+        {{ $event->nama_event }}
+    </td>
 
-                    <td class="p-4 text-center space-x-2">
+    <td class="p-4">
+        {{ $event->tanggal_event }}
+    </td>
 
-                        <a href="/admin/event/edit"
-                           class="bg-yellow-400 hover:bg-yellow-500 px-4 py-2 rounded-lg text-sm font-semibold">
+    <td class="p-4 text-center space-x-2">
 
-                            Edit
+        <a href="{{ route('admin.event.edit', $event->id) }}"
+           class="bg-yellow-400 hover:bg-yellow-500 px-4 py-2 rounded-lg text-sm font-semibold">
 
-                        </a>
+            Edit
 
-                        <button
-                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+        </a>
 
-                            Hapus
+        <form action="{{ route('admin.event.destroy', $event->id) }}"
+              method="POST"
+              class="inline">
 
-                        </button>
+            @csrf
+            @method('DELETE')
 
-                    </td>
+            <button
+                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">
 
-                </tr>
+                Hapus
 
-            </tbody>
+            </button>
+
+        </form>
+
+    </td>
+
+</tr>
+
+@endforeach
+
+</tbody>
 
         </table>
 

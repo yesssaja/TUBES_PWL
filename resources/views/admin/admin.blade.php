@@ -45,9 +45,14 @@
     <!-- Menu -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-        <a href="/admin/event" class="bg-red-500 text-white rounded-2xl p-6 shadow-lg hover:bg-red-600 transition">
+        <a href="{{ route('admin.event.index') }}" class="bg-red-500 text-white rounded-2xl p-6 shadow-lg hover:bg-red-600 transition">
             <h2 class="text-2xl font-bold mb-2">📅 Event</h2>
             <p>Kelola event</p>
+        </a>
+
+        <a href="{{ route('admin.rsvp.index') }}" class="bg-red-500 text-white rounded-2xl p-6 shadow-lg hover:bg-red-600 transition">
+            <h2 class="text-2xl font-bold mb-2">📝RSVP</h2>
+            <p>Kelola RSVP Event</p>
         </a>
 
         <a href="/admin/loker" class="bg-yellow-400 text-black rounded-2xl p-6 shadow-lg hover:bg-yellow-500 transition">
