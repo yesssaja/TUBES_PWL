@@ -392,7 +392,7 @@
                                     Rp{{ number_format($service->price, 0, ',', '.') }}
                                 </h4>
 
-                                <a href="/service/detail"
+                                <a href="{{ route('service.show', $service->id) }}"
                                     class="block w-full bg-primary text-white py-3 rounded-full text-sm font-bold hover:bg-red-700 transition text-center">
 
                                     Lihat Detail

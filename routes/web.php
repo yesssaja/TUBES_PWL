@@ -71,18 +71,7 @@ Route::get('/group', function () {
 Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
 Route::get('/service/form', [ServiceController::class, 'create'])->name('service.create');
 Route::post('/service', [ServiceController::class, 'store'])->name('service.store');
-
-// Route::get('/service', function () {
-//     return view('pages.service');
-// });
-
-Route::get('/service/detail', function () {
-    return view('pages.detail-service');
-});
-
-// Route::get('/service/form', function () {
-//     return view('pages.tawarkan-service');
-// });
+Route::get('/service/detail/{service}', [ServiceController::class, 'show'])->name('service.show');
 
 Route::get('/service/all', function () {
     return view('pages.all-service');

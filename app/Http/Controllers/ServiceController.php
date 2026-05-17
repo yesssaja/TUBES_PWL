@@ -69,4 +69,12 @@ class ServiceController extends Controller
 
         return redirect('/service')->with('success', 'Jasa berhasil dipublikasikan.');
     }
+
+    public function show(Service $service)
+    {
+        $service->load('images');
+
+        return view('pages.detail-service', compact('service'));
+    }
+
 }
