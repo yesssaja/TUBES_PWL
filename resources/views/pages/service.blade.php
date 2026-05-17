@@ -134,7 +134,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        124 Jasa
+                        {{ $categoryCounts['Fotografi'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -159,11 +159,11 @@
                     </div>
 
                     <h3 class="font-bold text-sm mb-1">
-                        Desain
+                        Desain Grafis
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        210 Jasa
+                        {{ $categoryCounts['Desain Grafis'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -192,7 +192,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        98 Jasa
+                        {{ $categoryCounts['Video Editing'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -221,7 +221,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        67 Jasa
+                        {{ $categoryCounts['Musik & Audio'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -250,7 +250,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        55 Jasa
+                        {{ $categoryCounts['MC & Event'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -693,7 +693,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        124 Jasa
+                        {{ $categoryCounts['Fotografi'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -706,7 +706,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        210 Jasa
+                        {{ $categoryCounts['Desain Grafis'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -719,7 +719,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        98 Jasa
+                        {{ $categoryCounts['Video Editing'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -732,7 +732,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        67 Jasa
+                        {{ $categoryCounts['Musik & Audio'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -745,7 +745,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        55 Jasa
+                        {{ $categoryCounts['MC & Event'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -758,7 +758,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        80 Jasa
+                        {{ $categoryCounts['Penulisan'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -771,7 +771,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        145 Jasa
+                        {{ $categoryCounts['Website & Programming'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -784,7 +784,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        43 Jasa
+                        {{ $categoryCounts['Penerjemah'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -797,7 +797,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        72 Jasa
+                        {{ $categoryCounts['Makeup Artist'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -810,7 +810,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        91 Jasa
+                        {{ $categoryCounts['Les Privat'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -823,7 +823,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        60 Jasa
+                        {{ $categoryCounts['Admin & Data Entry'] ?? 0 }} Jasa
                     </p>
 
                 </div>
@@ -836,7 +836,7 @@
                     </h3>
 
                     <p class="text-xs text-slate-400">
-                        112 Jasa
+                        {{ $categoryCounts['Social Media'] ?? 0 }} Jasa
                     </p>
 
                 </div>

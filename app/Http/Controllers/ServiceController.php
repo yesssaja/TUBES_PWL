@@ -15,7 +15,48 @@ class ServiceController extends Controller
             ->take(3)
             ->get();
 
-        return view('pages.service', compact('services'));
+        // HITUNG JUMLAH JASA BERDASARKAN KATEGORI
+        $categoryCounts = Service::select('category')
+            ->selectRaw('COUNT(*) as total')
+            ->whereNotNull('category')
+            ->groupBy('category')
+            ->pluck('total', 'category');
+
+            return view('pages.service', compact('services' , 'categoryCounts'));
+        }
+
+    public function all(Request $request)
+    {
+        $query = Service::with('images');
+
+        // FILTER SEARCH
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('freelancer_name', 'like', '%' . $search . '%')
+                    ->orWhere('service_name', 'like', '%' . $search . '%')
+                    ->orWhere('location', 'like', '%' . $search . '%')
+                    ->orWhere('skills', 'like', '%' . $search . '%');
+            });
+        }
+
+        // FILTER KATEGORI
+        if ($request->filled('category') && $request->category !== 'all') {
+            $query->where('category', $request->category);
+        }
+
+        // AMBIL DATA SERVICE SESUAI FILTER
+        $services = $query->latest()->paginate(9)->withQueryString();
+
+        // AMBIL KATEGORI YANG BENAR-BENAR ADA DI DATABASE
+        $categories = Service::select('category')
+            ->whereNotNull('category')
+            ->distinct()
+            ->orderBy('category', 'asc')
+            ->pluck('category');
+
+        return view('pages.all-service', compact('services', 'categories'));
     }
 
     public function create()

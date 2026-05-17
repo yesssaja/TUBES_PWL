@@ -72,10 +72,7 @@ Route::get('/service', [ServiceController::class, 'index'])->name('service.index
 Route::get('/service/form', [ServiceController::class, 'create'])->name('service.create');
 Route::post('/service', [ServiceController::class, 'store'])->name('service.store');
 Route::get('/service/detail/{service}', [ServiceController::class, 'show'])->name('service.show');
-
-Route::get('/service/all', function () {
-    return view('pages.all-service');
-});
+Route::get('/service/all', [ServiceController::class, 'all'])->name('service.all');
 
 /*
 |--------------------------------------------------------------------------
