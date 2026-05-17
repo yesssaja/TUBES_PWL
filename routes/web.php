@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\LokerController;
@@ -10,6 +9,7 @@ use App\Http\Controllers\RsvpController;
 use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\RsvpController as AdminRsvpController;
+
 /*
 |--------------------------------------------------------------------------
 | Public Route
@@ -24,19 +24,22 @@ Route::get('/detail-loker', function () {
     return view('pages.detail_loker');
 })->name('detail.loker');
 
-Route::get('/lamaran', [LamaranController::class, 'create'])->name('lamaran.create');
-Route::post('/lamaran', [LamaranController::class, 'store'])->name('lamaran.store');
+Route::get('/lamaran', [LamaranController::class, 'create'])
+    ->name('lamaran.create');
+
+Route::post('/lamaran', [LamaranController::class, 'store'])
+    ->name('lamaran.store');
 
 Route::get('/perusahaan/detail', function () {
     return view('pages.perusahaan');
 })->name('perusahaan.detail');
 
 Route::get('/perusahaan/review', function () {
-    return view('pages.review'); 
+    return view('pages.review');
 })->name('perusahaan.review');
 
 Route::get('/review/tulis', function () {
-    return view('pages.tulis_review'); 
+    return view('pages.tulis_review');
 })->name('tulis.review');
 
 Route::get('/event', [EventController::class, 'index'])
@@ -45,13 +48,9 @@ Route::get('/event', [EventController::class, 'index'])
 Route::get('/event/{id}', [EventController::class, 'show'])
     ->name('event.show');
 
-// Route::get('/lamaran', function () {
-//     return view('pages.lamaran');
-// })->name('lamaran');
-
 Route::get('/success', function () {
     return view('pages.success');
-});
+})->name('success');
 
 Route::get('/join-group', function () {
     return view('pages.join_group');
@@ -59,7 +58,7 @@ Route::get('/join-group', function () {
 
 Route::get('/group', function () {
     return view('pages.group');
-});
+})->name('group');
 
 /*
 |--------------------------------------------------------------------------
@@ -69,19 +68,19 @@ Route::get('/group', function () {
 
 Route::get('/service', function () {
     return view('pages.service');
-});
+})->name('service');
 
 Route::get('/service/detail', function () {
     return view('pages.detail-service');
-});
+})->name('service.detail');
 
 Route::get('/service/form', function () {
     return view('pages.tawarkan-service');
-});
+})->name('service.form');
 
 Route::get('/service/all', function () {
     return view('pages.all-service');
-});
+})->name('service.all');
 
 /*
 |--------------------------------------------------------------------------
@@ -89,7 +88,7 @@ Route::get('/service/all', function () {
 |--------------------------------------------------------------------------
 */
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -99,13 +98,15 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth'])->group(function () {
 
-    // Route::resource('lamaran', LamaranController::class);
-
     Route::get('/rsvp', [RsvpController::class, 'create'])
-    ->name('rsvp.create');
+        ->name('rsvp.create');
 
-Route::post('/rsvp', [RsvpController::class, 'store'])
-    ->name('rsvp.store');
+    Route::post('/rsvp', [RsvpController::class, 'store'])
+        ->name('rsvp.store');
+
+    Route::get('/berhasil_daftar_event', function () {
+        return view('pages.berhasil_daftar_event');
+    })->name('rsvp.success');
 
 });
 
@@ -116,39 +117,34 @@ Route::post('/rsvp', [RsvpController::class, 'store'])
 */
 
 Route::middleware(['auth', 'admin'])
-->prefix('admin')
-->name('admin.')
-->group(function () {
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
-    Route::get('/', function () {
-        return view('admin.admin');
-    })->name('dashboard');
+        Route::get('/', function () {
+            return view('admin.admin');
+        })->name('dashboard');
 
-    Route::resource('perusahaan', PerusahaanController::class);
+        Route::resource('perusahaan', PerusahaanController::class);
 
-    Route::resource('loker', LokerController::class);
+        Route::resource('loker', LokerController::class);
 
-    Route::resource('event', AdminEventController::class);
+        Route::resource('event', AdminEventController::class);
 
+        /*
+        |--------------------------------------------------------------------------
+        | RSVP ADMIN
+        |--------------------------------------------------------------------------
+        */
 
-     // RSVP ADMIN
-    //  Route::get('/rsvp', [AdminRsvpController::class, 'index'])
-    Route::get('/rsvp', [AdminRsvpController::class, 'index'])
-    ->name('rsvp.index');
+        Route::get('/rsvp', [AdminRsvpController::class, 'index'])
+            ->name('rsvp.index');
 
-Route::put('/rsvp/{id}/approve', [AdminRsvpController::class, 'approve'])
-    ->name('rsvp.approve');
+        // Bisa PUT dari form, dan juga aman kalau tidak sengaja kebuka lewat URL browser
+        Route::match(['get', 'put'], '/rsvp/{id}/approve', [AdminRsvpController::class, 'approve'])
+            ->name('rsvp.approve');
 
-Route::put('/rsvp/{id}/reject', [AdminRsvpController::class, 'reject'])
-    ->name('rsvp.reject');
-});
+        Route::match(['get', 'put'], '/rsvp/{id}/reject', [AdminRsvpController::class, 'reject'])
+            ->name('rsvp.reject');
 
-/*
-|--------------------------------------------------------------------------
-| RSVP Submit
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/berhasil_daftar_event', function () {
-    return view('pages.berhasil_daftar_event');
-});
+    });

@@ -1,72 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSVP Event</title>
+    <title>Form RSVP Event</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gradient-to-b from-yellow-500 to-red-500 min-h-screen">
+<body class="bg-gradient-to-b from-yellow-500 via-orange-50 to-red-100 min-h-screen text-gray-800">
 
-<section class="min-h-screen py-24 px-6 flex items-center">
+    <div class="max-w-3xl mx-auto px-6 py-16">
 
-    <div class="max-w-3xl w-full mx-auto bg-white p-10 rounded-3xl shadow-2xl">
+        <div class="bg-white rounded-3xl shadow-2xl p-8">
 
-        <h1 class="text-5xl font-black text-red-600 text-center mb-10">
-            RSVP Event
-        </h1>
+            <h1 class="text-4xl font-black text-red-600 mb-4 text-center">
+                Form RSVP Event
+            </h1>
 
-        <form action="{{ route('rsvp.store') }}"
-              method="POST"
-              class="space-y-6">
+            <p class="text-center text-gray-600 mb-8">
+                Silakan pilih event yang ingin kamu ikuti.
+            </p>
 
-            @csrf
+            @if(session('error'))
+                <div class="bg-red-100 text-red-700 px-4 py-3 rounded-xl mb-5">
+                    {{ session('error') }}
+                </div>
+            @endif
 
-            <input type="text"
-                   name="name"
-                   placeholder="Full Name"
-                   required
-                   class="w-full p-4 rounded-2xl border border-gray-300">
+            @if(session('success'))
+                <div class="bg-green-100 text-green-700 px-4 py-3 rounded-xl mb-5">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-            <input type="email"
-                   name="email"
-                   placeholder="Email Address"
-                   required
-                   class="w-full p-4 rounded-2xl border border-gray-300">
+            @if($errors->any())
+                <div class="bg-red-100 text-red-700 px-4 py-3 rounded-xl mb-5">
+                    <ul class="list-disc list-inside">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-            <select
-                name="event_id"
-                required
-                class="w-full p-4 rounded-2xl border border-gray-300">
+            <form action="{{ route('rsvp.store') }}" method="POST">
+                @csrf
 
-                <option value="">
-                    -- Pilih Event --
-                </option>
+                <div class="mb-6">
+                    <label class="block mb-2 font-bold text-gray-700">
+                        Pilih Event
+                    </label>
 
-                @foreach($events as $event)
+                    <select name="event_id"
+                            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
+                            required>
 
-                    <option value="{{ $event->id }}">
-                        {{ $event->nama_event }}
-                    </option>
+                        <option value="">-- Pilih Event --</option>
 
-                @endforeach
+                        @foreach($events as $event)
+                            <option value="{{ $event->id }}"
+                                {{ $selectedEventId == $event->id ? 'selected' : '' }}>
 
-            </select>
+                                {{ $event->nama_event }} - {{ $event->lokasi }} - {{ $event->jam }}
 
-            <button type="submit"
-                    class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl transition">
+                            </option>
+                        @endforeach
 
-                Submit RSVP
+                    </select>
+                </div>
 
-            </button>
+                <button type="submit"
+                        class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-full transition shadow-lg">
 
-        </form>
+                    Daftar RSVP
+
+                </button>
+            </form>
+
+            <div class="text-center mt-6">
+                <a href="{{ url()->previous() }}"
+                   class="text-red-600 font-semibold hover:underline">
+                    Kembali
+                </a>
+            </div>
+
+        </div>
 
     </div>
-
-</section>
 
 </body>
 </html>

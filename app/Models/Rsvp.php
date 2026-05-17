@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Rsvp extends Model
 {
     protected $fillable = [
-        'name',
-        'email',
-        'event_id',
-        'user_id'
-    ];
+
+    'name',
+    'email',
+    'user_id',
+    'event_id',
+    'status_kehadiran'
+];
 
     public function event()
     {
