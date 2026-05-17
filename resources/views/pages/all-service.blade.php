@@ -1,5 +1,3 @@
-{{-- resources/views/pages/all-service.blade.php --}}
-
 <!DOCTYPE html>
 <html lang="id">
 
@@ -94,7 +92,7 @@
                 </div>
 
                 {{-- BUTTON --}}
-                <a href="/service"
+                <a href="{{ route('service.index') }}"
                     class="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-4 rounded-2xl shadow-glow hover:bg-red-700 hover:-translate-y-1 transition duration-300 text-sm font-bold h-fit">
 
                     ← Kembali
@@ -106,168 +104,325 @@
             {{-- FILTER --}}
             <div class="bg-soft rounded-[32px] p-5 shadow-soft border border-red-100 mb-10">
 
-                <div class="grid lg:grid-cols-3 gap-4">
+                <form action="{{ route('service.all') }}" method="GET">
 
-                    {{-- SEARCH --}}
-                    <div class="lg:col-span-2">
+                    <div class="grid lg:grid-cols-3 gap-4">
 
-                        <input type="text"
-                            placeholder="Cari jasa..."
-                            class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200">
+                        {{-- SEARCH --}}
+                        <div class="lg:col-span-2">
 
-                    </div>
+                            <input type="text"
+                                name="search"
+                                value="{{ request('search') }}"
+                                placeholder="Cari jasa..."
+                                class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200">
 
-                    {{-- CATEGORY --}}
-                    <div>
+                        </div>
 
-                        <select
-                            class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200">
+                        {{-- CATEGORY --}}
+                        <div>
 
-                            <option>Semua Kategori</option>
-                            <option>Fotografi</option>
-                            <option>Video Editing</option>
-                            <option>Desain Grafis</option>
-                            <option>Musik & Audio</option>
+                            <select name="category"
+                                class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200">
 
-                        </select>
+                                <option value="all">Semua Kategori</option>
 
-                    </div>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>
+                                        {{ $category }}
+                                    </option>
+                                @endforeach
 
-                </div>
-
-            </div>
-
-            {{-- SERVICE GRID --}}
-            <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
-
-                {{-- CARD --}}
-                @for ($i = 1; $i <= 9; $i++)
-
-                    <div class="bg-white rounded-[28px] overflow-hidden shadow-soft border border-slate-100 hover:-translate-y-1 transition">
-
-                        {{-- IMAGE --}}
-                        <img
-                            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop"
-                            class="h-52 w-full object-cover">
-
-                        {{-- CONTENT --}}
-                        <div class="p-5">
-
-                            {{-- NAMA --}}
-                            <h3 class="font-bold text-lg mb-1">
-
-                                Billie Eilish
-
-                            </h3>
-
-                            {{-- PROFESI --}}
-                            <p class="text-sm text-slate-500 mb-2">
-
-                                Fotografer Event & Wisuda
-
-                            </p>
-
-                            {{-- KATEGORI --}}
-                            <div class="flex flex-wrap gap-2 mb-4">
-
-                                <span class="px-3 py-1 bg-red-100 text-primary text-xs font-semibold rounded-full">
-
-                                    Fotografi
-
-                                </span>
-
-                            </div>
-
-                            {{-- LOKASI --}}
-                            <div class="flex items-center gap-2 text-sm text-slate-500 mb-4">
-
-                                {{-- ICON LOCATION --}}
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="w-5 h-5 text-primary"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    stroke-width="2">
-
-                                    <path stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
-
-                                    <path stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-
-                                </svg>
-
-                                Bandung
-
-                            </div>
-
-                            {{-- PRICE --}}
-                            <p class="text-xs text-slate-400">
-
-                                Mulai dari
-
-                            </p>
-
-                            <h4 class="text-2xl font-extrabold mb-5">
-
-                                Rp350.000
-
-                            </h4>
-
-                            {{-- BUTTON --}}
-                            <a href="/service/detail"
-                                class="block w-full bg-primary text-white py-3 rounded-full text-sm font-bold hover:bg-red-700 transition text-center">
-
-                                Lihat Detail
-
-                            </a>
+                            </select>
 
                         </div>
 
                     </div>
 
-                @endfor
+                    <div class="flex justify-end gap-3 mt-4">
+
+                        <a href="{{ route('service.all') }}"
+                            class="px-5 py-3 rounded-2xl bg-white border border-red-100 text-sm font-bold hover:bg-red-50 transition">
+
+                            Reset
+
+                        </a>
+
+                        <button type="submit"
+                            class="px-6 py-3 rounded-2xl bg-primary text-white text-sm font-bold hover:bg-red-700 transition shadow-glow">
+
+                            Cari
+
+                        </button>
+
+                    </div>
+
+                </form>
 
             </div>
+
+            {{-- SERVICE GRID --}}
+            @if($services->count() > 0)
+
+                <div id="serviceGrid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
+
+                    @foreach($services as $service)
+
+                        @php
+                            $firstImage = $service->images->first();
+                        @endphp
+
+                        {{-- CARD --}}
+                        <div class="service-card bg-white rounded-[28px] overflow-hidden shadow-soft border border-slate-100 hover:-translate-y-1 transition h-full flex flex-col"
+                            data-name="{{ strtolower($service->freelancer_name) }}"
+                            data-service="{{ strtolower($service->service_name) }}"
+                            data-category="{{ $service->category }}">
+
+                            {{-- IMAGE --}}
+                            @if($firstImage)
+                                <img
+                                    src="{{ asset('storage/' . $firstImage->image) }}"
+                                    alt="{{ $service->service_name }}"
+                                    class="h-52 w-full object-cover flex-shrink-0">
+                            @else
+                                <div class="h-52 w-full bg-red-100 flex items-center justify-center text-primary font-bold flex-shrink-0">
+                                    Tidak Ada Gambar
+                                </div>
+                            @endif
+
+                            {{-- CONTENT --}}
+                            <div class="p-5 flex flex-col flex-1">
+
+                                {{-- NAMA --}}
+                                <h3 class="font-bold text-lg mb-1 leading-snug line-clamp-1">
+
+                                    {{ $service->freelancer_name }}
+
+                                </h3>
+
+                                {{-- PROFESI --}}
+                                <p class="text-sm text-slate-500 mb-2 leading-relaxed line-clamp-2 min-h-[40px]">
+
+                                    {{ $service->service_name }}
+
+                                </p>
+
+                                {{-- KATEGORI --}}
+                                <div class="flex flex-wrap gap-2 mb-4 min-h-[28px]">
+
+                                    <span class="px-3 py-1 bg-red-100 text-primary text-xs font-semibold rounded-full">
+
+                                        {{ $service->category }}
+
+                                    </span>
+
+                                </div>
+
+                                {{-- LOKASI --}}
+                                <div class="flex items-center gap-2 text-sm text-slate-500 mb-4 min-h-[24px]">
+
+                                    {{-- ICON LOCATION --}}
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-5 h-5 text-primary flex-shrink-0"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="2">
+
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+
+                                    </svg>
+
+                                    <span class="line-clamp-1">
+
+                                        {{ $service->location }}
+
+                                    </span>
+
+                                </div>
+
+                                <div class="mt-auto">
+
+                                    {{-- PRICE --}}
+                                    <p class="text-xs text-slate-400">
+
+                                        Mulai dari
+
+                                    </p>
+
+                                    <h4 class="text-2xl font-extrabold mb-5">
+
+                                        Rp{{ number_format($service->price, 0, ',', '.') }}
+
+                                    </h4>
+
+                                    {{-- BUTTON --}}
+                                    <a href="{{ route('service.show', $service->id) }}"
+                                        class="block w-full bg-primary text-white py-3 rounded-full text-sm font-bold hover:bg-red-700 transition text-center">
+
+                                        Lihat Detail
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    @endforeach
+
+                </div>
+
+                {{-- EMPTY FILTER --}}
+                <div id="emptyFilter"
+                    class="hidden bg-white rounded-[28px] p-10 shadow-soft border border-red-100 text-center">
+
+                    <h3 class="text-2xl font-extrabold text-dark mb-2">
+
+                        Jasa Tidak Ditemukan
+
+                    </h3>
+
+                    <p class="text-slate-500 text-sm">
+
+                        Coba gunakan kata kunci atau kategori lain.
+
+                    </p>
+
+                </div>
+
+            @else
+
+                {{-- EMPTY DATABASE --}}
+                <div class="bg-white rounded-[28px] p-10 shadow-soft border border-red-100 text-center">
+
+                    <h3 class="text-2xl font-extrabold text-dark mb-2">
+
+                        Belum Ada Jasa
+
+                    </h3>
+
+                    <p class="text-slate-500 text-sm mb-6">
+
+                        Saat ini belum ada jasa freelancer yang dipublikasikan.
+
+                    </p>
+
+                    <a href="{{ route('service.create') }}"
+                        class="inline-flex items-center justify-center bg-primary text-white px-6 py-4 rounded-2xl shadow-glow hover:bg-red-700 transition text-sm font-bold">
+
+                        Tawarkan Jasa
+
+                    </a>
+
+                </div>
+
+            @endif
 
             {{-- PAGINATION --}}
-            <div class="flex items-center justify-center gap-3 mt-14">
+            @if($services->hasPages())
 
-                <button
-                    class="w-12 h-12 rounded-2xl bg-primary text-white font-bold shadow-md">
+                <div class="flex items-center justify-center gap-3 mt-14">
 
-                    1
+                    @if($services->onFirstPage())
+                        <span class="px-5 h-12 rounded-2xl bg-white/60 border border-red-100 font-bold text-slate-400 flex items-center">
+                            ← Prev
+                        </span>
+                    @else
+                        <a href="{{ $services->previousPageUrl() }}"
+                            class="px-5 h-12 rounded-2xl bg-white border border-red-100 font-bold hover:bg-red-50 transition flex items-center">
+                            ← Prev
+                        </a>
+                    @endif
 
-                </button>
+                    @foreach($services->getUrlRange(1, $services->lastPage()) as $page => $url)
 
-                <button
-                    class="w-12 h-12 rounded-2xl bg-white border border-red-100 font-bold hover:bg-red-50 transition">
+                        @if($page == $services->currentPage())
 
-                    2
+                            <span class="w-12 h-12 rounded-2xl bg-primary text-white font-bold shadow-md flex items-center justify-center">
 
-                </button>
+                                {{ $page }}
 
-                <button
-                    class="w-12 h-12 rounded-2xl bg-white border border-red-100 font-bold hover:bg-red-50 transition">
+                            </span>
 
-                    3
+                        @else
 
-                </button>
+                            <a href="{{ $url }}"
+                                class="w-12 h-12 rounded-2xl bg-white border border-red-100 font-bold hover:bg-red-50 transition flex items-center justify-center">
 
-                <button
-                    class="px-5 h-12 rounded-2xl bg-white border border-red-100 font-bold hover:bg-red-50 transition">
+                                {{ $page }}
 
-                    Next →
+                            </a>
 
-                </button>
+                        @endif
 
-            </div>
+                    @endforeach
+
+                    @if($services->hasMorePages())
+                        <a href="{{ $services->nextPageUrl() }}"
+                            class="px-5 h-12 rounded-2xl bg-white border border-red-100 font-bold hover:bg-red-50 transition flex items-center">
+                            Next →
+                        </a>
+                    @else
+                        <span class="px-5 h-12 rounded-2xl bg-white/60 border border-red-100 font-bold text-slate-400 flex items-center">
+                            Next →
+                        </span>
+                    @endif
+
+                </div>
+
+            @endif
 
         </div>
 
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const emptyFilter = document.getElementById('emptyFilter');
+            const serviceGrid = document.getElementById('serviceGrid');
+
+            function filterServices() {
+                const keyword = searchInput.value.toLowerCase();
+                const selectedCategory = categoryFilter.value;
+                let visibleCount = 0;
+
+                serviceCards.forEach(function (card) {
+                    const name = card.dataset.name;
+                    const service = card.dataset.service;
+                    const category = card.dataset.category;
+
+                    const matchKeyword = name.includes(keyword) || service.includes(keyword);
+                    const matchCategory = selectedCategory === 'all' || category === selectedCategory;
+
+                    if (matchKeyword && matchCategory) {
+                        card.classList.remove('hidden');
+                        visibleCount++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                if (visibleCount === 0 && serviceCards.length > 0) {
+                    emptyFilter.classList.remove('hidden');
+                    serviceGrid.classList.add('hidden');
+                } else {
+                    emptyFilter.classList.add('hidden');
+                    serviceGrid.classList.remove('hidden');
+                }
+            }
+
+            searchInput.addEventListener('input', filterServices);
+            categoryFilter.addEventListener('change', filterServices);
+        });
+    </script>
 
 </body>
 

@@ -15,9 +15,9 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\Admin\GroupController as AdminGroupController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\RsvpController as AdminRsvpController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Admin\LokerController as AdminLokerController;
 use App\Http\Controllers\Admin\LamaranController as AdminLamaranController;
-
 /*
 |--------------------------------------------------------------------------
 | Public Route
@@ -105,22 +105,11 @@ Route::get('/join-group/{group:slug}', [GroupController::class, 'show'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/service', function () {
-    return view('pages.service');
-})->name('service');
-
-Route::get('/service/detail', function () {
-    return view('pages.detail-service');
-})->name('service.detail');
-
-Route::get('/service/form', function () {
-    return view('pages.tawarkan-service');
-})->name('service.form');
-
-Route::get('/service/all', function () {
-    return view('pages.all-service');
-})->name('service.all');
-
+Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
+Route::get('/service/form', [ServiceController::class, 'create'])->name('service.create');
+Route::post('/service', [ServiceController::class, 'store'])->name('service.store');
+Route::get('/service/detail/{service}', [ServiceController::class, 'show'])->name('service.show');
+Route::get('/service/all', [ServiceController::class, 'all'])->name('service.all');
 /*
 |--------------------------------------------------------------------------
 | Auth Route
