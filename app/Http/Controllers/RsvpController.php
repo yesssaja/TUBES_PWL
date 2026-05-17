@@ -8,13 +8,11 @@ use Illuminate\Http\Request;
 
 class RsvpController extends Controller
 {
-    // FORM USER RSVP
     public function create(Event $event)
     {
         return view('pages.rsvp', compact('event'));
     }
 
-    // SIMPAN RSVP USER
     public function store(Request $request, Event $event)
     {
         if (!auth()->check()) {
@@ -23,9 +21,14 @@ class RsvpController extends Controller
                 ->with('error', 'Silakan login terlebih dahulu untuk RSVP.');
         }
 
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'hp' => 'required|string|max:20',
+        ]);
+
         $user = auth()->user();
 
-        // CEK DUPLIKAT RSVP
         $cek = Rsvp::where('user_id', $user->id)
             ->where('event_id', $event->id)
             ->first();
@@ -34,12 +37,12 @@ class RsvpController extends Controller
             return back()->with('error', 'Kamu sudah daftar event ini.');
         }
 
-        // SIMPAN RSVP
         Rsvp::create([
             'user_id' => $user->id,
             'event_id' => $event->id,
-            'name' => $user->name,
-            'email' => $user->email,
+            'name' => $request->name,
+            'email' => $request->email,
+            'hp' => $request->hp,
             'status_kehadiran' => 'pending',
         ]);
 
@@ -48,17 +51,6 @@ class RsvpController extends Controller
             ->with('success', 'RSVP berhasil dibuat.');
     }
 
-    // ADMIN LIHAT RSVP
-    public function adminIndex()
-    {
-        $rsvps = Rsvp::with(['event', 'user'])
-            ->latest()
-            ->get();
-
-        return view('admin.rsvp.index', compact('rsvps'));
-    }
-
-    // HAPUS RSVP
     public function destroy($id)
     {
         $rsvp = Rsvp::findOrFail($id);

@@ -7,6 +7,7 @@ use App\Http\Controllers\LokerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RsvpController;
 use App\Http\Controllers\LamaranController;
+use App\Http\Controllers\ServiceController;
 
 // USER GROUP CONTROLLER
 use App\Http\Controllers\GroupController;
@@ -15,9 +16,9 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\Admin\GroupController as AdminGroupController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\RsvpController as AdminRsvpController;
-use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Admin\LokerController as AdminLokerController;
 use App\Http\Controllers\Admin\LamaranController as AdminLamaranController;
+
 /*
 |--------------------------------------------------------------------------
 | Public Route
@@ -105,11 +106,21 @@ Route::get('/join-group/{group:slug}', [GroupController::class, 'show'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
-Route::get('/service/form', [ServiceController::class, 'create'])->name('service.create');
-Route::post('/service', [ServiceController::class, 'store'])->name('service.store');
-Route::get('/service/detail/{service}', [ServiceController::class, 'show'])->name('service.show');
-Route::get('/service/all', [ServiceController::class, 'all'])->name('service.all');
+Route::get('/service', [ServiceController::class, 'index'])
+    ->name('service.index');
+
+Route::get('/service/form', [ServiceController::class, 'create'])
+    ->name('service.create');
+
+Route::post('/service', [ServiceController::class, 'store'])
+    ->name('service.store');
+
+Route::get('/service/detail/{service}', [ServiceController::class, 'show'])
+    ->name('service.show');
+
+Route::get('/service/all', [ServiceController::class, 'all'])
+    ->name('service.all');
+
 /*
 |--------------------------------------------------------------------------
 | Auth Route
@@ -178,17 +189,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/group/{group:slug}/leave', [GroupController::class, 'leave'])
         ->name('groups.leave');
 
-    Route::post('/group/{group:slug}/posts', [GroupController::class, 'storePost'])
-        ->name('groups.posts.store');
-
-    Route::post('/group-posts/{post}/comments', [GroupController::class, 'storeComment'])
-        ->name('groups.comments.store');
-
-    Route::post('/group-posts/{post}/like', [GroupController::class, 'toggleLike'])
-        ->name('groups.posts.like');
-
-    Route::post('/group-posts/{post}/report', [GroupController::class, 'report'])
-        ->name('groups.posts.report');
 });
 
 /*
@@ -266,12 +266,6 @@ Route::middleware(['auth', 'admin'])
         |--------------------------------------------------------------------------
         | Group Admin
         |--------------------------------------------------------------------------
-        | URL:
-        | /admin/groups
-        |
-        | Route name:
-        | admin.groups.index
-        |--------------------------------------------------------------------------
         */
 
         Route::prefix('groups')
@@ -294,20 +288,6 @@ Route::middleware(['auth', 'admin'])
 
                 Route::delete('/{group:slug}', [AdminGroupController::class, 'destroy'])
                     ->name('destroy');
-
-                Route::get('/reports/list', [AdminGroupController::class, 'reports'])
-                    ->name('reports');
-
-                Route::patch('/posts/{post}/hide', [AdminGroupController::class, 'hidePost'])
-                    ->name('posts.hide');
-
-                Route::patch('/posts/{post}/restore', [AdminGroupController::class, 'restorePost'])
-                    ->name('posts.restore');
-
-                Route::delete('/posts/{post}', [AdminGroupController::class, 'deletePost'])
-                    ->name('posts.delete');
-
-                Route::patch('/reports/{report}/review', [AdminGroupController::class, 'reviewReport'])
-                    ->name('reports.review');
             });
+
     });

@@ -2,9 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form RSVP Event</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -44,7 +42,6 @@
                 </div>
             @endif
 
-            <!-- Detail Event -->
             <div class="bg-yellow-100 border border-yellow-300 rounded-2xl p-5 mb-6">
 
                 <h2 class="text-2xl font-black text-red-600 mb-3">
@@ -58,20 +55,18 @@
 
                 <p class="text-gray-700 mb-1">
                     <span class="font-bold">Tanggal:</span>
-                    {{ $event->tanggal ?? '-' }}
+                    {{ $event->tanggal_event ?? '-' }}
                 </p>
 
                 <p class="text-gray-700">
-                    <span class="font-bold">Jam:</span>
-                    {{ $event->jam ?? $event->waktu ?? '-' }}
+                    <span class="font-bold">Kuota:</span>
+                    {{ $event->kuota ?? '-' }}
                 </p>
 
             </div>
 
             <form action="{{ route('rsvp.store', $event->id) }}" method="POST">
                 @csrf
-
-                <input type="hidden" name="event_id" value="{{ $event->id }}">
 
                 <div class="mb-5">
                     <label class="block mb-2 font-bold text-gray-700">
