@@ -59,9 +59,9 @@
             </a>
 
             @if (Route::has('password.request'))
-                <a class="text-merah font-bold uppercase text-sm" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
+            <a class="text-merah font-bold uppercase text-sm" href="{{ route('password.request') }}">
+                {{ __('Forgot your password?') }}
+            </a>
             @endif
 
             <x-primary-button class="bg-merah text-white font-bold uppercase tracking-widest rounded-xl">
