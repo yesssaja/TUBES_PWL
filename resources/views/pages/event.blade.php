@@ -28,7 +28,6 @@
         LOKER SEEKER🔥
       </h1>
 
-      <!-- Nanti sesuaikan dengan dashboard -->
       <nav class="hidden md:flex gap-8 font-semibold">
         <a href="#home" class="hover:text-yellow-300 transition">Home</a>
         <a href="#about" class="hover:text-yellow-300 transition">About</a>
@@ -162,9 +161,9 @@
                 📍 {{ $event->lokasi }}
               </p>
 
-              @if(isset($event->tanggal))
+              @if(!empty($event->tanggal_event))
                 <p class="text-yellow-100 mt-1">
-                  📅 {{ $event->tanggal }}
+                  📅 {{ $event->tanggal_event }}
                 </p>
               @endif
             </div>
@@ -173,7 +172,7 @@
             <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
 
               <span class="font-bold text-lg bg-white/10 px-4 py-2 rounded-xl">
-                {{ $event->jam ?? $event->waktu ?? '-' }}
+                🕒 {{ $event->jam ? substr($event->jam, 0, 5) : '-' }}
               </span>
 
               <a href="{{ route('rsvp.create', $event->id) }}"

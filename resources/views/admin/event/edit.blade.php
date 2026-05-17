@@ -60,6 +60,17 @@
 
             </div>
 
+            <div class="mb-4">
+    <label class="block font-semibold mb-2">
+        Jam Event
+    </label>
+
+    <input type="time"
+           name="jam"
+           value="{{ old('jam', isset($event) ? substr($event->jam, 0, 5) : '') }}"
+           class="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-red-400">
+</div>
+
             <!-- Lokasi -->
             <div class="mb-5">
 
@@ -101,6 +112,8 @@
     @endforeach
 
 </select>
+
+
 
 <div class="mb-5">
 

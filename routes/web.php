@@ -188,7 +188,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('/group/{group:slug}/leave', [GroupController::class, 'leave'])
         ->name('groups.leave');
-
 });
 
 /*
@@ -202,9 +201,30 @@ Route::middleware(['auth', 'admin'])
     ->name('admin.')
     ->group(function () {
 
-        Route::get('/', function () {
-            return view('admin.admin');
-        })->name('dashboard');
+        /*
+        |--------------------------------------------------------------------------
+        | Dashboard Admin
+        |--------------------------------------------------------------------------
+        */
+
+       Route::get('/', function () {
+    $totalUser = \App\Models\User::count();
+
+    $totalEvent = \App\Models\Event::count();
+    $totalLoker = \App\Models\Loker::count();
+    $totalLamaran = \App\Models\Lamaran::count();
+    $totalPerusahaan = \App\Models\Perusahaan::count();
+    $totalGroup = \App\Models\Group::count();
+
+    return view('admin.admin', compact(
+        'totalUser',
+        'totalEvent',
+        'totalLoker',
+        'totalLamaran',
+        'totalPerusahaan',
+        'totalGroup'
+    ));
+})->name('dashboard');
 
         /*
         |--------------------------------------------------------------------------
@@ -289,5 +309,4 @@ Route::middleware(['auth', 'admin'])
                 Route::delete('/{group:slug}', [AdminGroupController::class, 'destroy'])
                     ->name('destroy');
             });
-
     });

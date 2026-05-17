@@ -9,22 +9,24 @@ class Event extends Model
 {
     use HasFactory;
 
-   protected $fillable = [
-    'perusahaan_id',
-    'nama_event',
-    'deskripsi',
-    'tanggal_event',
-    'lokasi',
-    'kuota',
-];
+    protected $fillable = [
+        'perusahaan_id',
+        'nama_event',
+        'deskripsi',
+        'tanggal_event',
+        'jam',
+        'lokasi',
+        'kuota',
+        'status',
+    ];
 
-    public function rsvp()
+    public function rsvps()
     {
         return $this->hasMany(Rsvp::class);
     }
 
     public function perusahaan()
-{
-    return $this->belongsTo(Perusahaan::class);
-}
+    {
+        return $this->belongsTo(Perusahaan::class);
+    }
 }
