@@ -29,6 +29,11 @@
                 </button>
             </form>
 
+            @guest
+                <a href="{{route('login')}}" class="text-white font-bold uppercase hover:underline">Login</a>
+                <a href="{{route('register')}}" class="text-white font-bold uppercase hover:underline">Register</a>
+            @endguest
+
             <!-- Hamburger -->
             <div class="relative">
 
@@ -63,16 +68,6 @@
                 </div>
 
             </div>
-
-            <div class="text-white font-bold">
-                @auth
-                <form action="{{route('logout')}}" method="post">
-                    @csrf
-                    <button type="submit">Logout</button>
-                </form>
-                @endauth
-            </div>
-
         </div>
     </div>
 </header>
