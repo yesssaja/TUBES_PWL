@@ -1,3 +1,5 @@
+// database/migrations/2026_05_14_100316_create_lamarans_table.php
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -11,30 +13,26 @@ return new class extends Migration
         Schema::create('lamarans', function (Blueprint $table) {
             $table->id();
 
-            // RELASI
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('loker_id')->nullable()->constrained('lokers')->nullOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('loker_id')->constrained('lokers')->cascadeOnDelete();
 
-            // DATA DIRI
             $table->string('nama');
             $table->string('email');
-            $table->string('hp');
+            $table->string('hp', 20);
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->string('gender');
+            $table->enum('gender', ['Laki-laki', 'Perempuan']);
 
-            // DOKUMEN
             $table->string('cv');
             $table->string('foto')->nullable();
-
-            // TAMBAHAN
             $table->string('portfolio')->nullable();
             $table->text('motivasi')->nullable();
 
-            // STATUS
             $table->enum('status_lamaran', ['pending', 'diterima', 'ditolak'])->default('pending');
 
             $table->timestamps();
+
+            $table->unique(['user_id', 'loker_id']);
         });
     }
 

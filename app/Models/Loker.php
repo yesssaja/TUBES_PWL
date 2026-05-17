@@ -16,7 +16,11 @@ class Loker extends Model
         'lokasi',
         'tipe_pekerjaan',
         'gaji',
-        'batas_lamaran'
+        'batas_lamaran',
+    ];
+
+    protected $casts = [
+        'batas_lamaran' => 'date',
     ];
 
     public function perusahaan()
@@ -24,7 +28,7 @@ class Loker extends Model
         return $this->belongsTo(Perusahaan::class);
     }
 
-    public function lamaran()
+    public function lamarans()
     {
         return $this->hasMany(Lamaran::class);
     }

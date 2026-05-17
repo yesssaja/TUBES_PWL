@@ -28,4 +28,9 @@ class Perusahaan extends Model
 {
     return $this->hasMany(Event::class);
 }
+
+public function lokers()
+{
+    return $this->hasMany(\App\Models\Loker::class);
+}
 }
