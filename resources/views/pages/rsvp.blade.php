@@ -19,7 +19,7 @@
             </h1>
 
             <p class="text-center text-gray-600 mb-8">
-                Silakan pilih event yang ingin kamu ikuti.
+                Silakan konfirmasi kehadiran untuk event berikut.
             </p>
 
             @if(session('error'))
@@ -44,44 +44,81 @@
                 </div>
             @endif
 
-            <form action="{{ route('rsvp.store') }}" method="POST">
+            <!-- Detail Event -->
+            <div class="bg-yellow-100 border border-yellow-300 rounded-2xl p-5 mb-6">
+
+                <h2 class="text-2xl font-black text-red-600 mb-3">
+                    {{ $event->nama_event }}
+                </h2>
+
+                <p class="text-gray-700 mb-1">
+                    <span class="font-bold">Lokasi:</span>
+                    {{ $event->lokasi }}
+                </p>
+
+                <p class="text-gray-700 mb-1">
+                    <span class="font-bold">Tanggal:</span>
+                    {{ $event->tanggal ?? '-' }}
+                </p>
+
+                <p class="text-gray-700">
+                    <span class="font-bold">Jam:</span>
+                    {{ $event->jam ?? $event->waktu ?? '-' }}
+                </p>
+
+            </div>
+
+            <form action="{{ route('rsvp.store', $event->id) }}" method="POST">
                 @csrf
+
+                <input type="hidden" name="event_id" value="{{ $event->id }}">
+
+                <div class="mb-5">
+                    <label class="block mb-2 font-bold text-gray-700">
+                        Nama
+                    </label>
+
+                    <input type="text"
+                           name="name"
+                           value="{{ old('name', auth()->user()->name ?? '') }}"
+                           class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
+                           required>
+                </div>
+
+                <div class="mb-5">
+                    <label class="block mb-2 font-bold text-gray-700">
+                        Email
+                    </label>
+
+                    <input type="email"
+                           name="email"
+                           value="{{ old('email', auth()->user()->email ?? '') }}"
+                           class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
+                           required>
+                </div>
 
                 <div class="mb-6">
                     <label class="block mb-2 font-bold text-gray-700">
-                        Pilih Event
+                        No HP
                     </label>
 
-                    <select name="event_id"
-                            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
-                            required>
-
-                        <option value="">-- Pilih Event --</option>
-
-                        @foreach($events as $event)
-                            <option value="{{ $event->id }}"
-                                {{ $selectedEventId == $event->id ? 'selected' : '' }}>
-
-                                {{ $event->nama_event }} - {{ $event->lokasi }} - {{ $event->jam }}
-
-                            </option>
-                        @endforeach
-
-                    </select>
+                    <input type="text"
+                           name="hp"
+                           value="{{ old('hp') }}"
+                           class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
+                           required>
                 </div>
 
                 <button type="submit"
                         class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-full transition shadow-lg">
-
                     Daftar RSVP
-
                 </button>
             </form>
 
             <div class="text-center mt-6">
-                <a href="{{ url()->previous() }}"
+                <a href="{{ route('event.index') }}"
                    class="text-red-600 font-semibold hover:underline">
-                    Kembali
+                    Kembali ke Event
                 </a>
             </div>
 
