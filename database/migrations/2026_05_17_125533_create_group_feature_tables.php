@@ -13,8 +13,10 @@ return new class extends Migration
         | GROUPS
         |--------------------------------------------------------------------------
         */
+
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
+
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('category')->nullable();
@@ -36,6 +38,7 @@ return new class extends Migration
         | GROUP MEMBERS
         |--------------------------------------------------------------------------
         */
+
         Schema::create('group_members', function (Blueprint $table) {
             $table->id();
 
@@ -49,105 +52,15 @@ return new class extends Migration
 
             $table->enum('role', ['member', 'moderator'])->default('member');
             $table->timestamp('joined_at')->nullable();
+
             $table->timestamps();
 
             $table->unique(['group_id', 'user_id']);
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | GROUP POSTS
-        |--------------------------------------------------------------------------
-        */
-        Schema::create('group_posts', function (Blueprint $table) {
-            $table->id();
-
-            $table->foreignId('group_id')
-                ->constrained('groups')
-                ->cascadeOnDelete();
-
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->cascadeOnDelete();
-
-            $table->text('content');
-            $table->boolean('is_reported')->default(false);
-            $table->unsignedInteger('report_count')->default(0);
-            $table->timestamp('hidden_at')->nullable();
-            $table->timestamps();
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | GROUP POST COMMENTS
-        |--------------------------------------------------------------------------
-        */
-        Schema::create('group_post_comments', function (Blueprint $table) {
-            $table->id();
-
-            $table->foreignId('post_id')
-                ->constrained('group_posts')
-                ->cascadeOnDelete();
-
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->cascadeOnDelete();
-
-            $table->text('content');
-            $table->timestamps();
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | GROUP POST LIKES
-        |--------------------------------------------------------------------------
-        */
-        Schema::create('group_post_likes', function (Blueprint $table) {
-            $table->id();
-
-            $table->foreignId('post_id')
-                ->constrained('group_posts')
-                ->cascadeOnDelete();
-
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->cascadeOnDelete();
-
-            $table->timestamps();
-
-            $table->unique(['post_id', 'user_id']);
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | GROUP POST REPORTS
-        |--------------------------------------------------------------------------
-        */
-        Schema::create('group_post_reports', function (Blueprint $table) {
-            $table->id();
-
-            $table->foreignId('post_id')
-                ->constrained('group_posts')
-                ->cascadeOnDelete();
-
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->cascadeOnDelete();
-
-            $table->string('reason')->nullable();
-            $table->enum('status', ['pending', 'reviewed', 'rejected'])->default('pending');
-            $table->timestamps();
-
-            $table->unique(['post_id', 'user_id']);
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('group_post_reports');
-        Schema::dropIfExists('group_post_likes');
-        Schema::dropIfExists('group_post_comments');
-        Schema::dropIfExists('group_posts');
         Schema::dropIfExists('group_members');
         Schema::dropIfExists('groups');
     }

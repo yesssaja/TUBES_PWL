@@ -42,9 +42,4 @@ class Group extends Model
             ->withPivot('role', 'joined_at')
             ->withTimestamps();
     }
-
-    public function posts()
-    {
-        return $this->hasMany(GroupPost::class);
-    }
 }

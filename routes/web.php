@@ -7,6 +7,7 @@ use App\Http\Controllers\LokerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RsvpController;
 use App\Http\Controllers\LamaranController;
+use App\Http\Controllers\ServiceController;
 
 // USER GROUP CONTROLLER
 use App\Http\Controllers\GroupController;
@@ -105,21 +106,20 @@ Route::get('/join-group/{group:slug}', [GroupController::class, 'show'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/service', function () {
-    return view('pages.service');
-})->name('service');
+Route::get('/service', [ServiceController::class, 'index'])
+    ->name('service.index');
 
-Route::get('/service/detail', function () {
-    return view('pages.detail-service');
-})->name('service.detail');
+Route::get('/service/form', [ServiceController::class, 'create'])
+    ->name('service.create');
 
-Route::get('/service/form', function () {
-    return view('pages.tawarkan-service');
-})->name('service.form');
+Route::post('/service', [ServiceController::class, 'store'])
+    ->name('service.store');
 
-Route::get('/service/all', function () {
-    return view('pages.all-service');
-})->name('service.all');
+Route::get('/service/detail/{service}', [ServiceController::class, 'show'])
+    ->name('service.show');
+
+Route::get('/service/all', [ServiceController::class, 'all'])
+    ->name('service.all');
 
 /*
 |--------------------------------------------------------------------------
@@ -188,18 +188,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('/group/{group:slug}/leave', [GroupController::class, 'leave'])
         ->name('groups.leave');
-
-    Route::post('/group/{group:slug}/posts', [GroupController::class, 'storePost'])
-        ->name('groups.posts.store');
-
-    Route::post('/group-posts/{post}/comments', [GroupController::class, 'storeComment'])
-        ->name('groups.comments.store');
-
-    Route::post('/group-posts/{post}/like', [GroupController::class, 'toggleLike'])
-        ->name('groups.posts.like');
-
-    Route::post('/group-posts/{post}/report', [GroupController::class, 'report'])
-        ->name('groups.posts.report');
 });
 
 /*
@@ -213,9 +201,30 @@ Route::middleware(['auth', 'admin'])
     ->name('admin.')
     ->group(function () {
 
-        Route::get('/', function () {
-            return view('admin.admin');
-        })->name('dashboard');
+        /*
+        |--------------------------------------------------------------------------
+        | Dashboard Admin
+        |--------------------------------------------------------------------------
+        */
+
+       Route::get('/', function () {
+    $totalUser = \App\Models\User::count();
+
+    $totalEvent = \App\Models\Event::count();
+    $totalLoker = \App\Models\Loker::count();
+    $totalLamaran = \App\Models\Lamaran::count();
+    $totalPerusahaan = \App\Models\Perusahaan::count();
+    $totalGroup = \App\Models\Group::count();
+
+    return view('admin.admin', compact(
+        'totalUser',
+        'totalEvent',
+        'totalLoker',
+        'totalLamaran',
+        'totalPerusahaan',
+        'totalGroup'
+    ));
+})->name('dashboard');
 
         /*
         |--------------------------------------------------------------------------
@@ -277,12 +286,6 @@ Route::middleware(['auth', 'admin'])
         |--------------------------------------------------------------------------
         | Group Admin
         |--------------------------------------------------------------------------
-        | URL:
-        | /admin/groups
-        |
-        | Route name:
-        | admin.groups.index
-        |--------------------------------------------------------------------------
         */
 
         Route::prefix('groups')
@@ -305,20 +308,5 @@ Route::middleware(['auth', 'admin'])
 
                 Route::delete('/{group:slug}', [AdminGroupController::class, 'destroy'])
                     ->name('destroy');
-
-                Route::get('/reports/list', [AdminGroupController::class, 'reports'])
-                    ->name('reports');
-
-                Route::patch('/posts/{post}/hide', [AdminGroupController::class, 'hidePost'])
-                    ->name('posts.hide');
-
-                Route::patch('/posts/{post}/restore', [AdminGroupController::class, 'restorePost'])
-                    ->name('posts.restore');
-
-                Route::delete('/posts/{post}', [AdminGroupController::class, 'deletePost'])
-                    ->name('posts.delete');
-
-                Route::patch('/reports/{report}/review', [AdminGroupController::class, 'reviewReport'])
-                    ->name('reports.review');
             });
     });

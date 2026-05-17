@@ -183,9 +183,14 @@
                 <div class="absolute top-0 right-0 w-72 h-72 bg-red-100 rounded-full blur-3xl opacity-40"></div>
 
                 <form id="serviceForm"
+                    action="{{ route('service.store') }}"
+                    method="POST"
+                    enctype="multipart/form-data"
                     class="relative z-10 space-y-10">
 
-                    <!-- GRID -->
+                    @csrf
+
+                    <!-- GRID -->       
                     <div class="grid lg:grid-cols-2 gap-8">
 
                         <!-- LEFT -->
@@ -292,6 +297,7 @@
                                         <option>Video Editing</option>
                                         <option>Desain Grafis</option>
                                         <option>Musik & Audio</option>
+                                        <option>Kecantikan/Beauty</option>
 
                                     </select>
 
@@ -306,7 +312,7 @@
                                     </label>
 
                                     <input type="number"
-                                        name="priceInput"
+                                        name="price"
                                         id="priceInput"
                                         placeholder="Contoh: 35000"
                                         class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
@@ -350,6 +356,7 @@
                                 <div class="bg-white rounded-[24px] overflow-hidden border border-red-100 shadow-sm">
 
                                     <div id="editor"></div>
+                                    <input type="hidden" name="description" id="descriptionInput">
 
                                 </div>
 
@@ -444,6 +451,7 @@
                                     <!-- INPUT -->
                                     <input type="file"
                                         id="portfolioInput"
+                                        name="portfolio_images[]"
                                         accept="image/*"
                                         multiple
                                         class="hidden">
@@ -514,6 +522,7 @@
                                                 class="flex flex-wrap gap-2 mb-4">
 
                                             </div>
+                                            <input type="hidden" name="languages" id="languagesInput">
 
                                             <!-- SELECT -->
                                             <select id="languageSelect"
@@ -898,7 +907,6 @@ document.addEventListener('DOMContentLoaded', function () {
 // =====================================================
 
 const serviceForm = document.getElementById('serviceForm');
-const successModal = document.getElementById('successModal');
 
 serviceForm.addEventListener('submit', function (e) {
 
@@ -927,6 +935,7 @@ serviceForm.addEventListener('submit', function (e) {
 
     const emailInput = document.getElementById('emailInput');
     const emailError = document.getElementById('emailError');
+    const descriptionInput = document.getElementById('descriptionInput');
 
     let hasError = false;
 
@@ -1008,16 +1017,50 @@ serviceForm.addEventListener('submit', function (e) {
     // STOP JIKA ADA ERROR
     if (hasError) return;
 
+    // CEK ELEMEN SEBELUM SUBMIT
+    if (!descriptionInput) {
+        alert('Input descriptionInput belum ditemukan. Tambahkan hidden input deskripsi.');
+        return;
+    }
+
+    const countryCodeInput = document.getElementById('countryCode');
+
+    if (!countryCodeInput) {
+        alert('Select countryCode belum ditemukan. Cek id pada select kode negara.');
+        return;
+    }
+
+    // ISI DESCRIPTION DARI QUILL
+    descriptionInput.value = quill.root.innerHTML;
+
     // FORMAT NOMOR WHATSAPP
-    const countryCode = document.getElementById('countryCode').value;
-    const fullWhatsapp = countryCode + waInput.value;
+    waInput.value = countryCodeInput.value + waInput.value;
 
-    console.log("WhatsApp:", fullWhatsapp);
-    console.log("Email:", emailInput.value);
 
-    // TAMPILKAN MODAL SUCCESS
-    successModal.classList.remove('hidden');
-    successModal.classList.add('flex');
+    // KIRIM DATA BAHASA KE LARAVEL
+    document.querySelectorAll('.language-hidden-input').forEach(input => input.remove());
+
+    selectedList.forEach(function (language) {
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'languages[]';
+        hiddenInput.value = language;
+        hiddenInput.classList.add('language-hidden-input');
+
+        serviceForm.appendChild(hiddenInput);
+    });
+
+    // KIRIM FILE YANG SUDAH DIPREVIEW KE INPUT FILE
+    const dataTransfer = new DataTransfer();
+
+    uploadedFiles.forEach(function (file) {
+        dataTransfer.items.add(file);
+    });
+
+    input.files = dataTransfer.files;
+
+    // SUBMIT KE LARAVEL
+    serviceForm.submit();
 
 });
 
