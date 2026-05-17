@@ -65,7 +65,7 @@
             <p>Kelola lamaran kerja</p>
         </a>
 
-        <a href="/admin/group" class="bg-orange-500 text-white rounded-2xl p-6 shadow-lg hover:bg-orange-600 transition">
+        <a href="/admin/groups" class="bg-orange-500 text-white rounded-2xl p-6 shadow-lg hover:bg-orange-600 transition">
             <h2 class="text-2xl font-bold mb-2">👥 Group</h2>
             <p>Monitoring group</p>
         </a>

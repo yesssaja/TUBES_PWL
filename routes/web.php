@@ -8,6 +8,11 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\RsvpController;
 use App\Http\Controllers\LamaranController;
 
+// USER GROUP CONTROLLER
+use App\Http\Controllers\GroupController;
+
+// ADMIN CONTROLLERS
+use App\Http\Controllers\Admin\GroupController as AdminGroupController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\RsvpController as AdminRsvpController;
 use App\Http\Controllers\Admin\LokerController as AdminLokerController;
@@ -74,7 +79,7 @@ Route::get('/detail-loker/{loker}', [LokerController::class, 'show'])
 
 /*
 |--------------------------------------------------------------------------
-| Success / Group Route
+| Success Route
 |--------------------------------------------------------------------------
 */
 
@@ -82,13 +87,17 @@ Route::get('/success', function () {
     return view('pages.success');
 })->name('success');
 
-Route::get('/join-group', function () {
-    return view('pages.join_group');
-})->name('join_group');
+/*
+|--------------------------------------------------------------------------
+| User Group Public Route
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/group', function () {
-    return view('pages.group');
-})->name('group');
+Route::get('/group', [GroupController::class, 'index'])
+    ->name('groups.index');
+
+Route::get('/join-group/{group:slug}', [GroupController::class, 'show'])
+    ->name('join_group');
 
 /*
 |--------------------------------------------------------------------------
@@ -168,6 +177,29 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/lamaran/{loker}', [LamaranController::class, 'store'])
         ->name('lamaran.store');
 
+    /*
+    |--------------------------------------------------------------------------
+    | Group User Action Route
+    |--------------------------------------------------------------------------
+    */
+
+    Route::post('/group/{group:slug}/join', [GroupController::class, 'join'])
+        ->name('groups.join');
+
+    Route::delete('/group/{group:slug}/leave', [GroupController::class, 'leave'])
+        ->name('groups.leave');
+
+    Route::post('/group/{group:slug}/posts', [GroupController::class, 'storePost'])
+        ->name('groups.posts.store');
+
+    Route::post('/group-posts/{post}/comments', [GroupController::class, 'storeComment'])
+        ->name('groups.comments.store');
+
+    Route::post('/group-posts/{post}/like', [GroupController::class, 'toggleLike'])
+        ->name('groups.posts.like');
+
+    Route::post('/group-posts/{post}/report', [GroupController::class, 'report'])
+        ->name('groups.posts.report');
 });
 
 /*
@@ -241,4 +273,52 @@ Route::middleware(['auth', 'admin'])
         Route::put('/rsvp/{rsvp}/reject', [AdminRsvpController::class, 'reject'])
             ->name('rsvp.reject');
 
+        /*
+        |--------------------------------------------------------------------------
+        | Group Admin
+        |--------------------------------------------------------------------------
+        | URL:
+        | /admin/groups
+        |
+        | Route name:
+        | admin.groups.index
+        |--------------------------------------------------------------------------
+        */
+
+        Route::prefix('groups')
+            ->name('groups.')
+            ->group(function () {
+                Route::get('/', [AdminGroupController::class, 'index'])
+                    ->name('index');
+
+                Route::get('/create', [AdminGroupController::class, 'create'])
+                    ->name('create');
+
+                Route::post('/', [AdminGroupController::class, 'store'])
+                    ->name('store');
+
+                Route::get('/{group:slug}/edit', [AdminGroupController::class, 'edit'])
+                    ->name('edit');
+
+                Route::put('/{group:slug}', [AdminGroupController::class, 'update'])
+                    ->name('update');
+
+                Route::delete('/{group:slug}', [AdminGroupController::class, 'destroy'])
+                    ->name('destroy');
+
+                Route::get('/reports/list', [AdminGroupController::class, 'reports'])
+                    ->name('reports');
+
+                Route::patch('/posts/{post}/hide', [AdminGroupController::class, 'hidePost'])
+                    ->name('posts.hide');
+
+                Route::patch('/posts/{post}/restore', [AdminGroupController::class, 'restorePost'])
+                    ->name('posts.restore');
+
+                Route::delete('/posts/{post}', [AdminGroupController::class, 'deletePost'])
+                    ->name('posts.delete');
+
+                Route::patch('/reports/{report}/review', [AdminGroupController::class, 'reviewReport'])
+                    ->name('reports.review');
+            });
     });
