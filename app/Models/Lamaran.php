@@ -25,6 +25,10 @@ class Lamaran extends Model
         'status_lamaran',
     ];
 
+    protected $casts = [
+        'tanggal_lahir' => 'date',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

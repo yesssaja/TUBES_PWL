@@ -171,22 +171,26 @@
                         {{ $event->jam }}
                     </span>
 
-                    <form action="{{ route('rsvp.store') }}" method="POST">
-                        @csrf
+                   {{-- <form action="{{ route('rsvp.store') }}" method="POST"> --}}
 
-                        <input type="hidden"
-                               name="event_id"
-                               value="{{ $event->id }}">
+   <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
 
-                        <button type="submit"
-                            class="bg-yellow-400 hover:bg-yellow-300
-                                   text-red-700 font-bold
-                                   px-6 py-3 rounded-full
-                                   transition duration-300
-                                   hover:scale-105 shadow-lg">
-                            RSVP
-                        </button>
-                    </form>
+    <span class="font-bold text-lg bg-white/10 px-4 py-2 rounded-xl">
+        {{ $event->jam }}
+    </span>
+
+    <a href="{{ route('rsvp.create', ['event_id' => $event->id]) }}"
+       class="bg-yellow-400 hover:bg-yellow-300
+              text-red-700 font-bold
+              px-6 py-3 rounded-full
+              transition duration-300
+              hover:scale-105 shadow-lg">
+
+        RSVP
+
+    </a>
+
+</div>
 
                 </div>
 

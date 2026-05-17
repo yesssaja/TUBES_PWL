@@ -10,49 +10,17 @@ class LokerController extends Controller
 {
     public function index()
     {
-        $loker = Loker::with('perusahaan')->get();
+        $lokers = Loker::with('perusahaan')
+            ->latest()
+            ->get();
 
-        return view('pages.loker', compact('loker'));
+        return view('pages.loker', compact('lokers'));
     }
 
-    public function create()
+    public function show(Loker $loker)
     {
-        $perusahaan = Perusahaan::all();
+        $loker->load('perusahaan');
 
-        return view('pages.loker', compact('perusahaan'));
-    }
-
-    public function store(Request $request)
-    {
-        Loker::create($request->all());
-
-        return redirect()->route('loker.index');
-    }
-
-    public function edit($id)
-    {
-        $loker = Loker::findOrFail($id);
-
-        $perusahaan = Perusahaan::all();
-
-        return view('pages.loker', compact('loker', 'perusahaan'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $loker = Loker::findOrFail($id);
-
-        $loker->update($request->all());
-
-        return redirect()->route('loker.index');
-    }
-
-    public function destroy($id)
-    {
-        $loker = Loker::findOrFail($id);
-
-        $loker->delete();
-
-        return redirect()->route('loker.index');
+        return view('pages.detail_loker', compact('loker'));
     }
 }

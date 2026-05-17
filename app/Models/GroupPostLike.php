@@ -4,20 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rsvp extends Model
+class GroupPostLike extends Model
 {
     protected $fillable = [
+        'post_id',
+        'user_id',
+    ];
 
-    'name',
-    'email',
-    'user_id',
-    'event_id',
-    'status_kehadiran'
-];
-
-    public function event()
+    public function post()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(GroupPost::class, 'post_id');
     }
 
     public function user()
