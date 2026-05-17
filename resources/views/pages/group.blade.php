@@ -85,101 +85,54 @@
 
     </section>
 
-    <!-- Group Cards -->
-   <!-- Group Cards -->
+  <!-- Group Cards -->
 <section class="max-w-7xl mx-auto px-6 pb-16">
 
     <div class="grid md:grid-cols-3 gap-8">
 
-        <!-- Card 1 -->
-        <a href="{{ route('join_group') }}"
-           class="bg-white rounded-[30px] p-8 shadow-xl hover:scale-105 transition block">
+        @forelse($groups as $group)
 
-            <div class="bg-red-600 text-white w-20 h-20 rounded-3xl
-                        flex items-center justify-center text-4xl font-black">
-                W
+            <a href="{{ route('join_group', $group->slug) }}"
+               class="bg-white rounded-[30px] p-8 shadow-xl hover:scale-105 transition block">
+
+                <div class="bg-red-600 text-white w-20 h-20 rounded-3xl
+                            flex items-center justify-center text-4xl font-black">
+                    {{ $group->icon_letter ?? strtoupper(substr($group->name, 0, 1)) }}
+                </div>
+
+                <h2 class="text-3xl font-black text-slate-900 mt-6">
+                    {{ $group->name }}
+                </h2>
+
+                <p class="text-gray-600 mt-3">
+                    {{ $group->description }}
+                </p>
+
+                <div class="mt-5 text-sm text-gray-500 font-bold">
+                    👥 {{ $group->members_count }} Member
+                </div>
+
+                <div class="mt-6 bg-red-600 hover:bg-red-700
+                            transition text-white font-black
+                            px-6 py-3 rounded-2xl shadow-lg inline-block">
+                    Join Group
+                </div>
+
+            </a>
+
+        @empty
+
+            <div class="col-span-3 bg-white rounded-3xl p-10 text-center shadow-xl">
+                <h2 class="text-2xl font-black text-slate-900">
+                    Belum ada group
+                </h2>
+
+                <p class="text-gray-600 mt-3">
+                    Data group belum tersedia. Silakan jalankan seeder atau tambahkan group dari admin.
+                </p>
             </div>
 
-            <h2 class="text-3xl font-black text-slate-900 mt-6">
-                Web Developer
-            </h2>
-
-            <p class="text-gray-600 mt-3">
-                Komunitas programmer web untuk berbagi lowongan,
-                project, dan belajar bersama.
-            </p>
-
-            <div class="mt-5 text-sm text-gray-500 font-bold">
-                👥 12.4K Member
-            </div>
-
-            <button class="mt-6 bg-red-600 hover:bg-red-700
-                           transition text-white font-black
-                           px-6 py-3 rounded-2xl shadow-lg">
-                Join Group
-            </button>
-
-        </a>
-
-        <!-- Card 2 -->
-        <a href="{{ route('join_group') }}"
-           class="bg-white rounded-[30px] p-8 shadow-xl hover:scale-105 transition block">
-
-            <div class="bg-red-600 text-white w-20 h-20 rounded-3xl
-                        flex items-center justify-center text-4xl font-black">
-                D
-            </div>
-
-            <h2 class="text-3xl font-black text-slate-900 mt-6">
-                Digital Marketing
-            </h2>
-
-            <p class="text-gray-600 mt-3">
-                Tempat berbagi strategi marketing, freelance,
-                dan peluang kerja digital.
-            </p>
-
-            <div class="mt-5 text-sm text-gray-500 font-bold">
-                👥 8.7K Member
-            </div>
-
-            <button class="mt-6 bg-red-600 hover:bg-red-700
-                           transition text-white font-black
-                           px-6 py-3 rounded-2xl shadow-lg">
-                Join Group
-            </button>
-
-        </a>
-
-        <!-- Card 3 -->
-        <a href="{{ route('join_group') }}"
-           class="bg-white rounded-[30px] p-8 shadow-xl hover:scale-105 transition block">
-
-            <div class="bg-red-600 text-white w-20 h-20 rounded-3xl
-                        flex items-center justify-center text-4xl font-black">
-                U
-            </div>
-
-            <h2 class="text-3xl font-black text-slate-900 mt-6">
-                UI/UX Designer
-            </h2>
-
-            <p class="text-gray-600 mt-3">
-                Group desain UI/UX untuk sharing portfolio,
-                tips desain, dan info internship.
-            </p>
-
-            <div class="mt-5 text-sm text-gray-500 font-bold">
-                👥 5.2K Member
-            </div>
-
-            <button class="mt-6 bg-red-600 hover:bg-red-700
-                           transition text-white font-black
-                           px-6 py-3 rounded-2xl shadow-lg">
-                Join Group
-            </button>
-
-        </a>
+        @endforelse
 
     </div>
 

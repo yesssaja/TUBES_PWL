@@ -15,7 +15,9 @@ class RsvpController extends Controller
 
     public function index()
     {
-        $rsvps = Rsvp::with(['user', 'event'])->get();
+        $rsvps = Rsvp::with(['user', 'event'])
+            ->latest()
+            ->get();
 
         return view('admin.rsvp.index', compact('rsvps'));
     }
@@ -26,16 +28,18 @@ class RsvpController extends Controller
     |--------------------------------------------------------------------------
     */
 
-   public function approve($id)
-{
-    $rsvp = Rsvp::findOrFail($id);
+    public function approve($id)
+    {
+        $rsvp = Rsvp::findOrFail($id);
 
-    $rsvp->status_kehadiran = 'hadir';
+        $rsvp->status_kehadiran = 'hadir';
 
-    $rsvp->save();
+        $rsvp->save();
 
-    return back();
-}
+        return redirect()
+            ->route('admin.rsvp.index')
+            ->with('success', 'RSVP berhasil disetujui.');
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -43,14 +47,18 @@ class RsvpController extends Controller
     |--------------------------------------------------------------------------
     */
 
-   public function reject($id)
-{
-    $rsvp = Rsvp::findOrFail($id);
+    public function reject($id)
+    {
+        $rsvp = Rsvp::findOrFail($id);
 
-    $rsvp->status_kehadiran = 'ditolak';
+        // Pakai tidak_hadir, bukan ditolak
+        // karena database kamu kemungkinan enum-nya menerima: pending, hadir, tidak_hadir
+        $rsvp->status_kehadiran = 'tidak_hadir';
 
-    $rsvp->save();
+        $rsvp->save();
 
-    return back();
-}
+        return redirect()
+            ->route('admin.rsvp.index')
+            ->with('success', 'RSVP berhasil ditolak.');
+    }
 }

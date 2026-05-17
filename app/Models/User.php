@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function lamarans()
+{
+    return $this->hasMany(\App\Models\Lamaran::class);
+}
 }

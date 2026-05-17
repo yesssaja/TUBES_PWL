@@ -51,6 +51,34 @@
 
             @endif
 
+            @if(session('error'))
+
+                <div class="bg-red-100 border border-red-300 text-red-700 px-5 py-4 rounded-2xl mb-8 font-medium shadow-sm text-sm">
+                    {{ session('error') }}
+                </div>
+
+            @endif
+
+            @if($errors->any())
+
+                <div class="bg-red-100 border border-red-300 text-red-700 px-5 py-4 rounded-2xl mb-8 font-medium shadow-sm text-sm">
+                    <ul class="list-disc list-inside">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+
+            @endif
+
+            @php
+                $namaPerusahaan = $loker->perusahaan->nama_perusahaan ?? 'Perusahaan';
+                $logoInitial = strtoupper(substr($namaPerusahaan, 0, 2));
+                $tanggalDeadline = $loker->batas_lamaran
+                    ? \Carbon\Carbon::parse($loker->batas_lamaran)->translatedFormat('d F Y')
+                    : '-';
+            @endphp
+
             <div class="mb-10">
 
                 <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight mb-4">
@@ -80,7 +108,7 @@
                         <div class="w-20 h-20 bg-primary rounded-[20px] flex items-center justify-center shadow-md shrink-0">
 
                             <span class="text-white text-4xl font-extrabold">
-                                HL
+                                {{ $logoInitial }}
                             </span>
 
                         </div>
@@ -90,13 +118,13 @@
 
                             <h2 class="text-2xl lg:text-3xl font-extrabold text-primary mb-2 leading-tight">
 
-                                Host Live (Live Streamer)
+                                {{ $loker->judul_loker }}
 
                             </h2>
 
                             <p class="text-base text-slate-500 mb-4 font-medium">
 
-                                PT Host Live Indonesia
+                                {{ $namaPerusahaan }}
 
                             </p>
                             <div class="flex flex-wrap gap-6 text-sm font-medium text-slate-700">
@@ -115,7 +143,7 @@
                                     </div>
 
                                     <div>
-                                        <p class="font-semibold">Bandung, Jawa Barat</p>
+                                        <p class="font-semibold">{{ $loker->lokasi }}</p>
                                         <p class="text-xs text-slate-500">Lokasi</p>
                                     </div>
 
@@ -133,7 +161,7 @@
                                     </div>
 
                                     <div>
-                                        <p class="font-semibold">Full Time</p>
+                                        <p class="font-semibold">{{ $loker->tipe_pekerjaan }}</p>
                                         <p class="text-xs text-slate-500">Jenis Kerja</p>
                                     </div>
 
@@ -151,7 +179,7 @@
                                     </div>
 
                                     <div>
-                                        <p class="font-semibold">20 Juni 2025</p>
+                                        <p class="font-semibold">{{ $tanggalDeadline }}</p>
                                         <p class="text-xs text-slate-500">Deadline</p>
                                     </div>
 
@@ -167,7 +195,7 @@
 
                 <!-- FORM -->
                 <form
-                    action="{{ route('lamaran.store') }}"
+                    action="{{ route('lamaran.store', $loker->id) }}"
                     method="POST"
                     enctype="multipart/form-data"
                 >
@@ -204,13 +232,21 @@
                                     type="text"
                                     id="nama"
                                     name="nama"
+                                    value="{{ old('nama', auth()->user()->name ?? '') }}"
                                     placeholder="Masukkan nama lengkap"
+                                    readonly
                                     class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200"
                                 >
 
                                 <p id="namaError" class="text-red-500 text-xs mt-2 hidden">
                                     Nama lengkap wajib diisi
                                 </p>
+
+                                @error('nama')
+                                    <p class="text-red-500 text-xs mt-2">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
 
                             </div>
 
@@ -227,13 +263,21 @@
                                     type="email"
                                     id="email"
                                     name="email"
+                                    value="{{ old('email', auth()->user()->email ?? '') }}"
                                     placeholder="contoh@email.com"
+                                    readonly
                                     class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200"
                                 >
 
                                 <p id="emailError" class="text-red-500 text-sm mt-2 hidden">
                                     Email wajib diisi
                                 </p>
+
+                                @error('email')
+                                    <p class="text-red-500 text-sm mt-2">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
 
                             </div>
 
@@ -250,12 +294,19 @@
                                     type="text"
                                     id="hp"
                                     name="hp"
+                                    value="{{ old('hp') }}"
                                     placeholder="08xxxxxxxxxx"
                                     class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200"
                                 >
                                 <p id="hpError" class="text-red-500 text-sm mt-2 hidden">
                                     Nomor handphone wajib diisi
                                 </p>
+
+                                @error('hp')
+                                    <p class="text-red-500 text-sm mt-2">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
 
                             </div>
 
@@ -272,6 +323,7 @@
                                     type="text"
                                     id="tempat_lahir"
                                     name="tempat_lahir"
+                                    value="{{ old('tempat_lahir') }}"
                                     placeholder="Masukkan tempat lahir"
                                     class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200"
                                 >
@@ -279,6 +331,12 @@
                                 <p id="tempat_lahirError" class="text-red-500 text-sm mt-2 hidden">
                                     Tempat lahir wajib diisi
                                 </p>
+
+                                @error('tempat_lahir')
+                                    <p class="text-red-500 text-sm mt-2">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
 
                             </div>
 
@@ -295,12 +353,19 @@
                                     type="date"
                                     id="tanggal_lahir"
                                     name="tanggal_lahir"
+                                    value="{{ old('tanggal_lahir') }}"
                                     class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200"
                                 >
 
                                 <p id="tanggal_lahirError" class="text-red-500 text-sm mt-2 hidden">
                                     Tanggal lahir wajib diisi
                                 </p>
+
+                                @error('tanggal_lahir')
+                                    <p class="text-red-500 text-sm mt-2">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
 
                             </div>
 
@@ -322,6 +387,7 @@
                                             id="gender_laki"
                                             name="gender"
                                             value="Laki-laki"
+                                            {{ old('gender') == 'Laki-laki' ? 'checked' : '' }}
                                             class="accent-red-600"
                                         >
 
@@ -336,6 +402,7 @@
                                             id="gender_perempuan"
                                             name="gender"
                                             value="Perempuan"
+                                            {{ old('gender') == 'Perempuan' ? 'checked' : '' }}
                                             class="accent-red-600"
                                         >
 
@@ -347,6 +414,12 @@
                                     <p id="genderError" class="text-red-500 text-sm mt-2 hidden">
                                         Jenis kelamin wajib dipilih
                                     </p>
+
+                                    @error('gender')
+                                        <p class="text-red-500 text-sm mt-2">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                             </div>
 
                         </div>
@@ -392,6 +465,12 @@
                                 <p id="cvError" class="text-red-500 text-sm mt-2 hidden">
                                     CV wajib diupload (PDF maksimal 2MB)
                                 </p>
+
+                                @error('cv')
+                                    <p class="text-red-500 text-sm mt-2">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
 
                                 <!-- PREVIEW CV -->
                                 <div id="cvPreview" class="hidden mt-5">
@@ -439,6 +518,12 @@
                                     Foto harus JPG/PNG dan maksimal 2MB
                                 </p>
 
+                                @error('foto')
+                                    <p class="text-red-500 text-sm mt-2">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+
                                 <!-- PREVIEW FOTO -->
                                 <div class="mt-5">
 
@@ -467,9 +552,16 @@
                         <input
                             type="text"
                             name="portfolio"
+                            value="{{ old('portfolio') }}"
                             placeholder="https://example.com/portfolio"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200"
                         >
+
+                        @error('portfolio')
+                            <p class="text-red-500 text-sm mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
 
                     </div>
 
@@ -487,14 +579,20 @@
                             rows="5"
                             placeholder="Tulis motivasi Anda..."
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm resize-none focus:outline-none focus:ring-2 focus:ring-red-200"
-                        ></textarea>
+                        >{{ old('motivasi') }}</textarea>
+
+                        @error('motivasi')
+                            <p class="text-red-500 text-sm mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
 
                     </div>
 
                     <!-- BUTTON -->
                     <div class="flex flex-col md:flex-row gap-4 justify-between">
 
-                    <a href="/detail-loker"
+                    <a href="{{ route('loker.show', $loker->id) }}"
                         class="inline-flex items-center justify-center border-2 border-primary text-primary px-7 py-3 rounded-full font-bold text-sm hover:bg-primary hover:text-white transition duration-300">
 
                         ← Kembali

@@ -1,3 +1,5 @@
+// database/migrations/2026_05_14_095815_create_lokers_table.php
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -6,19 +8,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-   public function up(): void
+    public function up(): void
     {
         Schema::create('lokers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('perusahaan_id')->constrained('perusahaans')->onDelete('cascade');
+            $table->foreignId('perusahaan_id')->constrained('perusahaans')->cascadeOnDelete();
             $table->string('judul_loker');
             $table->text('deskripsi');
             $table->string('lokasi');
-            $table->string('tipe_pekerjaan');
-            $table->string('gaji')->nullable();
+            $table->string('tipe_pekerjaan', 100);
+            $table->string('gaji', 100)->nullable();
             $table->date('batas_lamaran');
             $table->timestamps();
         });
