@@ -3,57 +3,67 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lamaran;
+use App\Models\Loker;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class LamaranController extends Controller
 {
-    public function create()
+    public function create(Loker $loker)
     {
-        return view('pages.lamaran');
+        $loker->load('perusahaan');
+
+        return view('pages.lamaran', compact('loker'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Loker $loker)
     {
-        // VALIDASI FORM
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'hp' => 'required|string|max:20',
-            'tempat_lahir' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date',
-            'gender' => 'required|string',
-            'cv' => 'required|mimes:pdf|max:2048',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'portfolio' => 'nullable|string|max:255',
-            'motivasi' => 'nullable|string',
+        $user = $request->user();
+
+        $sudahMelamar = Lamaran::where('user_id', $user->id)
+            ->where('loker_id', $loker->id)
+            ->exists();
+
+        if ($sudahMelamar) {
+            return back()->with('error', 'Kamu sudah mengirim lamaran untuk loker ini.');
+        }
+
+        $validated = $request->validate([
+            'hp' => ['required', 'string', 'max:20'],
+            'tempat_lahir' => ['required', 'string', 'max:255'],
+            'tanggal_lahir' => ['required', 'date'],
+            'gender' => ['required', 'in:Laki-laki,Perempuan'],
+            'cv' => ['required', 'file', 'mimes:pdf', 'max:2048'],
+            'foto' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'portfolio' => ['nullable', 'string', 'max:255'],
+            'motivasi' => ['nullable', 'string'],
         ]);
 
-        // UPLOAD CV
         $cvPath = $request->file('cv')->store('lamaran/cv', 'public');
 
-        // UPLOAD FOTO
         $fotoPath = null;
 
         if ($request->hasFile('foto')) {
             $fotoPath = $request->file('foto')->store('lamaran/foto', 'public');
         }
 
-        // SIMPAN DATA LAMARAN
         Lamaran::create([
-            'user_id' => Auth::id(),
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'hp' => $request->hp,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'gender' => $request->gender,
+            'user_id' => $user->id,
+            'loker_id' => $loker->id,
+            'nama' => $user->name,
+            'email' => $user->email,
+            'hp' => $validated['hp'],
+            'tempat_lahir' => $validated['tempat_lahir'],
+            'tanggal_lahir' => $validated['tanggal_lahir'],
+            'gender' => $validated['gender'],
             'cv' => $cvPath,
             'foto' => $fotoPath,
-            'portfolio' => $request->portfolio,
-            'motivasi' => $request->motivasi,
+            'portfolio' => $validated['portfolio'] ?? null,
+            'motivasi' => $validated['motivasi'] ?? null,
+            'status_lamaran' => 'pending',
         ]);
 
-        return redirect('/success');
+        return redirect()
+            ->route('loker.show', $loker->id)
+            ->with('success', 'Lamaran berhasil dikirim. Tunggu konfirmasi dari admin.');
     }
 }

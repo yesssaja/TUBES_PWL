@@ -23,17 +23,17 @@
   <!-- Navbar -->
   <header class="fixed top-0 left-0 w-full bg-red-600 text-white shadow-lg z-50">
     <div class="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
-      
+
       <h1 class="text-3xl font-black tracking-wide">
         LOKER SEEKER🔥
       </h1>
 
-      //NNT SESUAIKAN SAMA DASHBOARD
+      <!-- Nanti sesuaikan dengan dashboard -->
       <nav class="hidden md:flex gap-8 font-semibold">
         <a href="#home" class="hover:text-yellow-300 transition">Home</a>
         <a href="#about" class="hover:text-yellow-300 transition">About</a>
         <a href="#schedule" class="hover:text-yellow-300 transition">Schedule</a>
-        <a href="#gallery" class="hover:text-yellow-300 transition">Gallery</a>
+        <a href="/" class="hover:text-yellow-300 transition">Dashboard</a>
       </nav>
 
     </div>
@@ -41,9 +41,9 @@
 
   <!-- Hero -->
   <section id="home" class="min-h-screen flex items-center justify-center px-6 pt-24">
-    
+
     <div class="max-w-7xl grid md:grid-cols-2 gap-12 items-center">
-      
+
       <!-- Text -->
       <div>
         <p class="text-red-600 font-bold uppercase tracking-widest mb-3">
@@ -56,13 +56,14 @@
 
         <p class="text-lg text-gray-700 leading-relaxed mb-8">
           Dapatkan pengalaman event penuh pengalaman, tantangan,
-          tips & trick, dan hal menarik untuk pengembagan karirmu.
+          tips & trick, dan hal menarik untuk pengembangan karirmu.
         </p>
 
         <div class="flex gap-4 flex-wrap">
-          <button class="bg-red-600 hover:bg-red-700 transition text-white px-8 py-4 rounded-full font-bold shadow-xl">
+          <a href="#schedule"
+             class="bg-red-600 hover:bg-red-700 transition text-white px-8 py-4 rounded-full font-bold shadow-xl">
             See the Event
-          </button>
+          </a>
         </div>
       </div>
 
@@ -86,9 +87,9 @@
 
   <!-- About -->
   <section id="about" class="py-24 px-6">
-    
+
     <div class="max-w-6xl mx-auto text-center">
-      
+
       <h2 class="text-5xl font-black text-red-600 mb-6">
         Tentang Event
       </h2>
@@ -105,7 +106,7 @@
           <div class="text-5xl mb-4">🏢</div>
           <h3 class="text-2xl font-bold mb-3">Stan Perusahaan</h3>
           <p class="text-gray-600">
-             Perusahaan membuka stan untuk mengumpulkan CV, 
+             Perusahaan membuka stan untuk mengumpulkan CV,
              memberikan informasi lowongan, dan melakukan screening awal.
           </p>
         </div>
@@ -134,71 +135,79 @@
 
   </section>
 
- <!-- Schedule -->
-<section id="schedule" class="py-24 px-6 bg-red-600 text-white">
+  <!-- Schedule -->
+  <section id="schedule" class="py-24 px-6 bg-red-600 text-white">
 
     <div class="max-w-5xl mx-auto">
 
-        <h2 class="text-5xl font-black text-center mb-16">
-            Jadwal Event
-        </h2>
+      <h2 class="text-5xl font-black text-center mb-16">
+        Jadwal Event
+      </h2>
 
-        <div class="space-y-6">
+      <div class="space-y-6">
 
-            @foreach($events as $event)
+        @forelse($events as $event)
 
-            <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-xl 
-                        hover:scale-[1.02] transition duration-300
-                        flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl shadow-xl
+                      hover:scale-[1.02] transition duration-300
+                      flex flex-col md:flex-row md:items-center md:justify-between gap-6">
 
-                <!-- Kiri -->
-                <div>
+            <!-- Kiri -->
+            <div>
+              <h3 class="text-2xl font-bold">
+                {{ $event->nama_event }}
+              </h3>
 
-                    <h3 class="text-2xl font-bold mt-4">
-                        {{ $event->nama_event }}
-                    </h3>
+              <p class="text-yellow-200 mt-2">
+                📍 {{ $event->lokasi }}
+              </p>
 
-                    <p class="text-yellow-200 mt-2">
-                        {{ $event->lokasi }}
-                    </p>
+              @if(isset($event->tanggal))
+                <p class="text-yellow-100 mt-1">
+                  📅 {{ $event->tanggal }}
+                </p>
+              @endif
+            </div>
 
-                </div>
+            <!-- Kanan -->
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
 
-                <!-- Kanan -->
-                <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+              <span class="font-bold text-lg bg-white/10 px-4 py-2 rounded-xl">
+                {{ $event->jam ?? $event->waktu ?? '-' }}
+              </span>
 
-                    <span class="font-bold text-lg bg-white/10 px-4 py-2 rounded-xl">
-                        {{ $event->jam }}
-                    </span>
-
-                    <form action="{{ route('rsvp.store') }}" method="POST">
-                        @csrf
-
-                        <input type="hidden"
-                               name="event_id"
-                               value="{{ $event->id }}">
-
-                        <button type="submit"
-                            class="bg-yellow-400 hover:bg-yellow-300
-                                   text-red-700 font-bold
-                                   px-6 py-3 rounded-full
-                                   transition duration-300
-                                   hover:scale-105 shadow-lg">
-                            RSVP
-                        </button>
-                    </form>
-
-                </div>
+              <a href="{{ route('rsvp.create', $event->id) }}"
+                 class="bg-yellow-400 hover:bg-yellow-300
+                        text-red-700 font-bold
+                        px-6 py-3 rounded-full
+                        transition duration-300
+                        hover:scale-105 shadow-lg">
+                RSVP
+              </a>
 
             </div>
 
-            @endforeach
+          </div>
 
-        </div>
+        @empty
+
+          <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl text-center">
+            <h3 class="text-2xl font-bold">
+              Belum ada event
+            </h3>
+
+            <p class="text-yellow-100 mt-2">
+              Data event belum tersedia.
+            </p>
+          </div>
+
+        @endforelse
+
+      </div>
 
     </div>
 
-</section>
+  </section>
 
   <!-- Footer -->
   <footer class="bg-gray-900 text-white py-10 text-center">

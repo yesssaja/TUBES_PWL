@@ -25,6 +25,10 @@
             </p>
         </div>
 
+        <a href="{{ route('admin.dashboard') }}" class="bg-gray-800 text-white px- py-3 rounded-xl font-bold">
+            Dashboard
+        </a>
+
         <a href="{{ route('admin.event.create') }}"
            class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-5 py-3 rounded-xl shadow transition">
 
