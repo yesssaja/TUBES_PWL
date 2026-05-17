@@ -46,17 +46,31 @@ class ServiceController extends Controller
             $query->where('category', $request->category);
         }
 
-        // AMBIL DATA SERVICE SESUAI FILTER
-        $services = $query->latest()->paginate(9)->withQueryString();
+        // FILTER LOKASI
+        if ($request->filled('location') && $request->location !== 'all') {
+            $query->where('location', $request->location);
+        }
 
-        // AMBIL KATEGORI YANG BENAR-BENAR ADA DI DATABASE
+        // DATA SERVICE
+        $services = $query->latest()
+            ->paginate(9)
+            ->withQueryString();
+
+        // OPTION KATEGORI DARI DATABASE
         $categories = Service::select('category')
             ->whereNotNull('category')
             ->distinct()
             ->orderBy('category', 'asc')
             ->pluck('category');
 
-        return view('pages.all-service', compact('services', 'categories'));
+        // OPTION LOKASI DARI DATABASE
+        $locations = Service::select('location')
+            ->whereNotNull('location')
+            ->distinct()
+            ->orderBy('location', 'asc')
+            ->pluck('location');
+
+        return view('pages.all-service', compact('services', 'categories', 'locations'));
     }
 
     public function create()

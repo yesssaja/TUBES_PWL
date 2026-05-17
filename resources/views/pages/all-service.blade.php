@@ -106,7 +106,7 @@
 
                 <form action="{{ route('service.all') }}" method="GET">
 
-                    <div class="grid lg:grid-cols-3 gap-4">
+                    <div class="grid lg:grid-cols-4 gap-4">
 
                         {{-- SEARCH --}}
                         <div class="lg:col-span-2">
@@ -130,6 +130,24 @@
                                 @foreach($categories as $category)
                                     <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>
                                         {{ $category }}
+                                    </option>
+                                @endforeach
+
+                            </select>
+
+                        </div>
+
+                        {{-- LOCATION --}}
+                        <div>
+
+                            <select name="location"
+                                class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200">
+
+                                <option value="all">Semua Lokasi</option>
+
+                                @foreach($locations as $location)
+                                    <option value="{{ $location }}" {{ request('location') == $location ? 'selected' : '' }}>
+                                        {{ $location }}
                                     </option>
                                 @endforeach
 
@@ -383,46 +401,6 @@
         </div>
 
     </section>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const emptyFilter = document.getElementById('emptyFilter');
-            const serviceGrid = document.getElementById('serviceGrid');
-
-            function filterServices() {
-                const keyword = searchInput.value.toLowerCase();
-                const selectedCategory = categoryFilter.value;
-                let visibleCount = 0;
-
-                serviceCards.forEach(function (card) {
-                    const name = card.dataset.name;
-                    const service = card.dataset.service;
-                    const category = card.dataset.category;
-
-                    const matchKeyword = name.includes(keyword) || service.includes(keyword);
-                    const matchCategory = selectedCategory === 'all' || category === selectedCategory;
-
-                    if (matchKeyword && matchCategory) {
-                        card.classList.remove('hidden');
-                        visibleCount++;
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-
-                if (visibleCount === 0 && serviceCards.length > 0) {
-                    emptyFilter.classList.remove('hidden');
-                    serviceGrid.classList.add('hidden');
-                } else {
-                    emptyFilter.classList.add('hidden');
-                    serviceGrid.classList.remove('hidden');
-                }
-            }
-
-            searchInput.addEventListener('input', filterServices);
-            categoryFilter.addEventListener('change', filterServices);
-        });
-    </script>
 
 </body>
 
