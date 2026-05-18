@@ -26,7 +26,10 @@
         </div>
 
         <!-- Form -->
-        <form>
+        <form action="{{ route('admin.event.store') }}"
+      method="POST">
+
+    @csrf
 
             <!-- Nama Event -->
             <div class="mb-5">
@@ -35,7 +38,7 @@
                     Nama Event
                 </label>
 
-                <input type="text"
+                <input type="text" name="nama_event"
                        placeholder="Masukkan nama event"
                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400">
 
@@ -48,7 +51,7 @@
                     Tanggal Event
                 </label>
 
-                <input type="date"
+                <input type="date" name="tanggal_event"
                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400">
 
             </div>
@@ -60,7 +63,7 @@
                     Lokasi
                 </label>
 
-                <input type="text"
+                <input type="text" name="lokasi"
                        placeholder="Masukkan lokasi event"
                        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400">
 
@@ -73,12 +76,45 @@
                     Deskripsi
                 </label>
 
-                <textarea rows="5"
+                <textarea rows="5" name="deskripsi"
                           placeholder="Masukkan deskripsi event"
                           class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400"></textarea>
 
             </div>
 
+<div class="mb-5">
+
+    <label class="block text-gray-700 font-semibold mb-2">
+        Kuota
+    </label>
+
+    <input type="number"
+           name="kuota"
+           placeholder="Masukkan kuota peserta"
+           class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400">
+
+</div>
+
+<div class="mb-5">
+
+    <label class="block text-gray-700 font-semibold mb-2">
+        Perusahaan
+    </label>
+
+    <select name="perusahaan_id"
+            class="w-full border border-gray-300 rounded-xl px-4 py-3">
+
+        @foreach($perusahaan as $p)
+
+            <option value="{{ $p->id }}">
+                {{ $p->nama_perusahaan }}
+            </option>
+
+        @endforeach
+
+    </select>
+
+</div>
             <!-- Button -->
             <div class="flex justify-end gap-3">
 

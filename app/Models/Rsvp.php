@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Rsvp extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'user_id',
         'event_id',
-        'status_kehadiran'
+        'name',
+        'email',
+        'hp',
+        'status_kehadiran',
     ];
 
     public function user()

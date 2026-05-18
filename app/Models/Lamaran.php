@@ -12,9 +12,21 @@ class Lamaran extends Model
     protected $fillable = [
         'user_id',
         'loker_id',
+        'nama',
+        'email',
+        'hp',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'gender',
         'cv',
+        'foto',
         'portfolio',
-        'status_lamaran'
+        'motivasi',
+        'status_lamaran',
+    ];
+
+    protected $casts = [
+        'tanggal_lahir' => 'date',
     ];
 
     public function user()

@@ -1,13 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
+// USER / PUBLIC CONTROLLERS
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\LokerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RsvpController;
 use App\Http\Controllers\LamaranController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\GroupController;
+
+// ADMIN CONTROLLERS
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\PerusahaanController as AdminPerusahaanController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
+use App\Http\Controllers\Admin\GroupController as AdminGroupController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\RsvpController as AdminRsvpController;
+use App\Http\Controllers\Admin\LokerController as AdminLokerController;
+use App\Http\Controllers\Admin\LamaranController as AdminLamaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,41 +32,85 @@ Route::get('/', function () {
     return view('pages.welcome');
 })->name('welcome');
 
+/*
+|--------------------------------------------------------------------------
+| Perusahaan Public Route
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/perusahaan/detail', [PerusahaanController::class, 'firstDetail'])
+    ->name('perusahaan.detail.default');
+
+Route::get('/perusahaan/detail/{perusahaan}', [PerusahaanController::class, 'detail'])
+    ->name('perusahaan.detail');
+
+/*
+|--------------------------------------------------------------------------
+| Review Public Route
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/perusahaan/review/{perusahaan}', [ReviewController::class, 'index'])
+    ->name('perusahaan.review');
+
+Route::get('/review/tulis/{perusahaan}', [ReviewController::class, 'create'])
+    ->name('tulis.review');
+
+Route::post('/review/tulis', [ReviewController::class, 'store'])
+    ->name('review.store');
+
+/*
+|--------------------------------------------------------------------------
+| Event Public Route
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/event', [EventController::class, 'index'])
+    ->name('event.index');
+
+Route::get('/event/{event}', [EventController::class, 'show'])
+    ->name('event.show');
+
+/*
+|--------------------------------------------------------------------------
+| Loker Public Route
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/loker', [LokerController::class, 'index'])
+    ->name('loker.index');
+
+Route::get('/loker/{loker}', [LokerController::class, 'show'])
+    ->name('loker.show');
+
 Route::get('/detail-loker', function () {
-    return view('pages.detail_loker');
-})->name('detail.loker');
+    return redirect()->route('loker.index');
+})->name('detail.loker.redirect');
 
-Route::get('/perusahaan/detail', function () {
-    return view('pages.perusahaan');
-})->name('perusahaan.detail');
+Route::get('/detail-loker/{loker}', [LokerController::class, 'show'])
+    ->name('detail.loker');
 
-Route::get('/perusahaan/review', function () {
-    return view('pages.review'); 
-})->name('perusahaan.review');
-
-Route::get('/review/tulis', function () {
-    return view('pages.tulis_review'); 
-})->name('tulis.review');
-
-Route::get('/event', function () {
-    return view('pages.event');
-})->name('event');
-
-Route::get('/lamaran', function () {
-    return view('pages.lamaran');
-})->name('lamaran');
+/*
+|--------------------------------------------------------------------------
+| Success Route
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/success', function () {
     return view('pages.success');
-});
+})->name('success');
 
-Route::get('/join-group', function () {
-    return view('pages.join_group');
-})->name('join_group');
+/*
+|--------------------------------------------------------------------------
+| User Group Public Route
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/group', function () {
-    return view('pages.group');
-});
+Route::get('/group', [GroupController::class, 'index'])
+    ->name('groups.index');
+
+Route::get('/join-group/{group:slug}', [GroupController::class, 'show'])
+    ->name('join_group');
 
 /*
 |--------------------------------------------------------------------------
@@ -61,21 +118,29 @@ Route::get('/group', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/service', function () {
-    return view('pages.service');
-});
+Route::get('/service', [ServiceController::class, 'index'])
+    ->name('service.index');
 
-Route::get('/service/detail', function () {
-    return view('pages.detail-service');
-});
+Route::get('/service/form', [ServiceController::class, 'create'])
+    ->name('service.create');
 
-Route::get('/service/form', function () {
-    return view('pages.tawarkan-service');
-});
+Route::post('/service', [ServiceController::class, 'store'])
+    ->name('service.store');
 
-Route::get('/service/all', function () {
-    return view('pages.all-service');
-});
+Route::get('/service/detail/{service}', [ServiceController::class, 'show'])
+    ->name('service.show');
+
+Route::get('/service/all', [ServiceController::class, 'all'])
+    ->name('service.all');
+/*
+|--------------------------------------------------------------------------
+| Course Route
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/course', function () {
+    return view('course.index');
+})->name('course.index');
 
 /*
 |--------------------------------------------------------------------------
@@ -83,7 +148,7 @@ Route::get('/service/all', function () {
 |--------------------------------------------------------------------------
 */
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -93,10 +158,57 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::resource('lamaran', LamaranController::class);
+    /*
+    |--------------------------------------------------------------------------
+    | RSVP User Route
+    |--------------------------------------------------------------------------
+    */
 
-    Route::resource('rsvp', RsvpController::class);
+    Route::get('/rsvp', function () {
+        return redirect()
+            ->route('event.index')
+            ->with('error', 'Pilih event terlebih dahulu sebelum RSVP.');
+    })->name('rsvp.redirect');
 
+    Route::get('/rsvp/{event}', [RsvpController::class, 'create'])
+        ->name('rsvp.create');
+
+    Route::post('/rsvp/{event}', [RsvpController::class, 'store'])
+        ->name('rsvp.store');
+
+    Route::get('/berhasil_daftar_event', function () {
+        return view('pages.berhasil_daftar_event');
+    })->name('rsvp.success');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Lamaran User Route
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/lamaran', function () {
+        return redirect()
+            ->route('loker.index')
+            ->with('error', 'Pilih loker terlebih dahulu sebelum mengirim lamaran.');
+    })->name('lamaran.redirect');
+
+    Route::get('/lamaran/{loker}', [LamaranController::class, 'create'])
+        ->name('lamaran.create');
+
+    Route::post('/lamaran/{loker}', [LamaranController::class, 'store'])
+        ->name('lamaran.store');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Group User Action Route
+    |--------------------------------------------------------------------------
+    */
+
+    Route::post('/group/{group:slug}/join', [GroupController::class, 'join'])
+        ->name('groups.join');
+
+    Route::delete('/group/{group:slug}/leave', [GroupController::class, 'leave'])
+        ->name('groups.leave');
 });
 
 /*
@@ -105,32 +217,156 @@ Route::middleware(['auth'])->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
-    Route::get('/admin', function () {
-        return view('admin.admin');
-    })->name('admin');
+        /*
+        |--------------------------------------------------------------------------
+        | Dashboard Admin
+        |--------------------------------------------------------------------------
+        */
 
-    Route::resource('perusahaan', PerusahaanController::class);
+        Route::get('/', function () {
+            $totalUser = \App\Models\User::count();
+            $totalEvent = \App\Models\Event::count();
+            $totalLoker = \App\Models\Loker::count();
+            $totalLamaran = \App\Models\Lamaran::count();
+            $totalPerusahaan = \App\Models\Perusahaan::count();
+            $totalGroup = \App\Models\Group::count();
+            $totalReview = \App\Models\Review::count();
 
-    Route::resource('loker', LokerController::class);
+            return view('admin.admin', compact(
+                'totalUser',
+                'totalEvent',
+                'totalLoker',
+                'totalLamaran',
+                'totalPerusahaan',
+                'totalGroup',
+                'totalReview'
+            ));
+        })->name('dashboard');
 
-    Route::resource('event', EventController::class);
 
-});
+        /*
+        |--------------------------------------------------------------------------
+        | User Admin
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/user', [AdminUserController::class, 'index'])
+            ->name('user.index');
 
-/*
-|--------------------------------------------------------------------------
-| RSVP Submit
-|--------------------------------------------------------------------------
-*/
+        Route::delete('/user/{user}', [AdminUserController::class, 'destroy'])
+            ->name('user.destroy');
 
-Route::post('/rsvp-submit', function (Request $request) {
+        /*
+        |--------------------------------------------------------------------------
+        | Perusahaan Admin
+        |--------------------------------------------------------------------------
+        */
 
-    return redirect('/berhasil_daftar_event');
+        Route::resource('perusahaan', AdminPerusahaanController::class)
+            ->except(['show']);
 
-});
+        /*
+        |--------------------------------------------------------------------------
+        | Loker Admin
+        |--------------------------------------------------------------------------
+        */
 
-Route::get('/berhasil_daftar_event', function () {
-    return view('pages.berhasil_daftar_event');
-});
+        Route::resource('loker', AdminLokerController::class)
+            ->except(['show']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Lamaran Admin
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/lamaran', [AdminLamaranController::class, 'index'])
+            ->name('lamaran.index');
+
+        Route::put('/lamaran/{lamaran}/approve', [AdminLamaranController::class, 'approve'])
+            ->name('lamaran.approve');
+
+        Route::put('/lamaran/{lamaran}/reject', [AdminLamaranController::class, 'reject'])
+            ->name('lamaran.reject');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Event Admin
+        |--------------------------------------------------------------------------
+        */
+
+        Route::resource('event', AdminEventController::class)
+            ->except(['show']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | RSVP Admin
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/rsvp', [AdminRsvpController::class, 'index'])
+            ->name('rsvp.index');
+
+        Route::put('/rsvp/{rsvp}/approve', [AdminRsvpController::class, 'approve'])
+            ->name('rsvp.approve');
+
+        Route::put('/rsvp/{rsvp}/reject', [AdminRsvpController::class, 'reject'])
+            ->name('rsvp.reject');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Group Admin
+        |--------------------------------------------------------------------------
+        */
+
+        Route::prefix('groups')
+            ->name('groups.')
+            ->group(function () {
+                Route::get('/', [AdminGroupController::class, 'index'])
+                    ->name('index');
+
+                Route::get('/create', [AdminGroupController::class, 'create'])
+                    ->name('create');
+
+                Route::post('/', [AdminGroupController::class, 'store'])
+                    ->name('store');
+
+                Route::get('/{group:slug}/edit', [AdminGroupController::class, 'edit'])
+                    ->name('edit');
+
+                Route::put('/{group:slug}', [AdminGroupController::class, 'update'])
+                    ->name('update');
+
+                Route::delete('/{group:slug}', [AdminGroupController::class, 'destroy'])
+                    ->name('destroy');
+            });
+
+        /*
+        |--------------------------------------------------------------------------
+        | Review Admin
+        |--------------------------------------------------------------------------
+        */
+
+        Route::prefix('review')
+            ->name('review.')
+            ->group(function () {
+                Route::get('/', [AdminReviewController::class, 'index'])
+                    ->name('index');
+
+                Route::get('/{review}/edit', [AdminReviewController::class, 'edit'])
+                    ->name('edit');
+
+                Route::put('/{review}', [AdminReviewController::class, 'update'])
+                    ->name('update');
+
+                Route::delete('/{review}', [AdminReviewController::class, 'destroy'])
+                    ->name('destroy');
+
+                Route::put('/{review}/reply', [AdminReviewController::class, 'reply'])
+                    ->name('reply');
+            });
+    });

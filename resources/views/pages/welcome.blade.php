@@ -64,9 +64,34 @@
 
             </div>
 
+            @guest
+                <a href="{{route('login')}}" class="text-white font-bold uppercase hover:underline">Login</a>
+                <a href="{{route('register')}}" class="text-white font-bold uppercase hover:underline">Register</a>
+            @endguest
+
+            @auth
+            <div class="relative">
+                <button onclick="toggleProfile()" class="flex items-center gap-2 text-white font-bold">
+                    <div class="w-10 h-10 rounded-full bg-white text-red-600 flex items-center justify-center font-black text-lg">
+                        {{strtoupper(substr(Auth::user()->name,0,1))}}
+                    </div>
+                </button>
+
+                <div id="profileDropdown" class="hidden absolute right-0 mt-3 w-48 bg-white rounded-2xl shadow-2xl p-4 z-50">
+                    <p class=" font-bold text-slate-900 px-2 mb-2">
+                        {{Auth::user()->name}}
+                    </p>
+                    <hr class="mb-2">
+                    <form action="{{route('logout')}}" method="post">
+                        @csrf
+                        <button type="submit" class="w-full text-left px-2 py-2 font-bold text-red-600 hover:bg-red-100 rounded-xl">Logout</button>
+                    </form>
+                </div>
+            </div>
+            @endauth
         </div>
     </div>
-</header>
+    </header>
 
     <!-- HERO -->
     <section class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
@@ -342,6 +367,10 @@
 <script>
 function toggleMenu() {
     document.getElementById('menuDropdown').classList.toggle('hidden');
+}
+
+function toggleProfile() {
+    document.getElementById('profileDropdown').classList.toggle('hidden');
 }
 </script>
 

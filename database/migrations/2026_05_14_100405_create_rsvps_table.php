@@ -6,35 +6,36 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('rsvps', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('user_id')
-                  ->constrained()
-                  ->onDelete('cascade');
+                ->nullable()
+                ->constrained('users')
+                ->cascadeOnDelete();
 
             $table->foreignId('event_id')
-                  ->constrained('events')
-                  ->onDelete('cascade');
+                ->constrained('events')
+                ->cascadeOnDelete();
+
+            $table->string('name');
+            $table->string('email');
+            $table->string('hp', 20)->nullable();
 
             $table->enum('status_kehadiran', [
                 'pending',
                 'hadir',
-                'tidak_hadir'
+                'tidak_hadir',
             ])->default('pending');
 
             $table->timestamps();
+
+            $table->unique(['user_id', 'event_id']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('rsvps');

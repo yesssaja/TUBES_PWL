@@ -16,37 +16,84 @@
 </head>
 <body  class="bg-gradient-to-b from-yellow-100 via-orange-50 to-yellow-200 text-gray-800 font-sans">
 
+    @php
+        $perusahaan = $loker->perusahaan ?? null;
+
+        $namaPerusahaan = $perusahaan->nama_perusahaan ?? 'Perusahaan';
+        $judulLoker = $loker->judul_loker ?? 'Lowongan Kerja';
+        $lokasi = $loker->lokasi ?? '-';
+        $tipePekerjaan = $loker->tipe_pekerjaan ?? '-';
+        $gaji = $loker->gaji ?? 'Kompetitif';
+        $deskripsi = $loker->deskripsi ?? '-';
+
+        $tanggalDeadline = $loker->batas_lamaran
+            ? \Carbon\Carbon::parse($loker->batas_lamaran)->format('d M Y')
+            : '-';
+
+        $tanggalPublish = $loker->created_at
+            ? \Carbon\Carbon::parse($loker->created_at)->diffForHumans()
+            : '-';
+
+        $logoPerusahaan = $perusahaan && !empty($perusahaan->logo)
+            ? asset('storage/' . $perusahaan->logo)
+            : asset('foto_perusahaan/images.png');
+
+        $tentangPerusahaan = $perusahaan->deskripsi ?? 'Informasi perusahaan belum tersedia.';
+        $bidangPerusahaan = $perusahaan->bidang ?? 'Company';
+        $jumlahKaryawan = $perusahaan->jumlah_karyawan ?? '-';
+    @endphp
+
     <header class="bg-red-brand text-white p-4 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold italic tracking-wider">LOKER SEEKER</h1>
             <nav class="hidden md:flex space-x-6 font-medium">
-                <a href="#" class="hover:text-yellow-300">Home</a>
-                <a href="#" class="hover:text-yellow-300 border-b-2 border-yellow-300">Jobs</a>
-                <a href="#" class="hover:text-yellow-300">Company</a>
+                <a href="{{ url('/') }}" class="hover:text-yellow-300">Home</a>
+                <a href="{{ route('loker.index') }}" class="hover:text-yellow-300 border-b-2 border-yellow-300">Jobs</a>
+                <a href="{{ url('/perusahaan') }}" class="hover:text-yellow-300">Company</a>
             </nav>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8 max-w-5xl">
+
+        @if(session('success'))
+            <div class="bg-green-100 border border-green-300 text-green-700 px-5 py-4 rounded-2xl mb-8 font-medium shadow-sm text-sm">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="bg-red-100 border border-red-300 text-red-700 px-5 py-4 rounded-2xl mb-8 font-medium shadow-sm text-sm">
+                {{ session('error') }}
+            </div>
+        @endif
         
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
             <div class="bg-yellow-brand h-32 w-full"></div> <div class="px-8 pb-8 -mt-12">
                 <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4">
                     <div class="flex flex-col">
-                       <img src="{{ asset('foto_perusahaan/images.png') }}"  alt="Logo Perusahaan" class="w-24 h-24 rounded-xl border-4 border-white shadow-md bg-white object-contain mb-4">
-                        <h2 class="text-3xl font-bold text-gray-800">Maintenance Manager</h2>
-                        <p class="text-xl text-red-brand font-semibold">SHOPEE</p>
+                       <img src="{{ $logoPerusahaan }}"  alt="Logo Perusahaan" class="w-24 h-24 rounded-xl border-4 border-white shadow-md bg-white object-contain mb-4">
+                        <h2 class="text-3xl font-bold text-gray-800">{{ $judulLoker }}</h2>
+                        <p class="text-xl text-red-brand font-semibold">{{ $namaPerusahaan }}</p>
                         
                         <div class="flex flex-wrap gap-4 mt-3 text-gray-500 text-sm">
-                            <span><i class="fas fa-map-marker-alt mr-1"></i> Medan, Sumatera Utara</span>
-                            <span><i class="fas fa-briefcase mr-1"></i> Finance</span>
-                            <span><i class="fas fa-pencil mr-1"></i> Dipublish 2 hari yang lalu</span>
-                            <span><i class="fas fa-clock mr-1"></i> 20 Juni 2026</span>
+                            <span><i class="fas fa-map-marker-alt mr-1"></i> {{ $lokasi }}</span>
+                            <span><i class="fas fa-briefcase mr-1"></i> {{ $tipePekerjaan }}</span>
+                            <span><i class="fas fa-pencil mr-1"></i> Dipublish {{ $tanggalPublish }}</span>
+                            <span><i class="fas fa-clock mr-1"></i> {{ $tanggalDeadline }}</span>
                         </div>
                     </div>
-                      <a href="/lamaran" class="bg-red-brand hover:bg-red-700 text-white px-10 py-3 rounded-full font-bold shadow-lg transition-all transform hover:scale-105">
-                        Apply Now
-                      </a>
+
+                    @auth
+                        <a href="{{ route('lamaran.create', $loker->id) }}" class="bg-red-brand hover:bg-red-700 text-white px-10 py-3 rounded-full font-bold shadow-lg transition-all transform hover:scale-105">
+                            Apply Now
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="bg-red-brand hover:bg-red-700 text-white px-10 py-3 rounded-full font-bold shadow-lg transition-all transform hover:scale-105">
+                            Login untuk Apply
+                        </a>
+                    @endauth
+
                 </div>
             </div>
         </div>
@@ -55,39 +102,44 @@
             <div class="lg:col-span-2 space-y-6">
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                     <h3 class="text-xl font-bold mb-4 border-b-2 border-yellow-brand inline-block">Job Description</h3>
-                    <ul class="list-disc ml-5 space-y-2 text-gray-600 mt-4">
-                        <li>Coordinate and monitor the implementation of maintenance to be completed in accordance with the target time and results set.</li>
-                        <li>Monitor and ensure the running of preventive maintenance and maintenance of existing instruments and electrical equipment.</li>
-                        <li>Ensure calibration is on schedule.</li>
-                    </ul>
+
+                    <div class="text-gray-600 mt-4 leading-relaxed whitespace-pre-line">
+                        {{ $deskripsi }}
+                    </div>
 
                     <h3 class="text-xl font-bold mt-8 mb-4 border-b-2 border-yellow-brand inline-block">Job Requirements</h3>
-                    <ul class="list-disc ml-5 space-y-2 text-gray-600 mt-4">
-                        <li>Bachelor degree (Mechanical Engineering) from reputable University.</li>
-                        <li>Minimal 15 years experiences in chemical plant maintenance with minimal 5 years at managerial position.</li>
-                        <li>Strong leadership and communication skills.</li>
-                        <li>Willing to be placed in Medan.</li>
-                    </ul>
+
+                    <div class="text-gray-600 mt-4 leading-relaxed">
+                        <p>Persyaratan lengkap dapat dilihat pada deskripsi lowongan atau akan diinformasikan oleh perusahaan saat proses seleksi.</p>
+                    </div>
                 </div>
 
                 <div class="bg-yellow-100 p-8 rounded-2xl shadow-sm border border-gray-100">
                     <h3 class="text-xl font-bold mb-6">About the company</h3>
                     <div class="flex items-start gap-4 mb-4">
-                       <img src="/foto_perusahaan/images.png"  alt="Logo" class="rounded-md border">
+                       <img src="{{ $logoPerusahaan }}"  alt="Logo" class="rounded-md border">
                         <div>
-                            <h4 class="font-bold text-lg">SHOPEE</h4>
+                            <h4 class="font-bold text-lg">{{ $namaPerusahaan }}</h4>
                             <p class="text-sm text-gray-500">
-                        Food and Beverage Manufacturing • 10,001+ employees • 13,382 on LOKER SEEKER
-                    </p>
-                    <p class="text-gray-600 text-sm italic">
-                        "Di Sinar Mas Agribusiness and Food, kami bertumbuh dengan tujuan. Minyak kelapa sawit menjadi awal dari perjalanan kami..."
-                    </p>
+                                {{ $bidangPerusahaan }} • {{ $jumlahKaryawan }} employees • LOKER SEEKER
+                            </p>
+                            <p class="text-gray-600 text-sm italic">
+                                "{{ $tentangPerusahaan }}"
+                            </p>
                         </div>
                     </div>
 
-                    <a href="{{ route('perusahaan.detail') }}" class="mt-6 w-full py-2 border-2 border-red-600 text-yellow-600 font-bold rounded-lg hover:bg-blue-50 transition">
-                        Show more
-                    </a>
+                    @if($perusahaan)
+    <a href="{{ route('perusahaan.detail', $perusahaan->id) }}"
+       class="mt-6 inline-block w-full text-center py-2 border-2 border-red-600 text-yellow-600 font-bold rounded-lg hover:bg-blue-50 transition">
+        Show more
+    </a>
+@else
+    <a href="{{ route('loker.index') }}"
+       class="mt-6 inline-block w-full text-center py-2 border-2 border-red-600 text-yellow-600 font-bold rounded-lg hover:bg-blue-50 transition">
+        Show more
+    </a>
+@endif
                 </div>
             </div>
 
@@ -97,15 +149,15 @@
                     <div class="space-y-4 text-sm">
                         <div class="flex justify-between">
                             <span class="text-gray-700">Tipe Kontrak:</span>
-                            <span class="font-bold">Full-time</span>
+                            <span class="font-bold">{{ $tipePekerjaan }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-700">Gaji:</span>
-                            <span class="font-bold text-red-brand">Kompetitif</span>
+                            <span class="font-bold text-red-brand">{{ $gaji }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-700">Level:</span>
-                            <span class="font-bold">Manager</span>
+                            <span class="font-bold">-</span>
                         </div>
                     </div>
                 </div>
@@ -116,7 +168,7 @@
                         <a href="https://web.facebook.com/?locale=id_ID&_rdc=1&_rdr#" class="text-blue-600 text-xl hover:scale-110 transition"><i class="fab fa-facebook"></i></a>
                          <a href="https://www.instagram.com/" class="text-pink-400 text-xl hover:scale-110 transition"><i class="fab fa-instagram"></i></a>
                         <a href="https://web.whatsapp.com/" class="text-green-500 text-xl hover:scale-110 transition"><i class="fab fa-whatsapp"></i></a>
-                        <a href="http://127.0.0.1:8000/detail-loker" class="text-gray-600 text-xl hover:scale-110 transition"><i class="fas fa-link"></i></a>
+                        <a href="{{ route('loker.show', $loker->id) }}" class="text-gray-600 text-xl hover:scale-110 transition"><i class="fas fa-link"></i></a>
                     </div>
                 </div>
             </div>

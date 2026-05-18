@@ -2,66 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rsvp;
 use App\Models\Event;
+use App\Models\Rsvp;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class RsvpController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function create(Event $event)
     {
-        $rsvp = Rsvp::with(['user', 'event'])->get();
-
-        return view('pages.rsvp', compact('rsvp'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $event = Event::all();
-
         return view('pages.rsvp', compact('event'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request, Event $event)
     {
-        Rsvp::create([
-            'user_id' => Auth::id(),
-            'event_id' => $request->event_id,
-            'status_kehadiran' => 'pending'
+        if (!auth()->check()) {
+            return redirect()
+                ->route('login')
+                ->with('error', 'Silakan login terlebih dahulu untuk RSVP.');
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'hp' => 'required|string|max:20',
         ]);
 
-        return redirect()->route('rsvp.index');
+        $user = auth()->user();
+
+        $cek = Rsvp::where('user_id', $user->id)
+            ->where('event_id', $event->id)
+            ->first();
+
+        if ($cek) {
+            return back()->with('error', 'Kamu sudah daftar event ini.');
+        }
+
+        Rsvp::create([
+            'user_id' => $user->id,
+            'event_id' => $event->id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'hp' => $request->hp,
+            'status_kehadiran' => 'pending',
+        ]);
+
+        return redirect()
+            ->route('rsvp.success')
+            ->with('success', 'RSVP berhasil dibuat.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $rsvp = Rsvp::findOrFail($id);
-
-        return view('pages.rsvp', compact('rsvp'));
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $rsvp = Rsvp::findOrFail($id);
 
         $rsvp->delete();
 
-        return redirect()->route('rsvp.index');
+        return back()->with('success', 'RSVP berhasil dihapus.');
     }
 }
