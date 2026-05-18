@@ -2,17 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 
+// USER GROUP CONTROLLER
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\LokerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RsvpController;
 use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\ServiceController;
-
-// USER GROUP CONTROLLER
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\GroupController;
 
 // ADMIN CONTROLLERS
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\GroupController as AdminGroupController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\RsvpController as AdminRsvpController;
@@ -35,17 +36,17 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/perusahaan/detail', function () {
-    return view('pages.perusahaan');
-})->name('perusahaan.detail');
+Route::get('/perusahaan/detail/{perusahaan?}', [PerusahaanController::class, 'detail'])
+    ->name('perusahaan.detail');
 
-Route::get('/perusahaan/review', function () {
-    return view('pages.review');
-})->name('perusahaan.review');
+Route::get('/perusahaan/review/{perusahaan?}', [ReviewController::class, 'index'])
+    ->name('perusahaan.review');
 
-Route::get('/review/tulis', function () {
-    return view('pages.tulis_review');
-})->name('tulis.review');
+Route::get('/review/tulis/{perusahaan?}', [ReviewController::class, 'create'])
+    ->name('tulis.review');
+
+Route::post('/review/tulis', [ReviewController::class, 'store'])
+    ->name('review.store');
 
 /*
 |--------------------------------------------------------------------------
@@ -207,14 +208,14 @@ Route::middleware(['auth', 'admin'])
         |--------------------------------------------------------------------------
         */
 
-       Route::get('/', function () {
+      Route::get('/', function () {
     $totalUser = \App\Models\User::count();
-
     $totalEvent = \App\Models\Event::count();
     $totalLoker = \App\Models\Loker::count();
     $totalLamaran = \App\Models\Lamaran::count();
     $totalPerusahaan = \App\Models\Perusahaan::count();
     $totalGroup = \App\Models\Group::count();
+    $totalReview = \App\Models\Review::count();
 
     return view('admin.admin', compact(
         'totalUser',
@@ -222,7 +223,8 @@ Route::middleware(['auth', 'admin'])
         'totalLoker',
         'totalLamaran',
         'totalPerusahaan',
-        'totalGroup'
+        'totalGroup',
+        'totalReview'
     ));
 })->name('dashboard');
 
@@ -309,4 +311,29 @@ Route::middleware(['auth', 'admin'])
                 Route::delete('/{group:slug}', [AdminGroupController::class, 'destroy'])
                     ->name('destroy');
             });
+
+            /*
+        |--------------------------------------------------------------------------
+        | Review Admin
+        |--------------------------------------------------------------------------
+        */
+         Route::prefix('review')
+            ->name('review.')
+            ->group(function () {
+                Route::get('/', [AdminReviewController::class, 'index'])
+                    ->name('index');
+
+                Route::get('/{review}/edit', [AdminReviewController::class, 'edit'])
+                    ->name('edit');
+
+                Route::put('/{review}', [AdminReviewController::class, 'update'])
+                    ->name('update');
+
+                Route::delete('/{review}', [AdminReviewController::class, 'destroy'])
+                    ->name('destroy');
+
+                Route::put('/{review}/reply', [AdminReviewController::class, 'reply'])
+                    ->name('reply');
+            });
+
     });
