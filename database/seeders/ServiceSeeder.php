@@ -416,8 +416,15 @@ class ServiceSeeder extends Seeder
             ],
         ];
 
-        foreach ($services as $index => $item) {
-            $service = Service::create($item);
+       foreach ($services as $item) {
+            $item['languages'] = implode(', ', $item['languages']);
+
+            $service = Service::updateOrCreate(
+                ['email' => $item['email']], 
+                $item
+            );
+
+            ServiceImage::where('service_id', $service->id)->delete();
 
             for ($i = 1; $i <= 5; $i++) {
                 ServiceImage::create([

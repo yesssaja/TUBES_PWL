@@ -38,7 +38,7 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/perusahaan/detail', [PerusahaanController::class, 'firstDetail'])
+Route::get('/perusahaan/detail', [PerusahaanController::class, 'detail'])
     ->name('perusahaan.detail.default');
 
 Route::get('/perusahaan/detail/{perusahaan}', [PerusahaanController::class, 'detail'])
