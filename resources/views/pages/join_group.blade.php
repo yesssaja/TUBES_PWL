@@ -44,36 +44,96 @@
     <main class="w-full max-w-4xl mx-auto pb-16 flex-grow">
         
         <!-- HEADER GRUP -->
-        <div class="bg-white rounded-b-3xl shadow-sm overflow-hidden border border-gray-200/60">
-            <div class="h-48 bg-gradient-to-r from-yellow-500 to-yellow-400 relative overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-30 mix-blend-multiply">
-            </div>
+<div class="bg-white rounded-b-3xl shadow-sm overflow-hidden border border-gray-200/60">
 
-            <div class="px-8 pb-6">
-                <div class="-mt-16 mb-4 relative z-10">
-                    <div class="w-28 h-28 bg-white p-1.5 rounded-2xl shadow-sm inline-block border border-gray-100">
-                        <div class="w-full h-full bg-red-brand rounded-xl flex items-center justify-center text-white text-3xl font-extrabold">W</div>
-                    </div>
-                </div>
+    <div class="h-48 bg-gradient-to-r from-yellow-500 to-yellow-400 relative overflow-hidden">
+        <img src="{{ $group->cover_image ?? 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80' }}"
+             class="w-full h-full object-cover opacity-30 mix-blend-multiply">
+    </div>
 
-                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-                    <div>
-                        <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Komunitas Pencari Kerja USU</h1>
-                        <div class="flex items-center gap-2 mt-2 text-xs font-semibold text-gray-500 tracking-wide">
-                            <span class="flex items-center gap-1"><i class="fas fa-globe-asia"></i> Public group</span>
-                            <span>•</span>
-                            <span class="text-gray-700">8,619 members</span>
-                        </div>
-                    </div>
+    <div class="px-8 pb-6">
 
-                    <div x-data="{ joined: false }">
-                        <button @click="joined = !joined" :class="joined ? 'bg-gray-100 text-gray-500 border border-gray-200' : 'bg-red-brand text-white hover:bg-red-700'" class="px-8 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200">
-                            <span x-text="joined ? '✓ Joined' : 'Join Group'"></span>
-                        </button>
-                    </div>
+        <div class="-mt-16 mb-4 relative z-10">
+            <div class="w-28 h-28 bg-white p-1.5 rounded-2xl shadow-sm inline-block border border-gray-100">
+                <div class="w-full h-full bg-red-brand rounded-xl flex items-center justify-center text-white text-3xl font-extrabold">
+                    {{ $group->icon_letter ?? strtoupper(substr($group->name, 0, 1)) }}
                 </div>
             </div>
         </div>
+
+        @if(session('success'))
+            <div class="bg-green-100 text-green-700 border border-green-300 px-4 py-3 rounded-xl mb-5">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="bg-red-100 text-red-700 border border-red-300 px-4 py-3 rounded-xl mb-5">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+
+            <div>
+                <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">
+                    {{ $group->name }}
+                </h1>
+
+                <div class="flex items-center gap-2 mt-2 text-xs font-semibold text-gray-500 tracking-wide">
+                    <span class="flex items-center gap-1">
+                        <i class="fas fa-globe-asia"></i>
+                        {{ $group->is_public ? 'Public group' : 'Private group' }}
+                    </span>
+
+                    <span>•</span>
+
+                    <span class="text-gray-700">
+                        {{ $group->members_count }} members
+                    </span>
+                </div>
+
+                @if($group->description)
+                    <p class="text-sm text-gray-600 mt-3 max-w-xl">
+                        {{ $group->description }}
+                    </p>
+                @endif
+            </div>
+
+            <div>
+                @auth
+                    @if($joined)
+                        <form action="{{ route('groups.leave', $group->slug) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit"
+                                    class="bg-gray-100 text-gray-500 border border-gray-200 px-8 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200">
+                                ✓ Joined
+                            </button>
+                        </form>
+                    @else
+                        <form action="{{ route('groups.join', $group->slug) }}" method="POST">
+                            @csrf
+
+                            <button type="submit"
+                                    class="bg-red-brand text-white hover:bg-red-700 px-8 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200">
+                                Join Group
+                            </button>
+                        </form>
+                    @endif
+                @else
+                    <a href="{{ route('login') }}"
+                       class="inline-block bg-red-brand text-white hover:bg-red-700 px-8 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200">
+                        Login untuk Join
+                    </a>
+                @endauth
+            </div>
+
+        </div>
+
+    </div>
+</div>
 
         <!-- AREA FEED POSTINGAN -->
         <div class="max-w-2xl mx-auto mt-8 space-y-4 px-4 sm:px-0">
