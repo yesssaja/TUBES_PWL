@@ -85,6 +85,13 @@
         </p>
     </div>
 
+    <div class="bg-white rounded-2xl p-5 shadow border-l-8 border-purple-500">
+    <h2 class="text-gray-500">Total Review</h2>
+    <p class="text-3xl font-bold text-purple-600">
+        {{ $totalReview }}
+    </p>
+</div>
+
 </div>
 
     <!-- Menu -->
@@ -120,7 +127,12 @@
             <p>Kelola perusahaan</p>
         </a>
 
-        <a href="/admin/user" class="bg-red-400 text-white rounded-2xl p-6 shadow-lg hover:bg-red-500 transition">
+        <a href="{{ route('admin.review.index') }}" class="bg-purple-500 text-white rounded-2xl p-6 shadow-lg hover:bg-purple-600 transition">
+            <h2 class="text-2xl font-bold mb-2">⭐ Review</h2>
+            <p>Kelola review perusahaan</p>
+        </a>
+
+        <a href="{{ route('admin.user.index') }}" class="bg-red-400 text-white rounded-2xl p-6 shadow-lg hover:bg-red-500 transition">
             <h2 class="text-2xl font-bold mb-2">🧑 User</h2>
             <p>Data user</p>
         </a>
