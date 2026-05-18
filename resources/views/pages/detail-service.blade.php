@@ -66,17 +66,20 @@
             <div class="lg:col-span-2">
 
             <!-- GALLERY -->
-            @php
+@php
+                $mainImage = $service->images->first();
+            @endphp
+
+           @php
                 $mainImage = $service->images->first();
             @endphp
 
             <div class="bg-white rounded-[32px] p-4 shadow-soft border border-red-100">
 
-                <!-- GAMBAR UTAMA -->
                 @if($mainImage)
                     <img
                     id="mainServiceImage"
-                    src="{{ asset('storage/' . $mainImage->image) }}"
+                    src="{{ asset($mainImage->image) }}"
                     alt="{{ $service->service_name }}"
                     class="w-full h-[420px] object-cover rounded-[26px] shadow-md transition duration-300">
                 @else
@@ -85,13 +88,12 @@
                     </div>
                 @endif
 
-                <!-- THUMBNAIL -->
                 @if($service->images->count() > 1)
                     <div class="grid grid-cols-4 gap-3 mt-4">
 
                         @foreach($service->images->skip(1) as $image)
                             <img
-                                src="{{ asset('storage/' . $image->image) }}"
+                                src="{{ asset($image->image) }}"
                                 alt="{{ $service->service_name }}"
                                 class="thumbnail-image w-full h-24 object-cover rounded-2xl border border-red-100 shadow-sm hover:scale-[1.03] transition cursor-pointer">
                         @endforeach

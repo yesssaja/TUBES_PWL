@@ -424,12 +424,15 @@ class ServiceSeeder extends Seeder
                 $item
             );
 
+            // 1. Hapus data gambar lama agar tidak menumpuk
             ServiceImage::where('service_id', $service->id)->delete();
 
+            // 2. Kita masukkan jalur foto lokal asli dari kawanmu ke database
             for ($i = 1; $i <= 5; $i++) {
                 ServiceImage::create([
                     'service_id' => $service->id,
-                    'image' => 'service/portfolio/demo-' . $i . '.png',
+                    // Kita catat jalur folder public-nya di sini Lek (tanpa kata 'storage/')
+                    'image'      => 'gallery/portfolio/demo-' . $i . '.png', 
                 ]);
             }
         }

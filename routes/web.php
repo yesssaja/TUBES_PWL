@@ -132,6 +132,7 @@ Route::get('/service/detail/{service}', [ServiceController::class, 'show'])
 
 Route::get('/service/all', [ServiceController::class, 'all'])
     ->name('service.all');
+
 /*
 |--------------------------------------------------------------------------
 | Course Route
