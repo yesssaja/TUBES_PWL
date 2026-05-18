@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Perusahaan;
+use App\Models\Loker;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class PerusahaanController extends Controller
@@ -50,4 +52,27 @@ class PerusahaanController extends Controller
 
         return redirect()->route('perusahaan.index');
     }
+
+    public function detail($perusahaan = null)
+{
+    if ($perusahaan) {
+        $perusahaan = Perusahaan::findOrFail($perusahaan);
+    } else {
+        $perusahaan = Perusahaan::first();
+    }
+
+    if (!$perusahaan) {
+        abort(404, 'Data perusahaan belum tersedia.');
+    }
+
+    $lokers = Loker::where('perusahaan_id', $perusahaan->id)
+        ->latest()
+        ->get();
+
+    $events = Event::where('perusahaan_id', $perusahaan->id)
+        ->latest()
+        ->get();
+
+    return view('pages.perusahaan', compact('perusahaan', 'lokers', 'events'));
+}
 }

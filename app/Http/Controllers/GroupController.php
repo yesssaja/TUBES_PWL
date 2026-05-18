@@ -42,6 +42,12 @@ class GroupController extends Controller
 
     public function join(Group $group)
     {
+        if (!auth()->check()) {
+            return redirect()
+                ->route('login')
+                ->with('error', 'Silakan login terlebih dahulu untuk join group.');
+        }
+
         GroupMember::updateOrCreate(
             [
                 'group_id' => $group->id,
@@ -53,15 +59,25 @@ class GroupController extends Controller
             ]
         );
 
-        return back()->with('success', 'Berhasil join group.');
+        return redirect()
+            ->route('join_group', $group->slug)
+            ->with('success', 'Berhasil join group.');
     }
 
     public function leave(Group $group)
     {
+        if (!auth()->check()) {
+            return redirect()
+                ->route('login')
+                ->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         GroupMember::where('group_id', $group->id)
             ->where('user_id', auth()->id())
             ->delete();
 
-        return back()->with('success', 'Berhasil keluar dari group.');
+        return redirect()
+            ->route('join_group', $group->slug)
+            ->with('success', 'Berhasil keluar dari group.');
     }
 }
