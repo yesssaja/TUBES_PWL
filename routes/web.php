@@ -13,6 +13,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\GroupController;
 
 // ADMIN CONTROLLERS
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\PerusahaanController as AdminPerusahaanController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\GroupController as AdminGroupController;
@@ -237,6 +238,18 @@ Route::middleware(['auth', 'admin'])
                 'totalReview'
             ));
         })->name('dashboard');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | User Admin
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/user', [AdminUserController::class, 'index'])
+            ->name('user.index');
+
+        Route::delete('/user/{user}', [AdminUserController::class, 'destroy'])
+            ->name('user.destroy');
 
         /*
         |--------------------------------------------------------------------------

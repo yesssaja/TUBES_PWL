@@ -132,7 +132,7 @@
             <p>Kelola review perusahaan</p>
         </a>
 
-        <a href="/admin/user" class="bg-red-400 text-white rounded-2xl p-6 shadow-lg hover:bg-red-500 transition">
+        <a href="{{ route('admin.user.index') }}" class="bg-red-400 text-white rounded-2xl p-6 shadow-lg hover:bg-red-500 transition">
             <h2 class="text-2xl font-bold mb-2">🧑 User</h2>
             <p>Data user</p>
         </a>
