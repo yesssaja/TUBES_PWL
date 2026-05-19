@@ -129,9 +129,17 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('perusahaan.detail') }}" class="mt-6 w-full py-2 border-2 border-red-600 text-yellow-600 font-bold rounded-lg hover:bg-blue-50 transition">
-                        Show more
-                    </a>
+                    @if($perusahaan)
+    <a href="{{ route('perusahaan.detail', $perusahaan->id) }}"
+       class="mt-6 inline-block w-full text-center py-2 border-2 border-red-600 text-yellow-600 font-bold rounded-lg hover:bg-blue-50 transition">
+        Show more
+    </a>
+@else
+    <a href="{{ route('loker.index') }}"
+       class="mt-6 inline-block w-full text-center py-2 border-2 border-red-600 text-yellow-600 font-bold rounded-lg hover:bg-blue-50 transition">
+        Show more
+    </a>
+@endif
                 </div>
             </div>
 

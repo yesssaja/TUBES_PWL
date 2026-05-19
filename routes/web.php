@@ -2,22 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 
+// USER / PUBLIC CONTROLLERS
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\LokerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RsvpController;
 use App\Http\Controllers\LamaranController;
-
-// USER GROUP CONTROLLER
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\GroupController;
 
 // ADMIN CONTROLLERS
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\PerusahaanController as AdminPerusahaanController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\GroupController as AdminGroupController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\RsvpController as AdminRsvpController;
-use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Admin\LokerController as AdminLokerController;
 use App\Http\Controllers\Admin\LamaranController as AdminLamaranController;
+
 /*
 |--------------------------------------------------------------------------
 | Public Route
@@ -34,17 +38,26 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/perusahaan/detail', function () {
-    return view('pages.perusahaan');
-})->name('perusahaan.detail');
+Route::get('/perusahaan/detail', [PerusahaanController::class, 'firstDetail'])
+    ->name('perusahaan.detail.default');
 
-Route::get('/perusahaan/review', function () {
-    return view('pages.review');
-})->name('perusahaan.review');
+Route::get('/perusahaan/detail/{perusahaan}', [PerusahaanController::class, 'detail'])
+    ->name('perusahaan.detail');
 
-Route::get('/review/tulis', function () {
-    return view('pages.tulis_review');
-})->name('tulis.review');
+/*
+|--------------------------------------------------------------------------
+| Review Public Route
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/perusahaan/review/{perusahaan}', [ReviewController::class, 'index'])
+    ->name('perusahaan.review');
+
+Route::get('/review/tulis/{perusahaan}', [ReviewController::class, 'create'])
+    ->name('tulis.review');
+
+Route::post('/review/tulis', [ReviewController::class, 'store'])
+    ->name('review.store');
 
 /*
 |--------------------------------------------------------------------------
@@ -105,11 +118,30 @@ Route::get('/join-group/{group:slug}', [GroupController::class, 'show'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
-Route::get('/service/form', [ServiceController::class, 'create'])->name('service.create');
-Route::post('/service', [ServiceController::class, 'store'])->name('service.store');
-Route::get('/service/detail/{service}', [ServiceController::class, 'show'])->name('service.show');
-Route::get('/service/all', [ServiceController::class, 'all'])->name('service.all');
+Route::get('/service', [ServiceController::class, 'index'])
+    ->name('service.index');
+
+Route::get('/service/form', [ServiceController::class, 'create'])
+    ->name('service.create');
+
+Route::post('/service', [ServiceController::class, 'store'])
+    ->name('service.store');
+
+Route::get('/service/detail/{service}', [ServiceController::class, 'show'])
+    ->name('service.show');
+
+Route::get('/service/all', [ServiceController::class, 'all'])
+    ->name('service.all');
+/*
+|--------------------------------------------------------------------------
+| Course Route
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/course', function () {
+    return view('course.index');
+})->name('course.index');
+
 /*
 |--------------------------------------------------------------------------
 | Auth Route
@@ -177,18 +209,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('/group/{group:slug}/leave', [GroupController::class, 'leave'])
         ->name('groups.leave');
-
-    Route::post('/group/{group:slug}/posts', [GroupController::class, 'storePost'])
-        ->name('groups.posts.store');
-
-    Route::post('/group-posts/{post}/comments', [GroupController::class, 'storeComment'])
-        ->name('groups.comments.store');
-
-    Route::post('/group-posts/{post}/like', [GroupController::class, 'toggleLike'])
-        ->name('groups.posts.like');
-
-    Route::post('/group-posts/{post}/report', [GroupController::class, 'report'])
-        ->name('groups.posts.report');
 });
 
 /*
@@ -202,9 +222,43 @@ Route::middleware(['auth', 'admin'])
     ->name('admin.')
     ->group(function () {
 
+        /*
+        |--------------------------------------------------------------------------
+        | Dashboard Admin
+        |--------------------------------------------------------------------------
+        */
+
         Route::get('/', function () {
-            return view('admin.admin');
+            $totalUser = \App\Models\User::count();
+            $totalEvent = \App\Models\Event::count();
+            $totalLoker = \App\Models\Loker::count();
+            $totalLamaran = \App\Models\Lamaran::count();
+            $totalPerusahaan = \App\Models\Perusahaan::count();
+            $totalGroup = \App\Models\Group::count();
+            $totalReview = \App\Models\Review::count();
+
+            return view('admin.admin', compact(
+                'totalUser',
+                'totalEvent',
+                'totalLoker',
+                'totalLamaran',
+                'totalPerusahaan',
+                'totalGroup',
+                'totalReview'
+            ));
         })->name('dashboard');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | User Admin
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/user', [AdminUserController::class, 'index'])
+            ->name('user.index');
+
+        Route::delete('/user/{user}', [AdminUserController::class, 'destroy'])
+            ->name('user.destroy');
 
         /*
         |--------------------------------------------------------------------------
@@ -212,7 +266,8 @@ Route::middleware(['auth', 'admin'])
         |--------------------------------------------------------------------------
         */
 
-        Route::resource('perusahaan', PerusahaanController::class);
+        Route::resource('perusahaan', AdminPerusahaanController::class)
+            ->except(['show']);
 
         /*
         |--------------------------------------------------------------------------
@@ -266,12 +321,6 @@ Route::middleware(['auth', 'admin'])
         |--------------------------------------------------------------------------
         | Group Admin
         |--------------------------------------------------------------------------
-        | URL:
-        | /admin/groups
-        |
-        | Route name:
-        | admin.groups.index
-        |--------------------------------------------------------------------------
         */
 
         Route::prefix('groups')
@@ -294,20 +343,30 @@ Route::middleware(['auth', 'admin'])
 
                 Route::delete('/{group:slug}', [AdminGroupController::class, 'destroy'])
                     ->name('destroy');
+            });
 
-                Route::get('/reports/list', [AdminGroupController::class, 'reports'])
-                    ->name('reports');
+        /*
+        |--------------------------------------------------------------------------
+        | Review Admin
+        |--------------------------------------------------------------------------
+        */
 
-                Route::patch('/posts/{post}/hide', [AdminGroupController::class, 'hidePost'])
-                    ->name('posts.hide');
+        Route::prefix('review')
+            ->name('review.')
+            ->group(function () {
+                Route::get('/', [AdminReviewController::class, 'index'])
+                    ->name('index');
 
-                Route::patch('/posts/{post}/restore', [AdminGroupController::class, 'restorePost'])
-                    ->name('posts.restore');
+                Route::get('/{review}/edit', [AdminReviewController::class, 'edit'])
+                    ->name('edit');
 
-                Route::delete('/posts/{post}', [AdminGroupController::class, 'deletePost'])
-                    ->name('posts.delete');
+                Route::put('/{review}', [AdminReviewController::class, 'update'])
+                    ->name('update');
 
-                Route::patch('/reports/{report}/review', [AdminGroupController::class, 'reviewReport'])
-                    ->name('reports.review');
+                Route::delete('/{review}', [AdminReviewController::class, 'destroy'])
+                    ->name('destroy');
+
+                Route::put('/{review}/reply', [AdminReviewController::class, 'reply'])
+                    ->name('reply');
             });
     });

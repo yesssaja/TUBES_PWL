@@ -30,5 +30,15 @@ class DatabaseSeeder extends Seeder
     LamaranSeeder::class,
     GroupSeeder::class,
 ]);
+         $this->call([
+            AdminSeeder::class,
+            PerusahaanSeeder::class,
+            LokerSeeder::class,
+            EventSeeder::class,
+            RsvpSeeder::class,
+            LamaranSeeder::class,
+            GroupSeeder::class,
+            ReviewSeeder::class,
+        ]);
     }
 }
