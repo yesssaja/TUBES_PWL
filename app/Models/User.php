@@ -65,4 +65,10 @@ public function services()
 {
     return $this->hasMany(\App\Models\Service::class);
 }
+
+public function inboxes()
+{
+    return $this->hasMany(\App\Models\Inbox::class);
+}
+
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\InboxController;
 
 // ADMIN CONTROLLERS
 use App\Http\Controllers\Admin\UserController as AdminUserController;
@@ -184,6 +185,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/berhasil_daftar_event', function () {
         return view('pages.berhasil_daftar_event');
     })->name('rsvp.success');
+
+/*
+    |--------------------------------------------------------------------------
+    | Inboxes Route
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/inbox', [InboxController::class, 'index'])
+    ->name('inbox.index');
+
+Route::put('/inbox/{inbox}/read', [InboxController::class, 'read'])
+    ->name('inbox.read');
+
+Route::put('/inbox/read-all', [InboxController::class, 'readAll'])
+    ->name('inbox.readAll');
 
     /*
     |--------------------------------------------------------------------------
