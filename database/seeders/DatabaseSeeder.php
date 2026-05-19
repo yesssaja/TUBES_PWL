@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             LamaranSeeder::class,
             GroupSeeder::class,
             ReviewSeeder::class,
+            ServiceSeeder::class,
         ]);
     }
 }

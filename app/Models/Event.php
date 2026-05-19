@@ -17,10 +17,10 @@ class Event extends Model
         'jam',
         'lokasi',
         'kuota',
-        'status',
+        'link_wa_group',
     ];
 
-    public function rsvps()
+    public function rsvp()
     {
         return $this->hasMany(Rsvp::class);
     }

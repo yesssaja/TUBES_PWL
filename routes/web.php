@@ -11,8 +11,12 @@ use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\InboxController;
+use App\Http\Controllers\CourseController;
 
 // ADMIN CONTROLLERS
+use App\Http\Controllers\Admin\Admincontroller;
+use App\Http\Controllers\Admin\CourseRegistrationController as AdminCourseRegistrationController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\PerusahaanController as AdminPerusahaanController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
@@ -37,8 +41,10 @@ Route::get('/', function () {
 | Perusahaan Public Route
 |--------------------------------------------------------------------------
 */
+Route::get('/perusahaan', [PerusahaanController::class, 'index'])
+    ->name('perusahaan.index');
 
-Route::get('/perusahaan/detail', [PerusahaanController::class, 'firstDetail'])
+Route::get('/perusahaan/detail', [PerusahaanController::class, 'detail'])
     ->name('perusahaan.detail.default');
 
 Route::get('/perusahaan/detail/{perusahaan}', [PerusahaanController::class, 'detail'])
@@ -121,26 +127,28 @@ Route::get('/join-group/{group:slug}', [GroupController::class, 'show'])
 Route::get('/service', [ServiceController::class, 'index'])
     ->name('service.index');
 
-Route::get('/service/form', [ServiceController::class, 'create'])
-    ->name('service.create');
-
-Route::post('/service', [ServiceController::class, 'store'])
-    ->name('service.store');
+Route::get('/service/all', [ServiceController::class, 'all'])
+    ->name('service.all');
 
 Route::get('/service/detail/{service}', [ServiceController::class, 'show'])
     ->name('service.show');
 
-Route::get('/service/all', [ServiceController::class, 'all'])
-    ->name('service.all');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/service/form', [ServiceController::class, 'create'])
+        ->name('service.create');
+
+    Route::post('/service', [ServiceController::class, 'store'])
+        ->name('service.store');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Course Route
 |--------------------------------------------------------------------------
 */
 
-Route::get('/course', function () {
-    return view('course.index');
-})->name('course.index');
+Route::get('/course', [CourseController::class, 'index'])
+    ->name('course.index');
 
 /*
 |--------------------------------------------------------------------------
@@ -158,6 +166,21 @@ require __DIR__ . '/auth.php';
 
 Route::middleware(['auth'])->group(function () {
 
+    /*
+    |--------------------------------------------------------------------------
+    | Course User Route
+    |--------------------------------------------------------------------------
+    */
+    
+    Route::get('/course/{course}/daftar', [CourseController::class, 'registerForm'])
+        ->name('course.register.form');
+    
+    Route::post('/course/{course}/daftar', [CourseController::class, 'register'])
+        ->name('course.register');
+    
+    Route::get('/course/{course}/akses', [CourseController::class, 'access'])
+        ->name('course.access');
+    
     /*
     |--------------------------------------------------------------------------
     | RSVP User Route
@@ -179,6 +202,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/berhasil_daftar_event', function () {
         return view('pages.berhasil_daftar_event');
     })->name('rsvp.success');
+
+/*
+    |--------------------------------------------------------------------------
+    | Inboxes Route
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/inbox', [InboxController::class, 'index'])
+    ->name('inbox.index');
+
+Route::put('/inbox/{inbox}/read', [InboxController::class, 'read'])
+    ->name('inbox.read');
+
+Route::put('/inbox/read-all', [InboxController::class, 'readAll'])
+    ->name('inbox.readAll');
 
     /*
     |--------------------------------------------------------------------------
@@ -228,25 +265,38 @@ Route::middleware(['auth', 'admin'])
         |--------------------------------------------------------------------------
         */
 
-        Route::get('/', function () {
-            $totalUser = \App\Models\User::count();
-            $totalEvent = \App\Models\Event::count();
-            $totalLoker = \App\Models\Loker::count();
-            $totalLamaran = \App\Models\Lamaran::count();
-            $totalPerusahaan = \App\Models\Perusahaan::count();
-            $totalGroup = \App\Models\Group::count();
-            $totalReview = \App\Models\Review::count();
+        // Route::get('/', function () {
+        //     $totalUser = \App\Models\User::count();
+        //     $totalEvent = \App\Models\Event::count();
+        //     $totalLoker = \App\Models\Loker::count();
+        //     $totalLamaran = \App\Models\Lamaran::count();
+        //     $totalPerusahaan = \App\Models\Perusahaan::count();
+        //     $totalGroup = \App\Models\Group::count();
+        //     $totalReview = \App\Models\Review::count();
 
-            return view('admin.admin', compact(
-                'totalUser',
-                'totalEvent',
-                'totalLoker',
-                'totalLamaran',
-                'totalPerusahaan',
-                'totalGroup',
-                'totalReview'
-            ));
-        })->name('dashboard');
+        //     return view('admin.admin', compact(
+        //         'totalUser',
+        //         'totalEvent',
+        //         'totalLoker',
+        //         'totalLamaran',
+        //         'totalPerusahaan',
+        //         'totalGroup',
+        //         'totalReview'
+        //     ));
+        // })->name('dashboard');
+
+        /*
+|--------------------------------------------------------------------------
+| Dashboard Admin
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/', [Admincontroller::class, 'dashboard'])
+    ->name('dashboard');
+
+Route::get('/dashboard', function () {
+    return redirect()->route('admin.dashboard');
+});
 
 
         /*
@@ -369,4 +419,36 @@ Route::middleware(['auth', 'admin'])
                 Route::put('/{review}/reply', [AdminReviewController::class, 'reply'])
                     ->name('reply');
             });
+
+            /*
+        |--------------------------------------------------------------------------
+        | Course Admin
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/course', [AdminCourseRegistrationController::class, 'index'])
+            ->name('course.index');
+
+        Route::put('/course/{registration}/approve', [AdminCourseRegistrationController::class, 'approve'])
+            ->name('course.approve');
+
+        Route::put('/course/{registration}/reject', [AdminCourseRegistrationController::class, 'reject'])
+            ->name('course.reject');
+
+        Route::delete('/course/{registration}', [AdminCourseRegistrationController::class, 'destroy'])
+            ->name('course.destroy');
+
+        Route::put('/course/{registration}/verify-payment', [AdminCourseRegistrationController::class, 'verifyPayment'])
+            ->name('course.verifyPayment');
+
+        Route::put('/course/{registration}/reject-payment', [AdminCourseRegistrationController::class, 'rejectPayment'])
+            ->name('course.rejectPayment');
+
+           /*
+        |--------------------------------------------------------------------------
+        | Notif Admin
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/admin/dashboard', [Admincontroller::class, 'dashboard'])
+            ->name('admin.dashboard');
     });

@@ -115,6 +115,21 @@
     </select>
 
 </div>
+<div class="mb-4">
+    <label class="block text-gray-700 font-bold mb-2">
+        Link WhatsApp Group Event
+    </label>
+
+    <input type="url"
+           name="link_wa_group"
+           value="{{ old('link_wa_group', $event->link_wa_group ?? '') }}"
+           placeholder="Contoh: https://chat.whatsapp.com/xxxxxxx"
+           class="w-full border rounded-xl px-4 py-3 focus:outline-none">
+
+    <p class="text-sm text-gray-500 mt-1">
+        Link ini akan muncul di inbox user setelah RSVP diterima.
+    </p>
+</div>
             <!-- Button -->
             <div class="flex justify-end gap-3">
 

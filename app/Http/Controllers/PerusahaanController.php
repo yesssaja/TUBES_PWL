@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 
 class PerusahaanController extends Controller
 {
-    public function index()
+   public function index()
     {
-        $perusahaan = Perusahaan::all();
-
-        return view('pages.perusahaan', compact('perusahaan'));
+        $perusahaans = \App\Models\Perusahaan::latest()->get();
+    
+        return view('pages.perusahaan_index', compact('perusahaans'));
     }
 
     public function create()
@@ -75,4 +75,5 @@ class PerusahaanController extends Controller
 
     return view('pages.perusahaan', compact('perusahaan', 'lokers', 'events'));
 }
+
 }

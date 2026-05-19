@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,104 +8,202 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gradient-to-br from-yellow-50 via-orange-50 to-red-100 min-h-screen text-gray-800">
 
-<div class="min-h-screen p-6">
+<div class="min-h-screen p-4 md:p-8">
 
     <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
+    <div class="bg-gradient-to-r from-red-600 to-yellow-400 rounded-3xl shadow-xl p-6 md:p-8 mb-8 text-white">
 
-        <div>
-            <h1 class="text-3xl font-bold text-red-600">
-                Data Event
-            </h1>
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
 
-            <p class="text-gray-500 mt-1">
-                Kelola semua event di sini
-            </p>
+            <div>
+                <h1 class="text-3xl md:text-4xl font-black">
+                    Data Event
+                </h1>
+
+                <p class="mt-2 text-white/90">
+                    Kelola semua event yang tersedia di LOKER SEEKER.
+                </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+
+                <a href="{{ route('admin.dashboard') }}"
+                   class="bg-white/20 hover:bg-white/30 text-white font-bold px-5 py-3 rounded-2xl shadow transition text-center">
+                    ← Dashboard
+                </a>
+
+                <a href="{{ route('admin.event.create') }}"
+                   class="bg-white hover:bg-gray-100 text-red-600 font-black px-5 py-3 rounded-2xl shadow transition text-center">
+                    + Tambah Event
+                </a>
+
+            </div>
+
         </div>
-
-        <a href="{{ route('admin.dashboard') }}" class="bg-gray-800 text-white px- py-3 rounded-xl font-bold">
-            Dashboard
-        </a>
-
-        <a href="{{ route('admin.event.create') }}"
-           class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-5 py-3 rounded-xl shadow transition">
-
-            + Tambah Event
-
-        </a>
 
     </div>
 
-    <!-- Table -->
-    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+    <!-- Success Message -->
+    @if(session('success'))
+        <div class="bg-green-100 border border-green-300 text-green-700 px-5 py-4 rounded-2xl mb-6 shadow-sm">
+            {{ session('success') }}
+        </div>
+    @endif
 
-        <table class="w-full">
+    <!-- Statistik -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
-            <thead class="bg-red-500 text-white">
+        <div class="bg-white rounded-3xl shadow-lg p-6 border-l-8 border-red-500 hover:-translate-y-1 transition">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-gray-500 text-sm font-semibold">
+                        Total Event
+                    </h2>
 
-                <tr>
-                    <th class="p-4 text-left">No</th>
-                    <th class="p-4 text-left">Nama Event</th>
-                    <th class="p-4 text-left">Tanggal</th>
-                    <th class="p-4 text-center">Aksi</th>
-                </tr>
+                    <p class="text-4xl font-black text-red-600 mt-2">
+                        {{ $events->count() }}
+                    </p>
+                </div>
 
-            </thead>
+                <div class="w-14 h-14 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center text-2xl">
+                    📅
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <tbody>
+    <!-- Table Card -->
+    <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-white">
 
-@foreach($events as $event)
+        <div class="px-6 py-5 border-b bg-white flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div>
+                <h2 class="text-xl font-black text-gray-800">
+                    Daftar Event
+                </h2>
 
-<tr class="border-b hover:bg-yellow-50 transition">
+                <p class="text-sm text-gray-500">
+                    Semua data event yang tersimpan di database.
+                </p>
+            </div>
+        </div>
 
-    <td class="p-4">
-        {{ $loop->iteration }}
-    </td>
+        <div class="overflow-x-auto">
 
-    <td class="p-4 font-semibold">
-        {{ $event->nama_event }}
-    </td>
+            <table class="w-full min-w-[800px]">
 
-    <td class="p-4">
-        {{ $event->tanggal_event }}
-    </td>
+                <thead class="bg-red-600 text-white">
+                    <tr>
+                        <th class="p-4 text-left text-sm uppercase tracking-wide">No</th>
+                        <th class="p-4 text-left text-sm uppercase tracking-wide">Nama Event</th>
+                        <th class="p-4 text-left text-sm uppercase tracking-wide">Tanggal</th>
+                        <th class="p-4 text-left text-sm uppercase tracking-wide">Jam</th>
+                        <th class="p-4 text-left text-sm uppercase tracking-wide">Lokasi</th>
+                        <th class="p-4 text-center text-sm uppercase tracking-wide">Aksi</th>
+                    </tr>
+                </thead>
 
-    <td class="p-4 text-center space-x-2">
+                <tbody class="divide-y divide-gray-100">
 
-        <a href="{{ route('admin.event.edit', $event->id) }}"
-           class="bg-yellow-400 hover:bg-yellow-500 px-4 py-2 rounded-lg text-sm font-semibold">
+                    @forelse($events as $event)
 
-            Edit
+                        <tr class="hover:bg-yellow-50 transition align-middle">
 
-        </a>
+                            <td class="p-4 font-bold text-gray-700">
+                                {{ $loop->iteration }}
+                            </td>
 
-        <form action="{{ route('admin.event.destroy', $event->id) }}"
-              method="POST"
-              class="inline">
+                            <td class="p-4">
+                                <div class="font-black text-gray-800">
+                                    {{ $event->nama_event }}
+                                </div>
 
-            @csrf
-            @method('DELETE')
+                                <div class="text-sm text-gray-500 mt-1">
+                                    {{ $event->perusahaan->nama_perusahaan
+                                        ?? $event->perusahaan->nama
+                                        ?? $event->perusahaan->name
+                                        ?? 'Tanpa perusahaan' }}
+                                </div>
+                            </td>
 
-            <button
-                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+                            <td class="p-4">
+                                <span class="inline-block bg-red-50 text-red-600 px-3 py-1 rounded-full text-sm font-semibold">
+                                    {{ $event->tanggal_event ?? '-' }}
+                                </span>
+                            </td>
 
-                Hapus
+                            <td class="p-4">
+                                <span class="inline-block bg-yellow-50 text-yellow-600 px-3 py-1 rounded-full text-sm font-semibold">
+                                    {{ $event->jam ? substr($event->jam, 0, 5) : '-' }}
+                                </span>
+                            </td>
 
-            </button>
+                            <td class="p-4 text-gray-700">
+                                📍 {{ $event->lokasi ?? '-' }}
+                            </td>
 
-        </form>
+                            <td class="p-4">
+                                <div class="flex justify-center items-center gap-2">
 
-    </td>
+                                    <a href="{{ route('admin.event.edit', $event->id) }}"
+                                       class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-xl text-sm font-bold shadow transition">
+                                        Edit
+                                    </a>
 
-</tr>
+                                    <form action="{{ route('admin.event.destroy', $event->id) }}"
+                                          method="POST"
+                                          onsubmit="return confirm('Yakin ingin menghapus event ini?')">
 
-@endforeach
+                                        @csrf
+                                        @method('DELETE')
 
-</tbody>
+                                        <button type="submit"
+                                                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow transition">
+                                            Hapus
+                                        </button>
 
-        </table>
+                                    </form>
+
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+                            <td colspan="6" class="p-12 text-center">
+
+                                <div class="max-w-md mx-auto">
+                                    <div class="w-20 h-20 bg-red-100 text-red-600 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-4">
+                                        📅
+                                    </div>
+
+                                    <h3 class="text-2xl font-black text-gray-800">
+                                        Belum ada data event
+                                    </h3>
+
+                                    <p class="text-gray-500 mt-2">
+                                        Silakan tambahkan event baru terlebih dahulu.
+                                    </p>
+
+                                    <a href="{{ route('admin.event.create') }}"
+                                       class="inline-block mt-6 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-2xl font-bold shadow transition">
+                                        + Tambah Event
+                                    </a>
+                                </div>
+
+                            </td>
+                        </tr>
+
+                    @endforelse
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
 

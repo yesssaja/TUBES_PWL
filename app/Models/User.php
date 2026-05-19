@@ -60,4 +60,20 @@ class User extends Authenticatable
 {
     return $this->hasMany(\App\Models\Lamaran::class);
 }
+
+public function services()
+{
+    return $this->hasMany(\App\Models\Service::class);
+}
+
+public function inboxes()
+{
+    return $this->hasMany(\App\Models\Inbox::class);
+}
+
+public function courseRegistrations()
+{
+    return $this->hasMany(\App\Models\CourseRegistration::class);
+}
+
 }
