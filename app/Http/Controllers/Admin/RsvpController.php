@@ -31,14 +31,14 @@ class RsvpController extends Controller
 
   public function approve($id)
 {
-    $rsvp = \App\Models\Rsvp::with(['user', 'event.perusahaan'])->findOrFail($id);
+    $rsvp = \App\Models\Rsvp::with(['user', 'event'])->findOrFail($id);
 
     $rsvp->update([
         'status_kehadiran' => 'hadir',
     ]);
 
-    $namaEvent = $rsvp->event->nama_event ?? 'Event';
-    $emailPerusahaan = $rsvp->event->perusahaan->email ?? null;
+    $event = $rsvp->event;
+    $namaEvent = $event->nama_event ?? 'Event';
 
     if ($rsvp->user_id) {
         \App\Models\Inbox::create([
@@ -47,23 +47,23 @@ class RsvpController extends Controller
             'message' => 'RSVP kamu untuk event "' . $namaEvent . '" telah berhasil disetujui. Silakan hadir sesuai jadwal event yang tersedia.',
             'type' => 'rsvp_approved',
             'is_read' => false,
-            'action_text' => $emailPerusahaan ? 'Hubungi Perusahaan' : null,
-            'action_url' => $emailPerusahaan ? 'mailto:' . $emailPerusahaan : null,
+            'action_text' => $event && $event->link_wa_group ? 'Gabung Grup Event' : null,
+            'action_url' => $event && $event->link_wa_group ? $event->link_wa_group : null,
         ]);
     }
 
     return back()->with('success', 'RSVP berhasil disetujui dan notifikasi dikirim ke user.');
 }
+
 public function reject($id)
 {
-    $rsvp = \App\Models\Rsvp::with(['user', 'event.perusahaan'])->findOrFail($id);
+    $rsvp = \App\Models\Rsvp::with(['user', 'event'])->findOrFail($id);
 
     $rsvp->update([
         'status_kehadiran' => 'tidak_hadir',
     ]);
 
     $namaEvent = $rsvp->event->nama_event ?? 'Event';
-    $emailPerusahaan = $rsvp->event->perusahaan->email ?? null;
 
     if ($rsvp->user_id) {
         \App\Models\Inbox::create([
@@ -72,8 +72,8 @@ public function reject($id)
             'message' => 'Mohon maaf, RSVP kamu untuk event "' . $namaEvent . '" belum dapat diterima karena kuota event sudah penuh.',
             'type' => 'rsvp_rejected',
             'is_read' => false,
-            'action_text' => $emailPerusahaan ? 'Hubungi Perusahaan' : null,
-            'action_url' => $emailPerusahaan ? 'mailto:' . $emailPerusahaan : null,
+            'action_text' => null,
+            'action_url' => null,
         ]);
     }
 
