@@ -162,8 +162,24 @@
                         @auth
                             @if(\Illuminate\Support\Facades\Route::has('inbox.index'))
                                 <a href="{{ route('inbox.index') }}"
-                                   class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-                                    🔔 Notifikasi / Inbox
+                                class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+
+                                    <span class="inline-flex items-center gap-3">
+                                        <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="w-5 h-5 text-white"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                stroke-width="2">
+                                                <path stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2a2 2 0 01-.6 1.4L4 17h5m6 0a3 3 0 11-6 0" />
+                                            </svg>
+                                        </span>
+
+                                        <span>Notifikasi / Inbox</span>
+                                    </span>
 
                                     @if(isset($unreadInbox) && $unreadInbox > 0)
                                         <span class="bg-yellow-400 text-red-700 text-xs font-black px-2 py-0.5 rounded-full ml-1">
@@ -176,37 +192,164 @@
 
                         <a href="{{ route('welcome') }}"
    class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-    🏠 Home
+    <span class="inline-flex items-center gap-3">
+        <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-red-500 to-rose-700 flex items-center justify-center shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3 11l9-8 9 8" />
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M5 10v10h5v-6h4v6h5V10" />
+            </svg>
+        </span>
+
+        <span>Home</span>
+    </span>
+</span>
 </a>
 
 <a href="{{ \Illuminate\Support\Facades\Route::has('loker.index') ? route('loker.index') : url('/loker') }}"
    class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-    💼 Jobs / Lowongan Kerja
+    <span class="inline-flex items-center gap-3">
+    <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-700 flex items-center justify-center shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M10 6h4a2 2 0 012 2v2h3a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2h3V8a2 2 0 012-2z" />
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8 10h8" />
+        </svg>
+    </span>
+
+    <span>Jobs / Lowongan Kerja</span>
+</span>
 </a>
 
 <a href="{{ \Illuminate\Support\Facades\Route::has('perusahaan.index') ? route('perusahaan.index') : url('/perusahaan') }}"
    class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-    🏢 Company / Perusahaan
+    <span class="inline-flex items-center gap-3">
+        <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-slate-600 to-slate-900 flex items-center justify-center shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4 21V5a2 2 0 012-2h8a2 2 0 012 2v16" />
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 7h2M9 11h2M9 15h2M16 9h3a1 1 0 011 1v11" />
+            </svg>
+        </span>
+
+        <span>Company / Perusahaan</span>
+    </span>
 </a>
 
 <a href="{{ \Illuminate\Support\Facades\Route::has('event.index') ? route('event.index') : url('/event') }}"
    class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-    📅 Event
+<span class="inline-flex items-center gap-3">
+    <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-700 flex items-center justify-center shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8 7V3m8 4V3M4 11h16" />
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z" />
+        </svg>
+    </span>
+
+    <span>Event</span>
+</span>
 </a>
 
 <a href="{{ \Illuminate\Support\Facades\Route::has('groups.index') ? route('groups.index') : url('/group') }}"
    class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-    👥 Group
+<span class="inline-flex items-center gap-3">
+    <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16 11a4 4 0 10-8 0 4 4 0 008 0z" />
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4 21a8 8 0 0116 0" />
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 8a3 3 0 012 5M5 8a3 3 0 00-2 5" />
+        </svg>
+    </span>
+
+    <span>Group</span>
+</span>
 </a>
 
 <a href="{{ \Illuminate\Support\Facades\Route::has('service.index') ? route('service.index') : url('/service') }}"
    class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-    🛠️ Service
+<span class="inline-flex items-center gap-3">
+    <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14.7 6.3a4 4 0 01-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 015.4-5.4l-3 3-2-2 3-3z" />
+        </svg>
+    </span>
+
+    <span>Service</span>
+</span>
 </a>
 
 <a href="{{ \Illuminate\Support\Facades\Route::has('course.index') ? route('course.index') : url('/course') }}"
    class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-    🎓 Course
+<span class="inline-flex items-center gap-3">
+    <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-700 flex items-center justify-center shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4L3 9l9 5 9-5-9-5z" />
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 11v5c2 3 12 3 14 0v-5" />
+        </svg>
+    </span>
+
+    <span>Course</span>
+</span>
 </a>
 
                     </div>
