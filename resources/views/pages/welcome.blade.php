@@ -174,25 +174,40 @@
                             @endif
                         @endauth
 
-                        <a href="/group"
-                            class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-                             Temukan Group Sesuai Minatmu
-                        </a>
+                        <a href="{{ route('welcome') }}"
+   class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+    🏠 Home
+</a>
 
-                        <a href="/detail-loker"
-                           class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-                            Maintenance Manager Shopee
-                        </a>
+<a href="{{ \Illuminate\Support\Facades\Route::has('loker.index') ? route('loker.index') : url('/loker') }}"
+   class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+    💼 Jobs / Lowongan Kerja
+</a>
 
-                        <a href="/event"
-                           class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-                            Seminar Karir & Job Fair
-                        </a>
+<a href="{{ \Illuminate\Support\Facades\Route::has('perusahaan.index') ? route('perusahaan.index') : url('/perusahaan') }}"
+   class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+    🏢 Company / Perusahaan
+</a>
 
-                        <a href="/rsvp"
-                           class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-                            RSVP Event
-                        </a>
+<a href="{{ \Illuminate\Support\Facades\Route::has('event.index') ? route('event.index') : url('/event') }}"
+   class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+    📅 Event
+</a>
+
+<a href="{{ \Illuminate\Support\Facades\Route::has('groups.index') ? route('groups.index') : url('/group') }}"
+   class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+    👥 Group
+</a>
+
+<a href="{{ \Illuminate\Support\Facades\Route::has('service.index') ? route('service.index') : url('/service') }}"
+   class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+    🛠️ Service
+</a>
+
+<a href="{{ \Illuminate\Support\Facades\Route::has('course.index') ? route('course.index') : url('/course') }}"
+   class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+    🎓 Course
+</a>
 
                     </div>
 
