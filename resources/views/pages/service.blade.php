@@ -332,8 +332,8 @@
                         @endphp
 
                         @if($firstImage)
-                            <img
-                                src="{{ asset('storage/' . $firstImage->image) }}"
+                           <img src="{{ asset($service->images->first()->image) }}"
+                           alt="{{ $service->service_name }}"
                                 class="h-52 w-full object-cover flex-shrink-0">
                         @else
                             <div class="h-52 w-full bg-red-100 flex items-center justify-center text-primary font-bold flex-shrink-0">

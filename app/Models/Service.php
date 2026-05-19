@@ -26,6 +26,6 @@ class Service extends Model
 
     public function images()
     {
-        return $this->hasMany(ServiceImage::class);
+        return $this->hasMany(ServiceImage::class, 'service_id');
     }
 }

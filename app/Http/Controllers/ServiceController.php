@@ -14,7 +14,12 @@ class ServiceController extends Controller
             ->latest()
             ->take(3)
             ->get();
-
+            
+        $categories = Service::select('category')
+            ->whereNotNull('category')
+            ->distinct()
+            ->orderBy('category', 'asc')
+            ->pluck('category');
         // HITUNG JUMLAH JASA BERDASARKAN KATEGORI
         $categoryCounts = Service::select('category')
             ->selectRaw('COUNT(*) as total')
@@ -22,10 +27,10 @@ class ServiceController extends Controller
             ->groupBy('category')
             ->pluck('total', 'category');
 
-            return view('pages.service', compact('services' , 'categoryCounts'));
+            return view('pages.service', compact('services' , 'categories', 'categoryCounts'));
         }
 
-    public function all(Request $request)
+   public function all(Request $request)
     {
         $query = Service::with('images');
 
@@ -56,7 +61,15 @@ class ServiceController extends Controller
             ->orderBy('category', 'asc')
             ->pluck('category');
 
-        return view('pages.all-service', compact('services', 'categories'));
+        // INI TAMBAHANNYA: Biar halaman /service/all gak eror nyari data ini lagi!
+        $categoryCounts = Service::select('category')
+            ->selectRaw('COUNT(*) as total')
+            ->whereNotNull('category')
+            ->groupBy('category')
+            ->pluck('total', 'category');
+
+        // SUDAH DIPERBAIKI: Mengirim services DAN categoryCounts
+        return view('pages.service', compact('services', 'categoryCounts', 'categories'));
     }
 
     public function create()
