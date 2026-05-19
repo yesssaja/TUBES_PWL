@@ -37,6 +37,8 @@ Route::get('/', function () {
 | Perusahaan Public Route
 |--------------------------------------------------------------------------
 */
+Route::get('/perusahaan', [PerusahaanController::class, 'index'])
+    ->name('perusahaan.index');
 
 Route::get('/perusahaan/detail', [PerusahaanController::class, 'detail'])
     ->name('perusahaan.detail.default');
