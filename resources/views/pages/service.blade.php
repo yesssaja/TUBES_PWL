@@ -332,7 +332,7 @@
                         @endphp
 
                         @if($firstImage)
-                           <img src="{{ asset($service->images->first()->image) }}"
+                           <img src="{{ $firstImage->image_url }}"
                            alt="{{ $service->service_name }}"
                                 class="h-52 w-full object-cover flex-shrink-0">
                         @else

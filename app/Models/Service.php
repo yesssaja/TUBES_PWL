@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     protected $fillable = [
+        'user_id',
         'freelancer_name',
         'service_name',
         'category',
@@ -22,7 +23,13 @@ class Service extends Model
 
     protected $casts = [
         'languages' => 'array',
+        'price' => 'integer',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function images()
     {

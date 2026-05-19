@@ -522,7 +522,7 @@
                                                 class="flex flex-wrap gap-2 mb-4">
 
                                             </div>
-                                            <input type="hidden" name="languages" id="languagesInput">
+                                            <input type="hidden" id="languagesInput">
 
                                             <!-- SELECT -->
                                             <select id="languageSelect"

@@ -11,6 +11,7 @@ use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\InboxController;
 
 // ADMIN CONTROLLERS
 use App\Http\Controllers\Admin\UserController as AdminUserController;
@@ -37,6 +38,8 @@ Route::get('/', function () {
 | Perusahaan Public Route
 |--------------------------------------------------------------------------
 */
+Route::get('/perusahaan', [PerusahaanController::class, 'index'])
+    ->name('perusahaan.index');
 
 Route::get('/perusahaan/detail', [PerusahaanController::class, 'detail'])
     ->name('perusahaan.detail.default');
@@ -121,17 +124,19 @@ Route::get('/join-group/{group:slug}', [GroupController::class, 'show'])
 Route::get('/service', [ServiceController::class, 'index'])
     ->name('service.index');
 
-Route::get('/service/form', [ServiceController::class, 'create'])
-    ->name('service.create');
-
-Route::post('/service', [ServiceController::class, 'store'])
-    ->name('service.store');
+Route::get('/service/all', [ServiceController::class, 'all'])
+    ->name('service.all');
 
 Route::get('/service/detail/{service}', [ServiceController::class, 'show'])
     ->name('service.show');
 
-Route::get('/service/all', [ServiceController::class, 'all'])
-    ->name('service.all');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/service/form', [ServiceController::class, 'create'])
+        ->name('service.create');
+
+    Route::post('/service', [ServiceController::class, 'store'])
+        ->name('service.store');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -180,6 +185,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/berhasil_daftar_event', function () {
         return view('pages.berhasil_daftar_event');
     })->name('rsvp.success');
+
+/*
+    |--------------------------------------------------------------------------
+    | Inboxes Route
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/inbox', [InboxController::class, 'index'])
+    ->name('inbox.index');
+
+Route::put('/inbox/{inbox}/read', [InboxController::class, 'read'])
+    ->name('inbox.read');
+
+Route::put('/inbox/read-all', [InboxController::class, 'readAll'])
+    ->name('inbox.readAll');
 
     /*
     |--------------------------------------------------------------------------
