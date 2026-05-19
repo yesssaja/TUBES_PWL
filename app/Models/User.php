@@ -71,4 +71,9 @@ public function inboxes()
     return $this->hasMany(\App\Models\Inbox::class);
 }
 
+public function courseRegistrations()
+{
+    return $this->hasMany(\App\Models\CourseRegistration::class);
+}
+
 }
