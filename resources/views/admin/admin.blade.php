@@ -122,6 +122,11 @@
             <p>Monitoring group</p>
         </a>
 
+        <a href="{{ route('admin.course.index') }}" class="bg-purple-500 text-white rounded-2xl p-6 shadow-lg hover:bg-purple-600 transition">
+            <h2 class="text-2xl font-bold mb-2">🎓 Course</h2>
+            <p>Kelola pendaftaran course</p>
+        </a>
+
         <a href="{{ route('admin.perusahaan.index') }}" class="bg-blue-500 text-white rounded-2xl p-6 shadow-lg hover:bg-blue-600 transition">
             <h2 class="text-2xl font-bold mb-2">🏢 Perusahaan</h2>
             <p>Kelola perusahaan</p>

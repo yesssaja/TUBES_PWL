@@ -12,8 +12,10 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\InboxController;
+use App\Http\Controllers\CourseController;
 
 // ADMIN CONTROLLERS
+use App\Http\Controllers\Admin\CourseRegistrationController as AdminCourseRegistrationController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\PerusahaanController as AdminPerusahaanController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
@@ -144,9 +146,8 @@ Route::middleware(['auth'])->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/course', function () {
-    return view('course.index');
-})->name('course.index');
+Route::get('/course', [CourseController::class, 'index'])
+    ->name('course.index');
 
 /*
 |--------------------------------------------------------------------------
@@ -164,6 +165,21 @@ require __DIR__ . '/auth.php';
 
 Route::middleware(['auth'])->group(function () {
 
+    /*
+    |--------------------------------------------------------------------------
+    | Course User Route
+    |--------------------------------------------------------------------------
+    */
+    
+    Route::get('/course/{course}/daftar', [CourseController::class, 'registerForm'])
+        ->name('course.register.form');
+    
+    Route::post('/course/{course}/daftar', [CourseController::class, 'register'])
+        ->name('course.register');
+    
+    Route::get('/course/{course}/akses', [CourseController::class, 'access'])
+        ->name('course.access');
+    
     /*
     |--------------------------------------------------------------------------
     | RSVP User Route
@@ -389,4 +405,28 @@ Route::middleware(['auth', 'admin'])
                 Route::put('/{review}/reply', [AdminReviewController::class, 'reply'])
                     ->name('reply');
             });
+
+            /*
+        |--------------------------------------------------------------------------
+        | Course Admin
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/course', [AdminCourseRegistrationController::class, 'index'])
+            ->name('course.index');
+
+        Route::put('/course/{registration}/approve', [AdminCourseRegistrationController::class, 'approve'])
+            ->name('course.approve');
+
+        Route::put('/course/{registration}/reject', [AdminCourseRegistrationController::class, 'reject'])
+            ->name('course.reject');
+
+        Route::delete('/course/{registration}', [AdminCourseRegistrationController::class, 'destroy'])
+            ->name('course.destroy');
+
+        Route::put('/course/{registration}/verify-payment', [AdminCourseRegistrationController::class, 'verifyPayment'])
+            ->name('course.verifyPayment');
+        
+        Route::put('/course/{registration}/reject-payment', [AdminCourseRegistrationController::class, 'rejectPayment'])
+            ->name('course.rejectPayment');
     });

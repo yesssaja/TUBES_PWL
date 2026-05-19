@@ -126,18 +126,37 @@
                                     Lamaran Ditolak
                                 </span>
 
-                            @else
-                                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-bold">
-                                    Info
-                                </span>
-                            @endif
-
-                            @if(!$inbox->is_read)
+                                 @if(!$inbox->is_read)
                                 <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold">
                                     Baru
                                 </span>
                             @endif
 
+                            @elseif($inbox->type === 'course_payment_verified')
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Pembayaran Course
+                                </span>
+                            
+                            @elseif($inbox->type === 'course_payment_rejected')
+                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Pembayaran Ditolak
+                                </span>
+                            
+                            @elseif($inbox->type === 'course_approved')
+                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Course Disetujui
+                                </span>
+                            
+                            @elseif($inbox->type === 'course_rejected')
+                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Course Ditolak
+                                </span>
+
+                            @else
+                                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Info
+                                </span>
+                            @endif
                         </div>
 
                         <!-- Title -->
