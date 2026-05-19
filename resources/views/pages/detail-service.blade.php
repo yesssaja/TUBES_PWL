@@ -79,7 +79,7 @@
                 @if($mainImage)
                     <img
                     id="mainServiceImage"
-                    src="{{ asset($mainImage->image) }}"
+                    src="{{ $mainImage->image_url }}"
                     alt="{{ $service->service_name }}"
                     class="w-full h-[420px] object-cover rounded-[26px] shadow-md transition duration-300">
                 @else
@@ -93,7 +93,7 @@
 
                         @foreach($service->images->skip(1) as $image)
                             <img
-                                src="{{ asset($image->image) }}"
+                                src="{{ $image->image_url }}"
                                 alt="{{ $service->service_name }}"
                                 class="thumbnail-image w-full h-24 object-cover rounded-2xl border border-red-100 shadow-sm hover:scale-[1.03] transition cursor-pointer">
                         @endforeach

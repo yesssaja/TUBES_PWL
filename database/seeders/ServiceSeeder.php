@@ -416,25 +416,30 @@ class ServiceSeeder extends Seeder
             ],
         ];
 
-       foreach ($services as $item) {
-            $item['languages'] = implode(', ', $item['languages']);
+       foreach ($services as $index => $item) {
+    $userId = \App\Models\User::where('role', 'user')
+        ->skip($index)
+        ->value('id');
 
-            $service = Service::updateOrCreate(
-                ['email' => $item['email']], 
-                $item
-            );
+    if (!$userId) {
+        $userId = \App\Models\User::where('role', 'user')->value('id');
+    }
 
-            // 1. Hapus data gambar lama agar tidak menumpuk
-            ServiceImage::where('service_id', $service->id)->delete();
+    $item['user_id'] = $userId;
 
-            // 2. Kita masukkan jalur foto lokal asli dari kawanmu ke database
-            for ($i = 1; $i <= 5; $i++) {
-                ServiceImage::create([
-                    'service_id' => $service->id,
-                    // Kita catat jalur folder public-nya di sini Lek (tanpa kata 'storage/')
-                    'image'      => 'gallery/portfolio/demo-' . $i . '.png', 
-                ]);
-            }
-        }
+    $service = Service::updateOrCreate(
+        ['email' => $item['email']],
+        $item
+    );
+
+    ServiceImage::where('service_id', $service->id)->delete();
+
+    for ($i = 1; $i <= 5; $i++) {
+        ServiceImage::create([
+            'service_id' => $service->id,
+            'image' => 'gallery/portfolio/demo-' . $i . '.png',
+        ]);
+    }
+}
     }
 }

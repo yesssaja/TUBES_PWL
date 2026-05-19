@@ -121,17 +121,19 @@ Route::get('/join-group/{group:slug}', [GroupController::class, 'show'])
 Route::get('/service', [ServiceController::class, 'index'])
     ->name('service.index');
 
-Route::get('/service/form', [ServiceController::class, 'create'])
-    ->name('service.create');
-
-Route::post('/service', [ServiceController::class, 'store'])
-    ->name('service.store');
+Route::get('/service/all', [ServiceController::class, 'all'])
+    ->name('service.all');
 
 Route::get('/service/detail/{service}', [ServiceController::class, 'show'])
     ->name('service.show');
 
-Route::get('/service/all', [ServiceController::class, 'all'])
-    ->name('service.all');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/service/form', [ServiceController::class, 'create'])
+        ->name('service.create');
+
+    Route::post('/service', [ServiceController::class, 'store'])
+        ->name('service.store');
+});
 
 /*
 |--------------------------------------------------------------------------
