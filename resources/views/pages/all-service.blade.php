@@ -108,17 +108,6 @@
 
                     <div class="grid lg:grid-cols-3 gap-4">
 
-                        {{-- SEARCH --}}
-                        <div class="lg:col-span-2">
-
-                            <input type="text"
-                                name="search"
-                                value="{{ request('search') }}"
-                                placeholder="Cari jasa..."
-                                class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200">
-
-                        </div>
-
                         {{-- CATEGORY --}}
                         <div>
 
@@ -181,7 +170,7 @@
                             {{-- IMAGE --}}
                             @if($firstImage)
                                 <img
-                                    src="{{ asset('storage/' . $firstImage->image) }}"
+                                    src="{{ $firstImage->image_url }}"
                                     alt="{{ $service->service_name }}"
                                     class="h-52 w-full object-cover flex-shrink-0">
                             @else

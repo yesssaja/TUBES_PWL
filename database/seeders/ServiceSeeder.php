@@ -416,22 +416,30 @@ class ServiceSeeder extends Seeder
             ],
         ];
 
-       foreach ($services as $item) {
-            $item['languages'] = implode(', ', $item['languages']);
+       foreach ($services as $index => $item) {
+    $userId = \App\Models\User::where('role', 'user')
+        ->skip($index)
+        ->value('id');
 
-            $service = Service::updateOrCreate(
-                ['email' => $item['email']], 
-                $item
-            );
+    if (!$userId) {
+        $userId = \App\Models\User::where('role', 'user')->value('id');
+    }
 
-            ServiceImage::where('service_id', $service->id)->delete();
+    $item['user_id'] = $userId;
 
-            for ($i = 1; $i <= 5; $i++) {
-                ServiceImage::create([
-                    'service_id' => $service->id,
-                    'image' => 'service/portfolio/demo-' . $i . '.png',
-                ]);
-            }
-        }
+    $service = Service::updateOrCreate(
+        ['email' => $item['email']],
+        $item
+    );
+
+    ServiceImage::where('service_id', $service->id)->delete();
+
+    for ($i = 1; $i <= 5; $i++) {
+        ServiceImage::create([
+            'service_id' => $service->id,
+            'image' => 'gallery/portfolio/demo-' . $i . '.png',
+        ]);
+    }
+}
     }
 }
