@@ -15,6 +15,7 @@ use App\Http\Controllers\InboxController;
 use App\Http\Controllers\CourseController;
 
 // ADMIN CONTROLLERS
+use App\Http\Controllers\Admin\Admincontroller;
 use App\Http\Controllers\Admin\CourseRegistrationController as AdminCourseRegistrationController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\PerusahaanController as AdminPerusahaanController;
@@ -264,25 +265,38 @@ Route::middleware(['auth', 'admin'])
         |--------------------------------------------------------------------------
         */
 
-        Route::get('/', function () {
-            $totalUser = \App\Models\User::count();
-            $totalEvent = \App\Models\Event::count();
-            $totalLoker = \App\Models\Loker::count();
-            $totalLamaran = \App\Models\Lamaran::count();
-            $totalPerusahaan = \App\Models\Perusahaan::count();
-            $totalGroup = \App\Models\Group::count();
-            $totalReview = \App\Models\Review::count();
+        // Route::get('/', function () {
+        //     $totalUser = \App\Models\User::count();
+        //     $totalEvent = \App\Models\Event::count();
+        //     $totalLoker = \App\Models\Loker::count();
+        //     $totalLamaran = \App\Models\Lamaran::count();
+        //     $totalPerusahaan = \App\Models\Perusahaan::count();
+        //     $totalGroup = \App\Models\Group::count();
+        //     $totalReview = \App\Models\Review::count();
 
-            return view('admin.admin', compact(
-                'totalUser',
-                'totalEvent',
-                'totalLoker',
-                'totalLamaran',
-                'totalPerusahaan',
-                'totalGroup',
-                'totalReview'
-            ));
-        })->name('dashboard');
+        //     return view('admin.admin', compact(
+        //         'totalUser',
+        //         'totalEvent',
+        //         'totalLoker',
+        //         'totalLamaran',
+        //         'totalPerusahaan',
+        //         'totalGroup',
+        //         'totalReview'
+        //     ));
+        // })->name('dashboard');
+
+        /*
+|--------------------------------------------------------------------------
+| Dashboard Admin
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/', [Admincontroller::class, 'dashboard'])
+    ->name('dashboard');
+
+Route::get('/dashboard', function () {
+    return redirect()->route('admin.dashboard');
+});
 
 
         /*
@@ -426,7 +440,15 @@ Route::middleware(['auth', 'admin'])
 
         Route::put('/course/{registration}/verify-payment', [AdminCourseRegistrationController::class, 'verifyPayment'])
             ->name('course.verifyPayment');
-        
+
         Route::put('/course/{registration}/reject-payment', [AdminCourseRegistrationController::class, 'rejectPayment'])
             ->name('course.rejectPayment');
+
+           /*
+        |--------------------------------------------------------------------------
+        | Notif Admin
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/admin/dashboard', [Admincontroller::class, 'dashboard'])
+            ->name('admin.dashboard');
     });

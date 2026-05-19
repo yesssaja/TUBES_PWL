@@ -40,6 +40,113 @@
         @endauth
     </div>
 
+    <!-- Notifikasi Admin -->
+<div class="bg-white rounded-3xl shadow-xl p-6 mb-6 border-l-8 border-red-600">
+
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+
+        <div>
+            <h2 class="text-2xl font-black text-red-600">
+                🔔 Butuh Diproses
+            </h2>
+
+            <p class="text-gray-500 mt-1">
+                Data yang menunggu persetujuan atau balasan admin.
+            </p>
+        </div>
+
+        <div class="bg-red-100 text-red-700 px-5 py-3 rounded-2xl font-black text-xl">
+            {{ $totalButuhTindakan ?? 0 }} Tugas
+        </div>
+
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+
+        <a href="{{ route('admin.rsvp.index') }}"
+           class="bg-red-50 hover:bg-red-100 rounded-2xl p-5 border border-red-100 transition">
+
+            <p class="text-gray-500 font-semibold">
+                RSVP Pending
+            </p>
+
+            <h3 class="text-4xl font-black text-red-600 mt-2">
+                {{ $pendingRsvp ?? 0 }}
+            </h3>
+
+            <p class="text-sm text-gray-500 mt-2">
+                Perlu diterima / ditolak
+            </p>
+        </a>
+
+        <a href="{{ route('admin.lamaran.index') }}"
+           class="bg-yellow-50 hover:bg-yellow-100 rounded-2xl p-5 border border-yellow-100 transition">
+
+            <p class="text-gray-500 font-semibold">
+                Lamaran Pending
+            </p>
+
+            <h3 class="text-4xl font-black text-yellow-600 mt-2">
+                {{ $pendingLamaran ?? 0 }}
+            </h3>
+
+            <p class="text-sm text-gray-500 mt-2">
+                Perlu diterima / ditolak
+            </p>
+        </a>
+
+        <a href="{{ route('admin.course.index') }}"
+           class="bg-orange-50 hover:bg-orange-100 rounded-2xl p-5 border border-orange-100 transition">
+
+            <p class="text-gray-500 font-semibold">
+                Course Pending
+            </p>
+
+            <h3 class="text-4xl font-black text-orange-600 mt-2">
+                {{ $pendingCourse ?? 0 }}
+            </h3>
+
+            <p class="text-sm text-gray-500 mt-2">
+                Menunggu persetujuan
+            </p>
+        </a>
+
+        <a href="{{ route('admin.course.index') }}"
+           class="bg-blue-50 hover:bg-blue-100 rounded-2xl p-5 border border-blue-100 transition">
+
+            <p class="text-gray-500 font-semibold">
+                Pembayaran Pending
+            </p>
+
+            <h3 class="text-4xl font-black text-blue-600 mt-2">
+                {{ $pendingPayment ?? 0 }}
+            </h3>
+
+            <p class="text-sm text-gray-500 mt-2">
+                Bukti bayar perlu dicek
+            </p>
+        </a>
+
+        <a href="{{ route('admin.review.index') }}"
+           class="bg-purple-50 hover:bg-purple-100 rounded-2xl p-5 border border-purple-100 transition">
+
+            <p class="text-gray-500 font-semibold">
+                Review Belum Dibalas
+            </p>
+
+            <h3 class="text-4xl font-black text-purple-600 mt-2">
+                {{ $reviewBelumDibalas ?? 0 }}
+            </h3>
+
+            <p class="text-sm text-gray-500 mt-2">
+                Perlu dibalas
+            </p>
+        </a>
+
+    </div>
+
+</div>
+
     <!-- Statistik -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
 
