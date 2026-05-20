@@ -53,27 +53,17 @@ class ServiceController extends Controller
             $query->where('category', $request->category);
         }
 
-        $services = $query->latest()
-            ->paginate(9)
-            ->withQueryString();
+        // AMBIL DATA SERVICE SESUAI FILTER
+        $services = $query->latest()->paginate(9)->withQueryString();
 
+        // AMBIL KATEGORI YANG BENAR-BENAR ADA DI DATABASE
         $categories = Service::select('category')
             ->whereNotNull('category')
             ->distinct()
             ->orderBy('category', 'asc')
             ->pluck('category');
 
-        $categoryCounts = Service::select('category')
-            ->selectRaw('COUNT(*) as total')
-            ->whereNotNull('category')
-            ->groupBy('category')
-            ->pluck('total', 'category');
-
-        return view('pages.all-service', compact(
-            'services',
-            'categories',
-            'categoryCounts'
-        ));
+        return view('pages.all-service', compact('services', 'categories'));
     }
 
     public function create()
