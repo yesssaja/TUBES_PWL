@@ -83,6 +83,12 @@
                         proyek, atau pekerjaan sekali pakai.
 
                     </p>
+                    <a href="{{ url('/') }}"
+                        class="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-4 rounded-2xl shadow-md hover:bg-red-700 hover:-translate-y-1 transition duration-300 text-sm font-bold">
+
+                        ← Kembali ke Dashboard
+
+                    </a>
 
                 </div>
 
