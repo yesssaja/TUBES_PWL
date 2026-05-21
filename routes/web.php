@@ -452,3 +452,7 @@ Route::get('/dashboard', function () {
         Route::get('/admin/dashboard', [Admincontroller::class, 'dashboard'])
             ->name('admin.dashboard');
     });
+
+    Route::get('/profile', function () {
+    return view('pages.profile');
+});
