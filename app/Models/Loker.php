@@ -24,9 +24,9 @@ class Loker extends Model
     ];
 
     public function perusahaan()
-    {
-        return $this->belongsTo(Perusahaan::class);
-    }
+{
+    return $this->belongsTo(Perusahaan::class, 'perusahaan_id');
+}
 
     public function lamarans()
     {

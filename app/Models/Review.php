@@ -12,9 +12,6 @@ class Review extends Model
         'nama',
         'posisi',
         'rating',
-        'rating_gaji',
-        'rating_kultur',
-        'rating_fasilitas',
         'ulasan',
         'balasan_perusahaan',
     ];
