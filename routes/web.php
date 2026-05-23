@@ -267,32 +267,6 @@ Route::middleware(['auth', 'admin'])
     ->group(function () {
 
         /*
-        |--------------------------------------------------------------------------
-        | Dashboard Admin
-        |--------------------------------------------------------------------------
-        */
-
-        // Route::get('/', function () {
-        //     $totalUser = \App\Models\User::count();
-        //     $totalEvent = \App\Models\Event::count();
-        //     $totalLoker = \App\Models\Loker::count();
-        //     $totalLamaran = \App\Models\Lamaran::count();
-        //     $totalPerusahaan = \App\Models\Perusahaan::count();
-        //     $totalGroup = \App\Models\Group::count();
-        //     $totalReview = \App\Models\Review::count();
-
-        //     return view('admin.admin', compact(
-        //         'totalUser',
-        //         'totalEvent',
-        //         'totalLoker',
-        //         'totalLamaran',
-        //         'totalPerusahaan',
-        //         'totalGroup',
-        //         'totalReview'
-        //     ));
-        // })->name('dashboard');
-
-        /*
 |--------------------------------------------------------------------------
 | Dashboard Admin
 |--------------------------------------------------------------------------
@@ -464,11 +438,12 @@ Route::get('/dashboard', function () {
     return view('pages.profile');
 });
 
-   /*
-    |--------------------------------------------------------------------------
-    | Route Perusahaan
-    |--------------------------------------------------------------------------
-    */
+/*
+|--------------------------------------------------------------------------
+| Route Perusahaan
+|--------------------------------------------------------------------------
+*/
+
 Route::middleware(['auth', 'perusahaan'])
     ->prefix('perusahaan')
     ->name('perusahaan.')
