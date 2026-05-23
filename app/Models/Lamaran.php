@@ -14,19 +14,10 @@ class Lamaran extends Model
         'loker_id',
         'nama',
         'email',
-        'hp',
-        'tempat_lahir',
-        'tanggal_lahir',
-        'gender',
         'cv',
-        'foto',
         'portfolio',
         'motivasi',
         'status_lamaran',
-    ];
-
-    protected $casts = [
-        'tanggal_lahir' => 'date',
     ];
 
     public function user()
@@ -35,7 +26,7 @@ class Lamaran extends Model
     }
 
     public function loker()
-    {
-        return $this->belongsTo(Loker::class);
-    }
+{
+    return $this->belongsTo(Loker::class, 'loker_id');
+}
 }

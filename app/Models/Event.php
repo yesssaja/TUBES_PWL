@@ -10,20 +10,20 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
-        'perusahaan_id',
-        'nama_event',
-        'deskripsi',
-        'tanggal_event',
-        'jam',
-        'lokasi',
-        'kuota',
-        'link_wa_group',
-    ];
+    'perusahaan_id',
+    'nama_event',
+    'tanggal_event',
+    'jam',
+    'lokasi',
+    'kuota',
+    'deskripsi',
+    'poster',
+];
 
-    public function rsvp()
-    {
-        return $this->hasMany(Rsvp::class);
-    }
+    public function rsvps()
+{
+    return $this->hasMany(Rsvp::class, 'event_id');
+}
 
     public function perusahaan()
     {

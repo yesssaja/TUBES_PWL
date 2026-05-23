@@ -10,14 +10,15 @@ class Perusahaan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama_perusahaan',
-        'logo',
-        'deskripsi',
-        'alamat',
-        'email',
-        'no_hp',
-        'website'
-    ];
+    'user_id',
+    'nama_perusahaan',
+    'logo',
+    'deskripsi',
+    'alamat',
+    'email',
+    'no_hp',
+    'website',
+];
 
     public function loker()
     {
