@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('no_hp')->nullable();
             $table->string('website')->nullable();
             $table->timestamps();
+            $table->foreignId('user_id')
+                  ->nullable()
+                  ->constrained('users')
+                  ->nullOnDelete();
         });
     }
 

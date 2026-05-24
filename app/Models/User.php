@@ -22,7 +22,16 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'foto',
+        'hp',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'gender',
         'role', // Tambahkan ini agar role bisa diisi (Mass Assignment)
+    ];
+
+    protected $casts = [
+        'tanggal_lahir' => 'date',
     ];
 
     /**
