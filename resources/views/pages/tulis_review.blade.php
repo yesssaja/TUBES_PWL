@@ -110,7 +110,7 @@
                     <input type="hidden" name="rating_kultur" id="rating_kultur" value="{{ old('rating_kultur') }}">
                     <input type="hidden" name="rating_fasilitas" id="rating_fasilitas" value="{{ old('rating_fasilitas') }}">
 
-                    <!-- Info Perusahaan -->
+                   
                     <div class="bg-yellow-100 border border-yellow-300 rounded-2xl p-5 mb-8">
 
                         <p class="text-sm font-bold text-red-brand uppercase tracking-widest mb-1">
