@@ -33,6 +33,9 @@ use App\Http\Controllers\Admin\RsvpController as AdminRsvpController;
 use App\Http\Controllers\Admin\LokerController as AdminLokerController;
 use App\Http\Controllers\Admin\LamaranController as AdminLamaranController;
 
+// LOGIN CONTROLLERS
+use App\Http\Controllers\ProfilePelamarController;
+
 /*
 |--------------------------------------------------------------------------
 | Public Route
@@ -164,6 +167,11 @@ Route::get('/course', [CourseController::class, 'index'])
 */
 
 require __DIR__ . '/auth.php';
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/profile-pelamar/create',[ProfilePelamarController::class, 'create'])->name('profile.pelamar.create');
+    Route::post('/profile-pelamar',[ProfilePelamarController::class,'store'])->name('profile.pelamar.store');
+});
 
 /*
 |--------------------------------------------------------------------------
