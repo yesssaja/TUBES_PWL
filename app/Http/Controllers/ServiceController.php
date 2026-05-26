@@ -27,7 +27,7 @@ class ServiceController extends Controller
             ->groupBy('category')
             ->pluck('total', 'category');
 
-        return view('pages.service', compact(
+        return view('users.service.dashboard.service', compact(
             'services',
             'categories',
             'categoryCounts'
