@@ -51,7 +51,11 @@ class LamaranController extends Controller
         ]);
 
         return redirect()
-            ->route('loker.show', $loker->id)
-            ->with('success', 'Lamaran berhasil dikirim. Tunggu konfirmasi dari admin.');
-    }
+            ->route('lamaran.success', $loker->id);
+            }
+            
+    public function success(Loker $loker)
+{
+    return view('users.lamaran.success.success', compact('loker'));
+}
 }

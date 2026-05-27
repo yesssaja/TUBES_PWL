@@ -1,43 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lamaran Kerja</title>
+@extends('users.lamaran.layouts.app')
 
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-
-                    fontFamily: {
-                        poppins: ['Poppins', 'sans-serif'],
-                    },
-
-                    colors: {
-
-                        cream: '#F7F1C8',
-                        primary: '#E71F25',
-                        dark: '#1B2540',
-                        soft: '#FFFDF3',
-                    },
-
-                    boxShadow: {
-                        custom: '0 15px 40px rgba(0,0,0,0.08)',
-                    }
-
-                }
-            }
-        }
-    </script>
-
-</head>
-
-<body class="bg-cream font-poppins text-dark min-h-screen">
+@section('content')
 
     <section class="py-10 px-4 lg:px-6">
 
@@ -435,40 +398,11 @@
         </div>
 
     </section>
+@endsection
 
-    <script>
-
-    /*
-    =========================
-    PREVIEW FOTO
-    =========================
-    */
-
-    document.getElementById('foto').addEventListener('change', function(e) {
-
-        const file = e.target.files[0];
-
-        if(file){
-
-            const reader = new FileReader();
-
-            reader.onload = function(event){
-
-                const preview = document.getElementById('previewFoto');
-
-                preview.src = event.target.result;
-
-                preview.classList.remove('hidden');
-
-            }
-
-            reader.readAsDataURL(file);
-
-        }
-
-    });
-
-
+@section('script')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
 
     /*
     =========================
@@ -497,167 +431,101 @@
     });
 
 
-document.querySelector("form").addEventListener("submit", function(e){
+    document.querySelector("form").addEventListener("submit", function(e){
 
-    // ======================
-    // AMBIL VALUE
-    // ======================
+        // ======================
+        // AMBIL VALUE
+        // ======================
 
-    const nama = document.getElementById("nama").value;
-    const email = document.getElementById("email").value;
-    const hp = document.getElementById("hp").value;
-    const tempat = document.getElementById("tempat_lahir").value;
-    const tanggal = document.getElementById("tanggal_lahir").value;
-    const gender = document.querySelector('input[name="gender"]:checked');
-    const cvInput = document.getElementById("cv");
-    const fotoInput = document.getElementById("foto");
+        const nama = document.getElementById("nama").value;
+        const email = document.getElementById("email").value;
+        const cvInput = document.getElementById("cv");
 
-    // ======================
-    // ERROR ELEMENT
-    // ======================
+        // ======================
+        // ERROR ELEMENT
+        // ======================
 
-    const namaError = document.getElementById("namaError");
-    const emailError = document.getElementById("emailError");
-    const hpError = document.getElementById("hpError");
-    const tempatError = document.getElementById("tempat_lahirError");
-    const tanggalError = document.getElementById("tanggal_lahirError");
-    const genderError = document.getElementById("genderError");
-    const cvError = document.getElementById("cvError");
-    const fotoError = document.getElementById("fotoError");
+        const namaError = document.getElementById("namaError");
+        const emailError = document.getElementById("emailError");
+        const cvError = document.getElementById("cvError");
 
-    // ======================
-    // RESET ERROR
-    // ======================
+        // ======================
+        // RESET ERROR
+        // ======================
 
-    namaError.classList.add("hidden");
-    emailError.classList.add("hidden");
-    hpError.classList.add("hidden");
-    tempatError.classList.add("hidden");
-    tanggalError.classList.add("hidden");
-    genderError.classList.add("hidden");
-    cvError.classList.add("hidden");
-    fotoError.classList.add("hidden");
+        namaError.classList.add("hidden");
+        emailError.classList.add("hidden");
+        cvError.classList.add("hidden");
 
-    let valid = true;
+        let valid = true;
 
-    // ======================
-    // VALIDASI
-    // ======================
+        // ======================
+        // VALIDASI
+        // ======================
 
-    if(nama.trim() === ""){
+        if(nama.trim() === ""){
 
-        namaError.classList.remove("hidden");
-        valid = false;
+            namaError.classList.remove("hidden");
+            valid = false;
 
-    }
+        }
 
-    if(email.trim() === ""){
+        if(email.trim() === ""){
 
-        emailError.classList.remove("hidden");
-        valid = false;
+            emailError.classList.remove("hidden");
+            valid = false;
 
-    }
+        }
 
-    if(hp.trim() === ""){
+        const cvFile = cvInput.files[0];
 
-        hpError.classList.remove("hidden");
-        valid = false;
+        if (!cvFile) {
 
-    }
-
-    if(tempat.trim() === ""){
-
-        tempatError.classList.remove("hidden");
-        valid = false;
-
-    }
-
-    if(tanggal.trim() === ""){
-
-        tanggalError.classList.remove("hidden");
-        valid = false;
-
-    }
-
-    if(!gender){
-
-        genderError.classList.remove("hidden");
-        valid = false;
-
-    }
-
-    const cvFile = cvInput.files[0];
-
-    if (!cvFile) {
-
-        cvError.innerText = "CV wajib diupload";
-        cvError.classList.remove("hidden");
-        valid = false;
-
-    } else {
-
-        // cek format file
-        if (cvFile.type !== "application/pdf") {
-            cvError.innerText = "CV harus berformat PDF";
+            cvError.innerText = "CV wajib diupload";
             cvError.classList.remove("hidden");
             valid = false;
-        }
 
-        // cek ukuran file (2MB)
-        if (cvFile.size > 2 * 1024 * 1024) {
-            cvError.innerText = "Ukuran CV maksimal 2MB";
-            cvError.classList.remove("hidden");
-            valid = false;
-        }
+        } else {
 
-    }
+            // cek format file
+            if (cvFile.type !== "application/pdf") {
+                cvError.innerText = "CV harus berformat PDF";
+                cvError.classList.remove("hidden");
+                valid = false;
+            }
 
-    const fotoFile = fotoInput.files[0];
-
-    if (fotoFile) {
-
-        // cek format file
-        if (!["image/jpeg", "image/png"].includes(fotoFile.type)) {
-            fotoError.innerText = "Foto harus JPG/PNG";
-            fotoError.classList.remove("hidden");
-            valid = false;
-        }
-
-        // cek ukuran file (2MB)
-        if (fotoFile.size > 2 * 1024 * 1024) {
-            fotoError.innerText = "Ukuran foto maksimal 2MB";
-            fotoError.classList.remove("hidden");
-            valid = false;
-        }
-
-    }
-
-    // ======================
-    // CEGAH SUBMIT JIKA ERROR
-    // ======================
-
-        if(!valid){
-
-            e.preventDefault();
-
-            // cari elemen error pertama yang muncul
-            const firstError = document.querySelector(".text-red-500:not(.hidden)");
-
-            if(firstError){
-
-                firstError.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
-
+            // cek ukuran file (2MB)
+            if (cvFile.size > 2 * 1024 * 1024) {
+                cvError.innerText = "Ukuran CV maksimal 2MB";
+                cvError.classList.remove("hidden");
+                valid = false;
             }
 
         }
 
-});
+        // ======================
+        // CEGAH SUBMIT JIKA ERROR
+        // ======================
+
+            if(!valid){
+
+                e.preventDefault();
+
+                // cari elemen error pertama yang muncul
+                const firstError = document.querySelector(".text-red-500:not(.hidden)");
+
+                if(firstError){
+
+                    firstError.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+                }
+
+            }
+
+    });
 
 </script>
-
-</body>
-
-</html>
+@endsection

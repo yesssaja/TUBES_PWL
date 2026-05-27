@@ -252,6 +252,9 @@ Route::put('/inbox/read-all', [InboxController::class, 'readAll'])
 
     Route::post('/lamaran/{loker}', [LamaranController::class, 'store'])
         ->name('lamaran.store');
+    
+    Route::get('/lamaran/{loker}/success', [LamaranController::class, 'success'])
+        ->name('lamaran.success');
 
     /*
     |--------------------------------------------------------------------------
