@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use App\Models\ServiceImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -63,14 +64,35 @@ class ServiceController extends Controller
             ->orderBy('category', 'asc')
             ->pluck('category');
 
-        return view('pages.all-service', compact('services', 'categories'));
+        // AMBIL LOCATION YANG BENAR-BENAR ADA DI DATABASE
+        $locations = Service::select('location')
+            ->whereNotNull('location')
+            ->distinct()
+            ->orderBy('location', 'asc')
+            ->pluck('location');
+
+        return view('users.service.all.all-service', compact('services', 'categories', 'locations'));
     }
 
     public function create()
     {
-        return view('pages.tawarkan-service');
-    }
+        $categories = [
+            'Fotografi',
+            'Desain Grafis',
+            'Video Editing',
+            'Musik & Audio',
+            'MC & Event',
+            'Penulisan',
+            'Website & Programming',
+            'Penerjemah',
+            'Makeup Artist',
+            'Les Privat',
+            'Admin & Data Entry',
+            'Social Media',
+        ];
 
+        return view('users.service.register.tawarkan-service', compact('categories'));
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -91,7 +113,7 @@ class ServiceController extends Controller
         ]);
 
         $service = Service::create([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'freelancer_name' => $request->freelancer_name,
             'service_name' => $request->service_name,
             'category' => $request->category,
@@ -123,6 +145,49 @@ class ServiceController extends Controller
     {
         $service->load(['images', 'user']);
 
-        return view('pages.detail-service', compact('service'));
+        return view('users.service.detail.detail-service', compact('service'));
     }
+
+    public function searchAjax(Request $request)
+    {
+        $query = Service::with(['images', 'user']);
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('freelancer_name', 'like', '%' . $search . '%')
+                    ->orWhere('service_name', 'like', '%' . $search . '%')
+                    ->orWhere('location', 'like', '%' . $search . '%')
+                    ->orWhere('skills', 'like', '%' . $search . '%')
+                    ->orWhere('category', 'like', '%' . $search . '%');
+            });
+        }
+
+        if ($request->filled('category') && $request->category !== 'all') {
+            $query->where('category', $request->category);
+        }
+
+        if ($request->filled('location') && $request->location !== 'all') {
+            $query->where('location', $request->location);
+        }
+
+        $services = $query->latest()->take(30)->get();
+
+        return response()->json([
+            'services' => $services->map(function ($service) {
+                return [
+                    'id' => $service->id,
+                    'freelancer_name' => $service->freelancer_name,
+                    'service_name' => $service->service_name,
+                    'category' => $service->category,
+                    'location' => $service->location,
+                    'price' => number_format($service->price, 0, ',', '.'),
+                    'image_url' => optional($service->images->first())->image_url,
+                    'detail_url' => route('service.show', $service->id),
+                ];
+            })
+        ]);
+    }   
 }
+

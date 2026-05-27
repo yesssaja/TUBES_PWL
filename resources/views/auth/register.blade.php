@@ -328,7 +328,7 @@
 
                                 <button type="submit"
                                     class="w-full bg-[#E71F25] hover:bg-red-700 text-white py-4 rounded-2xl font-bold text-sm shadow-glow transition duration-300 hover:-translate-y-0.5">
-                                    {{ __('Register') }}
+                                    {{ __('Lengkapi Data Diri') }}
                                 </button>
 
                                 <div class="flex items-center gap-4 my-5">

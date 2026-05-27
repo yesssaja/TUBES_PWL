@@ -12,7 +12,7 @@ class LamaranController extends Controller
     {
         $loker->load('perusahaan');
 
-        return view('pages.lamaran', compact('loker'));
+        return view('users.lamaran.form.lamaran', compact('loker'));
     }
 
     public function store(Request $request, Loker $loker)

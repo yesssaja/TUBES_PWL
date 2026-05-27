@@ -13,18 +13,12 @@ return new class extends Migration
         Schema::create('lamarans', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('user_id',)->constrained('users')->cascadeOnDelete();
             $table->foreignId('loker_id')->constrained('lokers')->cascadeOnDelete();
 
             $table->string('nama');
             $table->string('email');
-            $table->string('hp', 20);
-            $table->string('tempat_lahir');
-            $table->date('tanggal_lahir');
-            $table->enum('gender', ['Laki-laki', 'Perempuan']);
-
             $table->string('cv');
-            $table->string('foto')->nullable();
             $table->string('portfolio')->nullable();
             $table->text('motivasi')->nullable();
 

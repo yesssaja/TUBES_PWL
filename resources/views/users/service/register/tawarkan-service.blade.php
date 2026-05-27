@@ -289,15 +289,17 @@
 
                                     <select
                                         name="category"
+                                        id="categoryInput"
                                         required
                                         class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
 
-                                        <option>Pilih Kategori</option>
-                                        <option>Fotografi</option>
-                                        <option>Video Editing</option>
-                                        <option>Desain Grafis</option>
-                                        <option>Musik & Audio</option>
-                                        <option>Kecantikan/Beauty</option>
+                                        <option value="">Pilih Kategori</option>
+
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category }}" {{ old('category') == $category ? 'selected' : '' }}>
+                                                {{ $category }}
+                                            </option>
+                                        @endforeach
 
                                     </select>
 
