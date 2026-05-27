@@ -14,6 +14,7 @@ class Course extends Model
         'payment_required',
         'payment_note',
         'is_active',
+        'perusahaan_id', 
     ];
 
     protected $casts = [
@@ -21,6 +22,12 @@ class Course extends Model
         'payment_required' => 'boolean',
         'is_active' => 'boolean',
     ];
+
+    // Relasi ke perusahaan (user dengan role perusahaan)
+    public function perusahaan()
+    {
+        return $this->belongsTo(User::class, 'perusahaan_id', 'id');
+    }
 
     public function links()
     {

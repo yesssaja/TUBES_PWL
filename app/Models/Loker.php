@@ -23,9 +23,9 @@ class Loker extends Model
         'batas_lamaran' => 'date',
     ];
 
-    public function perusahaan()
+   public function perusahaan()
 {
-    return $this->belongsTo(Perusahaan::class, 'perusahaan_id');
+    return $this->belongsTo(\App\Models\User::class, 'perusahaan_id', 'id');
 }
 
     public function lamarans()

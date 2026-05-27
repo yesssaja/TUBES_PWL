@@ -25,8 +25,8 @@ class Event extends Model
     return $this->hasMany(Rsvp::class, 'event_id');
 }
 
-    public function perusahaan()
-    {
-        return $this->belongsTo(Perusahaan::class);
-    }
+   public function perusahaan()
+{
+    return $this->belongsTo(\App\Models\User::class, 'perusahaan_id', 'id');
+}
 }
