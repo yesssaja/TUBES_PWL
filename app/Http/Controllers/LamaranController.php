@@ -28,10 +28,6 @@ class LamaranController extends Controller
         }
 
         $validated = $request->validate([
-            'hp' => ['required', 'string', 'max:20'],
-            'tempat_lahir' => ['required', 'string', 'max:255'],
-            'tanggal_lahir' => ['required', 'date'],
-            'gender' => ['required', 'in:Laki-laki,Perempuan'],
             'cv' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             'foto' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'portfolio' => ['nullable', 'string', 'max:255'],
@@ -42,19 +38,11 @@ class LamaranController extends Controller
 
         $fotoPath = null;
 
-        if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('lamaran/foto', 'public');
-        }
-
         Lamaran::create([
             'user_id' => $user->id,
             'loker_id' => $loker->id,
             'nama' => $user->name,
             'email' => $user->email,
-            'hp' => $validated['hp'],
-            'tempat_lahir' => $validated['tempat_lahir'],
-            'tanggal_lahir' => $validated['tanggal_lahir'],
-            'gender' => $validated['gender'],
             'cv' => $cvPath,
             'foto' => $fotoPath,
             'portfolio' => $validated['portfolio'] ?? null,
