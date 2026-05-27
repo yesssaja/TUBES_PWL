@@ -1,60 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('users.service.layouts.app')
 
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Service - Looker Seeker</title>
-
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <script>
-
-        tailwind.config = {
-
-            theme: {
-
-                extend: {
-
-                    fontFamily: {
-
-                        poppins: ['Poppins', 'sans-serif'],
-
-                    },
-
-                    colors: {
-
-                        primary: '#E71F25',
-                        dark: '#1B2540',
-                        cream: '#F7F1C8',
-                        soft: '#FFFDF3',
-
-                    },
-
-                    boxShadow: {
-
-                        soft: '0 6px 18px rgba(0,0,0,0.08)',
-                        card: '0 15px 40px rgba(0,0,0,0.08)',
-
-                    }
-
-                }
-
-            }
-
-        }
-
-    </script>
-
-</head>
-
-<body class="bg-[#F7F1C8] font-poppins text-dark">
+@section('content')
 
     <!-- CONTAINER -->
     <div class="max-w-7xl mx-auto px-4 lg:px-6 py-8">
@@ -870,6 +816,50 @@
         </div>
 
     </div> 
+
+    @if(session('success'))
+    <div id="successModal"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-5">
+
+        <div class="bg-white rounded-[36px] p-8 max-w-md w-full text-center shadow-2xl">
+
+            <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-12 h-12 text-green-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+
+            <h2 class="text-3xl font-extrabold mb-3 text-dark">
+                Jasa Berhasil Dipublikasikan
+            </h2>
+
+            <p class="text-slate-500 text-sm leading-relaxed mb-8">
+                Jasa yang Anda tawarkan berhasil disimpan dan sekarang dapat dilihat oleh pengguna lain.
+            </p>
+
+            <button type="button"
+                onclick="document.getElementById('successModal').remove()"
+                class="inline-flex items-center justify-center w-full bg-primary hover:bg-red-700 text-white py-4 rounded-full font-bold text-sm shadow-lg transition duration-300">
+
+                Oke, Mengerti
+            </button>
+
+        </div>
+
+    </div>
+    @endif
+
+@endsection
+
+@section('script')
     <script>
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -935,47 +925,7 @@
 
     });
     </script>
+@endsection
 
-    @if(session('success'))
-    <div id="successModal"
-        class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-5">
 
-        <div class="bg-white rounded-[36px] p-8 max-w-md w-full text-center shadow-2xl">
 
-            <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="w-12 h-12 text-green-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-
-                    <path stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M5 13l4 4L19 7" />
-                </svg>
-            </div>
-
-            <h2 class="text-3xl font-extrabold mb-3 text-dark">
-                Jasa Berhasil Dipublikasikan
-            </h2>
-
-            <p class="text-slate-500 text-sm leading-relaxed mb-8">
-                Jasa yang Anda tawarkan berhasil disimpan dan sekarang dapat dilihat oleh pengguna lain.
-            </p>
-
-            <button type="button"
-                onclick="document.getElementById('successModal').remove()"
-                class="inline-flex items-center justify-center w-full bg-primary hover:bg-red-700 text-white py-4 rounded-full font-bold text-sm shadow-lg transition duration-300">
-
-                Oke, Mengerti
-            </button>
-
-        </div>
-
-    </div>
-    @endif
-
-</body>
-
-</html>

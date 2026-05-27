@@ -1,56 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('users.service.layouts.app')
 
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Tawarkan Jasa - Looker Seeker</title>
-
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- Quill -->
+@section('style')
+    {{-- Quill --}}
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
-    <script>
-
-        tailwind.config = {
-            theme: {
-                extend: {
-
-                    fontFamily: {
-                        poppins: ['Poppins', 'sans-serif'],
-                    },
-
-                    colors: {
-
-                        cream: '#F7F1C8',
-                        primary: '#E71F25',
-                        dark: '#1B2540',
-                        soft: '#FFFDF3',
-
-                    },
-
-                    boxShadow: {
-
-                        custom: '0 15px 40px rgba(0,0,0,0.08)',
-                        glow: '0 10px 30px rgba(231,31,37,0.18)',
-
-                    }
-
-                }
-            }
-        }
-
-    </script>
-
     <style>
-
         .gradient-border {
             position: relative;
         }
@@ -77,25 +31,19 @@
         }
 
         .ql-toolbar.ql-snow {
-
             border: none !important;
             border-bottom: 1px solid #E2E8F0 !important;
             padding: 16px !important;
-
         }
 
         .ql-container.ql-snow {
-
             border: none !important;
             font-family: 'Poppins', sans-serif !important;
-
         }
 
         .ql-editor {
-
             min-height: 220px;
             font-size: 14px;
-
         }
 
         @keyframes fadeIn {
@@ -109,12 +57,10 @@
                 transform: scale(1);
             }
         }
-
     </style>
+@endsection
 
-</head>
-
-<body class="bg-cream font-poppins text-dark min-h-screen overflow-x-hidden">
+@section('content')
 
     <!-- BACKGROUND -->
     <div class="fixed inset-0 -z-10 overflow-hidden">
@@ -289,15 +235,17 @@
 
                                     <select
                                         name="category"
+                                        id="categoryInput"
                                         required
                                         class="w-full px-5 py-4 rounded-2xl border border-red-100 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200 transition">
 
-                                        <option>Pilih Kategori</option>
-                                        <option>Fotografi</option>
-                                        <option>Video Editing</option>
-                                        <option>Desain Grafis</option>
-                                        <option>Musik & Audio</option>
-                                        <option>Kecantikan/Beauty</option>
+                                        <option value="">Pilih Kategori</option>
+
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category }}" {{ old('category') == $category ? 'selected' : '' }}>
+                                                {{ $category }}
+                                            </option>
+                                        @endforeach
 
                                     </select>
 
@@ -692,9 +640,65 @@
         </div>
 
     </section>
+<!-- ========================================= -->
+<!-- SUCCESS MODAL -->
+<!-- ========================================= -->
 
-    <!-- QUILL -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<div id="successModal"
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50 p-5">
+
+    <div class="bg-white rounded-[36px] p-8 max-w-md w-full text-center shadow-2xl animate-[fadeIn_.3s_ease]">
+
+        <!-- ICON -->
+        <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-12 h-12 text-green-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2">
+
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M5 13l4 4L19 7" />
+
+            </svg>
+
+        </div>
+
+        <!-- TITLE -->
+        <h2 class="text-3xl font-extrabold mb-3 text-dark">
+
+            Jasa Berhasil Dipublikasikan
+
+        </h2>
+
+        <!-- DESC -->
+        <p class="text-slate-500 text-sm leading-relaxed mb-8">
+
+            Jasa yang Anda tawarkan berhasil dipublikasikan
+            dan sekarang dapat dilihat oleh pengguna lain.
+
+        </p>
+
+        <!-- BUTTON -->
+        <a href="/service"
+            class="inline-flex items-center justify-center w-full bg-primary hover:bg-red-700 text-white py-4 rounded-full font-bold text-sm shadow-glow transition duration-300">
+
+            Kembali ke Halaman Service
+
+        </a>
+
+    </div>
+
+</div>
+
+@endsection
+
+@section('script')
+<!-- QUILL -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -1067,58 +1071,4 @@ serviceForm.addEventListener('submit', function (e) {
 });
 </script>
 
-<!-- ========================================= -->
-<!-- SUCCESS MODAL -->
-<!-- ========================================= -->
-
-<div id="successModal"
-    class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50 p-5">
-
-    <div class="bg-white rounded-[36px] p-8 max-w-md w-full text-center shadow-2xl animate-[fadeIn_.3s_ease]">
-
-        <!-- ICON -->
-        <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
-
-            <svg xmlns="http://www.w3.org/2000/svg"
-                class="w-12 h-12 text-green-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2">
-
-                <path stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M5 13l4 4L19 7" />
-
-            </svg>
-
-        </div>
-
-        <!-- TITLE -->
-        <h2 class="text-3xl font-extrabold mb-3 text-dark">
-
-            Jasa Berhasil Dipublikasikan
-
-        </h2>
-
-        <!-- DESC -->
-        <p class="text-slate-500 text-sm leading-relaxed mb-8">
-
-            Jasa yang Anda tawarkan berhasil dipublikasikan
-            dan sekarang dapat dilihat oleh pengguna lain.
-
-        </p>
-
-        <!-- BUTTON -->
-        <a href="/service"
-            class="inline-flex items-center justify-center w-full bg-primary hover:bg-red-700 text-white py-4 rounded-full font-bold text-sm shadow-glow transition duration-300">
-
-            Kembali ke Halaman Service
-
-        </a>
-
-    </div>
-
-</div>
-</body>
-</html>
+@endsection

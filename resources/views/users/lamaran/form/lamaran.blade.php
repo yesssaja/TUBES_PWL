@@ -1,43 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lamaran Kerja</title>
+@extends('users.lamaran.layouts.app')
 
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-
-                    fontFamily: {
-                        poppins: ['Poppins', 'sans-serif'],
-                    },
-
-                    colors: {
-
-                        cream: '#F7F1C8',
-                        primary: '#E71F25',
-                        dark: '#1B2540',
-                        soft: '#FFFDF3',
-                    },
-
-                    boxShadow: {
-                        custom: '0 15px 40px rgba(0,0,0,0.08)',
-                    }
-
-                }
-            }
-        }
-    </script>
-
-</head>
-
-<body class="bg-cream font-poppins text-dark min-h-screen">
+@section('content')
 
     <section class="py-10 px-4 lg:px-6">
 
@@ -281,147 +244,6 @@
 
                             </div>
 
-                            <!-- HP -->
-                            <div>
-
-                                <label class="block text-sm font-bold mb-3">
-
-                                    Nomor Handphone
-
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="hp"
-                                    name="hp"
-                                    value="{{ old('hp') }}"
-                                    placeholder="08xxxxxxxxxx"
-                                    class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200"
-                                >
-                                <p id="hpError" class="text-red-500 text-sm mt-2 hidden">
-                                    Nomor handphone wajib diisi
-                                </p>
-
-                                @error('hp')
-                                    <p class="text-red-500 text-sm mt-2">
-                                        {{ $message }}
-                                    </p>
-                                @enderror
-
-                            </div>
-
-                            <!-- TEMPAT -->
-                            <div>
-
-                                <label class="block text-sm font-bold mb-3">
-
-                                    Tempat Lahir
-
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="tempat_lahir"
-                                    name="tempat_lahir"
-                                    value="{{ old('tempat_lahir') }}"
-                                    placeholder="Masukkan tempat lahir"
-                                    class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200"
-                                >
-
-                                <p id="tempat_lahirError" class="text-red-500 text-sm mt-2 hidden">
-                                    Tempat lahir wajib diisi
-                                </p>
-
-                                @error('tempat_lahir')
-                                    <p class="text-red-500 text-sm mt-2">
-                                        {{ $message }}
-                                    </p>
-                                @enderror
-
-                            </div>
-
-                            <!-- TANGGAL -->
-                            <div>
-
-                                <label class="block text-sm font-bold mb-3">
-
-                                    Tanggal Lahir
-
-                                </label>
-
-                                <input
-                                    type="date"
-                                    id="tanggal_lahir"
-                                    name="tanggal_lahir"
-                                    value="{{ old('tanggal_lahir') }}"
-                                    class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-200"
-                                >
-
-                                <p id="tanggal_lahirError" class="text-red-500 text-sm mt-2 hidden">
-                                    Tanggal lahir wajib diisi
-                                </p>
-
-                                @error('tanggal_lahir')
-                                    <p class="text-red-500 text-sm mt-2">
-                                        {{ $message }}
-                                    </p>
-                                @enderror
-
-                            </div>
-
-                            <!-- GENDER -->
-                            <div>
-
-                                <label class="block text-sm font-bold mb-3">
-
-                                    Jenis Kelamin
-
-                                </label>
-
-                                <div class="flex gap-5 pt-3 text-sm font-medium">
-
-                                    <label class="flex items-center gap-2">
-
-                                        <input
-                                            type="radio"
-                                            id="gender_laki"
-                                            name="gender"
-                                            value="Laki-laki"
-                                            {{ old('gender') == 'Laki-laki' ? 'checked' : '' }}
-                                            class="accent-red-600"
-                                        >
-
-                                        Laki-laki
-
-                                    </label>
-
-                                    <label class="flex items-center gap-2">
-
-                                        <input
-                                            type="radio"
-                                            id="gender_perempuan"
-                                            name="gender"
-                                            value="Perempuan"
-                                            {{ old('gender') == 'Perempuan' ? 'checked' : '' }}
-                                            class="accent-red-600"
-                                        >
-
-                                        Perempuan
-
-                                    </label>
-                                </div>
-                                    
-                                    <p id="genderError" class="text-red-500 text-sm mt-2 hidden">
-                                        Jenis kelamin wajib dipilih
-                                    </p>
-
-                                    @error('gender')
-                                        <p class="text-red-500 text-sm mt-2">
-                                            {{ $message }}
-                                        </p>
-                                    @enderror
-                            </div>
-
                         </div>
 
                     </div>
@@ -490,47 +312,6 @@
                                         </a>
 
                                     </div>
-
-                                </div>
-
-                            </div>
-
-                            <!-- FOTO -->
-                            <div class="bg-white rounded-[22px] p-6 border-2 border-dashed border-red-200 hover:border-primary transition duration-300">
-
-                                <h3 class="text-xl font-bold text-primary mb-2">
-                                    Upload Foto
-                                </h3>
-
-                                <p class="text-slate-500 mb-5 text-sm">
-                                    Format JPG/PNG, maksimal 2MB
-                                </p>
-
-                                <input
-                                    type="file"
-                                    id="foto"
-                                    name="foto"
-                                    accept=".jpg,.jpeg,.png"
-                                    class="w-full text-sm"
-                                >
-
-                                <p id="fotoError" class="text-red-500 text-sm mt-2 hidden">
-                                    Foto harus JPG/PNG dan maksimal 2MB
-                                </p>
-
-                                @error('foto')
-                                    <p class="text-red-500 text-sm mt-2">
-                                        {{ $message }}
-                                    </p>
-                                @enderror
-
-                                <!-- PREVIEW FOTO -->
-                                <div class="mt-5">
-
-                                    <img
-                                        id="previewFoto"
-                                        class="hidden w-40 h-40 object-cover rounded-2xl border border-red-200 shadow-md"
-                                    >
 
                                 </div>
 
@@ -617,40 +398,11 @@
         </div>
 
     </section>
+@endsection
 
-    <script>
-
-    /*
-    =========================
-    PREVIEW FOTO
-    =========================
-    */
-
-    document.getElementById('foto').addEventListener('change', function(e) {
-
-        const file = e.target.files[0];
-
-        if(file){
-
-            const reader = new FileReader();
-
-            reader.onload = function(event){
-
-                const preview = document.getElementById('previewFoto');
-
-                preview.src = event.target.result;
-
-                preview.classList.remove('hidden');
-
-            }
-
-            reader.readAsDataURL(file);
-
-        }
-
-    });
-
-
+@section('script')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
 
     /*
     =========================
@@ -679,167 +431,101 @@
     });
 
 
-document.querySelector("form").addEventListener("submit", function(e){
+    document.querySelector("form").addEventListener("submit", function(e){
 
-    // ======================
-    // AMBIL VALUE
-    // ======================
+        // ======================
+        // AMBIL VALUE
+        // ======================
 
-    const nama = document.getElementById("nama").value;
-    const email = document.getElementById("email").value;
-    const hp = document.getElementById("hp").value;
-    const tempat = document.getElementById("tempat_lahir").value;
-    const tanggal = document.getElementById("tanggal_lahir").value;
-    const gender = document.querySelector('input[name="gender"]:checked');
-    const cvInput = document.getElementById("cv");
-    const fotoInput = document.getElementById("foto");
+        const nama = document.getElementById("nama").value;
+        const email = document.getElementById("email").value;
+        const cvInput = document.getElementById("cv");
 
-    // ======================
-    // ERROR ELEMENT
-    // ======================
+        // ======================
+        // ERROR ELEMENT
+        // ======================
 
-    const namaError = document.getElementById("namaError");
-    const emailError = document.getElementById("emailError");
-    const hpError = document.getElementById("hpError");
-    const tempatError = document.getElementById("tempat_lahirError");
-    const tanggalError = document.getElementById("tanggal_lahirError");
-    const genderError = document.getElementById("genderError");
-    const cvError = document.getElementById("cvError");
-    const fotoError = document.getElementById("fotoError");
+        const namaError = document.getElementById("namaError");
+        const emailError = document.getElementById("emailError");
+        const cvError = document.getElementById("cvError");
 
-    // ======================
-    // RESET ERROR
-    // ======================
+        // ======================
+        // RESET ERROR
+        // ======================
 
-    namaError.classList.add("hidden");
-    emailError.classList.add("hidden");
-    hpError.classList.add("hidden");
-    tempatError.classList.add("hidden");
-    tanggalError.classList.add("hidden");
-    genderError.classList.add("hidden");
-    cvError.classList.add("hidden");
-    fotoError.classList.add("hidden");
+        namaError.classList.add("hidden");
+        emailError.classList.add("hidden");
+        cvError.classList.add("hidden");
 
-    let valid = true;
+        let valid = true;
 
-    // ======================
-    // VALIDASI
-    // ======================
+        // ======================
+        // VALIDASI
+        // ======================
 
-    if(nama.trim() === ""){
+        if(nama.trim() === ""){
 
-        namaError.classList.remove("hidden");
-        valid = false;
+            namaError.classList.remove("hidden");
+            valid = false;
 
-    }
+        }
 
-    if(email.trim() === ""){
+        if(email.trim() === ""){
 
-        emailError.classList.remove("hidden");
-        valid = false;
+            emailError.classList.remove("hidden");
+            valid = false;
 
-    }
+        }
 
-    if(hp.trim() === ""){
+        const cvFile = cvInput.files[0];
 
-        hpError.classList.remove("hidden");
-        valid = false;
+        if (!cvFile) {
 
-    }
-
-    if(tempat.trim() === ""){
-
-        tempatError.classList.remove("hidden");
-        valid = false;
-
-    }
-
-    if(tanggal.trim() === ""){
-
-        tanggalError.classList.remove("hidden");
-        valid = false;
-
-    }
-
-    if(!gender){
-
-        genderError.classList.remove("hidden");
-        valid = false;
-
-    }
-
-    const cvFile = cvInput.files[0];
-
-    if (!cvFile) {
-
-        cvError.innerText = "CV wajib diupload";
-        cvError.classList.remove("hidden");
-        valid = false;
-
-    } else {
-
-        // cek format file
-        if (cvFile.type !== "application/pdf") {
-            cvError.innerText = "CV harus berformat PDF";
+            cvError.innerText = "CV wajib diupload";
             cvError.classList.remove("hidden");
             valid = false;
-        }
 
-        // cek ukuran file (2MB)
-        if (cvFile.size > 2 * 1024 * 1024) {
-            cvError.innerText = "Ukuran CV maksimal 2MB";
-            cvError.classList.remove("hidden");
-            valid = false;
-        }
+        } else {
 
-    }
+            // cek format file
+            if (cvFile.type !== "application/pdf") {
+                cvError.innerText = "CV harus berformat PDF";
+                cvError.classList.remove("hidden");
+                valid = false;
+            }
 
-    const fotoFile = fotoInput.files[0];
-
-    if (fotoFile) {
-
-        // cek format file
-        if (!["image/jpeg", "image/png"].includes(fotoFile.type)) {
-            fotoError.innerText = "Foto harus JPG/PNG";
-            fotoError.classList.remove("hidden");
-            valid = false;
-        }
-
-        // cek ukuran file (2MB)
-        if (fotoFile.size > 2 * 1024 * 1024) {
-            fotoError.innerText = "Ukuran foto maksimal 2MB";
-            fotoError.classList.remove("hidden");
-            valid = false;
-        }
-
-    }
-
-    // ======================
-    // CEGAH SUBMIT JIKA ERROR
-    // ======================
-
-        if(!valid){
-
-            e.preventDefault();
-
-            // cari elemen error pertama yang muncul
-            const firstError = document.querySelector(".text-red-500:not(.hidden)");
-
-            if(firstError){
-
-                firstError.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
-
+            // cek ukuran file (2MB)
+            if (cvFile.size > 2 * 1024 * 1024) {
+                cvError.innerText = "Ukuran CV maksimal 2MB";
+                cvError.classList.remove("hidden");
+                valid = false;
             }
 
         }
 
-});
+        // ======================
+        // CEGAH SUBMIT JIKA ERROR
+        // ======================
+
+            if(!valid){
+
+                e.preventDefault();
+
+                // cari elemen error pertama yang muncul
+                const firstError = document.querySelector(".text-red-500:not(.hidden)");
+
+                if(firstError){
+
+                    firstError.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+                }
+
+            }
+
+    });
 
 </script>
-
-</body>
-
-</html>
+@endsection

@@ -1,50 +1,27 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lamaran Berhasil Dikirim - Looker Seeker</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+@extends('users.lamaran.layouts.app')
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        poppins: ['Poppins', 'sans-serif'],
-                    },
-                    colors: {
-                        'ls-red': '#E51D21',
-                        'ls-dark': '#1D2746',
-                        'ls-bg': '#F7F1C8', 
-                        'ls-green': '#22C55E',
-                    }
-                }
-            }
-        }
-    </script>
+@section('style')
+<style>
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
 
-    <style>
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
-        }
+    .animate-float {
+        animation: float 4s ease-in-out infinite;
+    }
 
-        .bg-dots {
-            background-image: radial-gradient(#e5e7eb 1.5px, transparent 1.5px);
-            background-size: 20px 20px;
-        }
-    </style>
-</head>
-<body class="bg-ls-bg font-sans min-h-screen flex flex-col items-center py-10 px-4 relative overflow-x-hidden">
-    
+    .bg-dots {
+        background-image: radial-gradient(#e5e7eb 1.5px, transparent 1.5px);
+        background-size: 20px 20px;
+    }
+</style>
+@endsection
+
+@section('content')
+
+<div class="bg-ls-bg font-sans min-h-screen flex flex-col items-center py-10 px-4 relative overflow-x-hidden">   
     <div class="absolute top-10 left-10 w-32 h-32 bg-dots opacity-50 -z-10"></div>
     <div class="absolute bottom-10 right-10 w-32 h-32 bg-dots opacity-50 -z-10"></div>
 
@@ -109,5 +86,4 @@
         </div>
 
     </div>
-</body>
-</html>
+@endsection

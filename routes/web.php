@@ -140,6 +140,9 @@ Route::get('/service', [ServiceController::class, 'index'])
 Route::get('/service/all', [ServiceController::class, 'all'])
     ->name('service.all');
 
+Route::get('/service/search/ajax', [ServiceController::class, 'searchAjax'])
+    ->name('service.search.ajax');
+    
 Route::get('/service/detail/{service}', [ServiceController::class, 'show'])
     ->name('service.show');
 
@@ -249,6 +252,9 @@ Route::put('/inbox/read-all', [InboxController::class, 'readAll'])
 
     Route::post('/lamaran/{loker}', [LamaranController::class, 'store'])
         ->name('lamaran.store');
+    
+    Route::get('/lamaran/{loker}/success', [LamaranController::class, 'success'])
+        ->name('lamaran.success');
 
     /*
     |--------------------------------------------------------------------------
