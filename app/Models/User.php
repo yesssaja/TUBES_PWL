@@ -85,4 +85,33 @@ public function courseRegistrations()
     return $this->hasMany(\App\Models\CourseRegistration::class);
 }
 
+public function events()
+{
+    return $this->hasMany(\App\Models\Event::class, 'perusahaan_id', 'id');
+}
+
+public function lokers()
+{
+    return $this->hasMany(\App\Models\Loker::class, 'perusahaan_id', 'id');
+}
+
+public function reviews()
+{
+    return $this->hasMany(\App\Models\Review::class, 'perusahaan_id', 'id');
+}
+
+public function profilePerusahaan()
+{
+    return $this->hasOne(\App\Models\ProfilePerusahaan::class, 'user_id', 'id');
+}
+
+public function courses()
+{
+    return $this->hasMany(\App\Models\Course::class, 'perusahaan_id', 'id');
+}
+
+public function profileAdmin()
+{
+    return $this->hasOne(\App\Models\ProfileAdmin::class, 'user_id', 'id');
+}
 }

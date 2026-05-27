@@ -17,9 +17,9 @@ class Review extends Model
     ];
 
     public function perusahaan()
-    {
-        return $this->belongsTo(Perusahaan::class);
-    }
+{
+    return $this->belongsTo(\App\Models\User::class, 'perusahaan_id', 'id');
+}
 
     public function user()
     {
