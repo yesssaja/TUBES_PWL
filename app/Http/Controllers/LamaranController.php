@@ -19,7 +19,7 @@ class LamaranController extends Controller
     {
         $user = $request->user();
 
-        $sudahMelamar = Lamaran::where('user_id', $user->id)
+        $sudahMelamar = Lamaran::where('pelamar_id', $user->id)
             ->where('loker_id', $loker->id)
             ->exists();
 
@@ -38,8 +38,12 @@ class LamaranController extends Controller
 
         $fotoPath = null;
 
+        if ($request->hasFile('foto')) {
+            $fotoPath = $request->file('foto')->store('lamaran/foto', 'public');
+        }
+
         Lamaran::create([
-            'user_id' => $user->id,
+            'pelamar_id' => $user->id,
             'loker_id' => $loker->id,
             'nama' => $user->name,
             'email' => $user->email,
@@ -50,12 +54,11 @@ class LamaranController extends Controller
             'status_lamaran' => 'pending',
         ]);
 
-        return redirect()
-            ->route('lamaran.success', $loker->id);
-            }
-            
+        return redirect()->route('lamaran.success', $loker->id);
+    }
+
     public function success(Loker $loker)
-{
-    return view('users.lamaran.success.success', compact('loker'));
-}
+    {
+        return view('users.lamaran.success.success', compact('loker'));
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\GroupMember;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -15,8 +16,8 @@ class GroupController extends Controller
             ->when($request->search, function ($query) use ($request) {
                 $query->where(function ($q) use ($request) {
                     $q->where('name', 'like', '%' . $request->search . '%')
-                      ->orWhere('category', 'like', '%' . $request->search . '%')
-                      ->orWhere('description', 'like', '%' . $request->search . '%');
+                        ->orWhere('category', 'like', '%' . $request->search . '%')
+                        ->orWhere('description', 'like', '%' . $request->search . '%');
                 });
             })
             ->latest()
@@ -31,9 +32,9 @@ class GroupController extends Controller
 
         $joined = false;
 
-        if (auth()->check()) {
+        if (Auth::check()) {
             $joined = GroupMember::where('group_id', $group->id)
-                ->where('user_id', auth()->id())
+                ->where('pelamar_id', Auth::id())
                 ->exists();
         }
 
@@ -42,7 +43,7 @@ class GroupController extends Controller
 
     public function join(Group $group)
     {
-        if (!auth()->check()) {
+        if (!Auth::check()) {
             return redirect()
                 ->route('login')
                 ->with('error', 'Silakan login terlebih dahulu untuk join group.');
@@ -51,7 +52,7 @@ class GroupController extends Controller
         GroupMember::updateOrCreate(
             [
                 'group_id' => $group->id,
-                'user_id' => auth()->id(),
+                'pelamar_id' => Auth::id(),
             ],
             [
                 'role' => 'member',
@@ -66,14 +67,14 @@ class GroupController extends Controller
 
     public function leave(Group $group)
     {
-        if (!auth()->check()) {
+        if (!Auth::check()) {
             return redirect()
                 ->route('login')
                 ->with('error', 'Silakan login terlebih dahulu.');
         }
 
         GroupMember::where('group_id', $group->id)
-            ->where('user_id', auth()->id())
+            ->where('pelamar_id', Auth::id())
             ->delete();
 
         return redirect()

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CourseRegistration extends Model
 {
     protected $fillable = [
-        'user_id',
+        'pelamar_id',
         'course_id',
         'nama',
         'email',
@@ -22,9 +22,9 @@ class CourseRegistration extends Model
         'approved_at' => 'datetime',
     ];
 
-    public function user()
+    public function pelamar()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'pelamar_id', 'id');
     }
 
     public function course()

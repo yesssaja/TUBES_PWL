@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rsvp extends Model
 {
     protected $fillable = [
-        'user_id',
+        'pelamar_id',
         'event_id',
         'name',
         'email',
@@ -15,9 +15,9 @@ class Rsvp extends Model
         'status_kehadiran',
     ];
 
-    public function user()
+    public function pelamar()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'pelamar_id');
     }
 
     public function event()

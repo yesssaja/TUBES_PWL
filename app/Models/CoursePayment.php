@@ -8,7 +8,7 @@ class CoursePayment extends Model
 {
     protected $fillable = [
         'course_registration_id',
-        'user_id',
+        'pelamar_id',
         'course_id',
         'amount',
         'payment_method',
@@ -28,9 +28,9 @@ class CoursePayment extends Model
         return $this->belongsTo(CourseRegistration::class, 'course_registration_id');
     }
 
-    public function user()
+    public function pelamar()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'pelamar_id', 'id');
     }
 
     public function course()
