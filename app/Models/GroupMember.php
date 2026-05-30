@@ -8,7 +8,7 @@ class GroupMember extends Model
 {
     protected $fillable = [
         'group_id',
-        'user_id',
+        'pelamar_id',
         'role',
         'joined_at',
     ];
@@ -22,8 +22,13 @@ class GroupMember extends Model
         return $this->belongsTo(Group::class);
     }
 
-    public function user()
+    public function pelamar()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'pelamar_id', 'id');
     }
+
+    public function comments()
+{
+    return $this->hasMany(GroupComment::class);
+}
 }

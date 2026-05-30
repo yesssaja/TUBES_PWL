@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Rsvp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RsvpController extends Controller
 {
@@ -15,7 +16,7 @@ class RsvpController extends Controller
 
     public function store(Request $request, Event $event)
     {
-        if (!auth()->check()) {
+        if (!Auth::check()) {
             return redirect()
                 ->route('login')
                 ->with('error', 'Silakan login terlebih dahulu untuk RSVP.');
@@ -27,9 +28,9 @@ class RsvpController extends Controller
             'hp' => 'required|string|max:20',
         ]);
 
-        $user = auth()->user();
+        $pelamarId = Auth::id();
 
-        $cek = Rsvp::where('user_id', $user->id)
+        $cek = Rsvp::where('pelamar_id', $pelamarId)
             ->where('event_id', $event->id)
             ->first();
 
@@ -38,7 +39,7 @@ class RsvpController extends Controller
         }
 
         Rsvp::create([
-            'user_id' => $user->id,
+            'pelamar_id' => $pelamarId,
             'event_id' => $event->id,
             'name' => $request->name,
             'email' => $request->email,
@@ -54,7 +55,6 @@ class RsvpController extends Controller
     public function destroy($id)
     {
         $rsvp = Rsvp::findOrFail($id);
-
         $rsvp->delete();
 
         return back()->with('success', 'RSVP berhasil dihapus.');

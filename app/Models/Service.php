@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     protected $fillable = [
-        'user_id',
+        'pelamar_id',
         'freelancer_name',
         'service_name',
         'category',
@@ -26,9 +26,9 @@ class Service extends Model
         'price' => 'integer',
     ];
 
-    public function user()
+    public function pelamar()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'pelamar_id');
     }
 
     public function images()

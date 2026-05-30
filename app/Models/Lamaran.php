@@ -10,7 +10,7 @@ class Lamaran extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'pelamar_id',
         'loker_id',
         'nama',
         'email',
@@ -20,13 +20,13 @@ class Lamaran extends Model
         'status_lamaran',
     ];
 
-    public function user()
+    public function pelamar()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'pelamar_id', 'id');
     }
 
     public function loker()
-{
-    return $this->belongsTo(Loker::class, 'loker_id');
-}
+    {
+        return $this->belongsTo(Loker::class, 'loker_id', 'id');
+    }
 }

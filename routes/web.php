@@ -13,6 +13,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\GroupCommentController;
 
 //PERUSAHAAN CONTROLLER
 use App\Http\Controllers\Perusahaan\EventController as PerusahaanEventController;
@@ -267,6 +268,9 @@ Route::put('/inbox/read-all', [InboxController::class, 'readAll'])
 
     Route::delete('/group/{group:slug}/leave', [GroupController::class, 'leave'])
         ->name('groups.leave');
+
+    Route::post('/group/{group:slug}/comment', [GroupCommentController::class, 'store'])
+        ->name('groups.comment.store');
 });
 
 /*

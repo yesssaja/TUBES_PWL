@@ -10,7 +10,7 @@ class InboxController extends Controller
 {
     public function index()
     {
-        $inboxes = Inbox::where('user_id', Auth::id())
+        $inboxes = Inbox::where('pelamar_id', Auth::id())
             ->latest()
             ->get();
 
@@ -21,6 +21,10 @@ class InboxController extends Controller
     {
         $inbox = Inbox::findOrFail($id);
 
+        if ($inbox->pelamar_id !== Auth::id()) {
+            abort(403);
+        }
+
         $inbox->is_read = true;
         $inbox->save();
 
@@ -29,7 +33,7 @@ class InboxController extends Controller
 
     public function readAll()
     {
-        Inbox::where('user_id', Auth::id())
+        Inbox::where('pelamar_id', Auth::id())
             ->update([
                 'is_read' => true
             ]);

@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\CourseRegistration;
 use App\Models\CoursePayment;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -19,8 +20,8 @@ class CourseController extends Controller
 
         $registrations = collect();
 
-        if (auth()->check()) {
-            $registrations = CourseRegistration::where('user_id', auth()->id())
+        if (Auth::check()) {
+            $registrations = CourseRegistration::where('pelamar_id', Auth::id())
                 ->get()
                 ->keyBy('course_id');
         }
@@ -30,7 +31,7 @@ class CourseController extends Controller
 
     public function registerForm(Course $course)
     {
-        $registration = CourseRegistration::where('user_id', auth()->id())
+        $registration = CourseRegistration::where('pelamar_id', Auth::id())
             ->where('course_id', $course->id)
             ->first();
 
@@ -41,104 +42,107 @@ class CourseController extends Controller
         return view('course.register', compact('course', 'registration'));
     }
 
-   public function register(Request $request, Course $course)
-{
-    $rules = [
-        'no_hp' => 'required|string|max:30',
-        'alasan' => 'required|string|min:10',
-    ];
+    public function register(Request $request, Course $course)
+    {
+        $rules = [
+            'no_hp' => 'required|string|max:30',
+            'alasan' => 'required|string|min:10',
+        ];
 
-    if ($course->payment_required || $course->price > 0) {
-        $rules['payment_method'] = 'required|string|max:100';
-        $rules['proof_image'] = 'required|image|mimes:jpg,jpeg,png,webp|max:2048';
-    }
-
-    $request->validate($rules);
-
-    $existing = CourseRegistration::where('user_id', auth()->id())
-        ->where('course_id', $course->id)
-        ->first();
-
-    if ($existing && $existing->status === 'pending') {
-        return redirect()
-            ->route('course.index')
-            ->with('error', 'Kamu sudah mendaftar course ini. Permintaan Anda sedang diproses.');
-    }
-
-    if ($existing && $existing->status === 'approved') {
-        return redirect()->route('course.access', $course->id);
-    }
-
-    $registration = CourseRegistration::updateOrCreate(
-        [
-            'user_id' => auth()->id(),
-            'course_id' => $course->id,
-        ],
-        [
-            'nama' => auth()->user()->name,
-            'email' => auth()->user()->email,
-            'no_hp' => $request->no_hp,
-            'alasan' => $request->alasan,
-            'status' => 'pending',
-            'catatan_admin' => null,
-            'approved_at' => null,
-        ]
-    );
-
-    if ($course->payment_required || $course->price > 0) {
-        $proofPath = null;
-
-        if ($request->hasFile('proof_image')) {
-            $oldPayment = CoursePayment::where('course_registration_id', $registration->id)->first();
-
-            if ($oldPayment && $oldPayment->proof_image && Storage::disk('public')->exists($oldPayment->proof_image)) {
-                Storage::disk('public')->delete($oldPayment->proof_image);
-            }
-
-            $proofPath = $request->file('proof_image')
-                ->store('course/payments', 'public');
+        if ($course->payment_required || $course->price > 0) {
+            $rules['payment_method'] = 'required|string|max:100';
+            $rules['proof_image'] = 'required|image|mimes:jpg,jpeg,png,webp|max:2048';
         }
 
-        CoursePayment::updateOrCreate(
+        $request->validate($rules);
+
+        $existing = CourseRegistration::where('pelamar_id', Auth::id())
+            ->where('course_id', $course->id)
+            ->first();
+
+        if ($existing && $existing->status === 'pending') {
+            return redirect()
+                ->route('course.index')
+                ->with('error', 'Kamu sudah mendaftar course ini. Permintaan Anda sedang diproses.');
+        }
+
+        if ($existing && $existing->status === 'approved') {
+            return redirect()->route('course.access', $course->id);
+        }
+
+        $registration = CourseRegistration::updateOrCreate(
             [
-                'course_registration_id' => $registration->id,
+                'pelamar_id' => Auth::id(),
+                'course_id' => $course->id,
             ],
             [
-                'user_id' => auth()->id(),
-                'course_id' => $course->id,
-                'amount' => $course->price,
-                'payment_method' => $request->payment_method,
-                'proof_image' => $proofPath,
+                'nama' => Auth::user()->name,
+                'email' => Auth::user()->email,
+                'no_hp' => $request->no_hp,
+                'alasan' => $request->alasan,
                 'status' => 'pending',
-                'note' => null,
-                'verified_at' => null,
+                'catatan_admin' => null,
+                'approved_at' => null,
             ]
         );
-    }
 
-    return redirect()
-        ->route('course.index')
-        ->with('success', 'Pendaftaran course berhasil dikirim. Permintaan Anda sedang diproses.');
-}
+        if ($course->payment_required || $course->price > 0) {
+            $proofPath = null;
 
-   public function access(Course $course)
-{
-    $registration = \App\Models\CourseRegistration::where('user_id', auth()->id())
-        ->where('course_id', $course->id)
-        ->where('status', 'approved')
-        ->first();
+            if ($request->hasFile('proof_image')) {
+                $oldPayment = CoursePayment::where('course_registration_id', $registration->id)->first();
 
-    if (!$registration) {
+                if (
+                    $oldPayment &&
+                    $oldPayment->proof_image &&
+                    Storage::disk('public')->exists($oldPayment->proof_image)
+                ) {
+                    Storage::disk('public')->delete($oldPayment->proof_image);
+                }
+
+                $proofPath = $request->file('proof_image')
+                    ->store('course/payments', 'public');
+            }
+
+            CoursePayment::updateOrCreate(
+                [
+                    'course_registration_id' => $registration->id,
+                ],
+                [
+                    'pelamar_id' => Auth::id(),
+                    'course_id' => $course->id,
+                    'amount' => $course->price,
+                    'payment_method' => $request->payment_method,
+                    'proof_image' => $proofPath,
+                    'status' => 'pending',
+                    'note' => null,
+                    'verified_at' => null,
+                ]
+            );
+        }
+
         return redirect()
             ->route('course.index')
-            ->with('error', 'Kamu harus mendaftar terlebih dahulu untuk mengakses course ini.');
+            ->with('success', 'Pendaftaran course berhasil dikirim. Permintaan Anda sedang diproses.');
     }
 
-    // Ambil hanya 1 link sesuai course yang didaftarkan
-    $courseLink = $course->links()
-        ->orderBy('id', 'asc')
-        ->first();
+    public function access(Course $course)
+    {
+        $registration = CourseRegistration::where('pelamar_id', Auth::id())
+            ->where('course_id', $course->id)
+            ->where('status', 'approved')
+            ->first();
 
-    return view('course.access', compact('course', 'registration', 'courseLink'));
-}
+        if (!$registration) {
+            return redirect()
+                ->route('course.index')
+                ->with('error', 'Kamu harus mendaftar terlebih dahulu untuk mengakses course ini.');
+        }
+
+        $courseLink = $course->links()
+            ->orderBy('id', 'asc')
+            ->first();
+
+        return view('course.access', compact('course', 'registration', 'courseLink'));
+    }
 }

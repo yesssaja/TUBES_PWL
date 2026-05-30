@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Inbox extends Model
 {
     protected $fillable = [
-        'user_id',
+        'pelamar_id',
         'title',
         'message',
         'type',
@@ -16,8 +16,8 @@ class Inbox extends Model
         'action_url',
     ];
 
-    public function user()
+    public function pelamar()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'pelamar_id', 'id');
     }
 }
