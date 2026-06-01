@@ -20,13 +20,13 @@
             @auth
                 @php
                     $unreadInbox = class_exists(\App\Models\Inbox::class)
-                        ? \App\Models\Inbox::where('user_id', auth()->id())
+                        ? \App\Models\Inbox::where('pelamar_id', auth()->id())
                             ->where('is_read', false)
                             ->count()
                         : 0;
 
                     $latestInboxes = class_exists(\App\Models\Inbox::class)
-                        ? \App\Models\Inbox::where('user_id', auth()->id())
+                        ? \App\Models\Inbox::where('pelamar_id', auth()->id())
                             ->latest()
                             ->take(5)
                             ->get()
