@@ -52,14 +52,21 @@ Route::get('/', function () {
 | Perusahaan Public Route
 |--------------------------------------------------------------------------
 */
+
 Route::get('/perusahaan', [PerusahaanController::class, 'index'])
     ->name('perusahaan.index');
 
-Route::get('/perusahaan/detail', [PerusahaanController::class, 'detail'])
-    ->name('perusahaan.detail.default');
-
 Route::get('/perusahaan/detail/{perusahaan}', [PerusahaanController::class, 'detail'])
     ->name('perusahaan.detail');
+
+Route::get('/perusahaan/review/{perusahaan}', [PerusahaanController::class, 'review'])
+    ->name('perusahaan.review');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perusahaan/{perusahaan}/tulis-review', [ReviewController::class, 'create'])->name('review.create');
+    
+    Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
+});
 
 /*
 |--------------------------------------------------------------------------

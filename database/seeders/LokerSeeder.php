@@ -8,21 +8,14 @@ class LokerSeeder extends BaseSeeder
 {
     public function run(): void
     {
-        $techMudaId = DB::table('perusahaans')
+        $techMudaId = DB::table('profile_perusahaan')
             ->where('email', 'hrd@techmuda.com')
             ->value('id');
 
-        $digitalId = DB::table('perusahaans')
+        $digitalId = DB::table('profile_perusahaan')
             ->where('email', 'hrd@digitalnusantara.com')
             ->value('id');
 
-        if (!$techMudaId) {
-            $techMudaId = DB::table('perusahaans')->value('id');
-        }
-
-        if (!$digitalId) {
-            $digitalId = $techMudaId;
-        }
 
         $this->upsertAndGetId('lokers', ['judul_loker' => 'Frontend Developer'], [
             'perusahaan_id' => $techMudaId,

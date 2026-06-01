@@ -37,6 +37,19 @@ class UserSeeder extends Seeder
         );
 
         DB::table('users')->updateOrInsert(
+            ['email' => 'hrd@digitalnusantara.com'],
+            [
+                'name' => 'HRD Digital Nusantara',
+                'email' => 'hrd@digitalnusantara.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+                'role' => 'admin', 
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        );
+
+        DB::table('users')->updateOrInsert(
             ['email' => 'pelamar@example.com'],
             [
                 'name' => 'Budi Santoso',
