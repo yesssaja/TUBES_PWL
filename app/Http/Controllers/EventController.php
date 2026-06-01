@@ -10,7 +10,7 @@ class EventController extends Controller
     {
         $events = Event::with('perusahaan')->get();
 
-        return view('pages.event', compact('events'));
+        return view('users.event.index', compact('events'));
     }
 
     public function show($id)
@@ -18,6 +18,6 @@ class EventController extends Controller
         $event = Event::with('perusahaan')
                     ->findOrFail($id);
 
-        return view('pages.event', compact('event'));
+        return view('users.event.index', compact('events'));
     }
 }

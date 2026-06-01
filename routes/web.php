@@ -85,6 +85,10 @@ Route::post('/review/tulis', [ReviewController::class, 'store'])
 Route::get('/event', [EventController::class, 'index'])
     ->name('event.index');
 
+Route::get('/event/berhasil-daftar', function () {
+    return view('users.event.success');
+})->name('rsvp.success');
+
 Route::get('/event/{event}', [EventController::class, 'show'])
     ->name('event.show');
 
@@ -201,26 +205,22 @@ Route::middleware(['auth'])->group(function () {
         ->name('course.access');
     
     /*
-    |--------------------------------------------------------------------------
-    | RSVP User Route
-    |--------------------------------------------------------------------------
-    */
+|--------------------------------------------------------------------------
+| RSVP User Route
+|--------------------------------------------------------------------------
+*/
 
-    Route::get('/rsvp', function () {
-        return redirect()
-            ->route('event.index')
-            ->with('error', 'Pilih event terlebih dahulu sebelum RSVP.');
-    })->name('rsvp.redirect');
+Route::get('/rsvp', function () {
+    return redirect()
+        ->route('event.index')
+        ->with('error', 'Pilih event terlebih dahulu sebelum RSVP.');
+})->name('rsvp.redirect');
 
-    Route::get('/rsvp/{event}', [RsvpController::class, 'create'])
-        ->name('rsvp.create');
+Route::get('/event/{event}/rsvp', [RsvpController::class, 'create'])
+    ->name('rsvp.create');
 
-    Route::post('/rsvp/{event}', [RsvpController::class, 'store'])
-        ->name('rsvp.store');
-
-    Route::get('/berhasil_daftar_event', function () {
-        return view('pages.berhasil_daftar_event');
-    })->name('rsvp.success');
+Route::post('/event/{event}/rsvp', [RsvpController::class, 'store'])
+    ->name('rsvp.store');
 
 /*
     |--------------------------------------------------------------------------
@@ -230,10 +230,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/inbox', [InboxController::class, 'index'])
     ->name('inbox.index');
 
-Route::put('/inbox/{inbox}/read', [InboxController::class, 'read'])
-    ->name('inbox.read');
+    Route::put('/inbox/{inbox}/read', [InboxController::class, 'read'])
+        ->name('inbox.read');
 
-Route::put('/inbox/read-all', [InboxController::class, 'readAll'])
+    Route::put('/inbox/read-all', [InboxController::class, 'readAll'])
     ->name('inbox.readAll');
 
     /*
@@ -468,13 +468,11 @@ Route::middleware(['auth', 'perusahaan'])
     ->group(function () {
         Route::view('/dashboard', 'perusahaan.dashboard.index')->name('dashboard');
 
-        //loker yang dibuat
         Route::view('/lowongan', 'perusahaan.lowongan.index')->name('lowongan.index');
         Route::view('/lowongan/create', 'perusahaan.lowongan.create')->name('lowongan.create');
         Route::view('/lowongan/edit', 'perusahaan.lowongan.edit')->name('lowongan.edit');
         Route::view('/lowongan/show', 'perusahaan.lowongan.show')->name('lowongan.show');
 
-        //lamaran yg d terima
         Route::get('/lamaran', [PerusahaanLamaranController::class, 'index'])
          ->name('lamaran.index');
         Route::get('/lamaran/{id}', [PerusahaanLamaranController::class, 'show'])
@@ -484,7 +482,6 @@ Route::middleware(['auth', 'perusahaan'])
         Route::put('/lamaran/{id}/reject', [PerusahaanLamaranController::class, 'reject'])
             ->name('lamaran.reject');
 
-        //event yg diadakan perusahaan
         Route::get('/event', [PerusahaanEventController::class, 'index'])
             ->name('event.index');
         Route::get('/event/create', [PerusahaanEventController::class, 'create'])
@@ -500,14 +497,11 @@ Route::middleware(['auth', 'perusahaan'])
         Route::delete('/event/{id}', [PerusahaanEventController::class, 'destroy'])
             ->name('event.destroy');
 
-        //profile
         Route::get('/profil',[ProfilController::class, 'index'])->name('profil.index');
         Route::post('/profil/update',[ProfilController::class, 'update'])->name('profil.update');Route::view('/pengaturan', 'perusahaan.pengaturan.index')->name('pengaturan.index');        Route::post('/profil/update',[ProfilController::class, 'update'])->name('profil.update');
 
-        //manajemen
         Route::view('/manajemen', 'perusahaan.manajemen.index')->name('manajemen.index');
 
-        //rsvp perusahaan
         Route::get('/rsvp', [PerusahaanRsvpController::class, 'index'])
             ->name('rsvp.index');
         Route::get('/rsvp/{id}', [PerusahaanRsvpController::class, 'show'])
@@ -517,7 +511,6 @@ Route::middleware(['auth', 'perusahaan'])
         Route::put('/rsvp/{id}/reject', [PerusahaanRsvpController::class, 'reject'])
             ->name('rsvp.reject');
 
-        //inboxes
         Route::get('/inbox', [PerusahaanInboxController::class, 'index'])->name('inbox.index');
         Route::put('/inbox/{id}/read', [PerusahaanInboxController::class, 'read'])->name('inbox.read');
         Route::put('/inbox/read-all', [PerusahaanInboxController::class, 'readAll'])->name('inbox.readAll');

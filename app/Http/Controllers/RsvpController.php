@@ -11,7 +11,7 @@ class RsvpController extends Controller
 {
     public function create(Event $event)
     {
-        return view('pages.rsvp', compact('event'));
+        return view('users.event.rsvp', compact('event'));
     }
 
     public function store(Request $request, Event $event)
