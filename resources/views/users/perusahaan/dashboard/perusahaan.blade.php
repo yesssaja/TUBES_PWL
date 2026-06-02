@@ -1,14 +1,46 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Profile | LOKER SEEKER</title>
+@extends('users.perusahaan.layouts.app')
 
-    <script src="https://cdn.tailwindcss.com"></script>
+@section('title', 'Company Profile | LOKER SEEKER')
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+@section('content')
+@php
+    $namaPerusahaan = $perusahaan->nama_perusahaan
+        ?? $perusahaan->nama
+        ?? $perusahaan->name
+        ?? 'Nama Perusahaan';
 
+    $deskripsi = $perusahaan->deskripsi
+        ?? $perusahaan->description
+        ?? 'Deskripsi perusahaan belum tersedia.';
+
+    $alamat = $perusahaan->alamat
+        ?? $perusahaan->lokasi
+        ?? $perusahaan->headquarters
+        ?? '-';
+
+    $website = $perusahaan->website
+        ?? $perusahaan->situs
+        ?? null;
+
+    $email = $perusahaan->email ?? '-';
+
+    $logo = $perusahaan->logo
+        ?? $perusahaan->foto
+        ?? $perusahaan->foto_perusahaan
+        ?? null;
+
+    if ($logo) {
+        if (str_starts_with($logo, 'http://') || str_starts_with($logo, 'https://')) {
+            $logoUrl = $logo;
+        } elseif (str_contains($logo, '/')) {
+            $logoUrl = asset($logo);
+        } else {
+            $logoUrl = asset('foto_perusahaan/' . $logo);
+        }
+    } else {
+        $logoUrl = asset('foto_perusahaan/images.png');
+    }
+@endphp
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
 
@@ -50,10 +82,6 @@
         ?? $perusahaan->name
         ?? 'Nama Perusahaan';
 
-    $industri = $perusahaan->industri
-        ?? $perusahaan->industry
-        ?? $perusahaan->bidang
-        ?? 'Industri belum diisi';
 
     $deskripsi = $perusahaan->deskripsi
         ?? $perusahaan->description
@@ -95,7 +123,7 @@
         <div class="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
 
             <h1 class="text-3xl font-black tracking-tighter">
-                LOKER SEEKER🔥
+                LOKER SEEKER
             </h1>
 
             <nav class="hidden md:flex gap-10 font-bold uppercase text-sm tracking-widest">
@@ -129,10 +157,6 @@
                     {{ $namaPerusahaan }}
                     <i class="fas fa-check-circle text-blue-500 text-3xl"></i>
                 </h2>
-
-                <p class="text-xl font-medium text-gray-700 mt-3 opacity-90 italic">
-                    {{ $industri }}
-                </p>
 
                 <div class="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
 
@@ -211,14 +235,7 @@
                             </td>
                         </tr>
 
-                        <tr>
-                            <td class="py-4 font-black text-red-600 uppercase text-xs">
-                                Industry
-                            </td>
-                            <td class="font-bold">
-                                {{ $industri }}
-                            </td>
-                        </tr>
+
 
                     </table>
                 </div>
@@ -322,32 +339,7 @@
         </section>
 
         <!-- REVIEW CTA -->
-        <section id="review" class="bg-gradient-to-r from-red-600 to-yellow-400 rounded-[40px] p-12 shadow-2xl text-white">
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-
-                <div>
-                    <h3 class="text-4xl font-black mb-4">
-                        Review Perusahaan
-                    </h3>
-
-                    <p class="text-white/90 leading-relaxed">
-                        Lihat pengalaman pengguna lain tentang perusahaan ini, atau tuliskan review kamu agar membantu pencari kerja lainnya.
-                    </p>
-                </div>
-
-                
-
-<a href="{{ route('tulis.review', $perusahaan->id) }}"
-   class="bg-white text-red-600 px-10 py-4 rounded-full font-black shadow-xl hover:bg-gray-100 transition border-2 border-red-100">
-    Tulis Review
-</a>
-
-                </div>
-
-            </div>
-
-        </section>
+       
 
         <!-- JOBS -->
         <section id="jobs" class="p-6">
@@ -401,18 +393,32 @@
 
         </section>
 
+         <section id="review" class="bg-yellow-400 rounded-[40px] p-12 shadow-2xl text-white">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+
+                <div>
+                    <h3 class="text-4xl font-black mb-4">
+                        Review Perusahaan
+                    </h3>
+
+                    <p class="text-white/90 leading-relaxed">
+                        Lihat pengalaman pengguna lain tentang perusahaan ini, atau tuliskan review kamu agar membantu pencari kerja lainnya.
+                    </p>
+                </div>
+
+                
+
+            <a href="{{ route('tulis.review', $perusahaan->id) }}"
+            class="bg-white text-red-600 px-10 py-4 rounded-full font-black shadow-xl hover:bg-gray-100 transition border-2 border-red-100">
+                Tulis Review
+            </a>
+
+                </div>
+
+            </div>
+
+        </section>
     </main>
+    @endsection
 
-    <!-- FOOTER -->
-    <footer class="bg-gray-900 text-white py-10 text-center">
-        <h2 class="text-3xl font-black mb-3">
-            LOKER SEEKER🔥
-        </h2>
-
-        <p class="text-gray-400">
-            © 2026 Loker Seeker. All Rights Reserved.
-        </p>
-    </footer>
-
-</body>
-</html>

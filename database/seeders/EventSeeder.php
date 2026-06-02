@@ -9,6 +9,8 @@ class EventSeeder extends BaseSeeder
     {
         $perusahaanId1 = DB::table('profile_perusahaan')->where('email', 'hrd@techmuda.com')->value('id');
         $perusahaanId2 = DB::table('profile_perusahaan')->where('email', 'hrd@digitalnusantara.com')->value('id');
+        $tokopediaId = DB::table('profile_perusahaan')->where('email', 'hrd@tokopedia.com')->value('id');
+        $blibliId = DB::table('profile_perusahaan')->where('email', 'hrd@blibli.com')->value('id');
 
         $this->upsertAndGetId('events', ['judul' => 'Job Fair Tech Career 2026'], [
             'perusahaan_id' => $perusahaanId1,    
@@ -43,5 +45,36 @@ class EventSeeder extends BaseSeeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        if ($tokopediaId) {
+            $this->upsertAndGetId('events', ['judul' => 'Tokopedia DevCamp 2026'], [
+                'perusahaan_id' => $tokopediaId,
+                'judul' => 'Tokopedia DevCamp 2026',
+                'nama_event' => 'Tokopedia DevCamp 2026',
+                'deskripsi' => 'Pelatihan intensif selama 3 hari bagi mahasiswa IT tingkat akhir untuk belajar langsung dari engineer Tokopedia.',
+                'lokasi' => 'Tokopedia Tower Lt. 52',
+                'tanggal' => now()->addDays(10)->format('Y-m-d'),
+                'tanggal_event' => now()->addDays(10)->format('Y-m-d'),
+                'waktu' => '08:00', 'waktu_mulai' => '08:00', 'waktu_selesai' => '17:00',
+                'kuota' => 40,
+                'status' => $this->enumValue('events', 'status', ['aktif', 'active', 'dibuka', 'open']),
+                'created_at' => now(), 'updated_at' => now(),
+            ]);
+        }
+
+        if ($blibliId) {
+            $this->upsertAndGetId('events', ['judul' => 'Blibli Code Blitz Webinar'], [
+                'perusahaan_id' => $blibliId,
+                'judul' => 'Blibli Code Blitz Webinar',
+                'nama_event' => 'Blibli Code Blitz Webinar',
+                'deskripsi' => 'Sharing session mengenai rahasia arsitektur sistem e-commerce dalam menangani jutaan transaksi flash sale.',
+                'lokasi' => 'Zoom Meeting',
+                'tanggal' => now()->addDays(18)->format('Y-m-d'),
+                'tanggal_event' => now()->addDays(18)->format('Y-m-d'),
+                'waktu' => '19:00', 'waktu_mulai' => '19:00', 'waktu_selesai' => '21:00',
+                'kuota' => 300,
+                'status' => $this->enumValue('events', 'status', ['aktif', 'active', 'dibuka', 'open']),
+                'created_at' => now(), 'updated_at' => now(),
+            ]);
+        }
     }
 }
