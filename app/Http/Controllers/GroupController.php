@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Models\GroupMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class GroupController extends Controller
 {
@@ -23,7 +24,35 @@ class GroupController extends Controller
             ->latest()
             ->get();
 
-        return view('pages.group', compact('groups'));
+    return view('users.group.group', compact('groups'));
+    }
+
+    public function create()
+    {
+        return view('users.group.create_group');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        Group::create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'category' => $request->category,
+            'icon_letter' => strtoupper(substr($request->name, 0, 1)),
+            'description' => $request->description,
+            'is_public' => true,
+            'created_by' => Auth::id(),
+        ]);
+
+        return redirect()
+            ->route('groups.index')
+            ->with('success', 'Group berhasil dibuat.');
     }
 
     public function show(Group $group)
@@ -38,7 +67,7 @@ class GroupController extends Controller
                 ->exists();
         }
 
-        return view('pages.join_group', compact('group', 'joined'));
+        return view('users.group.join_group', compact('group', 'joined'));
     }
 
     public function join(Group $group)
