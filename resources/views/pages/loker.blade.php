@@ -34,32 +34,32 @@
 <body class="bg-gradient-to-b from-yellow-100 via-orange-50 to-yellow-200 text-gray-800 font-sans">
 
     <header class="bg-red-brand text-white p-4 shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
+    <div class="container mx-auto flex justify-between items-center">
 
-            <h1 class="text-2xl font-bold italic tracking-wider">
+        <a href="{{ route('welcome') }}" class="flex items-center space-x-3 hover:opacity-90 transition">
+            <div class="w-10 h-12 overflow-hidden rounded shadow-sm flex items-center justify-center bg-white/10">
+                <img src="{{ asset('logo/logo.png') }}" alt="Logo Loker Seeker" class="w-full h-full object-cover">
+            </div>
+            
+            <h1 class="text-2xl font-bold italic tracking-wider uppercase balance">
                 LOKER SEEKER
             </h1>
+        </a>
 
-            <nav class="hidden md:flex space-x-6 font-medium">
+        <nav class="hidden md:flex space-x-6 font-medium">
+            <a href="{{ route('welcome') }}" class="hover:text-yellow-300">
+                Home
+            </a>
+            <a href="{{ route('loker.index') }}" class="hover:text-yellow-300 border-b-2 border-yellow-300">
+                Jobs
+            </a>
+            <a href="{{ route('perusahaan.detail.default') }}" class="hover:text-yellow-300">
+                Company
+            </a>
+        </nav>
 
-                <a href="{{ route('welcome') }}"
-                   class="hover:text-yellow-300">
-                    Home
-                </a>
-
-                <a href="{{ route('loker.index') }}"
-                   class="hover:text-yellow-300 border-b-2 border-yellow-300">
-                    Jobs
-                </a>
-
-                <a href="{{ route('perusahaan.detail.default') }}"
-                   class="hover:text-yellow-300">
-                    Company
-                </a>
-
-            </nav>
-        </div>
-    </header>
+    </div>
+</header>
 
     <main class="container mx-auto px-4 py-10 max-w-6xl">
 

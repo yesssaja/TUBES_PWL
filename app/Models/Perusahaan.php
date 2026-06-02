@@ -9,15 +9,16 @@ class Perusahaan extends Model
 {
     use HasFactory;
 
+    protected $table = 'profile_perusahaan';
     protected $fillable = [
-    'user_id',
-    'nama_perusahaan',
-    'logo',
-    'deskripsi',
-    'alamat',
-    'email',
-    'no_hp',
-    'website',
+        'nama_perusahaan',
+        'logo',
+        'deskripsi',
+        'alamat',
+        'email',
+        'no_hp',
+        'website',
+        'user_id'
 ];
 
     public function loker()

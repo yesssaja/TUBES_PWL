@@ -13,7 +13,7 @@ class PerusahaanController extends Controller
     {
         $perusahaans = \App\Models\Perusahaan::latest()->get();
     
-        return view('pages.perusahaan_index', compact('perusahaans'));
+        return view('users.perusahaan.dashboard.perusahaan_index', compact('perusahaans'));
     }
 
     public function create()
@@ -53,6 +53,12 @@ class PerusahaanController extends Controller
         return redirect()->route('perusahaan.index');
     }
 
+    public function review($id)
+{
+   
+    return "Halaman review untuk perusahaan ID: " . $id;
+}
+
     public function detail($perusahaan = null)
 {
     if ($perusahaan) {
@@ -73,7 +79,7 @@ class PerusahaanController extends Controller
         ->latest()
         ->get();
 
-    return view('pages.perusahaan', compact('perusahaan', 'lokers', 'events'));
+    return view('users.perusahaan.perusahaan', compact('perusahaan', 'lokers', 'events'));
 }
 
 }

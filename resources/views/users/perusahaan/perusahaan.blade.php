@@ -336,12 +336,7 @@
                     </p>
                 </div>
 
-                <div class="flex flex-wrap gap-4 justify-start md:justify-end">
-
-                    <a href="{{ route('perusahaan.review', $perusahaan->id) }}"
-   class="bg-red-brand hover:bg-red-700 text-white px-10 py-4 rounded-full font-black shadow-2xl transform hover:scale-105 transition">
-    Lihat Review
-</a>
+                
 
 <a href="{{ route('tulis.review', $perusahaan->id) }}"
    class="bg-white text-red-600 px-10 py-4 rounded-full font-black shadow-xl hover:bg-gray-100 transition border-2 border-red-100">

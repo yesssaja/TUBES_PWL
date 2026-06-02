@@ -1,12 +1,17 @@
 <?php
 
 namespace Database\Seeders;
+use Illuminate\Support\Facades\DB;
 
 class EventSeeder extends BaseSeeder
 {
     public function run(): void
     {
+        $perusahaanId1 = DB::table('profile_perusahaan')->where('email', 'hrd@techmuda.com')->value('id');
+        $perusahaanId2 = DB::table('profile_perusahaan')->where('email', 'hrd@digitalnusantara.com')->value('id');
+
         $this->upsertAndGetId('events', ['judul' => 'Job Fair Tech Career 2026'], [
+            'perusahaan_id' => $perusahaanId1,    
             'judul' => 'Job Fair Tech Career 2026',
             'nama_event' => 'Job Fair Tech Career 2026',
             'deskripsi' => 'Event job fair untuk mempertemukan perusahaan teknologi dengan para pencari kerja.',
@@ -23,6 +28,7 @@ class EventSeeder extends BaseSeeder
         ]);
 
         $this->upsertAndGetId('events', ['judul' => 'Workshop Membuat CV Profesional'], [
+            'perusahaan_id' => $perusahaanId2,
             'judul' => 'Workshop Membuat CV Profesional',
             'nama_event' => 'Workshop Membuat CV Profesional',
             'deskripsi' => 'Pelatihan membuat CV dan portofolio agar lebih siap melamar pekerjaan.',
