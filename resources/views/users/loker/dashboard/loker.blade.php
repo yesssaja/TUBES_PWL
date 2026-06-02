@@ -1,37 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lowongan Kerja | LOKER SEEKER</title>
+@extends('users.loker.layouts.app')
 
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9f9f9;
-        }
-
-        .bg-yellow-brand {
-            background-color: #F4D03F;
-        }
-
-        .bg-red-brand {
-            background-color: #E74C3C;
-        }
-
-        .text-red-brand {
-            color: #E74C3C;
-        }
-    </style>
-</head>
-
-<body class="bg-gradient-to-b from-yellow-100 via-orange-50 to-yellow-200 text-gray-800 font-sans">
+@section('content')
 
     <header class="bg-red-brand text-white p-4 shadow-lg sticky top-0 z-50">
     <div class="container mx-auto flex justify-between items-center">
@@ -52,8 +21,8 @@
             </a>
             <a href="{{ route('loker.index') }}" class="hover:text-yellow-300 border-b-2 border-yellow-300">
                 Jobs
-            </a>
-            <a href="{{ route('perusahaan.detail.default') }}" class="hover:text-yellow-300">
+            </a>    
+            <a href="{{ route('perusahaan.index') }}" class="hover:text-yellow-300">
                 Company
             </a>
         </nav>
@@ -209,5 +178,4 @@
         <p>&copy; 2026 LOKER SEEKER. Dibuat oleh Mahasiswa USU.</p>
     </footer>
 
-</body>
-</html>
+@endsection
