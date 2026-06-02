@@ -79,7 +79,7 @@ class PerusahaanController extends Controller
         ->latest()
         ->get();
 
-    return view('users.perusahaan.perusahaan', compact('perusahaan', 'lokers', 'events'));
+    return view('users.perusahaan.dashboard.perusahaan', compact('perusahaan', 'lokers', 'events'));
 }
 
 }

@@ -61,5 +61,27 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ]
         );
+
+        $tambahanHRD = [
+            ['email' => 'hrd@tokopedia.com', 'name' => 'HRD Tokopedia'],
+            ['email' => 'hrd@lazada.com', 'name' => 'HRD Lazada'],
+            ['email' => 'hrd@blibli.com', 'name' => 'HRD Blibli'],
+            ['email' => 'hrd@shopee.com', 'name' => 'HRD Shopee'],
+        ];
+
+        foreach ($tambahanHRD as $hrd) {
+            DB::table('users')->updateOrInsert(
+                ['email' => $hrd['email']],
+                [
+                    'name' => $hrd['name'],
+                    'email' => $hrd['email'],
+                    'email_verified_at' => now(),
+                    'password' => Hash::make('password'),
+                    'role' => 'admin', 
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
+        }
     }
 }

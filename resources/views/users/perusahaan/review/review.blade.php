@@ -8,16 +8,30 @@
         ?? $perusahaan->nama
         ?? 'Perusahaan';
 
-    $logo = $perusahaan->logo ?? null;
+    $logo = $perusahaan->logo
+        ?? $perusahaan->foto
+        ?? $perusahaan->foto_perusahaan
+        ?? null;
 
     if ($logo) {
         if (str_starts_with($logo, 'http://') || str_starts_with($logo, 'https://')) {
             $logoUrl = $logo;
         } else {
-            $logoUrl = asset('foto_perusahaan/' . $logo);
+            $cleanPath = trim(str_replace('\\', '/', $logo), '/');
+
+            // Cek Skenario 1: File ada di public_path langsung sesuai DB
+            if (file_exists(public_path($cleanPath))) {
+                $logoUrl = asset($cleanPath);
+            } 
+            // Cek Skenario 2: File ada di folder public/foto_perusahaan/
+            elseif (file_exists(public_path('foto_perusahaan/' . $cleanPath))) {
+                $logoUrl = asset('foto_perusahaan/' . $cleanPath);
+            } 
+            // Cek Skenario 3: File ada di folder public/images/
+            elseif (file_exists(public_path('images/' . $cleanPath))) {
+                $logoUrl = asset('images/' . $cleanPath);
+            }
         }
-    } else {
-        $logoUrl = asset('foto_perusahaan/images.png');
     }
 @endphp
 

@@ -14,7 +14,7 @@
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
 
             <h1 class="text-white text-3xl font-black">
-                LOKER SEEKER🔥
+                LOKER SEEKER
             </h1>
 
             @auth
