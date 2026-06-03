@@ -24,7 +24,7 @@ class GroupController extends Controller
             ->latest()
             ->get();
 
-    return view('users.group.group', compact('groups'));
+        return view('users.group.group', compact('groups'));
     }
 
     public function create()
@@ -36,14 +36,14 @@ class GroupController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
+            'category' => 'nullable|string|max:255',
             'description' => 'required|string',
         ]);
 
         Group::create([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'category' => $request->category,
+            'slug' => Str::slug($request->name) . '-' . time(),
+            'category' => $request->category ?? 'Umum',
             'icon_letter' => strtoupper(substr($request->name, 0, 1)),
             'description' => $request->description,
             'is_public' => true,
@@ -56,19 +56,24 @@ class GroupController extends Controller
     }
 
     public function show(Group $group)
-    {
-        $group->loadCount('members');
+{
+    $group->loadCount('members');
 
-        $joined = false;
+    $comments = $group->comments()
+        ->with('pelamar')
+        ->latest()
+        ->get();
 
-        if (Auth::check()) {
-            $joined = GroupMember::where('group_id', $group->id)
-                ->where('pelamar_id', Auth::id())
-                ->exists();
-        }
+    $joined = false;
 
-        return view('users.group.join_group', compact('group', 'joined'));
+    if (Auth::check()) {
+        $joined = GroupMember::where('group_id', $group->id)
+            ->where('pelamar_id', Auth::id())
+            ->exists();
     }
+
+    return view('users.group.join_group', compact('group', 'joined', 'comments'));
+}
 
     public function join(Group $group)
     {

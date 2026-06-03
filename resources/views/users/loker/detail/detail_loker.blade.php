@@ -29,17 +29,6 @@
         $jumlahKaryawan = $perusahaan->jumlah_karyawan ?? '-';
     @endphp
 
-    <header class="bg-red-brand text-white p-4 shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold italic tracking-wider">LOKER SEEKER</h1>
-            <nav class="hidden md:flex space-x-6 font-medium">
-                <a href="{{ url('/') }}" class="hover:text-yellow-300">Home</a>
-                <a href="{{ route('loker.index') }}" class="hover:text-yellow-300 border-b-2 border-yellow-300">Jobs</a>
-                <a href="{{ url('/perusahaan') }}" class="hover:text-yellow-300">Company</a>
-            </nav>
-        </div>
-    </header>
-
     <main class="container mx-auto px-4 py-8 max-w-5xl">
 
         @if(session('success'))
@@ -160,9 +149,5 @@
             </div>
         </div>
     </main>
-
-    <footer class="bg-red-800 text-white py-6 mt-12 text-center text-sm">
-        <p>&copy; 2026 LOKER SEEKER. Dibuat oleh Mahasiswa USU.</p>
-    </footer>
 
 @endsection

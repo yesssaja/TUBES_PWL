@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Service extends Model
 {
@@ -26,7 +27,7 @@ class Service extends Model
         'price' => 'integer',
     ];
 
-    public function pelamar()
+   public function pelamar()
     {
         return $this->belongsTo(User::class, 'pelamar_id');
     }

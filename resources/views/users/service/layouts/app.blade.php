@@ -39,9 +39,15 @@
 
 <body class="bg-cream font-poppins text-dark overflow-x-hidden">
 
-    @yield('content')
+     @include('users.layouts.navbar')
 
-    @yield('script')
+    <main>
+        @yield('content')
+    </main>
+
+    @include('users.layouts.footer')
+
+    @yield('scripts')
 
 </body>
 

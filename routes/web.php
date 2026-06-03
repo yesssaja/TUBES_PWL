@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Loker;
 
 // USER / PUBLIC CONTROLLERS
 use App\Http\Controllers\PerusahaanController;
@@ -44,7 +45,14 @@ use App\Http\Controllers\ProfilePelamarController;
 */
 
 Route::get('/', function () {
-    return view('pages.welcome');
+
+    $lokers = Loker::with('perusahaan')
+        ->latest()
+        ->take(3)
+        ->get();
+
+    return view('users.welcome', compact('lokers'));
+
 })->name('welcome');
 
 /*
@@ -176,8 +184,21 @@ Route::middleware(['auth'])->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/course', [CourseController::class, 'index'])
-    ->name('course.index');
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/course', [CourseController::class, 'index'])
+        ->name('course.index');
+
+    Route::get('/course/{course}/register', [CourseController::class, 'registerForm'])
+        ->name('course.register.form');
+
+    Route::post('/course/{course}/register', [CourseController::class, 'register'])
+        ->name('course.register');
+
+    Route::get('/course/{course}/access', [CourseController::class, 'access'])
+        ->name('course.access');
+
+});
 
 /*
 |--------------------------------------------------------------------------
