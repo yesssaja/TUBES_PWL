@@ -26,7 +26,7 @@ class CourseController extends Controller
                 ->keyBy('course_id');
         }
 
-        return view('course.index', compact('courses', 'registrations'));
+        return view('users.course.index', compact('courses', 'registrations'));
     }
 
     public function registerForm(Course $course)
@@ -39,7 +39,7 @@ class CourseController extends Controller
             return redirect()->route('course.access', $course->id);
         }
 
-        return view('course.register', compact('course', 'registration'));
+        return view('users.course.register', compact('course', 'registration'));
     }
 
     public function register(Request $request, Course $course)
@@ -143,6 +143,6 @@ class CourseController extends Controller
             ->orderBy('id', 'asc')
             ->first();
 
-        return view('course.access', compact('course', 'registration', 'courseLink'));
+        return view('users.course.access', compact('course', 'registration', 'courseLink'));
     }
 }

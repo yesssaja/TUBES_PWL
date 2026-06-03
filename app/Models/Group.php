@@ -33,13 +33,23 @@ class Group extends Model
 
     public function memberships()
     {
-        return $this->hasMany(GroupMember::class);
+        return $this->hasMany(GroupMember::class, 'group_id');
     }
 
     public function members()
     {
-        return $this->belongsToMany(User::class, 'group_members')
-            ->withPivot('role', 'joined_at')
-            ->withTimestamps();
+        return $this->belongsToMany(
+            User::class,
+            'group_members',
+            'group_id',
+            'pelamar_id'
+        )
+        ->withPivot('role', 'joined_at')
+        ->withTimestamps();
     }
+    
+    public function comments()
+{
+    return $this->hasMany(GroupComment::class, 'group_id');
+}
 }

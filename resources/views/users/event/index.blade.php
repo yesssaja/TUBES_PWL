@@ -4,21 +4,6 @@
 
 @section('content')
 
-<header class="fixed top-0 left-0 w-full bg-red-600 text-white shadow-lg z-50">
-    <div class="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
-        <h1 class="text-3xl font-black tracking-wide">
-            LOKER SEEKER🔥
-        </h1>
-
-        <nav class="hidden md:flex gap-8 font-semibold">
-            <a href="#home" class="hover:text-yellow-300 transition">Home</a>
-            <a href="#about" class="hover:text-yellow-300 transition">About</a>
-            <a href="#schedule" class="hover:text-yellow-300 transition">Schedule</a>
-            <a href="/" class="hover:text-yellow-300 transition">Dashboard</a>
-        </nav>
-    </div>
-</header>
-
 <section id="home" class="min-h-screen flex items-center justify-center px-6 pt-24">
     <div class="max-w-7xl grid md:grid-cols-2 gap-12 items-center">
         <div>

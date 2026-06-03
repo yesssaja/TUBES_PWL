@@ -11,7 +11,7 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        $services = Service::with(['images', 'user'])
+        $services = Service::with(['images', 'pelamar'])
             ->latest()
             ->take(3)
             ->get();
@@ -37,7 +37,7 @@ class ServiceController extends Controller
 
     public function all(Request $request)
     {
-        $query = Service::with(['images', 'user']);
+        $query = Service::with(['images', 'pelamar']);
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -54,24 +54,25 @@ class ServiceController extends Controller
             $query->where('category', $request->category);
         }
 
-        // AMBIL DATA SERVICE SESUAI FILTER
         $services = $query->latest()->paginate(9)->withQueryString();
 
-        // AMBIL KATEGORI YANG BENAR-BENAR ADA DI DATABASE
         $categories = Service::select('category')
             ->whereNotNull('category')
             ->distinct()
             ->orderBy('category', 'asc')
             ->pluck('category');
 
-        // AMBIL LOCATION YANG BENAR-BENAR ADA DI DATABASE
         $locations = Service::select('location')
             ->whereNotNull('location')
             ->distinct()
             ->orderBy('location', 'asc')
             ->pluck('location');
 
-        return view('users.service.all.all-service', compact('services', 'categories', 'locations'));
+        return view('users.service.all.all-service', compact(
+            'services',
+            'categories',
+            'locations'
+        ));
     }
 
     public function create()
@@ -93,6 +94,7 @@ class ServiceController extends Controller
 
         return view('users.service.register.tawarkan-service', compact('categories'));
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -113,7 +115,7 @@ class ServiceController extends Controller
         ]);
 
         $service = Service::create([
-            'user_id' => Auth::id(),
+            'pelamar_id' => Auth::id(),
             'freelancer_name' => $request->freelancer_name,
             'service_name' => $request->service_name,
             'category' => $request->category,
@@ -143,14 +145,14 @@ class ServiceController extends Controller
 
     public function show(Service $service)
     {
-        $service->load(['images', 'user']);
+        $service->load(['images', 'pelamar']);
 
         return view('users.service.detail.detail-service', compact('service'));
     }
 
     public function searchAjax(Request $request)
     {
-        $query = Service::with(['images', 'user']);
+        $query = Service::with(['images', 'pelamar']);
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -188,6 +190,5 @@ class ServiceController extends Controller
                 ];
             })
         ]);
-    }   
+    }
 }
-

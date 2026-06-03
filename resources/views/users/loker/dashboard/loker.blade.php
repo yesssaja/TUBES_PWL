@@ -2,34 +2,6 @@
 
 @section('content')
 
-    <header class="bg-red-brand text-white p-4 shadow-lg sticky top-0 z-50">
-    <div class="container mx-auto flex justify-between items-center">
-
-        <a href="{{ route('welcome') }}" class="flex items-center space-x-3 hover:opacity-90 transition">
-            <div class="w-10 h-12 overflow-hidden rounded shadow-sm flex items-center justify-center bg-white/10">
-                <img src="{{ asset('logo/logo.png') }}" alt="Logo Loker Seeker" class="w-full h-full object-cover">
-            </div>
-            
-            <h1 class="text-2xl font-bold italic tracking-wider uppercase balance">
-                LOKER SEEKER
-            </h1>
-        </a>
-
-        <nav class="hidden md:flex space-x-6 font-medium">
-            <a href="{{ route('welcome') }}" class="hover:text-yellow-300">
-                Home
-            </a>
-            <a href="{{ route('loker.index') }}" class="hover:text-yellow-300 border-b-2 border-yellow-300">
-                Jobs
-            </a>    
-            <a href="{{ route('perusahaan.index') }}" class="hover:text-yellow-300">
-                Company
-            </a>
-        </nav>
-
-    </div>
-</header>
-
     <main class="container mx-auto px-4 py-10 max-w-6xl">
 
         @if(session('success'))
@@ -173,9 +145,5 @@
         </div>
 
     </main>
-
-    <footer class="bg-red-800 text-white py-6 mt-12 text-center text-sm">
-        <p>&copy; 2026 LOKER SEEKER. Dibuat oleh Mahasiswa USU.</p>
-    </footer>
 
 @endsection

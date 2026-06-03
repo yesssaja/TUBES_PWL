@@ -21,36 +21,15 @@
 </head>
 <body class="text-gray-800">
 
-    <header class="fixed top-0 left-0 w-full bg-red-brand text-white shadow-xl z-50">
-        <div class="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
+     @include('users.layouts.navbar')
 
-            <a href="{{ route('welcome') }}" class="flex items-center space-x-3 hover:opacity-90 transition">
-                <div class="w-10 h-12 overflow-hidden rounded shadow-sm flex items-center justify-center bg-white/10">
-                    <img src="{{ asset('logo/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
-                </div>
-                <h1 class="text-3xl font-black tracking-tighter">
-                    LOKER SEEKER🔥
-                </h1>
-            </a>
-
-            <nav class="hidden md:flex gap-10 font-bold uppercase text-sm tracking-widest">
-                <a href="{{ route('welcome') }}" class="hover:text-yellow-300 transition">Home</a>
-                <a href="{{ route('loker.index') }}" class="hover:text-yellow-300 transition">Jobs</a>
-                <a href="{{ route('perusahaan.index') }}" class="hover:text-yellow-300 transition {{ Route::is('perusahaan.index') ? 'border-b-2 border-yellow-300' : '' }}">Company</a>
-                <a href="{{ route('event.index') }}" class="hover:text-yellow-300 transition">Event</a>
-            </nav>
-
-        </div>
-    </header>
-
-    <div class="pt-24"> 
+    <main>
         @yield('content')
-    </div>
+    </main>
 
-    <footer class="bg-gray-900 text-white py-10 text-center">
-        <h2 class="text-3xl font-black mb-3">LOKER SEEKER🔥</h2>
-        <p class="text-gray-400>© 2026 Loker Seeker. All Rights Reserved.</p>
-    </footer>
+    @include('users.layouts.footer')
+
+    @yield('scripts')
 
 </body>
 </html>

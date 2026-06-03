@@ -39,9 +39,15 @@
 
 <body class="bg-gradient-to-b from-yellow-100 via-orange-50 to-yellow-200 text-gray-800 font-sans">
 
-    @yield('content')
+     @include('users.layouts.navbar')
 
-    @yield('script')
+    <main>
+        @yield('content')
+    </main>
+
+    @include('users.layouts.footer')
+
+    @yield('scripts')
 
 </body>
 
