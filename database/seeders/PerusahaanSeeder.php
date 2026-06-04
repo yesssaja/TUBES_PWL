@@ -3,17 +3,71 @@
 namespace Database\Seeders;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class PerusahaanSeeder extends BaseSeeder
 {
     public function run(): void
     {
-       $hrdId1 = DB::table('users')->where('email', 'hrd@techmuda.com')->value('id') ?? 2;
-       $hrdId2 = DB::table('users')->where('email', 'hrd@digitalnusantara.com')->value('id') ?? 6;
-       $idTokopedia = DB::table('users')->where('email', 'hrd@tokopedia.com')->value('id') ?? 7;
-        $idLazada = DB::table('users')->where('email', 'hrd@lazada.com')->value('id') ?? 8;
-        $idBlibli = DB::table('users')->where('email', 'hrd@blibli.com')->value('id') ?? 9;
-        $idShopee = DB::table('users')->where('email', 'hrd@shopee.com')->value('id') ?? 10;
+        $hrdId1 = $this->upsertAndGetId('users', ['email' => 'hrd@techmuda.com'], [
+            'name' => 'HRD Tech Muda',
+            'email' => 'hrd@techmuda.com',
+            'password' => Hash::make('password'),
+            'role' => 'perusahaan',
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $hrdId2 = $this->upsertAndGetId('users', ['email' => 'hrd@digitalnusantara.com'], [
+            'name' => 'HRD Digital Nusantara',
+            'email' => 'hrd@digitalnusantara.com',
+            'password' => Hash::make('password'),
+            'role' => 'perusahaan',
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $idTokopedia = $this->upsertAndGetId('users', ['email' => 'hrd@tokopedia.com'], [
+            'name' => 'HRD Tokopedia',
+            'email' => 'hrd@tokopedia.com',
+            'password' => Hash::make('password'),
+            'role' => 'perusahaan',
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $idLazada = $this->upsertAndGetId('users', ['email' => 'hrd@lazada.com'], [
+            'name' => 'HRD Lazada',
+            'email' => 'hrd@lazada.com',
+            'password' => Hash::make('password'),
+            'role' => 'perusahaan',
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $idBlibli = $this->upsertAndGetId('users', ['email' => 'hrd@blibli.com'], [
+            'name' => 'HRD Blibli',
+            'email' => 'hrd@blibli.com',
+            'password' => Hash::make('password'),
+            'role' => 'perusahaan',
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $idShopee = $this->upsertAndGetId('users', ['email' => 'hrd@shopee.com'], [
+            'name' => 'HRD Shopee',
+            'email' => 'hrd@shopee.com',
+            'password' => Hash::make('password'),
+            'role' => 'perusahaan',
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         $this->upsertAndGetId('profile_perusahaan', ['email' => 'hrd@techmuda.com'], [
             'user_id' => $hrdId1,
@@ -40,6 +94,7 @@ class PerusahaanSeeder extends BaseSeeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
         $this->upsertAndGetId('profile_perusahaan', ['email' => 'hrd@tokopedia.com'], [
             'user_id' => $idTokopedia,
             'nama_perusahaan' => 'PT Tokopedia',
