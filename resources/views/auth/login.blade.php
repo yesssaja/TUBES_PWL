@@ -106,19 +106,7 @@
                     {{-- ICON --}}
                     <div class="w-20 h-20 mx-auto rounded-full bg-red-50 flex items-center justify-center mb-7">
                         <div class="w-14 h-14 rounded-2xl bg-[#E71F25] flex items-center justify-center shadow-glow">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="w-7 h-7 text-white"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                stroke-width="2">
-                                <path stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M12 11c1.657 0 3-1.343 3-3V7a3 3 0 10-6 0v1c0 1.657 1.343 3 3 3z" />
-                                <path stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M5 11h14v9H5z" />
-                            </svg>
+                            <img src="{{ asset('image/logo.jpg') }}" alt="Looker Seeker" class="w-full h-full object-cover rounded-full">
                         </div>
                     </div>
 
