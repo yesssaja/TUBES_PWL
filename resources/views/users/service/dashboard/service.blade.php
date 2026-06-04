@@ -1,7 +1,211 @@
 @extends('users.service.layouts.app')
+@section('style')
+<style>
+    .hero-glow-title {
+        background: linear-gradient(
+            90deg,
+            #1B2540 0%,
+            #E71F25 35%,
+            #ffffff 50%,
+            #E71F25 65%,
+            #1B2540 100%
+        );
+        background-size: 220% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: titleShine 10s linear infinite, heroFadeUp .9s ease forwards;
+        text-shadow: 0 0 24px rgba(231, 31, 37, 0.22);
+    }
+
+    .hero-subtitle-animate {
+        opacity: 0;
+        transform: translateY(18px);
+        animation: heroFadeUp .9s ease forwards;
+        animation-delay: .35s;
+    }
+
+    .hero-button-animate {
+        opacity: 0;
+        transform: translateY(18px);
+        animation: heroFadeUp .9s ease forwards;
+        animation-delay: .65s;
+    }
+
+    .hero-floating-light {
+        animation: floatingLight 5s ease-in-out infinite;
+    }
+
+    .hero-marquee-wrapper {
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 520px;
+        opacity: 0;
+        animation: heroFadeUp .9s ease forwards;
+        animation-delay: .5s;
+    }
+
+    .hero-marquee-text {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marqueeText 16s linear infinite;
+    }
+
+    @keyframes titleShine {
+        0% {
+            background-position: 220% center;
+        }
+        100% {
+            background-position: -220% center;
+        }
+    }
+
+    @keyframes heroFadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes floatingLight {
+        0%, 100% {
+            transform: translateY(0) scale(1);
+            opacity: .22;
+        }
+        50% {
+            transform: translateY(-18px) scale(1.08);
+            opacity: .38;
+        }
+    }
+
+    @keyframes marqueeText {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+        /* ANIMASI MASUK SECTION */
+    .reveal-up {
+        opacity: 0;
+        transform: translateY(26px);
+        animation: revealUp .9s ease forwards;
+    }
+
+    .reveal-delay-1 {
+        animation-delay: .15s;
+    }
+
+    .reveal-delay-2 {
+        animation-delay: .3s;
+    }
+
+    .reveal-delay-3 {
+        animation-delay: .45s;
+    }
+
+    .reveal-delay-4 {
+        animation-delay: .6s;
+    }
+
+    /* CARD ANIMASI */
+    .fancy-card {
+        position: relative;
+        overflow: hidden;
+        transition: all .35s ease;
+    }
+
+    .fancy-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            120deg,
+            transparent 0%,
+            rgba(255,255,255,.55) 45%,
+            transparent 70%
+        );
+        transform: translateX(-120%);
+        transition: .7s ease;
+    }
+
+    .fancy-card:hover::before {
+        transform: translateX(120%);
+    }
+
+    .fancy-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 45px rgba(231, 31, 37, .14);
+    }
+
+    /* ICON NAIK TURUN HALUS */
+    .float-icon {
+        animation: floatIcon 4s ease-in-out infinite;
+    }
+
+    /* TITLE SECTION ADA GARIS CAHAYA */
+    .section-title-glow {
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-title-glow::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 70px;
+        height: 4px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #E71F25, #ffb3b6, #E71F25);
+        background-size: 200% auto;
+        animation: lineGlow 3s linear infinite;
+    }
+
+    /* TOMBOL HIDUP */
+    .pulse-button {
+        animation: pulseButton 2.8s ease-in-out infinite;
+    }
+
+    @keyframes revealUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes floatIcon {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-7px);
+        }
+    }
+
+    @keyframes lineGlow {
+        0% {
+            background-position: 0 center;
+        }
+        100% {
+            background-position: 200% center;
+        }
+    }
+
+    @keyframes pulseButton {
+        0%, 100% {
+            box-shadow: 0 10px 28px rgba(231,31,37,.22);
+        }
+        50% {
+            box-shadow: 0 16px 38px rgba(231,31,37,.38);
+        }
+    }
+</style>
+@endsection
 
 @section('content')
-
     <!-- CONTAINER -->
     <div class="max-w-7xl mx-auto px-4 lg:px-6 py-8">
         <!-- HEADER -->
@@ -14,23 +218,30 @@
             <div class="grid lg:grid-cols-2 gap-10 items-center relative z-10">
 
                 <!-- LEFT -->
-                <div>
+                <div class="relative">
 
-                    <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight mb-5 max-w-xl">
+                    <!-- LIGHT EFFECT -->
+                    <div class="hero-floating-light absolute -top-16 -left-10 w-52 h-52 bg-red-300/40 rounded-full blur-3xl"></div>
+                    <div class="hero-floating-light absolute top-20 left-40 w-40 h-40 bg-white/30 rounded-full blur-3xl"></div>
 
+                    <p class="hero-subtitle-animate text-primary font-bold text-sm uppercase tracking-[0.35em] mb-4">
+                        Looker Seeker Service
+                    </p>
+
+                    <h1 class="hero-glow-title text-4xl lg:text-6xl font-extrabold leading-tight mb-5 max-w-2xl relative z-10">
                         Temukan jasa terbaik
+                        <br>
                         untuk kebutuhanmu
-
                     </h1>
 
-                    <p class="text-slate-500 text-base leading-relaxed mb-8 max-w-lg">
+                    <div class="hero-marquee-wrapper mb-8 relative z-10">
+                        <p class="hero-marquee-text text-slate-600 text-base leading-relaxed">
+                            Cari freelancer profesional untuk berbagai kebutuhan acara • proyek • bisnis • dokumentasi • desain • editing • event •
+                        </p>
+                    </div>
 
-                        Cari freelancer profesional untuk berbagai kebutuhan acara,
-                        proyek, atau pekerjaan sekali pakai.
-
-                    </p>
                     <a href="{{ url('/') }}"
-                        class="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-4 rounded-2xl shadow-md hover:bg-red-700 hover:-translate-y-1 transition duration-300 text-sm font-bold">
+                        class="hero-button-animate inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-4 rounded-2xl shadow-md hover:bg-red-700 hover:-translate-y-1 transition duration-300 text-sm font-bold relative z-10">
 
                         ← Kembali ke Dashboard
 
@@ -47,9 +258,9 @@
 
             <div class="flex justify-between items-center mb-6">
 
-                <h2 class="text-2xl font-extrabold">
-                    Kategori Populer
-                </h2>
+            <h2 class="section-title-glow reveal-up text-2xl font-extrabold">
+                Kategori Populer
+            </h2>
 
 
             </div>
@@ -58,7 +269,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
 
                 <!-- CARD -->
-                <div class="bg-white rounded-2xl p-5 shadow-soft border border-slate-100 hover:-translate-y-1 transition">
+                <div class="fancy-card reveal-up reveal-delay-1 bg-white rounded-2xl p-5 shadow-soft border border-slate-100 transition">
 
                     <div class="w-12 h-12 rounded-2xl bg-green-100 flex items-center justify-center mb-4">
 
@@ -91,7 +302,7 @@
 
                 </div>
 
-                <div class="bg-white rounded-2xl p-5 shadow-soft border border-slate-100 hover:-translate-y-1 transition">
+                <div class="fancy-card reveal-up reveal-delay-2 bg-white rounded-2xl p-5 shadow-soft border border-slate-100 transition">
 
                     <div class="w-12 h-12 rounded-2xl bg-purple-100 flex items-center justify-center mb-4">
                       
@@ -120,7 +331,7 @@
 
                 </div>
 
-                <div class="bg-white rounded-2xl p-5 shadow-soft border border-slate-100 hover:-translate-y-1 transition">
+                <div class="fancy-card reveal-up reveal-delay-3 bg-white rounded-2xl p-5 shadow-soft border border-slate-100 transition">
 
                     <div class="w-12 h-12 rounded-2xl bg-red-100 flex items-center justify-center mb-4">
 
@@ -149,7 +360,7 @@
 
                 </div>
 
-                <div class="bg-white rounded-2xl p-5 shadow-soft border border-slate-100 hover:-translate-y-1 transition">
+                <div class="fancy-card reveal-up reveal-delay-4 bg-white rounded-2xl p-5 shadow-soft border border-slate-100 transition">
 
                     <div class="w-12 h-12 rounded-2xl bg-yellow-100 flex items-center justify-center mb-4">
 
@@ -178,7 +389,7 @@
 
                 </div>
 
-                <div class="bg-white rounded-2xl p-5 shadow-soft border border-slate-100 hover:-translate-y-1 transition">
+                <div class="fancy-card reveal-up reveal-delay-5 bg-white rounded-2xl p-5 shadow-soft border border-slate-100 transition">
 
                     <div class="w-12 h-12 rounded-2xl bg-pink-100 flex items-center justify-center mb-4">
 
@@ -252,21 +463,19 @@
 
             <div class="flex justify-between items-center mb-6">
 
-                <h2 class="text-2xl font-extrabold">
-
+                <h2 class="section-title-glow reveal-up text-2xl font-extrabold">
                     Rekomendasi Untukmu
-
                 </h2>
-                <a href="/service/all"
-                    class="inline-flex items-center gap-2 bg-primary text-white px-5 py-3 rounded-2xl shadow-md hover:bg-red-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-sm font-bold">
+                    <a href="/service/all"
+                        class="pulse-button inline-flex items-center gap-2 bg-primary text-white px-5 py-3 rounded-2xl shadow-md hover:bg-red-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-sm font-bold">
 
-                    Lihat Semua
+                        Lihat Semua
 
-                    <span class="text-base">
-                        →
-                    </span>
+                        <span class="text-base">
+                            →
+                        </span>
 
-                </a>
+                    </a>
 
             </div>
 
@@ -277,7 +486,7 @@
 
                 @foreach($services as $service)
 
-                    <div class="bg-white rounded-[28px] overflow-hidden shadow-soft border border-slate-100 hover:-translate-y-1 transition h-full flex flex-col">
+                    <div class="fancy-card reveal-up reveal-delay-2 bg-white rounded-[28px] overflow-hidden shadow-soft border border-slate-100 transition h-full flex flex-col">
 
                         @php
                             $firstImage = $service->images->first();
