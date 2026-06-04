@@ -90,7 +90,7 @@ class GroupSeeder extends Seeder
                 GroupMember::updateOrCreate(
                     [
                         'group_id' => $group->id,
-                        'user_id' => $user->id,
+                        'pelamar_id' => $user->id,
                     ],
                     [
                         'role' => $user->role === 'admin' ? 'moderator' : 'member',

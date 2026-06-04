@@ -425,7 +425,7 @@ class ServiceSeeder extends Seeder
         $userId = \App\Models\User::where('role', 'user')->value('id');
     }
 
-    $item['user_id'] = $userId;
+    $item['pelamar_id'] = $userId;
 
     $service = Service::updateOrCreate(
         ['email' => $item['email']],
