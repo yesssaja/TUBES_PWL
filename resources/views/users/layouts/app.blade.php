@@ -6,6 +6,9 @@
     <title>@yield('title', 'Loker Seeker')</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('image/favicon.ico') }}">
 </head>
 
 <body class="bg-[#F7F0C8] min-h-screen font-sans">
