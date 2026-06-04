@@ -20,10 +20,11 @@ class ProfileSettingsController extends Controller
 
         $request->validate([
             'name'=>'required|string|max:255',
-            'email'=>'required|string|max:50',
-            'no_hp'=>'required|max:15',
+            'email'=>'required|email|max:50|unique:users,email,'.$user->id,
+            'no_hp'=>'required|digits_between:10,15',
             'tempat_lahir'=>'required|string',
-            'tgl_lahir'=>'required|date',
+            'tgl_lahir'=>'required|date|before:'.date('Y-m-d',strtotime('-17 years')),
+            'gender'=>'nullable',
             'foto_diri'=>'nullable|image|max:2048',
         ]);
 
@@ -42,9 +43,19 @@ class ProfileSettingsController extends Controller
         if($request->hasFile('foto_diri')){
             $data['foto_diri']=$request->file('foto_diri')->store('foto_diri','public');
         }
+        
+        if(!$profile?->nik && $request->nik){
+            $data['nik']=$request->nik;
+        }
 
-        $profile->update($data);
-
+        if ($profile) {
+            $profile->update($data);
+        } 
+        else {
+            $data['user_id']=$user->id;
+            ProfilePelamar::create($data);
+        }
+    
         return redirect()->back()->with('success','Profil berhasil diperbarui');
     }
 }
