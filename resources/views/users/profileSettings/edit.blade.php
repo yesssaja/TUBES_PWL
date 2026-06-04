@@ -1,12 +1,11 @@
-<x-app-layout>
-    <div class="max-w-3xl mx-auto p-6">
+@extends('users.layouts.app')
+@section('content')
+    <div class="max-w-3xl mx-auto px-6 py-10">
         <div class="bg-white rounded-3xl shadow-xl p-8">
             <h1 class="text-2xl font-black text-gray-800 mb-6">Profile Setting</h1>
 
             @if (session('success'))
-                <div class="bg-green-100 border border-x-green-300 text-green-700 px-5 py-4 rounded-2xl mb-6">
-                    {{ session('success') }}
-                </div>
+                <div class="bg-green-100 border border-green-300 text-green-700 px-5 py-4 rounded-2xl mb-6">{{ session('success') }}</div>
             @endif
 
             <form action="{{ route('profile.settings.update') }}" method="post" enctype="multipart/form-data" class="space-y-5">
@@ -110,4 +109,4 @@
             </form>
         </div>
     </div>
-</x-app-layout>
+@endsection

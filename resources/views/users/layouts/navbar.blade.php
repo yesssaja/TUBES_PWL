@@ -336,6 +336,18 @@
                         </span>
                     </a>
 
+                    <a href="{{ url('/profile/settings') }}" class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
+                        <span class="inline-flex items-center gap-3">
+                            <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-gray-500 to-slate-800 flex items-center justify-center shadow-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317a1.724 1.724 0 013.35 0 1.724 1.724 0 002.573 1.066 1.724 1.724 0 012.365 2.365 1.724 1.724 0 001.066 2.573 1.724 1.724 0 010 3.35 1.724 1.724 0 00-1.066 2.573 1.724 1.724 0 01-2.365 2.365 1.724 1.724 0 00-2.573 1.066 1.724 1.724 0 01-3.35 0 1.724 1.724 0 00-2.573-1.066 1.724 1.724 0 01-2.365-2.365 1.724 1.724 0 00-1.066-2.573 1.724 1.724 0 010-3.35 1.724 1.724 0 001.066-2.573 1.724 1.724 0 012.365-2.365 1.724 1.724 0 002.573-1.066z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15a3 3 0 100-6 3 3 0 000 6z"></path>
+                                </svg>
+                            </span>
+
+                            <span>Profile Setting</span>
+                        </span>
+                    </a>
                 </div>
             </div>
 

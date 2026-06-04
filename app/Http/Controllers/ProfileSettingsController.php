@@ -12,7 +12,7 @@ class ProfileSettingsController extends Controller
     public function edit(){
         $user=Auth::user();
         $profile=ProfilePelamar::where('user_id',$user->id)->first();
-        return view('profile_settings.edit',compact('user','profile'));
+        return view('users.profileSettings.edit',compact('user','profile'));
     }
 
     public function update(Request $request){
