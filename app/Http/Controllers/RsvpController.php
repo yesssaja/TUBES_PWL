@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Inbox;
 use App\Models\Rsvp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,13 +39,23 @@ class RsvpController extends Controller
             return back()->with('error', 'Kamu sudah daftar event ini.');
         }
 
-        Rsvp::create([
+        $rsvp = Rsvp::create([
             'pelamar_id' => $pelamarId,
             'event_id' => $event->id,
             'name' => $request->name,
             'email' => $request->email,
             'hp' => $request->hp,
             'status_kehadiran' => 'pending',
+        ]);
+
+        Inbox::create([
+            'perusahaan_id' => $event->perusahaan_id,
+            'title' => 'RSVP Masuk',
+            'message' => $request->name . ' mendaftar event ' . ($event->nama_event ?? $event->judul ?? 'Event') . '.',
+            'type' => 'rsvp_masuk',
+            'is_read' => false,
+            'action_text' => 'Lihat RSVP',
+            'action_url' => route('perusahaan.rsvp.index'),
         ]);
 
         return redirect()

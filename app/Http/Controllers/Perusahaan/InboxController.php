@@ -4,40 +4,68 @@ namespace App\Http\Controllers\Perusahaan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inbox;
+use App\Models\ProfilePerusahaan;
 use Illuminate\Support\Facades\Auth;
 
 class InboxController extends Controller
 {
     public function index()
     {
-        $inboxes = Inbox::where('pelamar_id', Auth::id())
+        $perusahaan = ProfilePerusahaan::where('user_id', Auth::id())->first();
+
+        $inboxes = Inbox::query()
+            ->when($perusahaan, function ($query) use ($perusahaan) {
+                $query->where('perusahaan_id', $perusahaan->id);
+            })
+            ->orWhere('pelamar_id', Auth::id())
             ->latest()
             ->get();
 
-        return view('perusahaan.inbox.index', compact('inboxes'));
+        return view('perusahaan.inbox.index', compact('inboxes', 'perusahaan'));
     }
 
     public function read($id)
     {
-        $inbox = Inbox::findOrFail($id);
+        $perusahaan = ProfilePerusahaan::where('user_id', Auth::id())->first();
 
-        if ($inbox->pelamar_id !== Auth::id()) {
-            abort(403);
-        }
+        $inbox = Inbox::query()
+            ->where('id', $id)
+            ->where(function ($query) use ($perusahaan) {
+                if ($perusahaan) {
+                    $query->where('perusahaan_id', $perusahaan->id);
+                }
 
-        $inbox->is_read = true;
-        $inbox->save();
+                $query->orWhere('pelamar_id', Auth::id());
+            })
+            ->firstOrFail();
 
-        return back()->with('success', 'Pesan ditandai sudah dibaca.');
+        $inbox->update([
+            'is_read' => true,
+        ]);
+
+        return redirect()
+            ->route('perusahaan.inbox.index')
+            ->with('success', 'Inbox berhasil ditandai dibaca.');
     }
 
     public function readAll()
     {
-        Inbox::where('pelamar_id', Auth::id())
+        $perusahaan = ProfilePerusahaan::where('user_id', Auth::id())->first();
+
+        Inbox::query()
+            ->where(function ($query) use ($perusahaan) {
+                if ($perusahaan) {
+                    $query->where('perusahaan_id', $perusahaan->id);
+                }
+
+                $query->orWhere('pelamar_id', Auth::id());
+            })
             ->update([
-                'is_read' => true
+                'is_read' => true,
             ]);
 
-        return back()->with('success', 'Semua inbox ditandai sudah dibaca.');
+        return redirect()
+            ->route('perusahaan.inbox.index')
+            ->with('success', 'Semua inbox berhasil ditandai dibaca.');
     }
 }

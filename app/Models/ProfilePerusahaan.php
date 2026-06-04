@@ -9,6 +9,8 @@ class ProfilePerusahaan extends Model
 {
     use HasFactory;
 
+    protected $table = 'profile_perusahaan';
+
     protected $fillable = [
         'nama_perusahaan',
         'logo',
@@ -23,5 +25,15 @@ class ProfilePerusahaan extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'perusahaan_id', 'id');
+    }
+
+    public function lokers()
+    {
+        return $this->hasMany(Loker::class, 'perusahaan_id', 'id');
     }
 }

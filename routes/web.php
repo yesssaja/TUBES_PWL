@@ -255,7 +255,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('rsvp.store');
 
     Route::get('/berhasil_daftar_event', function () {
-        return view('pages.berhasil_daftar_event');
+        return view('users.event.success');
     })->name('rsvp.success');
 
 /*
