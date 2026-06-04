@@ -8,6 +8,9 @@
 
     <title>{{ config('app.name', 'Looker Seeker') }}</title>
 
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('image/favicon.ico') }}">
+
     {{-- FONT POPPINS --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

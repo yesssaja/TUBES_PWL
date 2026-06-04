@@ -7,6 +7,9 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('image/favicon.ico') }}">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
 

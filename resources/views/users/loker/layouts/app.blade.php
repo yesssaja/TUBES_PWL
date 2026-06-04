@@ -9,6 +9,9 @@
     {{-- TAILWIND --}}
     <script src="https://cdn.tailwindcss.com"></script>
 
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('image/favicon.ico') }}">
+
     {{-- FONT AWESOME --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 

@@ -15,6 +15,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\GroupCommentController;
+use App\Http\Controllers\ProfileSettingsController;
 
 //PERUSAHAAN CONTROLLER
 use App\Http\Controllers\Perusahaan\EventController as PerusahaanEventController;
@@ -307,6 +308,15 @@ Route::put('/inbox/read-all', [InboxController::class, 'readAll'])
 
     Route::post('/group/{group:slug}/comment', [GroupCommentController::class, 'store'])
         ->name('groups.comment.store');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Setting User Route
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/profile/settings',[ProfileSettingsController::class,'edit'])->name('profile.settings.edit');
+    Route::put('/profile/settings',[ProfileSettingsController::class,'update'])->name('profile.settings.update');
 });
 
 /*
