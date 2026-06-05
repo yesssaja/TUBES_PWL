@@ -517,13 +517,13 @@ Route::middleware(['auth', 'perusahaan'])
 
         //loker yang dibuat
         Route::get('/lowongan', [PerusahaanLokerController::class, 'index'])->name('lowongan.index');
-    Route::get('/lowongan/create', [PerusahaanLokerController::class, 'create'])->name('lowongan.create');
-    Route::post('/lowongan', [PerusahaanLokerController::class, 'store'])->name('lowongan.store');
-
-    Route::get('/lowongan/{lowongan}', [PerusahaanLokerController::class, 'show'])->name('lowongan.show');
-    Route::get('/lowongan/{lowongan}/edit', [PerusahaanLokerController::class, 'edit'])->name('lowongan.edit');
-    Route::put('/lowongan/{lowongan}', [PerusahaanLokerController::class, 'update'])->name('lowongan.update');
-    Route::delete('/lowongan/{lowongan}', [PerusahaanLokerController::class, 'destroy'])->name('lowongan.destroy');
+        Route::get('/lowongan/create', [PerusahaanLokerController::class, 'create'])->name('lowongan.create');
+        Route::post('/lowongan', [PerusahaanLokerController::class, 'store'])->name('lowongan.store');
+    
+        Route::get('/lowongan/{lowongan}', [PerusahaanLokerController::class, 'show'])->name('lowongan.show');
+        Route::get('/lowongan/{lowongan}/edit', [PerusahaanLokerController::class, 'edit'])->name('lowongan.edit');
+        Route::put('/lowongan/{lowongan}', [PerusahaanLokerController::class, 'update'])->name('lowongan.update');
+        Route::delete('/lowongan/{lowongan}', [PerusahaanLokerController::class, 'destroy'])->name('lowongan.destroy');
 
         //lamaran yg d terima
         Route::get('/lamaran', [PerusahaanLamaranController::class, 'index'])
