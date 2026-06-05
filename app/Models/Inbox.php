@@ -20,4 +20,9 @@ class Inbox extends Model
     {
         return $this->belongsTo(User::class, 'pelamar_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'pelamar_id', 'id');
+    }
 }

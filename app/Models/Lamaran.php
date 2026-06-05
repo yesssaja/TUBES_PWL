@@ -25,6 +25,11 @@ class Lamaran extends Model
         return $this->belongsTo(User::class, 'pelamar_id', 'id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'pelamar_id', 'id');
+    }
+
     public function loker()
     {
         return $this->belongsTo(Loker::class, 'loker_id', 'id');

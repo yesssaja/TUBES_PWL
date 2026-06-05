@@ -7,210 +7,176 @@
 <div class="max-w-7xl mx-auto">
 
     {{-- HEADER --}}
-    <div class="mb-8">
-
-        <h1 class="text-3xl font-bold text-gray-800">
+    <div class="bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 rounded-3xl shadow-lg p-8 text-white mb-8">
+        <h1 class="text-4xl font-black">
             Lamaran Masuk
         </h1>
 
-        <p class="text-gray-500 mt-2">
+        <p class="text-white/90 mt-3 text-lg">
             Kelola seluruh kandidat yang melamar lowongan perusahaan Anda.
         </p>
-
     </div>
 
+    {{-- ALERT --}}
+    @if(session('success'))
+        <div class="mb-6 bg-green-100 border border-green-300 text-green-700 px-5 py-4 rounded-2xl font-semibold">
+            {{ session('success') }}
+        </div>
+    @endif
+
     {{-- TABLE --}}
-    <div class="bg-white rounded-3xl shadow overflow-hidden">
+    <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
 
-        <table class="w-full text-left">
+        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800">
+                    Daftar Pelamar
+                </h2>
 
-            <thead class="bg-red-50">
+                <p class="text-gray-500 mt-1">
+                    Total {{ $lamarans->count() }} lamaran masuk
+                </p>
+            </div>
+        </div>
 
-                <tr>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
 
-                    <th class="p-5">
-                        Pelamar
-                    </th>
+                <thead class="bg-red-50">
+                    <tr>
+                        <th class="px-6 py-5 font-bold text-gray-700">Pelamar</th>
+                        <th class="px-6 py-5 font-bold text-gray-700">Lowongan</th>
+                        <th class="px-6 py-5 font-bold text-gray-700">CV</th>
+                        <th class="px-6 py-5 font-bold text-gray-700">Portfolio</th>
+                        <th class="px-6 py-5 font-bold text-gray-700">Status</th>
+                        <th class="px-6 py-5 font-bold text-gray-700 text-center">Aksi</th>
+                    </tr>
+                </thead>
 
-                    <th>
-                        Lowongan
-                    </th>
+                <tbody class="divide-y divide-gray-100">
 
-                    <th>
-                        CV
-                    </th>
+                    @forelse ($lamarans as $lamaran)
 
-                    <th>
-                        Portfolio
-                    </th>
+                        @php
+                            $namaPelamar = $lamaran->nama ?? $lamaran->user->name ?? 'Pelamar';
+                            $emailPelamar = $lamaran->email ?? $lamaran->user->email ?? '-';
 
-                    <th>
-                        Status
-                    </th>
+                            $foto = $lamaran->foto
+                                ? asset('storage/' . $lamaran->foto)
+                                : 'https://ui-avatars.com/api/?name=' . urlencode($namaPelamar) . '&background=fee2e2&color=dc2626&bold=true';
+                        @endphp
 
-                    <th>
-                        Aksi
-                    </th>
+                        <tr class="hover:bg-orange-50/50 transition">
 
-                </tr>
+                            {{-- PELAMAR --}}
+                            <td class="px-6 py-5">
+                                <div class="flex items-center gap-4">
+                                    <img
+                                        src="{{ $foto }}"
+                                        class="w-14 h-14 rounded-2xl object-cover shadow-sm border">
 
-            </thead>
+                                    <div>
+                                        <h3 class="font-bold text-gray-800 text-lg">
+                                            {{ $namaPelamar }}
+                                        </h3>
 
-            <tbody>
-
-                @forelse ($lamarans as $lamaran)
-
-                    @php
-
-                        $foto = $lamaran->foto
-                            ? asset('storage/' . $lamaran->foto)
-                            : 'https://ui-avatars.com/api/?name=' . urlencode($lamaran->nama);
-
-                    @endphp
-
-                    <tr class="border-b hover:bg-gray-50">
-
-                        {{-- PELAMAR --}}
-                        <td class="p-5">
-
-                            <div class="flex items-center gap-4">
-
-                                <img
-                                    src="{{ $foto }}"
-                                    class="w-14 h-14 rounded-full object-cover">
-
-                                <div>
-
-                                    <h3 class="font-bold text-lg">
-                                        {{ $lamaran->nama }}
-                                    </h3>
-
-                                    <p class="text-gray-500 text-sm">
-                                        {{ $lamaran->email }}
-                                    </p>
-
+                                        <p class="text-gray-500 text-sm">
+                                            {{ $emailPelamar }}
+                                        </p>
+                                    </div>
                                 </div>
+                            </td>
 
-                            </div>
-
-                        </td>
-
-                        {{-- LOKER --}}
-                        <td>
-
-                            <div>
-
-                                <h3 class="font-semibold">
+                            {{-- LOWONGAN --}}
+                            <td class="px-6 py-5">
+                                <h3 class="font-bold text-gray-800">
                                     {{ $lamaran->loker->judul_loker ?? '-' }}
                                 </h3>
 
                                 <p class="text-sm text-gray-500 mt-1">
-                                    {{ $lamaran->hp }}
+                                    Dikirim {{ $lamaran->created_at ? $lamaran->created_at->format('d M Y') : '-' }}
                                 </p>
+                            </td>
 
-                            </div>
+                            {{-- CV --}}
+                            <td class="px-6 py-5">
+                                @if($lamaran->cv)
+                                    <a href="{{ asset('storage/' . $lamaran->cv) }}"
+                                       target="_blank"
+                                       class="inline-flex bg-blue-100 text-blue-600 px-4 py-2 rounded-xl font-bold hover:bg-blue-200 transition">
+                                        Lihat CV
+                                    </a>
+                                @else
+                                    <span class="text-gray-400 font-semibold">-</span>
+                                @endif
+                            </td>
 
-                        </td>
+                            {{-- PORTFOLIO --}}
+                            <td class="px-6 py-5">
+                                @if($lamaran->portfolio)
+                                    <a href="{{ $lamaran->portfolio }}"
+                                       target="_blank"
+                                       class="inline-flex bg-purple-100 text-purple-600 px-4 py-2 rounded-xl font-bold hover:bg-purple-200 transition">
+                                        Portfolio
+                                    </a>
+                                @else
+                                    <span class="text-gray-400 font-semibold">-</span>
+                                @endif
+                            </td>
 
-                        {{-- CV --}}
-                        <td>
+                            {{-- STATUS --}}
+                            <td class="px-6 py-5">
+                                @if($lamaran->status_lamaran == 'diterima')
+                                    <span class="bg-green-100 text-green-600 px-4 py-2 rounded-full text-sm font-bold">
+                                        Diterima
+                                    </span>
+                                @elseif($lamaran->status_lamaran == 'ditolak')
+                                    <span class="bg-red-100 text-red-600 px-4 py-2 rounded-full text-sm font-bold">
+                                        Ditolak
+                                    </span>
+                                @else
+                                    <span class="bg-yellow-100 text-yellow-600 px-4 py-2 rounded-full text-sm font-bold">
+                                        Pending
+                                    </span>
+                                @endif
+                            </td>
 
-                            @if($lamaran->cv)
-
-                                <a href="{{ asset('storage/' . $lamaran->cv) }}"
-                                   target="_blank"
-                                   class="text-blue-600 font-semibold">
-
-                                    Lihat CV
-
+                            {{-- AKSI --}}
+                            <td class="px-6 py-5 text-center">
+                                <a href="{{ route('perusahaan.lamaran.show', $lamaran->id) }}"
+                                   class="inline-flex bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-xl font-bold shadow transition">
+                                    Detail
                                 </a>
+                            </td>
 
-                            @else
+                        </tr>
 
-                                -
+                    @empty
 
-                            @endif
+                        <tr>
+                            <td colspan="6" class="p-12 text-center">
+                                <div class="max-w-md mx-auto">
+                                    <div class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                                        📄
+                                    </div>
 
-                        </td>
+                                    <h3 class="text-xl font-bold text-gray-700">
+                                        Belum ada lamaran masuk
+                                    </h3>
 
-                        {{-- PORTFOLIO --}}
-                        <td>
+                                    <p class="text-gray-500 mt-2">
+                                        Lamaran dari pelamar akan tampil di halaman ini.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
 
-                            @if($lamaran->portfolio)
+                    @endforelse
 
-                                <a href="{{ $lamaran->portfolio }}"
-                                   target="_blank"
-                                   class="text-blue-600 font-semibold">
+                </tbody>
 
-                                    Portfolio
-
-                                </a>
-
-                            @else
-
-                                -
-
-                            @endif
-
-                        </td>
-
-                        {{-- STATUS --}}
-                        <td>
-
-                            @if($lamaran->status_lamaran == 'diterima')
-
-                                <span class="bg-green-100 text-green-600 px-4 py-2 rounded-full text-sm font-semibold">
-                                    Diterima
-                                </span>
-
-                            @elseif($lamaran->status_lamaran == 'ditolak')
-
-                                <span class="bg-red-100 text-red-600 px-4 py-2 rounded-full text-sm font-semibold">
-                                    Ditolak
-                                </span>
-
-                            @else
-
-                                <span class="bg-yellow-100 text-yellow-600 px-4 py-2 rounded-full text-sm font-semibold">
-                                    Pending
-                                </span>
-
-                            @endif
-
-                        </td>
-
-                        {{-- AKSI --}}
-                        <td>
-
-                            <a href="#"
-                               class="text-blue-600 font-semibold">
-
-                                Detail
-
-                            </a>
-
-                        </td>
-
-                    </tr>
-
-                @empty
-
-                    <tr>
-
-                        <td colspan="6"
-                            class="p-10 text-center text-gray-500">
-
-                            Belum ada lamaran masuk.
-
-                        </td>
-
-                    </tr>
-
-                @endforelse
-
-            </tbody>
-
-        </table>
+            </table>
+        </div>
 
     </div>
 

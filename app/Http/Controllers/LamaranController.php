@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Inbox;
 use App\Models\Lamaran;
 use App\Models\Loker;
-use App\Models\Inbox;
 use Illuminate\Http\Request;
 
 class LamaranController extends Controller
@@ -58,7 +58,7 @@ class LamaranController extends Controller
         Inbox::create([
             'pelamar_id' => $loker->perusahaan_id,
             'title' => 'Lamaran Baru',
-            'message' => $user->name . ' melamar lowongan ' . $loker->judul_loker,
+            'message' => $user->name . ' melamar lowongan "' . $loker->judul_loker . '".',
             'type' => 'lamaran',
             'is_read' => false,
         ]);
