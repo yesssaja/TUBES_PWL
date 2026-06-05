@@ -9,6 +9,8 @@ class ProfilePerusahaan extends Model
 {
     use HasFactory;
 
+    protected $table = 'profile_perusahaan';
+
     protected $fillable = [
         'nama_perusahaan',
         'logo',

@@ -19,14 +19,13 @@ class InboxController extends Controller
 
     public function read($id)
     {
-        $inbox = Inbox::findOrFail($id);
+        $inbox = Inbox::where('pelamar_id', Auth::id())
+            ->where('id', $id)
+            ->firstOrFail();
 
-        if ($inbox->pelamar_id !== Auth::id()) {
-            abort(403);
-        }
-
-        $inbox->is_read = true;
-        $inbox->save();
+        $inbox->update([
+            'is_read' => true,
+        ]);
 
         return back()->with('success', 'Pesan ditandai sudah dibaca.');
     }
@@ -35,7 +34,7 @@ class InboxController extends Controller
     {
         Inbox::where('pelamar_id', Auth::id())
             ->update([
-                'is_read' => true
+                'is_read' => true,
             ]);
 
         return back()->with('success', 'Semua inbox ditandai sudah dibaca.');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lamaran;
 use App\Models\Loker;
+use App\Models\Inbox;
 use Illuminate\Http\Request;
 
 class LamaranController extends Controller
@@ -52,6 +53,14 @@ class LamaranController extends Controller
             'portfolio' => $validated['portfolio'] ?? null,
             'motivasi' => $validated['motivasi'] ?? null,
             'status_lamaran' => 'pending',
+        ]);
+
+        Inbox::create([
+            'pelamar_id' => $loker->perusahaan_id,
+            'title' => 'Lamaran Baru',
+            'message' => $user->name . ' melamar lowongan ' . $loker->judul_loker,
+            'type' => 'lamaran',
+            'is_read' => false,
         ]);
 
         return redirect()->route('lamaran.success', $loker->id);

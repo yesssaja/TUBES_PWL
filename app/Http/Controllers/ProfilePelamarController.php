@@ -39,6 +39,7 @@ class ProfilePelamarController extends Controller
             'foto_ktp'=>$fotoKtp,
             'foto_ijazah'=>$fotoIjazah,
         ]);
+        
 
         return redirect('/')->with('Sukses','Data diri berhasil dilengkapi!');
     }
