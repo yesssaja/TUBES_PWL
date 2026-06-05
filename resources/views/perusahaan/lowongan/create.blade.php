@@ -19,20 +19,36 @@
             </p>
         </div>
 
-        {{-- BUTTON KEMBALI --}}
         <a href="{{ route('perusahaan.lowongan.index') }}"
            class="inline-flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-700 px-5 py-3 rounded-xl font-semibold transition">
-
             ← Kembali
-
         </a>
 
     </div>
 
+    {{-- ALERT SUCCESS --}}
+    @if(session('success'))
+        <div class="mb-6 bg-green-100 border border-green-300 text-green-700 px-5 py-4 rounded-2xl font-semibold">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    {{-- ALERT ERROR --}}
+    @if($errors->any())
+        <div class="mb-6 bg-red-100 border border-red-300 text-red-700 px-5 py-4 rounded-2xl">
+            <ul class="list-disc list-inside">
+                @foreach($errors->all() as $error)
+                    <li class="font-semibold">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     {{-- FORM --}}
     <div class="bg-white rounded-3xl shadow-lg p-8">
 
-        <form class="space-y-8">
+        <form action="{{ route('perusahaan.lowongan.store') }}" method="POST" class="space-y-8">
+            @csrf
 
             {{-- GRID --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -45,8 +61,11 @@
 
                     <input
                         type="text"
+                        name="judul_loker"
+                        value="{{ old('judul_loker') }}"
                         class="w-full border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition"
-                        placeholder="Contoh: Web Developer">
+                        placeholder="Contoh: Web Developer"
+                        required>
                 </div>
 
                 {{-- LOKASI --}}
@@ -57,8 +76,11 @@
 
                     <input
                         type="text"
+                        name="lokasi"
+                        value="{{ old('lokasi') }}"
                         class="w-full border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition"
-                        placeholder="Contoh: Medan">
+                        placeholder="Contoh: Medan"
+                        required>
                 </div>
 
                 {{-- TIPE --}}
@@ -68,14 +90,16 @@
                     </label>
 
                     <select
-                        class="w-full border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition">
+                        name="tipe_pekerjaan"
+                        class="w-full border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition"
+                        required>
 
-                        <option>Pilih Tipe</option>
-                        <option>Full Time</option>
-                        <option>Part Time</option>
-                        <option>Internship</option>
-                        <option>Freelance</option>
-                        <option>Remote</option>
+                        <option value="">Pilih Tipe</option>
+                        <option value="Full Time" {{ old('tipe_pekerjaan') == 'Full Time' ? 'selected' : '' }}>Full Time</option>
+                        <option value="Part Time" {{ old('tipe_pekerjaan') == 'Part Time' ? 'selected' : '' }}>Part Time</option>
+                        <option value="Internship" {{ old('tipe_pekerjaan') == 'Internship' ? 'selected' : '' }}>Internship</option>
+                        <option value="Freelance" {{ old('tipe_pekerjaan') == 'Freelance' ? 'selected' : '' }}>Freelance</option>
+                        <option value="Remote" {{ old('tipe_pekerjaan') == 'Remote' ? 'selected' : '' }}>Remote</option>
 
                     </select>
                 </div>
@@ -88,11 +112,13 @@
 
                     <input
                         type="text"
+                        name="gaji"
+                        value="{{ old('gaji') }}"
                         class="w-full border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition"
                         placeholder="Rp 5.000.000">
                 </div>
 
-                {{-- DEADLINE --}}
+                {{-- BATAS LAMARAN --}}
                 <div>
                     <label class="block font-semibold text-gray-700 mb-2">
                         Deadline Lamaran
@@ -100,73 +126,25 @@
 
                     <input
                         type="date"
+                        name="batas_lamaran"
+                        value="{{ old('batas_lamaran') }}"
                         class="w-full border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition">
-                </div>
-
-                {{-- STATUS --}}
-                <div>
-                    <label class="block font-semibold text-gray-700 mb-2">
-                        Status Lowongan
-                    </label>
-
-                    <select
-                        class="w-full border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition">
-
-                        <option>Aktif</option>
-                        <option>Draft</option>
-                        <option>Ditutup</option>
-
-                    </select>
                 </div>
 
             </div>
 
             {{-- DESKRIPSI --}}
             <div>
-
                 <label class="block font-semibold text-gray-700 mb-2">
                     Deskripsi Pekerjaan
                 </label>
 
                 <textarea
+                    name="deskripsi"
                     rows="7"
                     class="w-full border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition"
-                    placeholder="Jelaskan detail pekerjaan, tanggung jawab, dan kualifikasi kandidat..."></textarea>
-
-            </div>
-
-            {{-- KUALIFIKASI --}}
-            <div>
-
-                <label class="block font-semibold text-gray-700 mb-2">
-                    Kualifikasi
-                </label>
-
-                <textarea
-                    rows="5"
-                    class="w-full border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition"
-                    placeholder="Contoh:
-- Menguasai Laravel
-- Mengerti UI/UX
-- Pengalaman minimal 1 tahun"></textarea>
-
-            </div>
-
-            {{-- BENEFIT --}}
-            <div>
-
-                <label class="block font-semibold text-gray-700 mb-2">
-                    Benefit
-                </label>
-
-                <textarea
-                    rows="4"
-                    class="w-full border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition"
-                    placeholder="Contoh:
-- BPJS
-- Bonus Tahunan
-- Work From Home"></textarea>
-
+                    placeholder="Jelaskan detail pekerjaan, tanggung jawab, dan kualifikasi kandidat..."
+                    required>{{ old('deskripsi') }}</textarea>
             </div>
 
             {{-- BUTTON --}}
@@ -175,17 +153,13 @@
                 <button
                     type="submit"
                     class="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:scale-[1.02] transition">
-
                     Simpan Lowongan
-
                 </button>
 
                 <button
                     type="reset"
                     class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-4 rounded-2xl font-semibold transition">
-
                     Reset Form
-
                 </button>
 
             </div>

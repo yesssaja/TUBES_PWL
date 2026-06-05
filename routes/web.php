@@ -18,6 +18,7 @@ use App\Http\Controllers\GroupCommentController;
 use App\Http\Controllers\ProfileSettingsController;
 
 //PERUSAHAAN CONTROLLER
+use App\Http\Controllers\Perusahaan\LokerController as PerusahaanLokerController;
 use App\Http\Controllers\Perusahaan\EventController as PerusahaanEventController;
 use App\Http\Controllers\Perusahaan\RsvpController as PerusahaanRsvpController;
 use App\Http\Controllers\Perusahaan\ProfilController;
@@ -515,10 +516,14 @@ Route::middleware(['auth', 'perusahaan'])
         Route::view('/dashboard', 'perusahaan.dashboard.index')->name('dashboard');
 
         //loker yang dibuat
-        Route::view('/lowongan', 'perusahaan.lowongan.index')->name('lowongan.index');
-        Route::view('/lowongan/create', 'perusahaan.lowongan.create')->name('lowongan.create');
-        Route::view('/lowongan/edit', 'perusahaan.lowongan.edit')->name('lowongan.edit');
-        Route::view('/lowongan/show', 'perusahaan.lowongan.show')->name('lowongan.show');
+        Route::get('/lowongan', [PerusahaanLokerController::class, 'index'])->name('lowongan.index');
+    Route::get('/lowongan/create', [PerusahaanLokerController::class, 'create'])->name('lowongan.create');
+    Route::post('/lowongan', [PerusahaanLokerController::class, 'store'])->name('lowongan.store');
+
+    Route::get('/lowongan/{lowongan}', [PerusahaanLokerController::class, 'show'])->name('lowongan.show');
+    Route::get('/lowongan/{lowongan}/edit', [PerusahaanLokerController::class, 'edit'])->name('lowongan.edit');
+    Route::put('/lowongan/{lowongan}', [PerusahaanLokerController::class, 'update'])->name('lowongan.update');
+    Route::delete('/lowongan/{lowongan}', [PerusahaanLokerController::class, 'destroy'])->name('lowongan.destroy');
 
         //lamaran yg d terima
         Route::get('/lamaran', [PerusahaanLamaranController::class, 'index'])
