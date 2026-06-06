@@ -52,6 +52,9 @@
 
     </script>
 
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('image/favicon.ico') }}">
+
 </head>
 
 <body class="bg-[#F7F1C8] text-slate-800 font-poppins">

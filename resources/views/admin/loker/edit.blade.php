@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <title>Edit Loker</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('image/favicon.ico') }}">
 </head>
 <body class="bg-gray-100">
 
