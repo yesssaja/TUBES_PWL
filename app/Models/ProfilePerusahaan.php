@@ -12,14 +12,15 @@ class ProfilePerusahaan extends Model
     protected $table = 'profile_perusahaan';
 
     protected $fillable = [
-        'nama_perusahaan',
-        'logo',
-        'deskripsi',
-        'alamat',
-        'email',
-        'no_hp',
-        'website',
-        'user_id',
+    'pelamar_id',
+    'loker_id',
+    'nama',
+    'email',
+    'cv',
+    'foto',
+    'portfolio',
+    'motivasi',
+    'status_lamaran',
     ];
 
     public function user()

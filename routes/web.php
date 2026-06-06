@@ -526,15 +526,18 @@ Route::middleware(['auth', 'perusahaan'])
         Route::delete('/lowongan/{lowongan}', [PerusahaanLokerController::class, 'destroy'])->name('lowongan.destroy');
 
         //lamaran yg d terima
-        Route::get('/lamaran', [PerusahaanLamaranController::class, 'index'])
-         ->name('lamaran.index');
+         Route::get('/lamaran', [PerusahaanLamaranController::class, 'index'])
+            ->name('lamaran.index');
+
         Route::get('/lamaran/{id}', [PerusahaanLamaranController::class, 'show'])
             ->name('lamaran.show');
+
         Route::put('/lamaran/{id}/approve', [PerusahaanLamaranController::class, 'approve'])
             ->name('lamaran.approve');
+
         Route::put('/lamaran/{id}/reject', [PerusahaanLamaranController::class, 'reject'])
             ->name('lamaran.reject');
-
+            
         //event yg diadakan perusahaan
         Route::get('/event', [PerusahaanEventController::class, 'index'])
             ->name('event.index');
