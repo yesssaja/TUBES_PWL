@@ -10,6 +10,9 @@
     </title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('image/favicon.ico') }}">
 </head>
 
 <body class="bg-orange-50 min-h-screen">
