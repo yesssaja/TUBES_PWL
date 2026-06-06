@@ -4,45 +4,65 @@
 
 @section('content')
 
-<div class="max-w-7xl mx-auto">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     {{-- HEADER --}}
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+    <div class="relative overflow-hidden bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400 rounded-[2rem] shadow-xl p-6 sm:p-8 mb-8 text-white">
 
-        <div>
-            <h1 class="text-3xl font-bold text-gray-800">
-                Event Perusahaan
-            </h1>
+        <div class="absolute -top-12 -right-12 w-40 h-40 bg-white/20 rounded-full blur-2xl"></div>
+        <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
 
-            <p class="text-gray-500 mt-2">
-                Kelola event perusahaan dan pantau peserta yang mengikuti event Anda.
-            </p>
+        <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+
+            <div>
+                <p class="text-white/80 font-semibold mb-2">
+                    Dashboard Perusahaan
+                </p>
+
+                <h1 class="text-3xl sm:text-4xl font-black">
+                    Event Perusahaan
+                </h1>
+
+                <p class="text-white/90 mt-3 text-base sm:text-lg max-w-2xl">
+                    Kelola event perusahaan dan pantau peserta yang mengikuti event Anda.
+                </p>
+            </div>
+
+            <a href="{{ route('perusahaan.event.create') }}"
+               class="inline-flex items-center justify-center bg-white text-red-600 hover:bg-red-50 px-6 py-4 rounded-2xl font-black shadow-lg transition">
+                + Tambah Event
+            </a>
+
         </div>
-
-        <a href="{{ route('perusahaan.event.create') }}"
-           class="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white px-6 py-4 rounded-2xl font-bold shadow-lg transition">
-            + Tambah Event
-        </a>
-
     </div>
 
     {{-- TABLE DESKTOP --}}
-    <div class="hidden lg:block bg-white rounded-3xl shadow overflow-hidden">
+    <div class="hidden lg:block bg-white rounded-[2rem] shadow-xl border border-gray-100 overflow-hidden">
+
+        <div class="p-6 border-b border-gray-100">
+            <h2 class="text-2xl font-black text-gray-800">
+                Daftar Event
+            </h2>
+            <p class="text-gray-500 mt-1">
+                Total {{ $events->count() }} event perusahaan.
+            </p>
+        </div>
 
         <table class="w-full text-left">
 
-            <thead class="bg-red-50">
+            <thead class="bg-gray-50 border-b border-gray-100">
                 <tr>
-                    <th class="p-5 font-bold text-gray-700">Event</th>
-                    <th class="font-bold text-gray-700">Tanggal</th>
-                    <th class="font-bold text-gray-700">Lokasi</th>
-                    <th class="font-bold text-gray-700">Kuota</th>
-                    <th class="font-bold text-gray-700">Status</th>
-                    <th class="font-bold text-gray-700 text-center">Aksi</th>
+                    <th class="px-6 py-5 text-xs font-black text-gray-500 uppercase tracking-wider">Event</th>
+                    <th class="px-6 py-5 text-xs font-black text-gray-500 uppercase tracking-wider">Tanggal</th>
+                    <th class="px-6 py-5 text-xs font-black text-gray-500 uppercase tracking-wider">Lokasi</th>
+                    <th class="px-6 py-5 text-xs font-black text-gray-500 uppercase tracking-wider">Kuota</th>
+                    <th class="px-6 py-5 text-xs font-black text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-5 text-xs font-black text-gray-500 uppercase tracking-wider text-center">Aksi</th>
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="divide-y divide-gray-100">
+
                 @forelse ($events as $event)
 
                     @php
@@ -80,23 +100,21 @@
                         $statusEvent = $event->status ?? 'aktif';
                     @endphp
 
-                    <tr class="border-b hover:bg-gray-50 transition">
+                    <tr class="hover:bg-orange-50/40 transition">
 
-                        {{-- EVENT --}}
-                        <td class="p-5">
+                        <td class="px-6 py-5">
                             <div class="flex items-center gap-4">
 
-                                <img
-                                    src="{{ $posterEvent }}"
-                                    class="w-20 h-16 rounded-2xl object-cover"
-                                    onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f'">
+                                <img src="{{ $posterEvent }}"
+                                     class="w-24 h-16 rounded-2xl object-cover shadow border border-gray-100"
+                                     onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f'">
 
-                                <div>
-                                    <h3 class="font-bold text-lg text-gray-800">
+                                <div class="min-w-0">
+                                    <h3 class="font-black text-gray-800 text-lg truncate max-w-[300px]">
                                         {{ $judulEvent }}
                                     </h3>
 
-                                    <p class="text-gray-500 text-sm mt-1 line-clamp-2">
+                                    <p class="text-gray-500 text-sm mt-1 line-clamp-2 max-w-[360px]">
                                         {{ $deskripsiEvent }}
                                     </p>
                                 </div>
@@ -104,9 +122,8 @@
                             </div>
                         </td>
 
-                        {{-- TANGGAL --}}
-                        <td>
-                            <div class="font-semibold text-gray-800">
+                        <td class="px-6 py-5">
+                            <div class="font-bold text-gray-800">
                                 {{ $tanggalEvent }}
                             </div>
 
@@ -115,50 +132,48 @@
                             </p>
                         </td>
 
-                        {{-- LOKASI --}}
-                        <td>
-                            {{ $lokasiEvent }}
+                        <td class="px-6 py-5">
+                            <p class="font-semibold text-gray-700 max-w-[180px] truncate">
+                                {{ $lokasiEvent }}
+                            </p>
                         </td>
 
-                        {{-- KUOTA --}}
-                        <td>
-                            <div class="font-bold text-red-600">
+                        <td class="px-6 py-5">
+                            <span class="inline-flex bg-red-50 text-red-600 px-4 py-2 rounded-full text-sm font-black">
                                 {{ $kuotaEvent }} Peserta
-                            </div>
+                            </span>
                         </td>
 
-                        {{-- STATUS --}}
-                        <td>
+                        <td class="px-6 py-5">
                             @if ($statusEvent == 'aktif')
-                                <span class="bg-green-100 text-green-600 px-4 py-2 rounded-full text-sm font-semibold">
+                                <span class="inline-flex bg-green-50 text-green-700 border border-green-200 px-4 py-2 rounded-full text-sm font-black">
                                     Aktif
                                 </span>
                             @elseif ($statusEvent == 'selesai')
-                                <span class="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-semibold">
+                                <span class="inline-flex bg-gray-100 text-gray-700 border border-gray-200 px-4 py-2 rounded-full text-sm font-black">
                                     Selesai
                                 </span>
                             @elseif ($statusEvent == 'ditunda')
-                                <span class="bg-yellow-100 text-yellow-600 px-4 py-2 rounded-full text-sm font-semibold">
+                                <span class="inline-flex bg-yellow-50 text-yellow-700 border border-yellow-200 px-4 py-2 rounded-full text-sm font-black">
                                     Ditunda
                                 </span>
                             @else
-                                <span class="bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold">
+                                <span class="inline-flex bg-blue-50 text-blue-700 border border-blue-200 px-4 py-2 rounded-full text-sm font-black">
                                     {{ ucfirst($statusEvent) }}
                                 </span>
                             @endif
                         </td>
 
-                        {{-- AKSI --}}
-                        <td>
-                            <div class="flex justify-center gap-3">
+                        <td class="px-6 py-5">
+                            <div class="flex flex-col gap-2 items-center">
 
                                 <a href="{{ route('perusahaan.event.show', $event->id) }}"
-                                   class="bg-blue-100 text-blue-600 px-4 py-2 rounded-xl font-semibold hover:bg-blue-200 transition">
+                                   class="w-28 text-center bg-blue-50 text-blue-600 px-4 py-2.5 rounded-xl font-black hover:bg-blue-100 transition">
                                     Detail
                                 </a>
 
                                 <a href="{{ route('perusahaan.event.edit', $event->id) }}"
-                                   class="bg-yellow-100 text-yellow-600 px-4 py-2 rounded-xl font-semibold hover:bg-yellow-200 transition">
+                                   class="w-28 text-center bg-yellow-50 text-yellow-600 px-4 py-2.5 rounded-xl font-black hover:bg-yellow-100 transition">
                                     Edit
                                 </a>
 
@@ -168,8 +183,7 @@
                                     @csrf
                                     @method('DELETE')
 
-                                    <button
-                                        class="bg-red-100 text-red-600 px-4 py-2 rounded-xl font-semibold hover:bg-red-200 transition">
+                                    <button class="w-28 bg-red-50 text-red-600 px-4 py-2.5 rounded-xl font-black hover:bg-red-100 transition">
                                         Hapus
                                     </button>
                                 </form>
@@ -182,12 +196,25 @@
                 @empty
 
                     <tr>
-                        <td colspan="6" class="p-10 text-center text-gray-500">
-                            Belum ada event perusahaan.
+                        <td colspan="6" class="p-14 text-center">
+                            <div class="max-w-md mx-auto">
+                                <div class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                                    📅
+                                </div>
+
+                                <h3 class="text-xl font-black text-gray-700">
+                                    Belum ada event perusahaan
+                                </h3>
+
+                                <p class="text-gray-500 mt-2">
+                                    Event yang dibuat perusahaan akan tampil di halaman ini.
+                                </p>
+                            </div>
                         </td>
                     </tr>
 
                 @endforelse
+
             </tbody>
 
         </table>
@@ -214,6 +241,11 @@
                     ?? $event->date
                     ?? '-';
 
+                $jamEvent = $event->jam
+                    ?? $event->jam_event
+                    ?? $event->time
+                    ?? null;
+
                 $lokasiEvent = $event->lokasi
                     ?? $event->location
                     ?? '-';
@@ -229,65 +261,87 @@
                 $statusEvent = $event->status ?? 'aktif';
             @endphp
 
-            <div class="bg-white rounded-3xl shadow overflow-hidden">
+            <div class="bg-white rounded-[2rem] shadow-lg border border-gray-100 overflow-hidden">
 
-                <img
-                    src="{{ $posterEvent }}"
-                    class="w-full h-52 object-cover"
-                    onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f'">
+                <div class="relative">
+                    <img src="{{ $posterEvent }}"
+                         class="w-full h-52 object-cover"
+                         onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f'">
 
-                <div class="p-6">
-
-                    <div class="flex justify-between items-start gap-4 mb-4">
-
-                        <div>
-                            <h2 class="text-2xl font-bold text-gray-800">
-                                {{ $judulEvent }}
-                            </h2>
-
-                            <p class="text-gray-500 mt-1">
-                                {{ $deskripsiEvent }}
-                            </p>
-                        </div>
-
+                    <div class="absolute top-4 right-4">
                         @if ($statusEvent == 'aktif')
-                            <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-semibold shrink-0">
+                            <span class="bg-green-50 text-green-700 border border-green-200 px-4 py-2 rounded-full text-sm font-black shadow">
                                 Aktif
                             </span>
+                        @elseif ($statusEvent == 'selesai')
+                            <span class="bg-gray-100 text-gray-700 border border-gray-200 px-4 py-2 rounded-full text-sm font-black shadow">
+                                Selesai
+                            </span>
+                        @elseif ($statusEvent == 'ditunda')
+                            <span class="bg-yellow-50 text-yellow-700 border border-yellow-200 px-4 py-2 rounded-full text-sm font-black shadow">
+                                Ditunda
+                            </span>
                         @else
-                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm font-semibold shrink-0">
+                            <span class="bg-blue-50 text-blue-700 border border-blue-200 px-4 py-2 rounded-full text-sm font-black shadow">
                                 {{ ucfirst($statusEvent) }}
                             </span>
                         @endif
+                    </div>
+                </div>
+
+                <div class="p-5 sm:p-6">
+
+                    <h2 class="text-2xl font-black text-gray-800 break-words">
+                        {{ $judulEvent }}
+                    </h2>
+
+                    <p class="text-gray-500 mt-2 line-clamp-3">
+                        {{ $deskripsiEvent }}
+                    </p>
+
+                    <div class="mt-5 bg-gray-50 rounded-3xl p-4 space-y-4">
+
+                        <div>
+                            <p class="text-xs text-gray-400 font-black uppercase tracking-wide">
+                                Tanggal
+                            </p>
+                            <p class="text-gray-800 font-bold mt-1">
+                                {{ $tanggalEvent }}
+                            </p>
+                            <p class="text-gray-500 text-sm mt-1">
+                                {{ $jamEvent ? $jamEvent . ' WIB' : '-' }}
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="text-xs text-gray-400 font-black uppercase tracking-wide">
+                                Lokasi
+                            </p>
+                            <p class="text-gray-800 font-bold mt-1">
+                                {{ $lokasiEvent }}
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="text-xs text-gray-400 font-black uppercase tracking-wide">
+                                Kuota
+                            </p>
+                            <p class="text-red-600 font-black mt-1">
+                                {{ $kuotaEvent }} Peserta
+                            </p>
+                        </div>
 
                     </div>
 
-                    <div class="space-y-3 text-gray-700 mb-6">
-                        <p>
-                            <span class="font-semibold">Tanggal:</span>
-                            {{ $tanggalEvent }}
-                        </p>
-
-                        <p>
-                            <span class="font-semibold">Lokasi:</span>
-                            {{ $lokasiEvent }}
-                        </p>
-
-                        <p>
-                            <span class="font-semibold">Kuota:</span>
-                            {{ $kuotaEvent }} Peserta
-                        </p>
-                    </div>
-
-                    <div class="flex flex-wrap gap-3">
+                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
 
                         <a href="{{ route('perusahaan.event.show', $event->id) }}"
-                           class="bg-blue-100 text-blue-600 px-4 py-2 rounded-xl font-semibold">
+                           class="text-center bg-blue-50 text-blue-600 px-4 py-3 rounded-xl font-black hover:bg-blue-100 transition">
                             Detail
                         </a>
 
                         <a href="{{ route('perusahaan.event.edit', $event->id) }}"
-                           class="bg-yellow-100 text-yellow-600 px-4 py-2 rounded-xl font-semibold">
+                           class="text-center bg-yellow-50 text-yellow-600 px-4 py-3 rounded-xl font-black hover:bg-yellow-100 transition">
                             Edit
                         </a>
 
@@ -297,7 +351,7 @@
                             @csrf
                             @method('DELETE')
 
-                            <button class="bg-red-100 text-red-600 px-4 py-2 rounded-xl font-semibold">
+                            <button class="w-full bg-red-50 text-red-600 px-4 py-3 rounded-xl font-black hover:bg-red-100 transition">
                                 Hapus
                             </button>
                         </form>
@@ -310,8 +364,18 @@
 
         @empty
 
-            <div class="bg-white rounded-3xl shadow p-8 text-center text-gray-500">
-                Belum ada event perusahaan.
+            <div class="bg-white rounded-[2rem] shadow-lg border border-gray-100 p-10 text-center">
+                <div class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                    📅
+                </div>
+
+                <h3 class="text-xl font-black text-gray-700">
+                    Belum ada event perusahaan
+                </h3>
+
+                <p class="text-gray-500 mt-2">
+                    Event yang dibuat perusahaan akan tampil di halaman ini.
+                </p>
             </div>
 
         @endforelse
