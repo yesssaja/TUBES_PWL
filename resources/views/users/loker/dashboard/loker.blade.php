@@ -30,55 +30,47 @@
 
             @forelse($lokers as $loker)
 
-                @php
-                    $perusahaan = $loker->profilePerusahaan ?? $loker->perusahaan ?? null;
+              @php
+    $perusahaan = $loker->profilePerusahaan ?? null;
 
-                    $namaPerusahaan = $perusahaan->nama_perusahaan
-                        ?? $perusahaan->nama
-                        ?? $perusahaan->name
-                        ?? 'Perusahaan';
+    $namaPerusahaan = $perusahaan->nama_perusahaan ?? 'Perusahaan';
+    $judulLoker = $loker->judul_loker ?? 'Lowongan Kerja';
+    $lokasi = $loker->lokasi ?? '-';
+    $tipePekerjaan = $loker->tipe_pekerjaan ?? '-';
+    $gaji = $loker->gaji ?? 'Kompetitif';
+    
+    $deadline = !empty($loker->batas_lamaran)
+        ? \Carbon\Carbon::parse($loker->batas_lamaran)->format('d M Y')
+        : '-';
 
-                    $judulLoker = $loker->judul_loker
-                        ?? $loker->judul
-                        ?? $loker->posisi
-                        ?? 'Lowongan Kerja';
+    $logo = $perusahaan ? $perusahaan->logo : null;
 
-                    $lokasi = $loker->lokasi ?? '-';
-
-                    $tipePekerjaan = $loker->tipe_pekerjaan
-                        ?? $loker->tipe_kerja
-                        ?? '-';
-
-                    $gaji = $loker->gaji ?? 'Kompetitif';
-
-                    $deadline = !empty($loker->batas_lamaran)
-                        ? \Carbon\Carbon::parse($loker->batas_lamaran)->format('d M Y')
-                        : '-';
-
-                    $logo = $perusahaan->logo
-                        ?? $perusahaan->foto
-                        ?? $perusahaan->foto_perusahaan
-                        ?? null;
-
-                    if ($logo) {
-                        if (str_starts_with($logo, 'http://') || str_starts_with($logo, 'https://')) {
-                            $logoPerusahaan = $logo;
-                        } elseif (str_starts_with($logo, 'storage/')) {
-                            $logoPerusahaan = asset($logo);
-                        } else {
-                            $cleanLogo = ltrim($logo, '/');
-                            if (file_exists(public_path('storage/' . $cleanLogo))) {
-                                $logoPerusahaan = asset('storage/' . $cleanLogo);
-                            } elseif (file_exists(public_path('foto_perusahaan/' . $cleanLogo))) {
-                                $logoPerusahaan = asset('foto_perusahaan/' . $cleanLogo);
-                            } else {
-                                $logoPerusahaan = asset('storage/foto_perusahaan/' . $cleanLogo);
-                            }
-                        }
-                    } else {
-                        $logoPerusahaan = asset('foto_perusahaan/images.png');
-                    }
-                @endphp
+    if ($logo) {
+        if (str_starts_with($logo, 'http://') || str_starts_with($logo, 'https://')) {
+            $logoPerusahaan = $logo;
+        } else {
+            $cleanLogo = ltrim($logo, '/');
+            
+            // 1. Jika di database sudah ada tulisan nama foldernya di depan
+            if (str_starts_with($cleanLogo, 'storage/') || str_starts_with($cleanLogo, 'foto_perusahaan/') || str_starts_with($cleanLogo, 'images/')) {
+                $logoPerusahaan = asset($cleanLogo);
+            } else {
+                // 2. Jika hanya nama file murni, kita cek foldernya satu per satu
+                if (file_exists(public_path('storage/' . $cleanLogo))) {
+                    $logoPerusahaan = asset('storage/' . $cleanLogo);
+                } elseif (file_exists(public_path('images/' . $cleanLogo))) {
+                    // Pengecekan untuk folder images/ (Shopee, Tokopedia, dll)
+                    $logoPerusahaan = asset('images/' . $cleanLogo);
+                } else {
+                    // Pengecekan terakhir ke folder foto_perusahaan/
+                    $logoPerusahaan = asset('foto_perusahaan/' . $cleanLogo);
+                }
+            }
+        }
+    } else {
+        $logoPerusahaan = asset('foto_perusahaan/images.png');
+    }
+@endphp
 
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition">
 
