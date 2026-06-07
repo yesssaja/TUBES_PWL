@@ -31,7 +31,7 @@
             @forelse($lokers as $loker)
 
                 @php
-                    $perusahaan = $loker->perusahaan ?? null;
+                    $perusahaan = $loker->profilePerusahaan ?? $loker->perusahaan ?? null;
 
                     $namaPerusahaan = $perusahaan->nama_perusahaan
                         ?? $perusahaan->nama
@@ -65,10 +65,15 @@
                             $logoPerusahaan = $logo;
                         } elseif (str_starts_with($logo, 'storage/')) {
                             $logoPerusahaan = asset($logo);
-                        } elseif (str_contains($logo, '/')) {
-                            $logoPerusahaan = asset('storage/' . $logo);
                         } else {
-                            $logoPerusahaan = asset('foto_perusahaan/' . $logo);
+                            $cleanLogo = ltrim($logo, '/');
+                            if (file_exists(public_path('storage/' . $cleanLogo))) {
+                                $logoPerusahaan = asset('storage/' . $cleanLogo);
+                            } elseif (file_exists(public_path('foto_perusahaan/' . $cleanLogo))) {
+                                $logoPerusahaan = asset('foto_perusahaan/' . $cleanLogo);
+                            } else {
+                                $logoPerusahaan = asset('storage/foto_perusahaan/' . $cleanLogo);
+                            }
                         }
                     } else {
                         $logoPerusahaan = asset('foto_perusahaan/images.png');

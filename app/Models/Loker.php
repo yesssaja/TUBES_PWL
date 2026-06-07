@@ -32,4 +32,8 @@ class Loker extends Model
     {
         return $this->hasMany(Lamaran::class);
     }
+    public function profilePerusahaan()
+{
+    return $this->belongsTo(ProfilePerusahaan::class, 'perusahaan_id');
+}
 }
