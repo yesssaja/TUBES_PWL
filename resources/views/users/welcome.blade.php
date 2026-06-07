@@ -5,7 +5,7 @@
 @section('content')
 
 <style>
-/* Animasi Fade In Up bawaan sebelumnya */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -17,7 +17,7 @@
     }
 }
 
-/* Animasi Baru: Timbul naik satu-satu secara smooth */
+
 @keyframes textReveal {
     0% {
         opacity: 0;
@@ -29,7 +29,7 @@
     }
 }
 
-/* Utilitas tambahan untuk delay animasi di Tailwind */
+
 .delay-\[200ms\] {
     animation-delay: 200ms;
 }
@@ -290,11 +290,11 @@
                 </h2>
             </div>
 
-            <!-- TOMBOL PANAH KIRI & KANAN -->
+    
             <div class="flex justify-center gap-4">
                  <div class="flex gap-4 mt-6">
                 <a href="{{ route('service.index') }}" class="bg-red-900 hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-black shadow-xl transition">
-                    Lihat Semua Perusahaan
+                    Lihat Semua Jasa
                 </a>
                  </div>
             </div>
@@ -442,11 +442,10 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // --- 1. SCRIPT UNTUK SLIDER SERVICES ---
+    
         const slider = document.getElementById('services-container');
         
-        // Proteksi jika id 'services-container' tidak ditemukan di halaman ini agar tidak error
-        if (slider) {
+          if (slider) {
             let isDown = false;
             let startX;
             let scrollLeft;
@@ -475,8 +474,7 @@
             });
         }
 
-        // --- 2. SCRIPT UNTUK REVEAL ANIMASI COURSE ---
-        const items = document.querySelectorAll('.reveal-item');
+          const items = document.querySelectorAll('.reveal-item');
         
         if (items.length > 0) {
             const observerOptions = {

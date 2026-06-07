@@ -129,11 +129,5 @@
     </div>
 </section>
 
-<footer class="bg-gray-900 text-white py-10 text-center">
-    <h2 class="text-3xl font-black mb-3">LOKER SEEKER🔥</h2>
-    <p class="text-gray-400">
-        © 2026 Event Festival. All Rights Reserved.
-    </p>
-</footer>
 
 @endsection
