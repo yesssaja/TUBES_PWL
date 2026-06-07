@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Course;
 use App\Models\CourseLink;
+use App\Models\ProfilePerusahaan;
 use Illuminate\Database\Seeder;
 
 class CourseSeeder extends Seeder
@@ -103,12 +104,22 @@ class CourseSeeder extends Seeder
             ],
         ];
 
-        foreach ($courses as $item) {
+       foreach ($courses as $index => $item) {
+            // 1. Ambil ID dari tabel profile_perusahaans secara dinamis bergantian
+            $perusahaanId = ProfilePerusahaan::skip($index)->value('id');
+
+            // 2. Kalau kehabisan baris data data perusahaan, pakai ID perusahaan pertama yang ketemu
+            if (!$perusahaanId) {
+                $perusahaanId = ProfilePerusahaan::value('id');
+            }
+
+            // 3. Masukkan data ke table courses termasuk 'perusahaan_id'
             $course = Course::updateOrCreate(
                 [
                     'title' => $item['title'],
                 ],
                 [
+                    'perusahaan_id' => $perusahaanId ?? 1, // Fallback ke ID 1 jika DB benar-benar kosong
                     'description' => $item['description'],
                     'benefit' => $item['benefit'],
                     'price' => $item['price'],
@@ -118,10 +129,7 @@ class CourseSeeder extends Seeder
                 ]
             );
 
-            /*
-             * Hapus link lama supaya tiap course hanya punya 1 link.
-             * Ini sesuai kebutuhan: user hanya akses 1 link sesuai course yang dia daftarkan.
-             */
+            // 4. Sinkronisasi tabel CourseLink
             CourseLink::where('course_id', $course->id)->delete();
 
             CourseLink::create([

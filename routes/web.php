@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Loker;
+use App\Models\Service;
+use App\Models\Course;
+use App\Models\CourseRegistration;
 
 // USER / PUBLIC CONTROLLERS
 use App\Http\Controllers\PerusahaanController;
@@ -53,8 +57,23 @@ Route::get('/', function () {
         ->take(3)
         ->get();
 
-    return view('users.welcome', compact('lokers'));
+    $services = Service::all(); 
 
+    $courses = Course::with('links')
+        ->where('is_active', true)
+        ->orderBy('id', 'asc')
+        ->take(3)
+        ->get();
+
+    $registrations = collect();
+
+    if (Auth::check()) {
+        $registrations = CourseRegistration::where('pelamar_id', Auth::id())
+            ->get()
+            ->keyBy('course_id');
+    }
+    
+    return view('users.welcome', compact('lokers', 'services', 'courses', 'registrations'));
 })->name('welcome');
 
 /*

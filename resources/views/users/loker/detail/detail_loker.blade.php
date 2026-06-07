@@ -1,7 +1,7 @@
 @extends('users.loker.layouts.app')
 
 @section('content')
-
+    @forelse($lokers as $loker)
     @php
         $perusahaan = $loker->perusahaan ?? null;
 
