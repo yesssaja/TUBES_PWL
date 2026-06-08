@@ -13,6 +13,7 @@ class CourseSeeder extends Seeder
     {
         $courses = [
             [
+                'perusahaan_id' => 3, // PT Tokopedia
                 'title' => 'Membuat CV dan Surat Lamaran Kerja',
                 'description' => 'Banyak perusahaan besar sekarang pakai sistem komputer ATS untuk menyaring CV sebelum dibaca HRD. Kursus ini mengajarkan cara bikin CV yang bisa lolos dari sistem itu mulai dari format yang benar, pemilihan font, sampai penempatan kata kunci yang tepat.',
                 'benefit' => 'Hasilnya CV akan jadi lebih rapi dan profesional, serta punya peluang lebih besar untuk dipanggil interview.',
@@ -23,6 +24,7 @@ class CourseSeeder extends Seeder
                 'link_url' => 'https://www.youtube.com/watch?v=JpPoxKdJoeo',
             ],
             [
+                'perusahaan_id' => 6, // PT Shopee International Indonesia
                 'title' => 'Course Tips & Tricks Lulus Wawancara',
                 'description' => 'Kursus ini mengajarkan cara menjawab pertanyaan interview dengan struktur yang jelas memakai metode STAR, termasuk pertanyaan klasik seperti ceritakan tentang diri kamu.',
                 'benefit' => 'Latihan ini membantu peserta wawancara lebih siap secara mental dan mampu menyampaikan jawaban dengan terarah.',
@@ -33,6 +35,7 @@ class CourseSeeder extends Seeder
                 'link_url' => 'https://www.youtube.com/watch?v=9WsRvH1BSJQ',
             ],
             [
+                'perusahaan_id' => 1, // PT Tech Muda Indonesia
                 'title' => 'Course Public Speaking',
                 'description' => 'Kursus ini mengajarkan cara berbicara di depan umum mulai dari teknik napas, bahasa tubuh, penyusunan materi, sampai menjaga intonasi suara.',
                 'benefit' => 'Cocok untuk presentasi, rapat, dan meningkatkan percaya diri.',
@@ -43,6 +46,7 @@ class CourseSeeder extends Seeder
                 'link_url' => 'https://www.youtube.com/watch?v=CIPfDFGooXY',
             ],
             [
+                'perusahaan_id' => 2, // CV Digital Nusantara
                 'title' => 'Course Bahasa Inggris untuk Interview',
                 'description' => 'Kursus ini mengajarkan frasa yang sering muncul saat interview dalam bahasa Inggris, lengkap dengan simulasi pengucapan.',
                 'benefit' => 'Berguna untuk melamar ke perusahaan multinasional dan meningkatkan kesiapan bersaing secara internasional.',
@@ -53,6 +57,7 @@ class CourseSeeder extends Seeder
                 'link_url' => 'https://www.youtube.com/watch?v=upNBA-C1L9Q',
             ],
             [
+                'perusahaan_id' => 4, // PT Lazada Indonesia
                 'title' => 'Course Microsoft Excel',
                 'description' => 'Kursus ini membahas dasar Excel sampai rumus penting seperti VLOOKUP dan Pivot Table.',
                 'benefit' => 'Keahlian Excel membantu pengolahan data dan menjadi nilai tambah di dunia kerja.',
@@ -63,6 +68,7 @@ class CourseSeeder extends Seeder
                 'link_url' => 'https://www.youtube.com/watch?v=6WgvzCU3TI8',
             ],
             [
+                'perusahaan_id' => 3, // PT Tokopedia
                 'title' => 'Course Web Development',
                 'description' => 'Kursus ini mencakup HTML, CSS, dan JavaScript dari dasar sampai tampilan responsif.',
                 'benefit' => 'Keahlian ini membuka peluang karier di bidang teknologi dan membantu membuat portofolio digital.',
@@ -73,6 +79,7 @@ class CourseSeeder extends Seeder
                 'link_url' => 'https://www.youtube.com/watch?v=71a2zeC71gk',
             ],
             [
+                'perusahaan_id' => 6, // PT Shopee International Indonesia
                 'title' => 'Course Social Media Marketing',
                 'description' => 'Kursus ini mengajarkan riset audiens, pembuatan konten, tren, dan analitik media sosial.',
                 'benefit' => 'Berguna untuk karier digital marketing dan pengembangan bisnis online.',
@@ -83,6 +90,7 @@ class CourseSeeder extends Seeder
                 'link_url' => 'https://www.youtube.com/watch?v=aQbZdee5PXI',
             ],
             [
+                'perusahaan_id' => 5, // PT Global Digital Niaga (Blibli)
                 'title' => 'Course Desain Grafis',
                 'description' => 'Kursus ini mengajarkan teori warna, tipografi, layout, dan penggunaan tools desain.',
                 'benefit' => 'Membantu membuat konten visual berkualitas yang dibutuhkan banyak industri.',
@@ -93,6 +101,7 @@ class CourseSeeder extends Seeder
                 'link_url' => 'https://www.youtube.com/watch?v=Nfd4UGgmdhI',
             ],
             [
+                'perusahaan_id' => 5, // PT Global Digital Niaga (Blibli)
                 'title' => 'Course Fotografi',
                 'description' => 'Kursus ini mengajarkan exposure, aperture, shutter speed, ISO, angle, dan pemanfaatan cahaya.',
                 'benefit' => 'Membantu menghasilkan foto lebih profesional, bahkan menggunakan ponsel.',
@@ -104,22 +113,19 @@ class CourseSeeder extends Seeder
             ],
         ];
 
-       foreach ($courses as $index => $item) {
-            // 1. Ambil ID dari tabel profile_perusahaans secara dinamis bergantian
-            $perusahaanId = ProfilePerusahaan::skip($index)->value('id');
+        foreach ($courses as $item) {
+            $profile = ProfilePerusahaan::find($item['perusahaan_id']);
 
-            // 2. Kalau kehabisan baris data data perusahaan, pakai ID perusahaan pertama yang ketemu
-            if (!$perusahaanId) {
-                $perusahaanId = ProfilePerusahaan::value('id');
+            if (!$profile) {
+                continue;
             }
 
-            // 3. Masukkan data ke table courses termasuk 'perusahaan_id'
             $course = Course::updateOrCreate(
                 [
                     'title' => $item['title'],
                 ],
                 [
-                    'perusahaan_id' => $perusahaanId ?? 1, // Fallback ke ID 1 jika DB benar-benar kosong
+                    'perusahaan_id' => $profile->id,
                     'description' => $item['description'],
                     'benefit' => $item['benefit'],
                     'price' => $item['price'],
@@ -129,7 +135,6 @@ class CourseSeeder extends Seeder
                 ]
             );
 
-            // 4. Sinkronisasi tabel CourseLink
             CourseLink::where('course_id', $course->id)->delete();
 
             CourseLink::create([

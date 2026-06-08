@@ -4,136 +4,216 @@
 
 @section('content')
 
-<div class="max-w-4xl mx-auto p-4 md:p-10">
+<main class="min-h-screen bg-gradient-to-br from-red-50 via-white to-yellow-50 p-4 md:p-10">
 
-    <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="max-w-5xl mx-auto">
 
-        <a href="{{ route('welcome') }}"
-           class="text-c text-3xl font-black uppercase tracking-widest">
-            LOKER SEEKER🔥
-        </a>
+        {{-- TOP NAV --}}
+        <div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <a href="{{ route('welcome') }}"
+               class="text-red-600 text-3xl font-black tracking-tight">
+                LOKER SEEKER
+            </a>
 
-        <a href="{{ route('course.index') }}"
-           class="bg-white text-c border-4 border-c px-5 py-3 rounded-2xl font-bold uppercase text-center course-shadow-sm">
-            ← Kembali
-        </a>
+            <a href="{{ route('course.index') }}"
+               class="inline-flex items-center justify-center bg-white hover:bg-red-50 text-red-600 border border-red-100 px-5 py-3 rounded-2xl font-black shadow-sm transition">
+                ← Kembali
+            </a>
+        </div>
 
-    </div>
+        {{-- FORM CARD --}}
+        <div class="bg-white rounded-[2rem] border border-gray-100 shadow-2xl overflow-hidden">
 
-    <div class="bg-white rounded-[32px] border-4 border-c p-6 md:p-8 course-shadow">
+            {{-- HEADER --}}
+            <div class="relative overflow-hidden bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400 p-8 md:p-10 text-white">
+                <div class="absolute -top-16 -right-16 w-52 h-52 bg-white/20 rounded-full blur-2xl"></div>
+                <div class="absolute -bottom-16 -left-16 w-52 h-52 bg-white/10 rounded-full blur-2xl"></div>
 
-        <div class="mb-8">
+                <div class="relative">
+                    <div class="inline-flex items-center gap-2 bg-white/20 px-5 py-2 rounded-full font-black text-sm mb-5">
+                        🎓 Form Pendaftaran
+                    </div>
 
-            <div class="inline-flex items-center gap-2 bg-red-50 border-2 border-c text-c px-4 py-2 rounded-full font-bold uppercase text-sm mb-4">
-                🎓 Form Pendaftaran
+                    <h1 class="text-4xl md:text-5xl font-black leading-tight">
+                        Daftar Course
+                    </h1>
+
+                    <p class="text-white/90 mt-4 text-xl font-bold">
+                        {{ $course->title }}
+                    </p>
+
+                    <p class="text-white/90 mt-3 leading-relaxed max-w-2xl">
+                        Lengkapi data pendaftaran. Setelah dikirim, permintaan kamu akan diproses.
+                    </p>
+                </div>
             </div>
 
-            <h1 class="text-c text-4xl md:text-5xl font-bold uppercase leading-tight mb-3">
-                Daftar Course
-            </h1>
+            <div class="p-6 md:p-8">
 
-            <p class="text-c font-bold text-xl">
-                {{ $course->title }}
-            </p>
+                {{-- ERROR --}}
+                @if($errors->any())
+                    <div class="bg-red-50 text-red-700 border border-red-200 px-5 py-4 rounded-2xl mb-6 font-bold">
+                        <ul class="list-disc ml-5 space-y-1">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-            <p class="text-c mt-3 leading-relaxed">
-                Lengkapi data pendaftaran. Setelah dikirim, permintaan Anda sedang diproses.
-            </p>
+                {{-- COURSE INFO --}}
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div class="bg-red-50 rounded-3xl p-5">
+                        <p class="text-xs text-red-400 font-black uppercase tracking-wide">
+                            Course
+                        </p>
+                        <p class="text-gray-900 font-black mt-2">
+                            {{ $course->title }}
+                        </p>
+                    </div>
+
+                    <div class="bg-yellow-50 rounded-3xl p-5">
+                        <p class="text-xs text-yellow-600 font-black uppercase tracking-wide">
+                            Biaya
+                        </p>
+                        <p class="text-gray-900 font-black mt-2">
+                            @if((float)($course->price ?? 0) > 0)
+                                Rp {{ number_format($course->price, 0, ',', '.') }}
+                            @else
+                                Gratis
+                            @endif
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-3xl p-5">
+                        <p class="text-xs text-gray-400 font-black uppercase tracking-wide">
+                            Status
+                        </p>
+                        <p class="text-gray-900 font-black mt-2">
+                            Menunggu Persetujuan
+                        </p>
+                    </div>
+                </div>
+
+                <form action="{{ route('course.register', $course->id) }}"
+                      method="POST"
+                      enctype="multipart/form-data">
+
+                    @csrf
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+
+                        <div>
+                            <label class="block text-gray-700 font-black mb-2">
+                                Nama
+                            </label>
+
+                            <input type="text"
+                                   value="{{ auth()->user()->name }}"
+                                   disabled
+                                   class="w-full border border-gray-200 rounded-2xl px-4 py-3 bg-gray-100 text-gray-700 font-semibold focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-black mb-2">
+                                Email
+                            </label>
+
+                            <input type="email"
+                                   value="{{ auth()->user()->email }}"
+                                   disabled
+                                   class="w-full border border-gray-200 rounded-2xl px-4 py-3 bg-gray-100 text-gray-700 font-semibold focus:outline-none">
+                        </div>
+
+                    </div>
+
+                    <div class="mb-5">
+                        <label class="block text-gray-700 font-black mb-2">
+                            No HP / WhatsApp
+                        </label>
+
+                        <input type="text"
+                               name="no_hp"
+                               value="{{ old('no_hp', $registration->no_hp ?? '') }}"
+                               placeholder="Contoh: 081234567890"
+                               class="w-full border border-gray-200 rounded-2xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-400 font-semibold"
+                               required>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-black mb-2">
+                            Alasan Mengikuti Course
+                        </label>
+
+                        <textarea name="alasan"
+                                  rows="5"
+                                  placeholder="Jelaskan alasan kamu mengikuti course ini..."
+                                  class="w-full border border-gray-200 rounded-2xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-400 font-semibold resize-none"
+                                  required>{{ old('alasan', $registration->alasan ?? '') }}</textarea>
+                    </div>
+
+                    @if((bool) ($course->payment_required ?? false) || (float) ($course->price ?? 0) > 0)
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-3xl p-5 mb-6">
+                            <h3 class="text-gray-900 font-black text-xl mb-3">
+                                Informasi Pembayaran
+                            </h3>
+
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                {{ $course->payment_note ?? 'Silakan lakukan pembayaran sesuai instruksi yang tersedia.' }}
+                            </p>
+
+                            <div class="mb-5">
+                                <label class="block text-gray-700 font-black mb-2">
+                                    Metode Pembayaran
+                                </label>
+
+                                <select name="payment_method"
+                                        class="w-full border border-yellow-200 rounded-2xl px-4 py-3 bg-white font-semibold focus:outline-none focus:ring-4 focus:ring-yellow-100"
+                                        required>
+                                    <option value="">-- Pilih Metode Pembayaran --</option>
+                                    <option value="BCA" {{ old('payment_method') == 'BCA' ? 'selected' : '' }}>BCA</option>
+                                    <option value="BRI" {{ old('payment_method') == 'BRI' ? 'selected' : '' }}>BRI</option>
+                                    <option value="BNI" {{ old('payment_method') == 'BNI' ? 'selected' : '' }}>BNI</option>
+                                    <option value="DANA" {{ old('payment_method') == 'DANA' ? 'selected' : '' }}>DANA</option>
+                                    <option value="OVO" {{ old('payment_method') == 'OVO' ? 'selected' : '' }}>OVO</option>
+                                    <option value="GoPay" {{ old('payment_method') == 'GoPay' ? 'selected' : '' }}>GoPay</option>
+                                </select>
+                            </div>
+
+                            <label class="block text-gray-700 font-black mb-2">
+                                Upload Bukti Pembayaran
+                            </label>
+
+                            <input type="file"
+                                   name="proof_image"
+                                   accept="image/*"
+                                   class="w-full border border-yellow-200 rounded-2xl px-4 py-3 bg-white font-semibold"
+                                   required>
+                        </div>
+                    @endif
+
+                    <div class="flex flex-col sm:flex-row gap-3">
+
+                        <button type="submit"
+                                class="bg-red-600 hover:bg-red-700 text-white px-6 py-4 rounded-2xl font-black shadow-lg transition">
+                            Kirim Pendaftaran
+                        </button>
+
+                        <a href="{{ route('course.index') }}"
+                           class="bg-gray-900 hover:bg-black text-white px-6 py-4 rounded-2xl font-black text-center shadow-lg transition">
+                            Kembali
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
 
         </div>
 
-        @if($errors->any())
-            <div class="bg-red-100 text-red-700 border-4 border-red-400 px-5 py-4 rounded-2xl mb-6 font-bold">
-                <ul class="list-disc ml-5">
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form action="{{ route('course.register', $course->id) }}"
-              method="POST"
-              enctype="multipart/form-data">
-
-            @csrf
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-
-                <div>
-                    <label class="block text-c font-bold mb-2 uppercase">
-                        Nama
-                    </label>
-
-                    <input type="text"
-                           value="{{ auth()->user()->name }}"
-                           disabled
-                           class="w-full border-4 border-c rounded-2xl px-4 py-3 bg-gray-100 text-gray-700 font-semibold">
-                </div>
-
-                <div>
-                    <label class="block text-c font-bold mb-2 uppercase">
-                        Email
-                    </label>
-
-                    <input type="email"
-                           value="{{ auth()->user()->email }}"
-                           disabled
-                           class="w-full border-4 border-c rounded-2xl px-4 py-3 bg-gray-100 text-gray-700 font-semibold">
-                </div>
-
-            </div>
-
-            <div class="mb-5">
-                <label class="block text-c font-bold mb-2 uppercase">
-                    No HP / WhatsApp
-                </label>
-
-                <input type="text"
-                       name="no_hp"
-                       value="{{ old('no_hp', $registration->no_hp ?? '') }}"
-                       placeholder="Contoh: 081234567890"
-                       class="w-full border-4 border-c rounded-2xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-red-200 font-semibold"
-                       required>
-            </div>
-
-            <div class="mb-6">
-                <label class="block text-c font-bold mb-2 uppercase">
-                    Alasan Mengikuti Course
-                </label>
-
-                <textarea name="alasan"
-                          rows="5"
-                          placeholder="Jelaskan alasan kamu mengikuti course ini..."
-                          class="w-full border-4 border-c rounded-2xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-red-200 font-semibold resize-none"
-                          required>{{ old('alasan', $registration->alasan ?? '') }}</textarea>
-            </div>
-
-            {{-- Bagian pembayaran tetap sama persis --}}
-            @if((bool) ($course->payment_required ?? false) || (float) ($course->price ?? 0) > 0)
-
-                {{-- SALIN bagian pembayaran dari file lama mulai sini --}}
-
-            @endif
-
-            <div class="flex flex-col sm:flex-row gap-3">
-
-                <button type="submit"
-                        class="btn-course bg-c text-white px-6 py-4 rounded-2xl font-bold uppercase">
-                    Kirim Pendaftaran
-                </button>
-
-                <a href="{{ route('course.index') }}"
-                   class="btn-course bg-gray-800 text-white px-6 py-4 rounded-2xl font-bold uppercase text-center">
-                    Kembali
-                </a>
-
-            </div>
-
-        </form>
-
     </div>
 
-</div>
+</main>
 
 @endsection

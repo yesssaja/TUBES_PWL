@@ -23,10 +23,12 @@ use App\Http\Controllers\ProfileSettingsController;
 
 //PERUSAHAAN CONTROLLER
 use App\Http\Controllers\Perusahaan\ManajemenController;
+use App\Http\Controllers\Perusahaan\CourseParticipantController;
 use App\Http\Controllers\Perusahaan\LokerController as PerusahaanLokerController;
 use App\Http\Controllers\Perusahaan\EventController as PerusahaanEventController;
 use App\Http\Controllers\Perusahaan\RsvpController as PerusahaanRsvpController;
 use App\Http\Controllers\Perusahaan\ProfilController;
+use App\Http\Controllers\Perusahaan\CourseController as PerusahaanCourseController;
 use App\Http\Controllers\Perusahaan\LamaranController as PerusahaanLamaranController;
 use App\Http\Controllers\Perusahaan\InboxController as PerusahaanInboxController;
 
@@ -596,5 +598,29 @@ Route::middleware(['auth', 'perusahaan'])
         Route::put('/inbox/{id}/read', [PerusahaanInboxController::class, 'read'])->name('inbox.read');
         Route::put('/inbox/read-all', [PerusahaanInboxController::class, 'readAll'])->name('inbox.readAll');
         
+
+        // course perusahaan
+        Route::get('/course', [PerusahaanCourseController::class, 'index'])
+            ->name('course.index');
+        Route::get('/course/create', [PerusahaanCourseController::class, 'create'])
+            ->name('course.create');
+        Route::post('/course/store', [PerusahaanCourseController::class, 'store'])
+            ->name('course.store');
+        Route::get('/course/{course}', [PerusahaanCourseController::class, 'show'])
+            ->name('course.show');
+        Route::get('/course/{course}/edit', [PerusahaanCourseController::class, 'edit'])
+            ->name('course.edit');
+        Route::put('/course/{course}', [PerusahaanCourseController::class, 'update'])
+            ->name('course.update');
+        Route::delete('/course/{course}', [PerusahaanCourseController::class, 'destroy'])
+            ->name('course.destroy');
+         Route::get('/course-participant',[CourseParticipantController::class, 'index'])
+            ->name('course.participant.index');
+        Route::get('/course-participant/{course}',[CourseParticipantController::class, 'show'])
+            ->name('course.participant.show');
+        Route::put('/course-registration/{registration}/approve',[CourseParticipantController::class, 'approve'])
+            ->name('course.participant.approve');
+        Route::put('/course-registration/{registration}/reject',[CourseParticipantController::class, 'reject'])
+            ->name('course.participant.reject');
         });
 

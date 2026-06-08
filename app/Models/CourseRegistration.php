@@ -29,11 +29,16 @@ class CourseRegistration extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class, 'course_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo( User::class,'pelamar_id');
+    }
+    
     public function payment()
     {
-        return $this->hasOne(CoursePayment::class);
+        return $this->hasOne(CoursePayment::class,'course_registration_id');
     }
 }

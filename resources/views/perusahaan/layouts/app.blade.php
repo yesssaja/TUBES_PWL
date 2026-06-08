@@ -123,6 +123,16 @@
                    class="flex items-center gap-3 px-5 py-4 rounded-2xl hover:bg-red-100 hover:text-red-600 font-semibold transition">
                     RSVP Event
                 </a>
+                
+                <a href="{{ route('perusahaan.course.index') }}"
+                   class="flex items-center gap-3 px-5 py-4 rounded-2xl hover:bg-red-100 hover:text-red-600 font-semibold transition">
+                    Course Perusahaan
+                </a>
+                
+                <a href="{{ route('perusahaan.course.participant.index') }}"
+                   class="flex items-center gap-3 px-5 py-4 rounded-2xl hover:bg-red-100 hover:text-red-600 font-semibold transition">
+                    Course Participant
+                </a>
 
                 <a href="{{ route('perusahaan.manajemen.index') }}"
                    class="flex items-center gap-3 px-5 py-4 rounded-2xl hover:bg-red-100 hover:text-red-600 font-semibold transition">

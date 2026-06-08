@@ -23,10 +23,9 @@ class Course extends Model
         'is_active' => 'boolean',
     ];
 
-    // Relasi ke perusahaan (user dengan role perusahaan)
     public function perusahaan()
     {
-        return $this->belongsTo(User::class, 'perusahaan_id', 'id');
+        return $this->belongsTo(ProfilePerusahaan::class, 'perusahaan_id');
     }
 
     public function links()
@@ -36,7 +35,7 @@ class Course extends Model
 
     public function registrations()
     {
-        return $this->hasMany(CourseRegistration::class);
+        return $this->hasMany(CourseRegistration::class, 'course_id');
     }
 
     public function payments()
