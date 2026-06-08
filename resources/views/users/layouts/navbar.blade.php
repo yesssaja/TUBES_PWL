@@ -1,7 +1,7 @@
-<header class="bg-red-600 shadow-lg">
+<header class="bg-red-600 shadow-lg relative z-50">
     <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
 
-        <a href="{{ route('welcome') }}" class="text-white text-3xl font-black">
+        <a href="{{ route('welcome') }}" class="text-white text-3xl font-black no-underline">
             LOKER SEEKER
         </a>
 
@@ -24,16 +24,18 @@
 
         <div class="flex items-center gap-4">
 
+            {{-- SEARCH --}}
             <form action="#loker" class="hidden md:flex items-center gap-2">
                 <input type="text"
                        placeholder="Cari loker..."
-                       class="w-80 p-3 rounded-xl">
+                       class="w-80 p-3 rounded-xl border-none outline-none">
 
                 <button class="bg-white px-4 py-2 rounded-xl font-bold">
                     Cari
                 </button>
             </form>
 
+            {{-- NOTIF --}}
             @auth
                 @if(Route::has('inbox.index'))
                     <div class="relative">
@@ -62,11 +64,9 @@
                             </div>
 
                             <div class="max-h-96 overflow-y-auto">
-
                                 @forelse($latestInboxes as $notif)
-
                                     <a href="{{ route('inbox.index') }}"
-                                       class="block px-5 py-4 border-b hover:bg-red-50 transition {{ !$notif->is_read ? 'bg-yellow-50' : 'bg-white' }}">
+                                       class="block px-5 py-4 border-b hover:bg-red-50 transition no-underline {{ !$notif->is_read ? 'bg-yellow-50' : 'bg-white' }}">
 
                                         <div class="flex items-start gap-3">
 
@@ -79,10 +79,11 @@
                                                     📩
                                                 @elseif(str_contains($notif->type ?? '', 'rsvp'))
                                                     📝
+                                                @elseif(str_contains($notif->type ?? '', 'review'))
+                                                    ⭐
                                                 @else
                                                     🔔
                                                 @endif
-
                                             </div>
 
                                             <div class="flex-1">
@@ -104,26 +105,18 @@
                                             @endif
 
                                         </div>
-
                                     </a>
-
                                 @empty
-
                                     <div class="px-5 py-8 text-center text-gray-500">
                                         <div class="text-4xl mb-2">📭</div>
-
-                                        <p class="font-bold">
-                                            Belum ada notifikasi
-                                        </p>
+                                        <p class="font-bold">Belum ada notifikasi</p>
                                     </div>
-
                                 @endforelse
-
                             </div>
 
                             <div class="p-4 bg-gray-50">
                                 <a href="{{ route('inbox.index') }}"
-                                   class="block text-center bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-xl font-black transition">
+                                   class="block text-center bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-xl font-black transition no-underline">
                                     Lihat Semua Inbox
                                 </a>
                             </div>
@@ -133,6 +126,7 @@
                 @endif
             @endauth
 
+            {{-- MENU --}}
             <div class="relative">
 
                 <button onclick="toggleMenu()"
@@ -140,7 +134,7 @@
                     ☰
                 </button>
 
-                <div id="menuDropdown"
+               <div id="menuDropdown"
                      class="hidden absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-2xl p-4 z-50">
 
                     @auth
@@ -336,21 +330,10 @@
                         </span>
                     </a>
 
-                    <a href="{{ url('/profile/settings') }}" class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
-                        <span class="inline-flex items-center gap-3">
-                            <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-gray-500 to-slate-800 flex items-center justify-center shadow-md">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317a1.724 1.724 0 013.35 0 1.724 1.724 0 002.573 1.066 1.724 1.724 0 012.365 2.365 1.724 1.724 0 001.066 2.573 1.724 1.724 0 010 3.35 1.724 1.724 0 00-1.066 2.573 1.724 1.724 0 01-2.365 2.365 1.724 1.724 0 00-2.573 1.066 1.724 1.724 0 01-3.35 0 1.724 1.724 0 00-2.573-1.066 1.724 1.724 0 01-2.365-2.365 1.724 1.724 0 00-1.066-2.573 1.724 1.724 0 010-3.35 1.724 1.724 0 001.066-2.573 1.724 1.724 0 012.365-2.365 1.724 1.724 0 002.573-1.066z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15a3 3 0 100-6 3 3 0 000 6z"></path>
-                                </svg>
-                            </span>
-
-                            <span>Profile Setting</span>
-                        </span>
-                    </a>
                 </div>
             </div>
 
+            {{-- GUEST --}}
             @guest
                 <a href="{{ route('login') }}"
                    class="text-white font-bold uppercase hover:underline">
@@ -363,36 +346,106 @@
                 </a>
             @endguest
 
+            {{-- PROFILE --}}
             @auth
                 <div class="relative">
+
                     <button onclick="toggleProfile()"
                             class="flex items-center gap-2 text-white font-bold">
 
-                        <div class="w-10 h-10 rounded-full bg-white text-red-600 flex items-center justify-center font-black text-lg">
+                        <div class="w-10 h-10 rounded-full bg-white text-red-600 flex items-center justify-center font-black text-lg shadow">
                             {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                         </div>
 
                     </button>
 
                     <div id="profileDropdown"
-                         class="hidden absolute right-0 mt-3 w-48 bg-white rounded-2xl shadow-2xl p-4 z-50">
+                         class="hidden absolute right-0 mt-4 w-80 bg-white rounded-3xl shadow-2xl overflow-hidden z-50">
 
-                        <p class="font-bold text-slate-900 px-2 mb-2">
-                            {{ Auth::user()->name }}
-                        </p>
+                        {{-- PROFILE HEADER --}}
+                        <div class="p-6">
+                            <div class="flex items-center gap-4">
 
-                        <hr class="mb-2">
+                                <div class="w-16 h-16 rounded-full bg-red-50 text-red-600 flex items-center justify-center text-3xl font-black">
+                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                </div>
 
+                                <div class="min-w-0">
+                                    <h3 class="font-black text-2xl text-gray-900 truncate">
+                                        {{ Auth::user()->name }}
+                                    </h3>
+
+                                    <p class="text-gray-500 text-sm truncate">
+                                        {{ Auth::user()->email }}
+                                    </p>
+
+                                    <div class="mt-2 inline-flex items-center bg-yellow-400 text-gray-900 text-xs font-black px-3 py-1 rounded-full">
+                                        👤 Pelamar
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="border-t"></div>
+
+                        {{-- PROFILE / DATA DIRI --}}
+<a href="{{ route('profile.pelamar.index') }}"
+   class="flex items-center justify-between px-6 py-5 hover:bg-red-50 transition no-underline">
+
+    <div class="flex items-center gap-4">
+
+        <div class="w-14 h-14 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-2xl">
+            👤
+        </div>
+
+        <div>
+            <h4 class="font-black text-xl text-gray-900">
+                Profile
+            </h4>
+            
+            <p class="text-gray-500 text-sm">
+                Cek data diri pelamar
+            </p>
+        </div>
+        
+    </div>
+    <span class="text-3xl text-gray-400">›</span>
+</a>
+
+<div class="border-t"></div>
+
+                        {{-- LOGOUT --}}
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
 
                             <button type="submit"
-                                    class="w-full text-left px-2 py-2 font-bold text-red-600 hover:bg-red-100 rounded-xl">
-                                Logout
+                                    class="w-full flex items-center justify-between px-6 py-5 hover:bg-red-50 transition">
+
+                                <div class="flex items-center gap-4">
+
+                                    <div class="w-14 h-14 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-2xl">
+                                        ↪
+                                    </div>
+
+                                    <div class="text-left">
+                                        <h4 class="font-black text-xl text-red-600">
+                                            Logout
+                                        </h4>
+
+                                        <p class="text-gray-500 text-sm">
+                                            Keluar dari akun
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <span class="text-3xl text-gray-400">›</span>
                             </button>
                         </form>
 
                     </div>
+
                 </div>
             @endauth
 
@@ -406,17 +459,9 @@
         const notif = document.getElementById('notifDropdown');
         const profile = document.getElementById('profileDropdown');
 
-        if (menu) {
-            menu.classList.toggle('hidden');
-        }
-
-        if (notif && !notif.classList.contains('hidden')) {
-            notif.classList.add('hidden');
-        }
-
-        if (profile && !profile.classList.contains('hidden')) {
-            profile.classList.add('hidden');
-        }
+        if (menu) menu.classList.toggle('hidden');
+        if (notif && !notif.classList.contains('hidden')) notif.classList.add('hidden');
+        if (profile && !profile.classList.contains('hidden')) profile.classList.add('hidden');
     }
 
     function toggleProfile() {
@@ -424,17 +469,9 @@
         const menu = document.getElementById('menuDropdown');
         const notif = document.getElementById('notifDropdown');
 
-        if (profile) {
-            profile.classList.toggle('hidden');
-        }
-
-        if (menu && !menu.classList.contains('hidden')) {
-            menu.classList.add('hidden');
-        }
-
-        if (notif && !notif.classList.contains('hidden')) {
-            notif.classList.add('hidden');
-        }
+        if (profile) profile.classList.toggle('hidden');
+        if (menu && !menu.classList.contains('hidden')) menu.classList.add('hidden');
+        if (notif && !notif.classList.contains('hidden')) notif.classList.add('hidden');
     }
 
     function toggleNotif() {
@@ -442,16 +479,8 @@
         const menu = document.getElementById('menuDropdown');
         const profile = document.getElementById('profileDropdown');
 
-        if (notif) {
-            notif.classList.toggle('hidden');
-        }
-
-        if (menu && !menu.classList.contains('hidden')) {
-            menu.classList.add('hidden');
-        }
-
-        if (profile && !profile.classList.contains('hidden')) {
-            profile.classList.add('hidden');
-        }
+        if (notif) notif.classList.toggle('hidden');
+        if (menu && !menu.classList.contains('hidden')) menu.classList.add('hidden');
+        if (profile && !profile.classList.contains('hidden')) profile.classList.add('hidden');
     }
 </script>

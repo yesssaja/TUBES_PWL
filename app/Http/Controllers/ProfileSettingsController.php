@@ -9,53 +9,72 @@ use App\Models\User;
 
 class ProfileSettingsController extends Controller
 {
-    public function edit(){
-        $user=Auth::user();
-        $profile=ProfilePelamar::where('user_id',$user->id)->first();
-        return view('users.profileSettings.edit',compact('user','profile'));
+    public function edit()
+    {
+        $user = Auth::user();
+
+        $profile = ProfilePelamar::where('user_id', $user->id)->first();
+
+        return view('users.profileSettings.edit', compact('user', 'profile'));
     }
 
-    public function update(Request $request){
-        $user=User::find(Auth::id());
+    public function update(Request $request)
+    {
+        $user = User::findOrFail(Auth::id());
+
+        $profile = ProfilePelamar::where('user_id', $user->id)->first();
 
         $request->validate([
-            'name'=>'required|string|max:255',
-            'email'=>'required|email|max:50|unique:users,email,'.$user->id,
-            'no_hp'=>'required|digits_between:10,15',
-            'tempat_lahir'=>'required|string',
-            'tgl_lahir'=>'required|date|before:'.date('Y-m-d',strtotime('-17 years')),
-            'gender'=>'nullable',
-            'foto_diri'=>'nullable|image|max:2048',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:50|unique:users,email,' . $user->id,
+
+            'nik' => $profile ? 'nullable|digits:16' : 'required|digits:16',
+            'no_hp' => 'required|digits_between:10,15',
+            'tempat_lahir' => 'required|string|max:255',
+            'tgl_lahir' => 'required|date|before:' . date('Y-m-d', strtotime('-17 years')),
+            'gender' => 'required|in:Laki-laki,Perempuan',
+
+            'foto_diri' => $profile ? 'nullable|image|max:2048' : 'required|image|max:2048',
+            'foto_ktp' => $profile ? 'nullable|image|max:2048' : 'required|image|max:2048',
+            'foto_ijazah' => $profile ? 'nullable|image|max:2048' : 'required|image|max:2048',
         ]);
 
-        $user->name=$request->name;
-        $user->email=$request->email;
-        $user->save();
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
 
-        $profile=ProfilePelamar::where('user_id',$user->id)->first();
-
-        $data=[
-            'no_hp'=>$request->no_hp,
-            'tempat_lahir'=>$request->tempat_lahir,
-            'tgl_lahir'=>$request->tgl_lahir,
+        $data = [
+            'user_id' => $user->id,
+            'no_hp' => $request->no_hp,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tgl_lahir' => $request->tgl_lahir,
+            'gender' => $request->gender,
         ];
 
-        if($request->hasFile('foto_diri')){
-            $data['foto_diri']=$request->file('foto_diri')->store('foto_diri','public');
-        }
-        
-        if(!$profile?->nik && $request->nik){
-            $data['nik']=$request->nik;
+        if (!$profile || !$profile->nik) {
+            $data['nik'] = $request->nik;
         }
 
-        if ($profile) {
-            $profile->update($data);
-        } 
-        else {
-            $data['user_id']=$user->id;
-            ProfilePelamar::create($data);
+        if ($request->hasFile('foto_diri')) {
+            $data['foto_diri'] = $request->file('foto_diri')->store('foto_diri', 'public');
         }
-    
-        return redirect()->back()->with('success','Profil berhasil diperbarui');
+
+        if ($request->hasFile('foto_ktp')) {
+            $data['foto_ktp'] = $request->file('foto_ktp')->store('foto_ktp', 'public');
+        }
+
+        if ($request->hasFile('foto_ijazah')) {
+            $data['foto_ijazah'] = $request->file('foto_ijazah')->store('foto_ijazah', 'public');
+        }
+
+        ProfilePelamar::updateOrCreate(
+            ['user_id' => $user->id],
+            $data
+        );
+
+        return redirect()
+            ->route('profile.settings.edit')
+            ->with('success', 'Profil berhasil diperbarui');
     }
 }

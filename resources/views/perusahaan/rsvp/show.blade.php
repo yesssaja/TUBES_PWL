@@ -124,19 +124,6 @@
 
             </div>
 
-            {{-- ALASAN --}}
-            <div class="bg-white border rounded-2xl p-6 mb-8">
-
-                <h3 class="font-bold text-gray-800 text-xl mb-3">
-                    Alasan Mengikuti Event
-                </h3>
-
-                <p class="text-gray-700 leading-relaxed whitespace-pre-line break-words">
-                    {{ $alasan }}
-                </p>
-
-            </div>
-
             {{-- BUTTON --}}
             @if($status == 'pending')
                 <div class="flex flex-col sm:flex-row gap-4">

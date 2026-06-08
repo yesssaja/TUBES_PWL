@@ -1,4 +1,4 @@
-@extends('users.perusahaan.layouts.app')
+@extends('users.layouts.app')
 
 @section('title', 'Company Review | LOKER SEEKER')
 
@@ -85,10 +85,6 @@
                     <h1 class="text-4xl md:text-6xl font-black text-white leading-none">
                         {{ $namaPerusahaan }}
                     </h1>
-
-                    <span class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                        <i class="fas fa-check text-blue-500 text-sm"></i>
-                    </span>
 
                 </div>
 

@@ -42,7 +42,7 @@ class Group extends Model
             User::class,
             'group_members',
             'group_id',
-            'user_id'
+            'pelamar_id'
         )
         ->withPivot('role', 'joined_at')
         ->withTimestamps();

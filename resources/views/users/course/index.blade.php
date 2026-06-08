@@ -1,4 +1,4 @@
-@extends('users.course.layouts.app')
+@extends('users.layouts.app')
 
 @section('title', 'Course | LOKER SEEKER')
 

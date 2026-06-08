@@ -233,9 +233,11 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::middleware(['auth'])->group(function(){
-    Route::get('/profile-pelamar/create',[ProfilePelamarController::class, 'create'])->name('profile.pelamar.create');
-    Route::post('/profile-pelamar',[ProfilePelamarController::class,'store'])->name('profile.pelamar.store');
-});
+    Route::get('/profile-pelamar', [ProfilePelamarController::class, 'index'])
+        ->name('profile.pelamar.index');
+
+    Route::post('/profile-pelamar', [ProfilePelamarController::class, 'store'])
+        ->name('profile.pelamar.store');});
 
 /*
 |--------------------------------------------------------------------------

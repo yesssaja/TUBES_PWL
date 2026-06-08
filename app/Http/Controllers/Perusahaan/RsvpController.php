@@ -56,10 +56,10 @@ class RsvpController extends Controller
         Inbox::create([
             'pelamar_id' => $rsvp->pelamar_id,
             'title' => 'RSVP Diterima',
-            'message' => 'RSVP kamu untuk event "' . ($rsvp->event->nama_event ?? '-') . '" telah diterima.',
+            'message' => 'Selamat, RSVP kamu diterima. Silakan bergabung ke grup WhatsApp event.',
             'type' => 'rsvp_approved',
             'is_read' => false,
-            'action_text' => 'Gabung Grup WhatsApp',
+            'action_text' => 'Join Grup WhatsApp',
             'action_url' => $rsvp->event->link_wa_group,
         ]);
 
@@ -85,11 +85,11 @@ class RsvpController extends Controller
         Inbox::create([
             'pelamar_id' => $rsvp->pelamar_id,
             'title' => 'RSVP Ditolak',
-            'message' => 'RSVP kamu untuk event "' . ($rsvp->event->nama_event ?? '-') . '" telah ditolak.',
+            'message' => 'Mohon maaf, RSVP kamu untuk event ini belum dapat disetujui.',
             'type' => 'rsvp_rejected',
             'is_read' => false,
-            'action_text' => 'Gabung Grup WhatsApp',
-            'action_url' => $rsvp->event->link_wa_group,
+            'action_text' => null,
+            'action_url' => null,
         ]);
 
         return redirect()

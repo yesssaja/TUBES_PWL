@@ -1,4 +1,4 @@
-@extends('users.group.layouts.app')
+@extends('users.layouts.app')
 
 @section('title', 'Halaman Group')
 

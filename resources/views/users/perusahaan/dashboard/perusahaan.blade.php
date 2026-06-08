@@ -1,4 +1,4 @@
-@extends('users.perusahaan.layouts.app')
+@extends('users.layouts.app')
 
 @section('title', 'Company Profile | LOKER SEEKER')
 
@@ -117,24 +117,6 @@
 @endphp
 
 <body>
-
-    <!-- NAVBAR -->
-    <header class="fixed top-0 left-0 w-full bg-red-brand text-white shadow-xl z-50">
-        <div class="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
-
-            <h1 class="text-3xl font-black tracking-tighter">
-                LOKER SEEKER
-            </h1>
-
-            <nav class="hidden md:flex gap-10 font-bold uppercase text-sm tracking-widest">
-                <a href="#about" class="hover:text-yellow-300 transition">About</a>
-                <a href="#events" class="hover:text-yellow-300 transition">Events</a>
-                <a href="#review" class="hover:text-yellow-300 transition">Review</a>
-                <a href="#jobs" class="hover:text-yellow-300 transition">Jobs</a>
-            </nav>
-
-        </div>
-    </header>
 
     <!-- HERO -->
     <section class="hero-gradient-bg pt-32 pb-20 px-6">
