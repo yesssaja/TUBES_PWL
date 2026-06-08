@@ -51,18 +51,18 @@
         } else {
             $cleanLogo = ltrim($logo, '/');
             
-            // 1. Jika di database sudah ada tulisan nama foldernya di depan
+            
             if (str_starts_with($cleanLogo, 'storage/') || str_starts_with($cleanLogo, 'foto_perusahaan/') || str_starts_with($cleanLogo, 'images/')) {
                 $logoPerusahaan = asset($cleanLogo);
             } else {
-                // 2. Jika hanya nama file murni, kita cek foldernya satu per satu
+                
                 if (file_exists(public_path('storage/' . $cleanLogo))) {
                     $logoPerusahaan = asset('storage/' . $cleanLogo);
                 } elseif (file_exists(public_path('images/' . $cleanLogo))) {
-                    // Pengecekan untuk folder images/ (Shopee, Tokopedia, dll)
+                   
                     $logoPerusahaan = asset('images/' . $cleanLogo);
                 } else {
-                    // Pengecekan terakhir ke folder foto_perusahaan/
+                    
                     $logoPerusahaan = asset('foto_perusahaan/' . $cleanLogo);
                 }
             }

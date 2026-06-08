@@ -21,7 +21,7 @@
     </style>
 </head>
 
-<body class="bg-gradient-to-b from-yellow-500 via-orange-50 to-red-100 text-gray-800 font-sans min-h-screen">
+<body class="bg-gradient-to-b from-yellow-500 via-orange-50 to-red-100 text-gray-800 font-sans flex flex-col min-h-screen">
 
     @include('users.layouts.navbar')
 
