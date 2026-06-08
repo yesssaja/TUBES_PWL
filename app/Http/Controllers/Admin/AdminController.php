@@ -117,7 +117,7 @@ class Admincontroller extends Controller
             $pendingPayment +
             $reviewBelumDibalas;
 
-        return view('admin.admin', compact(
+        return view('admin.dashboard.admin', compact(
             'totalUser',
             'totalEvent',
             'totalLoker',
