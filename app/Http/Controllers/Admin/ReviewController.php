@@ -28,7 +28,7 @@ class ReviewController extends Controller
     public function update(Request $request, Review $review)
     {
         $request->validate([
-            'perusahaan_id' => 'nullable|exists:perusahaans,id',
+            'perusahaan_id' => 'nullable|exists:profile_perusahaan,id',
             'nama' => 'required|string|max:255',
             'posisi' => 'nullable|string|max:255',
             'rating' => 'required|numeric|min:1|max:5',

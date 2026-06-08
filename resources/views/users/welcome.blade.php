@@ -126,22 +126,22 @@
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                    
-                    <a href="{{ route('perusahaan.detail', 6) }}"  class="bg-gradient-to-br from-[#FFC917] to-[#FFE100] p-8 rounded-[32px] border border-yellow-800 shadow-xl hover:border-yellow-500 transition duration-300 text-center flex flex-col items-center justify-center min-h-[200px] text-white hover:no-underline block">
+                    <a href="{{ route('perusahaan.detail', 6) }}"  class="bg-gradient-to-br from-[#2A050A] to-[#4B0000] p-8 rounded-[32px] border border-yellow-800 shadow-xl hover:border-yellow-500 transition duration-300 text-center flex flex-col items-center justify-center min-h-[200px] text-white hover:no-underline block">
                         <img src="{{ asset('images/shopee.png') }}" alt="Shopee" class="w-16 h-16 object-contain mb-4">
                         <span class="font-black text-xl tracking-wide">Shopee</span>
                     </a>
 
-                    <a href="{{ route('perusahaan.detail', 3) }}" class="bg-gradient-to-br from-[#FFC917] to-[#FFE100] p-8 rounded-[32px] border border-yellow-800 shadow-xl hover:border-yellow-500 transition duration-300 text-center flex flex-col items-center justify-center min-h-[200px] text-white hover:no-underline block">
+                    <a href="{{ route('perusahaan.detail', 3) }}" class="bg-gradient-to-br from-[#2A050A] to-[#4B0000] p-8 rounded-[32px] border border-yellow-800 shadow-xl hover:border-yellow-500 transition duration-300 text-center flex flex-col items-center justify-center min-h-[200px] text-white hover:no-underline block">
                         <img src="{{ asset('images/tokopedia.png') }}" alt="Tokopedia" class="w-16 h-16 object-contain mb-4">
                         <span class="font-black text-xl tracking-wide">Tokopedia</span>
                     </a>
 
-                    <a href="{{ route('perusahaan.detail', 4) }}"  class="bg-gradient-to-br from-[#FFC917] to-[#FFE100] p-8 rounded-[32px] border border-yellow-800 shadow-xl hover:border-yellow-500 transition duration-300 text-center flex flex-col items-center justify-center min-h-[200px] text-white hover:no-underline block">
+                    <a href="{{ route('perusahaan.detail', 4) }}"  class="bg-gradient-to-br from-[#2A050A] to-[#4B0000] p-8 rounded-[32px] border border-yellow-800 shadow-xl hover:border-yellow-500 transition duration-300 text-center flex flex-col items-center justify-center min-h-[200px] text-white hover:no-underline block">
                         <img src="{{ asset('images/lazada.png') }}" alt="Lazada" class="w-16 h-16 object-contain mb-4">
                         <span class="font-black text-xl tracking-wide">Lazada</span>
                     </a>
 
-                    <a href="{{ route('perusahaan.detail', 5) }}"  class="bg-gradient-to-br from-[#FFC917] to-[#FFE100] p-8 rounded-[32px] border border-yellow-800 shadow-xl hover:border-yellow-500 transition duration-300 text-center flex flex-col items-center justify-center min-h-[200px] text-white hover:no-underline block">
+                    <a href="{{ route('perusahaan.detail', 5) }}"  class="bg-gradient-to-br from-[#2A050A] to-[#4B0000] p-8 rounded-[32px] border border-yellow-800 shadow-xl hover:border-yellow-500 transition duration-300 text-center flex flex-col items-center justify-center min-h-[200px] text-white hover:no-underline block">
                         <img src="{{ asset('images/blibli.png') }}" alt="Blibli" class="w-16 h-16 object-contain mb-4">
                         <span class="font-black text-xl tracking-wide">Blibli</span>
                     </a>
@@ -206,7 +206,7 @@
                             <h3 class="text-2xl font-black text-slate-900 leading-snug group-hover:text-white transition-colors duration-500">
                                 {{ $loker->judul_loker }}
                             </h3>
-                            <p class="text-gray-500 font-medium mt-2 group-hover:text-yellow-400 transition-colors duration-500">
+                            <p class="text-gray-500 font-medium mt-2 group-hover:text-[#2A050A] transition-colors duration-500">
                                 {{ $loker->perusahaan->nama_perusahaan ?? 'Perusahaan' }}
                             </p>
                         </div>

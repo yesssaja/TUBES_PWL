@@ -24,4 +24,10 @@ class Rsvp extends Model
     {
         return $this->belongsTo(Event::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
+    }
+
 }

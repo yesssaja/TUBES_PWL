@@ -1,116 +1,264 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Course</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@php
+    $title = 'Admin Course';
+@endphp
 
-    <script src="https://cdn.tailwindcss.com"></script>
+@extends('admin.layouts.app')
 
-    {{-- Favicon --}}
-    <link rel="icon" type="image/x-icon" href="{{ asset('image/favicon.ico') }}">
-</head>
+@section('content')
 
-<body class="bg-gradient-to-br from-yellow-50 via-orange-50 to-red-100 min-h-screen text-gray-800">
+        @php
+            $verifiedPaymentCount = 0;
 
-<div class="min-h-screen p-4 md:p-8">
+            foreach ($registrations as $registrationItem) {
+                if ($registrationItem->payment && $registrationItem->payment->status === 'verified') {
+                    $verifiedPaymentCount++;
+                }
+            }
+        @endphp
 
-    <!-- Header -->
-    <div class="bg-gradient-to-r from-red-600 to-yellow-400 rounded-3xl shadow-xl p-6 md:p-8 mb-8 text-white">
+    {{-- HEADER --}}
+    <div class="relative overflow-hidden bg-gradient-to-r from-red-700 via-primary to-red-900 rounded-[30px] shadow-glow p-7 md:p-8 mb-7 text-white">
 
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+        <div class="absolute -right-20 -top-20 w-60 h-60 bg-white/10 rounded-full"></div>
+        <div class="absolute right-36 -bottom-28 w-72 h-72 bg-white/10 rounded-full"></div>
 
-            <div>
-                <h1 class="text-3xl md:text-4xl font-black">
-                    Pendaftaran Course
-                </h1>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
 
-                <p class="mt-2 text-white/90">
-                    Cek data peserta, bukti pembayaran, lalu setujui akses course.
-                </p>
+            <div class="flex items-center gap-4">
+                <div class="w-16 h-16 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-8 h-8 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 14l6.16-3.42A12 12 0 0119 15c0 2-3.13 4-7 4s-7-2-7-4c0-1.5.46-2.95.84-4.42L12 14z" />
+                    </svg>
+                </div>
+
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-black tracking-wide">
+                        Pendaftaran Course
+                    </h1>
+
+                    <p class="mt-2 text-white/90 font-medium">
+                        Cek data peserta, bukti pembayaran, lalu setujui akses course.
+                    </p>
+                </div>
             </div>
-
-            <a href="{{ route('admin.dashboard') }}"
-               class="bg-white/20 hover:bg-white/30 text-white font-bold px-5 py-3 rounded-2xl shadow transition text-center">
-                ← Dashboard
-            </a>
 
         </div>
 
     </div>
 
-    <!-- Alert -->
+    {{-- ALERT --}}
     @if(session('success'))
-        <div class="bg-green-100 border border-green-300 text-green-700 px-5 py-4 rounded-2xl mb-6 shadow-sm font-bold">
-            {{ session('success') }}
+        <div class="bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-2xl mb-6 shadow-soft font-bold flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+
+            <span>{{ session('success') }}</span>
         </div>
     @endif
 
     @if(session('error'))
-        <div class="bg-red-100 border border-red-300 text-red-700 px-5 py-4 rounded-2xl mb-6 shadow-sm font-bold">
-            {{ session('error') }}
+        <div class="bg-red-50 border border-red-200 text-red-700 px-5 py-4 rounded-2xl mb-6 shadow-soft font-bold flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                </svg>
+            </div>
+
+            <span>{{ session('error') }}</span>
         </div>
     @endif
 
-    <!-- Statistik -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    {{-- STATISTIK --}}
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-7">
 
-        <div class="bg-white rounded-3xl shadow-lg p-6 border-l-8 border-red-500">
-            <h2 class="text-gray-500 text-sm font-semibold">Total Pendaftar</h2>
-            <p class="text-4xl font-black text-red-600 mt-2">
-                {{ $registrations->count() }}
-            </p>
+        <div class="bg-white rounded-[28px] shadow-soft p-6 border border-slate-100 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
+            <div class="absolute right-0 top-0 w-28 h-28 bg-red-50 rounded-bl-[60px]"></div>
+
+            <div class="relative z-10 flex items-center justify-between">
+                <div>
+                    <h2 class="text-slate-500 text-sm font-semibold">
+                        Total Pendaftar
+                    </h2>
+
+                    <p class="text-4xl font-black text-red-600 mt-2">
+                        {{ $registrations->count() }}
+                    </p>
+                </div>
+
+                <div class="w-16 h-16 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-8 h-8"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m0-4a4 4 0 100-8 4 4 0 000 8zm8 0a4 4 0 100-8 4 4 0 000 8z" />
+                    </svg>
+                </div>
+            </div>
         </div>
 
-        <div class="bg-white rounded-3xl shadow-lg p-6 border-l-8 border-yellow-400">
-            <h2 class="text-gray-500 text-sm font-semibold">Pending</h2>
-            <p class="text-4xl font-black text-yellow-500 mt-2">
-                {{ $registrations->where('status', 'pending')->count() }}
-            </p>
+        <div class="bg-white rounded-[28px] shadow-soft p-6 border border-slate-100 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
+            <div class="absolute right-0 top-0 w-28 h-28 bg-yellow-50 rounded-bl-[60px]"></div>
+
+            <div class="relative z-10 flex items-center justify-between">
+                <div>
+                    <h2 class="text-slate-500 text-sm font-semibold">
+                        Pending
+                    </h2>
+
+                    <p class="text-4xl font-black text-yellow-500 mt-2">
+                        {{ $registrations->where('status', 'pending')->count() }}
+                    </p>
+                </div>
+
+                <div class="w-16 h-16 rounded-2xl bg-yellow-100 text-yellow-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-8 h-8"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+            </div>
         </div>
 
-        <div class="bg-white rounded-3xl shadow-lg p-6 border-l-8 border-green-500">
-            <h2 class="text-gray-500 text-sm font-semibold">Approved</h2>
-            <p class="text-4xl font-black text-green-600 mt-2">
-                {{ $registrations->where('status', 'approved')->count() }}
-            </p>
+        <div class="bg-white rounded-[28px] shadow-soft p-6 border border-slate-100 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
+            <div class="absolute right-0 top-0 w-28 h-28 bg-green-50 rounded-bl-[60px]"></div>
+
+            <div class="relative z-10 flex items-center justify-between">
+                <div>
+                    <h2 class="text-slate-500 text-sm font-semibold">
+                        Approved
+                    </h2>
+
+                    <p class="text-4xl font-black text-green-600 mt-2">
+                        {{ $registrations->where('status', 'approved')->count() }}
+                    </p>
+                </div>
+
+                <div class="w-16 h-16 rounded-2xl bg-green-100 text-green-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-8 h-8"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+            </div>
         </div>
 
-        <div class="bg-white rounded-3xl shadow-lg p-6 border-l-8 border-blue-500">
-            <h2 class="text-gray-500 text-sm font-semibold">Pembayaran Verified</h2>
-            <p class="text-4xl font-black text-blue-600 mt-2">
-                {{ $registrations->filter(fn($r) => $r->payment && $r->payment->status === 'verified')->count() }}
-            </p>
+        <div class="bg-white rounded-[28px] shadow-soft p-6 border border-slate-100 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
+            <div class="absolute right-0 top-0 w-28 h-28 bg-blue-50 rounded-bl-[60px]"></div>
+
+            <div class="relative z-10 flex items-center justify-between">
+                <div>
+                    <h2 class="text-slate-500 text-sm font-semibold">
+                        Pembayaran Verified
+                    </h2>
+
+                    <p class="text-4xl font-black text-blue-600 mt-2">
+                        {{ $verifiedPaymentCount }}
+                    </p>
+                </div>
+
+                <div class="w-16 h-16 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-8 h-8"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+            </div>
         </div>
 
     </div>
 
-    <!-- Table -->
-    <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-white">
+    {{-- TABLE --}}
+    <div class="bg-white rounded-[30px] shadow-soft overflow-hidden border border-slate-100 max-w-full">
 
-        <div class="px-6 py-5 border-b bg-white">
-            <h2 class="text-xl font-black text-gray-800">
-                Daftar Peserta Course
-            </h2>
+        <div class="px-7 py-6 border-b border-slate-100 bg-white flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div>
+                <h2 class="text-2xl font-black text-gray-800">
+                    Daftar Peserta Course
+                </h2>
 
-            <p class="text-sm text-gray-500">
-                Semua pendaftaran course dari user.
-            </p>
+                <p class="text-sm text-gray-500 mt-1">
+                    Semua pendaftaran course dari user.
+                </p>
+            </div>
+
+            <div class="inline-flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-2xl text-sm font-black">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 14l9-5-9-5-9 5 9 5z" />
+                </svg>
+
+                {{ $registrations->count() }} Data Course
+            </div>
         </div>
 
-        <div class="overflow-x-auto">
+        <div class="w-full max-w-full overflow-x-auto overflow-y-hidden">
 
-            <table class="w-full min-w-[1400px]">
+            <table class="w-full min-w-[1450px]">
 
-                <thead class="bg-red-600 text-white">
+                <thead class="bg-red-50 text-red-600">
                     <tr>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">Peserta</th>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">Course</th>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">No HP</th>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">Alasan</th>
-                        <th class="p-4 text-center text-sm uppercase tracking-wide">Pembayaran</th>
-                        <th class="p-4 text-center text-sm uppercase tracking-wide">Status</th>
-                        <th class="p-4 text-center text-sm uppercase tracking-wide">Aksi</th>
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wide font-black">Peserta</th>
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wide font-black">Course</th>
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wide font-black">No HP</th>
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wide font-black">Alasan</th>
+                        <th class="px-6 py-4 text-center text-xs uppercase tracking-wide font-black">Pembayaran</th>
+                        <th class="px-6 py-4 text-center text-xs uppercase tracking-wide font-black">Status</th>
+                        <th class="px-6 py-4 text-center text-xs uppercase tracking-wide font-black">Aksi</th>
                     </tr>
                 </thead>
 
@@ -124,25 +272,33 @@
                             $isPaidCourse = ($course->payment_required ?? false) || (($course->price ?? 0) > 0);
                         @endphp
 
-                        <tr class="hover:bg-yellow-50 transition align-top">
+                        <tr class="hover:bg-red-50/40 transition align-top">
 
-                            <!-- Peserta -->
-                            <td class="p-4">
-                                <div class="font-black text-gray-800">
-                                    {{ $registration->nama }}
-                                </div>
+                            {{-- Peserta --}}
+                            <td class="px-6 py-5">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-11 h-11 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center font-black shrink-0">
+                                        {{ strtoupper(substr($registration->nama ?? 'P', 0, 1)) }}
+                                    </div>
 
-                                <div class="text-sm text-gray-500 mt-1">
-                                    {{ $registration->email }}
-                                </div>
+                                    <div>
+                                        <div class="font-black text-gray-800">
+                                            {{ $registration->nama }}
+                                        </div>
 
-                                <div class="text-xs text-gray-400 mt-1">
-                                    Daftar: {{ $registration->created_at ? $registration->created_at->format('d M Y H:i') : '-' }}
+                                        <div class="text-sm text-gray-500 mt-1">
+                                            {{ $registration->email }}
+                                        </div>
+
+                                        <div class="text-xs text-gray-400 mt-1">
+                                            Daftar: {{ $registration->created_at ? $registration->created_at->format('d M Y H:i') : '-' }}
+                                        </div>
+                                    </div>
                                 </div>
                             </td>
 
-                            <!-- Course -->
-                            <td class="p-4">
+                            {{-- Course --}}
+                            <td class="px-6 py-5">
                                 <div class="font-bold text-gray-800">
                                     {{ $course->title ?? '-' }}
                                 </div>
@@ -153,13 +309,13 @@
                                 </div>
                             </td>
 
-                            <!-- No HP -->
-                            <td class="p-4">
+                            {{-- No HP --}}
+                            <td class="px-6 py-5 text-gray-700">
                                 {{ $registration->no_hp }}
                             </td>
 
-                            <!-- Alasan -->
-                            <td class="p-4 max-w-sm">
+                            {{-- Alasan --}}
+                            <td class="px-6 py-5 max-w-sm">
                                 <p class="text-sm text-gray-700 leading-relaxed">
                                     {{ $registration->alasan }}
                                 </p>
@@ -171,8 +327,8 @@
                                 @endif
                             </td>
 
-                            <!-- Pembayaran -->
-                            <td class="p-4 text-center">
+                            {{-- Pembayaran --}}
+                            <td class="px-6 py-5 text-center">
 
                                 @if($isPaidCourse)
 
@@ -214,7 +370,7 @@
 
                                                 <button type="submit"
                                                         onclick="return confirm('Yakin pembayaran ini valid?')"
-                                                        class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl text-sm font-bold">
+                                                        class="w-full bg-green-100 hover:bg-green-200 text-green-700 px-4 py-2 rounded-xl text-sm font-black transition">
                                                     Verifikasi Bayar
                                                 </button>
                                             </form>
@@ -231,7 +387,7 @@
 
                                                 <button type="submit"
                                                         onclick="return confirm('Yakin menolak bukti pembayaran ini?')"
-                                                        class="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-bold">
+                                                        class="w-full bg-red-100 hover:bg-red-200 text-red-600 px-4 py-2 rounded-xl text-sm font-black transition">
                                                     Tolak Bayar
                                                 </button>
                                             </form>
@@ -255,8 +411,8 @@
 
                             </td>
 
-                            <!-- Status -->
-                            <td class="p-4 text-center">
+                            {{-- Status --}}
+                            <td class="px-6 py-5 text-center">
 
                                 @if($registration->status === 'approved')
                                     <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
@@ -274,10 +430,10 @@
 
                             </td>
 
-                            <!-- Aksi -->
-                            <td class="p-4">
+                            {{-- Aksi --}}
+                            <td class="px-6 py-5">
 
-                                <div class="space-y-2">
+                                <div class="space-y-2 min-w-[220px]">
 
                                     @if($registration->status === 'pending')
 
@@ -295,7 +451,7 @@
                                                           class="w-full border rounded-xl p-2 text-sm mb-2"></textarea>
 
                                                 <button type="submit"
-                                                        class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl text-sm font-bold">
+                                                        class="w-full bg-green-100 hover:bg-green-200 text-green-700 px-4 py-2 rounded-xl text-sm font-black transition">
                                                     Setujui
                                                 </button>
                                             </form>
@@ -316,7 +472,7 @@
                                             @method('PUT')
 
                                             <button type="submit"
-                                                    class="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-bold">
+                                                    class="w-full bg-red-100 hover:bg-red-200 text-red-600 px-4 py-2 rounded-xl text-sm font-black transition">
                                                 Tolak
                                             </button>
                                         </form>
@@ -337,7 +493,7 @@
                                         @method('DELETE')
 
                                         <button type="submit"
-                                                class="w-full bg-gray-800 hover:bg-black text-white px-4 py-2 rounded-xl text-sm font-bold">
+                                                class="w-full bg-gray-800 hover:bg-black text-white px-4 py-2 rounded-xl text-sm font-bold transition">
                                             Hapus
                                         </button>
                                     </form>
@@ -351,10 +507,22 @@
                     @empty
 
                         <tr>
-                            <td colspan="7" class="p-12 text-center">
+                            <td colspan="7" class="px-6 py-16 text-center">
                                 <div class="max-w-md mx-auto">
-                                    <div class="w-20 h-20 bg-red-100 text-red-600 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-4">
-                                        🎓
+                                    <div class="w-20 h-20 bg-red-100 text-red-600 rounded-3xl flex items-center justify-center mx-auto mb-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-10 h-10"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            stroke-width="2">
+                                            <path stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M12 14l9-5-9-5-9 5 9 5z" />
+                                            <path stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M12 14l6.16-3.42A12 12 0 0119 15c0 2-3.13 4-7 4s-7-2-7-4c0-1.5.46-2.95.84-4.42L12 14z" />
+                                        </svg>
                                     </div>
 
                                     <h3 class="text-2xl font-black text-gray-800">
@@ -378,7 +546,4 @@
 
     </div>
 
-</div>
-
-</body>
-</html>
+@endsection

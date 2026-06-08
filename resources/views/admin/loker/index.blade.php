@@ -1,181 +1,260 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Loker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@php($title = 'Data Loker')
 
-    <script src="https://cdn.tailwindcss.com"></script>
+@extends('admin.layouts.app')
 
-    {{-- Favicon --}}
-    <link rel="icon" type="image/x-icon" href="{{ asset('image/favicon.ico') }}">
-</head>
+@section('content')
 
-<body class="bg-gradient-to-br from-yellow-50 via-orange-50 to-red-100 min-h-screen text-gray-800">
+    {{-- HEADER --}}
+    <div class="relative overflow-hidden bg-gradient-to-r from-primary via-red-700 to-red-900 text-white rounded-[30px] shadow-glow p-8 mb-7">
 
-<div class="min-h-screen p-4 md:p-8">
+        <div class="absolute -right-16 -top-16 w-52 h-52 bg-white/10 rounded-full"></div>
+        <div class="absolute right-32 -bottom-24 w-64 h-64 bg-white/10 rounded-full"></div>
 
-    <!-- Header -->
-    <div class="bg-gradient-to-r from-red-600 to-yellow-400 rounded-3xl shadow-xl p-6 md:p-8 mb-8 text-white">
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
 
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+            <div class="flex items-center gap-4">
+                <div class="w-16 h-16 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-8 h-8 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
 
-            <div>
-                <h1 class="text-3xl md:text-4xl font-black">
-                    Data Loker
-                </h1>
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M10 6V5a2 2 0 012-2h0a2 2 0 012 2v1m-8 0h12a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2z" />
+                    </svg>
+                </div>
 
-                <p class="mt-2 text-white/90">
-                    Kelola semua lowongan kerja yang tersedia di LOKER SEEKER.
-                </p>
+                <div>
+                    <h1 class="text-4xl font-black tracking-wide">
+                        Data Loker
+                    </h1>
+
+                    <p class="mt-1 text-white/90 font-medium">
+                        Kelola semua lowongan kerja yang tersedia di LOKER SEEKER.
+                    </p>
+                </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row gap-3">
+            <a href="{{ route('admin.loker.create') }}"
+                class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-primary font-black px-6 py-3 rounded-2xl shadow-lg transition">
 
-                <a href="{{ route('admin.dashboard') }}"
-                   class="bg-white/20 hover:bg-white/30 text-white font-bold px-5 py-3 rounded-2xl shadow transition text-center">
-                    ← Dashboard
-                </a>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
 
-                <a href="{{ route('admin.loker.create') }}"
-                   class="bg-white hover:bg-gray-100 text-red-600 font-black px-5 py-3 rounded-2xl shadow transition text-center">
-                    + Tambah Loker
-                </a>
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 4v16m8-8H4" />
+                </svg>
 
-            </div>
+                Tambah Loker
+            </a>
 
         </div>
 
     </div>
 
-    <!-- Success Message -->
+    {{-- SUCCESS MESSAGE --}}
     @if(session('success'))
-        <div class="bg-green-100 border border-green-300 text-green-700 px-5 py-4 rounded-2xl mb-6 shadow-sm">
-            {{ session('success') }}
+        <div class="bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-2xl mb-6 shadow-soft flex items-center gap-3">
+
+            <div class="w-10 h-10 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+
+            <span class="font-semibold">
+                {{ session('success') }}
+            </span>
+
         </div>
     @endif
 
-    <!-- Statistik -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    {{-- STATISTIK --}}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-7">
 
-        <div class="bg-white rounded-3xl shadow-lg p-6 border-l-8 border-red-500 hover:-translate-y-1 transition">
-            <div class="flex items-center justify-between">
+    {{-- TOTAL LOKER --}}
+    <div class="bg-white rounded-[28px] shadow-soft p-6 border border-slate-100 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
 
-                <div>
-                    <p class="text-gray-500 text-sm font-semibold">
-                        Total Loker
-                    </p>
+        <div class="absolute right-0 top-0 w-28 h-28 bg-red-50 rounded-bl-[60px]"></div>
 
-                    <h2 class="text-4xl font-black text-red-600 mt-2">
-                        {{ $totalLoker }}
-                    </h2>
-                </div>
+        <div class="relative z-10 flex items-center justify-between">
 
-                <div class="w-14 h-14 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center text-2xl">
-                    💼
-                </div>
+            <div>
+                <h2 class="text-slate-500 text-sm font-semibold">
+                    Total Loker
+                </h2>
 
+                <p class="text-4xl font-black text-primary mt-2">
+                    {{ $totalLoker }}
+                </p>
             </div>
-        </div>
 
-        <div class="bg-white rounded-3xl shadow-lg p-6 border-l-8 border-green-500 hover:-translate-y-1 transition">
-            <div class="flex items-center justify-between">
+            <div class="w-16 h-16 rounded-2xl bg-red-100 text-primary flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-8 h-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
 
-                <div>
-                    <p class="text-gray-500 text-sm font-semibold">
-                        Loker Aktif
-                    </p>
-
-                    <h2 class="text-4xl font-black text-green-600 mt-2">
-                        {{ $lokerAktif }}
-                    </h2>
-                </div>
-
-                <div class="w-14 h-14 rounded-2xl bg-green-100 text-green-600 flex items-center justify-center text-2xl">
-                    ✅
-                </div>
-
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M10 6V5a2 2 0 012-2h0a2 2 0 012 2v1m-8 0h12a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2z" />
+                </svg>
             </div>
-        </div>
 
-        <div class="bg-white rounded-3xl shadow-lg p-6 border-l-8 border-yellow-400 hover:-translate-y-1 transition">
-            <div class="flex items-center justify-between">
-
-                <div>
-                    <p class="text-gray-500 text-sm font-semibold">
-                        Total Perusahaan
-                    </p>
-
-                    <h2 class="text-4xl font-black text-yellow-500 mt-2">
-                        {{ $totalPerusahaan }}
-                    </h2>
-                </div>
-
-                <div class="w-14 h-14 rounded-2xl bg-yellow-100 text-yellow-600 flex items-center justify-center text-2xl">
-                    🏢
-                </div>
-
-            </div>
         </div>
 
     </div>
 
-    <!-- Table Card -->
-    <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-white">
+    {{-- LOKER AKTIF --}}
+    <div class="bg-white rounded-[28px] shadow-soft p-6 border border-slate-100 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
 
-        <div class="px-6 py-5 border-b bg-white flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div class="absolute right-0 top-0 w-28 h-28 bg-green-50 rounded-bl-[60px]"></div>
+
+        <div class="relative z-10 flex items-center justify-between">
 
             <div>
-                <h2 class="text-xl font-black text-gray-800">
+                <h2 class="text-slate-500 text-sm font-semibold">
+                    Loker Aktif
+                </h2>
+
+                <p class="text-4xl font-black text-green-600 mt-2">
+                    {{ $lokerAktif }}
+                </p>
+            </div>
+
+            <div class="w-16 h-16 rounded-2xl bg-green-100 text-green-600 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-8 h-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+
+        </div>
+
+    </div>
+
+    {{-- TOTAL PERUSAHAAN --}}
+    <div class="bg-white rounded-[28px] shadow-soft p-6 border border-slate-100 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
+
+        <div class="absolute right-0 top-0 w-28 h-28 bg-yellow-50 rounded-bl-[60px]"></div>
+
+        <div class="relative z-10 flex items-center justify-between">
+
+            <div>
+                <h2 class="text-slate-500 text-sm font-semibold">
+                    Total Perusahaan
+                </h2>
+
+                <p class="text-4xl font-black text-yellow-600 mt-2">
+                    {{ $totalPerusahaan }}
+                </p>
+            </div>
+
+            <div class="w-16 h-16 rounded-2xl bg-yellow-100 text-yellow-600 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-8 h-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4 21V5a1 1 0 011-1h6v17M13 21V9h6a1 1 0 011 1v11M8 8h1m-1 4h1m-1 4h1m7-4h1m-1 4h1" />
+                </svg>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+    {{-- TABLE CARD --}}
+    <div class="bg-white rounded-[30px] shadow-soft border border-slate-100 overflow-hidden max-w-full">
+
+        <div class="px-7 py-6 border-b border-slate-100 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div>
+                <h2 class="text-2xl font-black text-dark">
                     Daftar Lowongan Kerja
                 </h2>
 
-                <p class="text-sm text-gray-500">
+                <p class="text-sm text-slate-500 mt-1">
                     Semua data loker yang tersimpan di database.
                 </p>
             </div>
 
+            <div class="bg-red-50 text-primary px-4 py-2 rounded-2xl text-sm font-bold">
+                {{ $totalLoker }} Data Tersedia
+            </div>
         </div>
 
         <div class="overflow-x-auto">
 
             <table class="w-full min-w-[1050px]">
 
-                <thead class="bg-red-600 text-white">
-                    <tr>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">No</th>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">Judul</th>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">Perusahaan</th>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">Lokasi</th>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">Tipe</th>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">Batas</th>
-                        <th class="p-4 text-center text-sm uppercase tracking-wide">Lamaran</th>
-                        <th class="p-4 text-center text-sm uppercase tracking-wide">Aksi</th>
+                <thead>
+                    <tr class="bg-red-50 text-primary border-b border-red-100">
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wider font-black">No</th>
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wider font-black">Judul</th>
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wider font-black">Perusahaan</th>
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wider font-black">Lokasi</th>
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wider font-black">Tipe</th>
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wider font-black">Batas</th>
+                        <th class="px-6 py-4 text-center text-xs uppercase tracking-wider font-black">Lamaran</th>
+                        <th class="px-6 py-4 text-center text-xs uppercase tracking-wider font-black">Aksi</th>
                     </tr>
                 </thead>
 
-                <tbody class="divide-y divide-gray-100">
+                <tbody class="divide-y divide-slate-100">
 
                     @forelse($lokers as $loker)
 
-                        <tr class="hover:bg-yellow-50 transition align-middle">
+                        <tr class="hover:bg-red-50/40 transition align-middle">
 
-                            <td class="p-4 font-bold text-gray-700">
-                                {{ $loop->iteration }}
+                            <td class="px-6 py-5">
+                                <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center font-black">
+                                    {{ $loop->iteration }}
+                                </div>
                             </td>
 
-                            <td class="p-4">
-                                <div class="font-black text-gray-800">
+                            <td class="px-6 py-5">
+                                <div class="font-black text-slate-800">
                                     {{ $loker->judul_loker }}
                                 </div>
 
-                                <div class="text-sm text-gray-500 mt-1">
+                                <div class="text-sm text-slate-500 mt-1">
                                     Gaji: {{ $loker->gaji ?? 'Kompetitif' }}
                                 </div>
                             </td>
 
-                            <td class="p-4">
-                                <span class="inline-block bg-red-50 text-red-600 px-3 py-1 rounded-full text-sm font-semibold">
+                            <td class="px-6 py-5">
+                                <span class="inline-flex items-center bg-red-50 text-primary px-3 py-2 rounded-full text-sm font-bold">
                                     {{ $loker->perusahaan->nama_perusahaan
                                         ?? $loker->perusahaan->nama
                                         ?? $loker->perusahaan->name
@@ -183,18 +262,36 @@
                                 </span>
                             </td>
 
-                            <td class="p-4 text-gray-700">
-                                📍 {{ $loker->lokasi ?? '-' }}
+                            <td class="px-6 py-5">
+                                <span class="inline-flex items-center gap-2 text-slate-700 font-semibold">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-5 h-5 text-primary"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="2">
+
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M12 21s7-4.35 7-11a7 7 0 10-14 0c0 6.65 7 11 7 11z" />
+
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M12 10a2 2 0 100-4 2 2 0 000 4z" />
+                                    </svg>
+
+                                    {{ $loker->lokasi ?? '-' }}
+                                </span>
                             </td>
 
-                            <td class="p-4">
-                                <span class="inline-block bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-semibold">
+                            <td class="px-6 py-5">
+                                <span class="inline-flex items-center bg-blue-50 text-blue-600 px-3 py-2 rounded-full text-sm font-bold">
                                     {{ $loker->tipe_pekerjaan ?? '-' }}
                                 </span>
                             </td>
 
-                            <td class="p-4">
-                                <span class="inline-block bg-yellow-50 text-yellow-600 px-3 py-1 rounded-full text-sm font-semibold">
+                            <td class="px-6 py-5">
+                                <span class="inline-flex items-center bg-yellow-50 text-yellow-600 px-3 py-2 rounded-full text-sm font-bold">
                                     @if($loker->batas_lamaran)
                                         {{ $loker->batas_lamaran instanceof \Carbon\Carbon
                                             ? $loker->batas_lamaran->format('d M Y')
@@ -205,29 +302,55 @@
                                 </span>
                             </td>
 
-                            <td class="p-4 text-center">
+                            <td class="px-6 py-5 text-center">
                                 <span class="inline-flex items-center justify-center bg-orange-100 text-orange-700 px-4 py-2 rounded-full font-black text-sm">
                                     {{ $loker->lamarans->count() }}
                                 </span>
                             </td>
 
-                            <td class="p-4">
+                            <td class="px-6 py-5">
                                 <div class="flex justify-center items-center gap-2">
 
                                     <a href="{{ route('admin.loker.edit', $loker->id) }}"
-                                       class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-xl text-sm font-bold shadow transition">
+                                        class="inline-flex items-center gap-2 bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-4 py-2 rounded-xl text-sm font-black transition">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-4 h-4"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            stroke-width="2">
+
+                                            <path stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M15.232 5.232l3.536 3.536M4 20h4l10.5-10.5a2.5 2.5 0 10-3.536-3.536L4 16.928V20z" />
+                                        </svg>
+
                                         Edit
                                     </a>
 
                                     <form action="{{ route('admin.loker.destroy', $loker->id) }}"
-                                          method="POST"
-                                          onsubmit="return confirm('Yakin hapus loker ini?')">
+                                        method="POST"
+                                        onsubmit="return confirm('Yakin hapus loker ini?')">
 
                                         @csrf
                                         @method('DELETE')
 
                                         <button type="submit"
-                                                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow transition">
+                                            class="inline-flex items-center gap-2 bg-red-100 hover:bg-red-200 text-primary px-4 py-2 rounded-xl text-sm font-black transition">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="w-4 h-4"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                stroke-width="2">
+
+                                                <path stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M6 7h12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2m-8 0l1 13h8l1-13M10 11v6m4-6v6" />
+                                            </svg>
+
                                             Hapus
                                         </button>
 
@@ -241,25 +364,48 @@
                     @empty
 
                         <tr>
-                            <td colspan="8" class="p-12 text-center">
+                            <td colspan="8" class="px-6 py-16 text-center">
 
                                 <div class="max-w-md mx-auto">
 
-                                    <div class="w-20 h-20 bg-red-100 text-red-600 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-4">
-                                        💼
+                                    <div class="w-20 h-20 bg-red-100 text-primary rounded-[26px] flex items-center justify-center mx-auto mb-5">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-10 h-10"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            stroke-width="2">
+
+                                            <path stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M10 6V5a2 2 0 012-2h0a2 2 0 012 2v1m-8 0h12a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2z" />
+                                        </svg>
                                     </div>
 
-                                    <h3 class="text-2xl font-black text-gray-800">
+                                    <h3 class="text-2xl font-black text-slate-800">
                                         Belum ada data loker
                                     </h3>
 
-                                    <p class="text-gray-500 mt-2">
+                                    <p class="text-slate-500 mt-2">
                                         Silakan tambahkan lowongan kerja baru terlebih dahulu.
                                     </p>
 
                                     <a href="{{ route('admin.loker.create') }}"
-                                       class="inline-block mt-6 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-2xl font-bold shadow transition">
-                                        + Tambah Loker
+                                        class="inline-flex items-center gap-2 mt-6 bg-primary hover:bg-red-700 text-white px-6 py-3 rounded-2xl font-bold shadow-lg transition">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-5 h-5"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            stroke-width="2">
+
+                                            <path stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M12 4v16m8-8H4" />
+                                        </svg>
+
+                                        Tambah Loker
                                     </a>
 
                                 </div>
@@ -277,7 +423,4 @@
 
     </div>
 
-</div>
-
-</body>
-</html>
+@endsection

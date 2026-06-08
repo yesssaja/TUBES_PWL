@@ -1,128 +1,200 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Event</title>
+@php($title = 'Data Event')
 
-    <script src="https://cdn.tailwindcss.com"></script>
+@extends('admin.layouts.app')
 
-    {{-- Favicon --}}
-    <link rel="icon" type="image/x-icon" href="{{ asset('image/favicon.ico') }}">
-</head>
+@section('content')
 
-<body class="bg-gradient-to-br from-yellow-50 via-orange-50 to-red-100 min-h-screen text-gray-800">
+{{-- HEADER --}}
+<div class="relative overflow-hidden bg-gradient-to-r from-primary via-red-700 to-red-900 text-white rounded-[30px] shadow-glow p-8 mb-7">
 
-<div class="min-h-screen p-4 md:p-8">
+    <div class="absolute -right-16 -top-16 w-52 h-52 bg-white/10 rounded-full"></div>
+    <div class="absolute right-32 -bottom-24 w-64 h-64 bg-white/10 rounded-full"></div>
 
-    <!-- Header -->
-    <div class="bg-gradient-to-r from-red-600 to-yellow-400 rounded-3xl shadow-xl p-6 md:p-8 mb-8 text-white">
+    <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
 
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+        <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-8 h-8 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z" />
+                </svg>
+            </div>
 
             <div>
-                <h1 class="text-3xl md:text-4xl font-black">
+                <h1 class="text-4xl font-black tracking-wide">
                     Data Event
                 </h1>
 
-                <p class="mt-2 text-white/90">
+                <p class="mt-1 text-white/90 font-medium">
                     Kelola semua event yang tersedia di LOKER SEEKER.
                 </p>
             </div>
-
-            <div class="flex flex-col sm:flex-row gap-3">
-
-                <a href="{{ route('admin.dashboard') }}"
-                   class="bg-white/20 hover:bg-white/30 text-white font-bold px-5 py-3 rounded-2xl shadow transition text-center">
-                    ← Dashboard
-                </a>
-
-                <a href="{{ route('admin.event.create') }}"
-                   class="bg-white hover:bg-gray-100 text-red-600 font-black px-5 py-3 rounded-2xl shadow transition text-center">
-                    + Tambah Event
-                </a>
-
-            </div>
-
         </div>
+
+        <a href="{{ route('admin.event.create') }}"
+            class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-primary font-black px-6 py-3 rounded-2xl shadow-lg transition">
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2">
+
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 4v16m8-8H4" />
+            </svg>
+
+            Tambah Event
+        </a>
 
     </div>
 
-    <!-- Success Message -->
-    @if(session('success'))
-        <div class="bg-green-100 border border-green-300 text-green-700 px-5 py-4 rounded-2xl mb-6 shadow-sm">
+</div>
+
+{{-- SUCCESS MESSAGE --}}
+@if(session('success'))
+    <div class="bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-2xl mb-6 shadow-soft flex items-center gap-3">
+
+        <div class="w-10 h-10 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2">
+
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M5 13l4 4L19 7" />
+            </svg>
+        </div>
+
+        <span class="font-semibold">
             {{ session('success') }}
-        </div>
-    @endif
+        </span>
 
-    <!-- Statistik -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    </div>
+@endif
 
-        <div class="bg-white rounded-3xl shadow-lg p-6 border-l-8 border-red-500 hover:-translate-y-1 transition">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-gray-500 text-sm font-semibold">
-                        Total Event
-                    </h2>
+{{-- STATISTIK --}}
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-7">
 
-                    <p class="text-4xl font-black text-red-600 mt-2">
-                        {{ $events->count() }}
-                    </p>
-                </div>
+    <div class="bg-white rounded-[28px] shadow-soft p-6 border border-slate-100 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
 
-                <div class="w-14 h-14 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center text-2xl">
-                    📅
-                </div>
+        <div class="absolute right-0 top-0 w-28 h-28 bg-red-50 rounded-bl-[60px]"></div>
+
+        <div class="relative z-10 flex items-center justify-between">
+
+            <div>
+                <h2 class="text-slate-500 text-sm font-semibold">
+                    Total Event
+                </h2>
+
+                <p class="text-4xl font-black text-primary mt-2">
+                    {{ $events->count() }}
+                </p>
             </div>
+
+            <div class="w-16 h-16 rounded-2xl bg-red-100 text-primary flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-8 h-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z" />
+                </svg>
+            </div>
+
         </div>
+
     </div>
 
-    <!-- Table Card -->
-    <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-white">
+</div>
 
-        <div class="px-6 py-5 border-b bg-white flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    {{-- TABLE CARD --}}
+    <div class="bg-white rounded-[30px] shadow-soft border border-slate-100 overflow-hidden">
+
+        <div class="px-7 py-6 border-b border-slate-100 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+
             <div>
-                <h2 class="text-xl font-black text-gray-800">
+                <h2 class="text-2xl font-black text-dark">
                     Daftar Event
                 </h2>
 
-                <p class="text-sm text-gray-500">
+                <p class="text-sm text-slate-500 mt-1">
                     Semua data event yang tersimpan di database.
                 </p>
             </div>
+
+            <div class="bg-red-50 text-primary px-4 py-2 rounded-2xl text-sm font-bold">
+                {{ $events->count() }} Data Tersedia
+            </div>
+
         </div>
 
         <div class="overflow-x-auto">
 
-            <table class="w-full min-w-[800px]">
+            <table class="w-full min-w-[900px]">
 
-                <thead class="bg-red-600 text-white">
-                    <tr>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">No</th>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">Nama Event</th>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">Tanggal</th>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">Jam</th>
-                        <th class="p-4 text-left text-sm uppercase tracking-wide">Lokasi</th>
-                        <th class="p-4 text-center text-sm uppercase tracking-wide">Aksi</th>
+                <thead>
+                    <tr class="bg-red-50 text-primary border-b border-red-100">
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wider font-black">
+                            No
+                        </th>
+
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wider font-black">
+                            Nama Event
+                        </th>
+
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wider font-black">
+                            Tanggal
+                        </th>
+
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wider font-black">
+                            Jam
+                        </th>
+
+                        <th class="px-6 py-4 text-left text-xs uppercase tracking-wider font-black">
+                            Lokasi
+                        </th>
+
+                        <th class="px-6 py-4 text-center text-xs uppercase tracking-wider font-black">
+                            Aksi
+                        </th>
                     </tr>
                 </thead>
 
-                <tbody class="divide-y divide-gray-100">
+                <tbody class="divide-y divide-slate-100">
 
                     @forelse($events as $event)
 
-                        <tr class="hover:bg-yellow-50 transition align-middle">
+                        <tr class="hover:bg-red-50/40 transition align-middle">
 
-                            <td class="p-4 font-bold text-gray-700">
-                                {{ $loop->iteration }}
+                            <td class="px-6 py-5">
+                                <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center font-black">
+                                    {{ $loop->iteration }}
+                                </div>
                             </td>
 
-                            <td class="p-4">
-                                <div class="font-black text-gray-800">
+                            <td class="px-6 py-5">
+                                <div class="font-black text-slate-800">
                                     {{ $event->nama_event }}
                                 </div>
 
-                                <div class="text-sm text-gray-500 mt-1">
+                                <div class="text-sm text-slate-500 mt-1">
                                     {{ $event->perusahaan->nama_perusahaan
                                         ?? $event->perusahaan->nama
                                         ?? $event->perusahaan->name
@@ -130,39 +202,110 @@
                                 </div>
                             </td>
 
-                            <td class="p-4">
-                                <span class="inline-block bg-red-50 text-red-600 px-3 py-1 rounded-full text-sm font-semibold">
+                            <td class="px-6 py-5">
+                                <span class="inline-flex items-center gap-2 bg-red-50 text-primary px-3 py-2 rounded-full text-sm font-bold">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-4 h-4"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="2">
+
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z" />
+                                    </svg>
+
                                     {{ $event->tanggal_event ?? '-' }}
                                 </span>
                             </td>
 
-                            <td class="p-4">
-                                <span class="inline-block bg-yellow-50 text-yellow-600 px-3 py-1 rounded-full text-sm font-semibold">
+                            <td class="px-6 py-5">
+                                <span class="inline-flex items-center gap-2 bg-yellow-50 text-yellow-600 px-3 py-2 rounded-full text-sm font-bold">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-4 h-4"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="2">
+
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+
                                     {{ $event->jam ? substr($event->jam, 0, 5) : '-' }}
                                 </span>
                             </td>
 
-                            <td class="p-4 text-gray-700">
-                                📍 {{ $event->lokasi ?? '-' }}
+                            <td class="px-6 py-5">
+                                <span class="inline-flex items-center gap-2 text-slate-700 font-semibold">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-5 h-5 text-primary"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="2">
+
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M12 21s7-4.35 7-11a7 7 0 10-14 0c0 6.65 7 11 7 11z" />
+
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M12 10a2 2 0 100-4 2 2 0 000 4z" />
+                                    </svg>
+
+                                    {{ $event->lokasi ?? '-' }}
+                                </span>
                             </td>
 
-                            <td class="p-4">
+                            <td class="px-6 py-5">
                                 <div class="flex justify-center items-center gap-2">
 
                                     <a href="{{ route('admin.event.edit', $event->id) }}"
-                                       class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-xl text-sm font-bold shadow transition">
+                                        class="inline-flex items-center gap-2 bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-4 py-2 rounded-xl text-sm font-black transition">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-4 h-4"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            stroke-width="2">
+
+                                            <path stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M15.232 5.232l3.536 3.536M4 20h4l10.5-10.5a2.5 2.5 0 10-3.536-3.536L4 16.928V20z" />
+                                        </svg>
+
                                         Edit
                                     </a>
 
                                     <form action="{{ route('admin.event.destroy', $event->id) }}"
-                                          method="POST"
-                                          onsubmit="return confirm('Yakin ingin menghapus event ini?')">
+                                        method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus event ini?')">
 
                                         @csrf
                                         @method('DELETE')
 
                                         <button type="submit"
-                                                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow transition">
+                                            class="inline-flex items-center gap-2 bg-red-100 hover:bg-red-200 text-primary px-4 py-2 rounded-xl text-sm font-black transition">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="w-4 h-4"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                stroke-width="2">
+
+                                                <path stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M6 7h12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2m-8 0l1 13h8l1-13M10 11v6m4-6v6" />
+                                            </svg>
+
                                             Hapus
                                         </button>
 
@@ -176,25 +319,52 @@
                     @empty
 
                         <tr>
-                            <td colspan="6" class="p-12 text-center">
+                            <td colspan="6" class="px-6 py-16 text-center">
 
                                 <div class="max-w-md mx-auto">
-                                    <div class="w-20 h-20 bg-red-100 text-red-600 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-4">
-                                        📅
+
+                                    <div class="w-20 h-20 bg-red-100 text-primary rounded-[26px] flex items-center justify-center mx-auto mb-5">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-10 h-10"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            stroke-width="2">
+
+                                            <path stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z" />
+                                        </svg>
+
                                     </div>
 
-                                    <h3 class="text-2xl font-black text-gray-800">
+                                    <h3 class="text-2xl font-black text-slate-800">
                                         Belum ada data event
                                     </h3>
 
-                                    <p class="text-gray-500 mt-2">
+                                    <p class="text-slate-500 mt-2">
                                         Silakan tambahkan event baru terlebih dahulu.
                                     </p>
 
                                     <a href="{{ route('admin.event.create') }}"
-                                       class="inline-block mt-6 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-2xl font-bold shadow transition">
-                                        + Tambah Event
+                                        class="inline-flex items-center gap-2 mt-6 bg-primary hover:bg-red-700 text-white px-6 py-3 rounded-2xl font-bold shadow-lg transition">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-5 h-5"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            stroke-width="2">
+
+                                            <path stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M12 4v16m8-8H4" />
+                                        </svg>
+
+                                        Tambah Event
                                     </a>
+
                                 </div>
 
                             </td>
@@ -210,7 +380,4 @@
 
     </div>
 
-</div>
-
-</body>
-</html>
+@endsection
