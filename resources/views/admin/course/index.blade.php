@@ -1,4 +1,6 @@
-@php($title = 'Admin Course')
+@php
+    $title = 'Admin Course';
+@endphp
 
 @extends('admin.layouts.app')
 
