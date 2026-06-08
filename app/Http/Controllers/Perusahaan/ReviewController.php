@@ -41,17 +41,17 @@ class ReviewController extends Controller
         $review->update([
             'balasan_perusahaan' => $request->balasan_perusahaan,
         ]);
-        
+
         Inbox::create([
             'pelamar_id' => $review->pelamar_id,
             'title' => 'Balasan Review',
             'message' => 'Perusahaan telah membalas review yang kamu berikan.',
             'type' => 'review',
             'is_read' => false,
-            'action_text' => 'Lihat Review',
-            'action_url' => route('perusahaan.review.index'),
+            'action_text' => 'Lihat Balasan',
+            'action_url' => route('perusahaan.review', $review->perusahaan_id),
         ]);
 
-        return back()->with('success', 'Balasan review berhasil dikirim.');
+        return back()->with('success', 'Balasan review berhasil dikirim dan masuk ke inbox pelamar.');
     }
 }

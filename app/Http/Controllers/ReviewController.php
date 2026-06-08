@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Perusahaan;
 use App\Models\Review;
+use App\Models\Inbox;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ReviewController extends Controller
 {
@@ -60,6 +60,16 @@ class ReviewController extends Controller
             'posisi' => $request->posisi,
             'rating' => $request->rating,
             'ulasan' => $request->ulasan,
+        ]);
+
+        Inbox::create([
+            'pelamar_id' => $request->perusahaan_id,
+            'title' => 'Review Baru',
+            'message' => $request->nama . ' memberikan review baru untuk perusahaan Anda.',
+            'type' => 'review',
+            'is_read' => false,
+            'action_text' => 'Lihat Review',
+            'action_url' => route('perusahaan.review.index'),
         ]);
 
         return redirect()

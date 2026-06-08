@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Review extends Model
 {
@@ -16,13 +17,13 @@ class Review extends Model
         'balasan_perusahaan',
     ];
 
-    public function user()
+    public function pelamar(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'pelamar_id');
+        return $this->belongsTo( User::class, 'pelamar_id');
     }
 
-    public function perusahaan()
+    public function perusahaan(): BelongsTo
     {
-        return $this->belongsTo(Perusahaan::class, 'perusahaan_id');
+        return $this->belongsTo( ProfilePerusahaan::class, 'perusahaan_id');
     }
 }

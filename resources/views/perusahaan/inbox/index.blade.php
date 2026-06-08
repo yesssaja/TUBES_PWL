@@ -80,6 +80,11 @@
         Course
     </span>
 
+@elseif ($inbox->type === 'review')
+    <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold">
+        Review Masuk
+    </span>
+
 @elseif(in_array($inbox->type, ['course_daftar', 'pendaftaran_course']))
     <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold">
         Pendaftaran Course
