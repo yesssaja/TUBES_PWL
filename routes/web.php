@@ -23,6 +23,7 @@ use App\Http\Controllers\ProfileSettingsController;
 
 //PERUSAHAAN CONTROLLER
 use App\Http\Controllers\Perusahaan\ManajemenController;
+use App\Http\Controllers\Perusahaan\ReviewController as PerusahaanReviewController;
 use App\Http\Controllers\Perusahaan\CourseParticipantController;
 use App\Http\Controllers\Perusahaan\LokerController as PerusahaanLokerController;
 use App\Http\Controllers\Perusahaan\EventController as PerusahaanEventController;
@@ -540,7 +541,6 @@ Route::middleware(['auth', 'perusahaan'])
         Route::get('/lowongan', [PerusahaanLokerController::class, 'index'])->name('lowongan.index');
         Route::get('/lowongan/create', [PerusahaanLokerController::class, 'create'])->name('lowongan.create');
         Route::post('/lowongan', [PerusahaanLokerController::class, 'store'])->name('lowongan.store');
-    
         Route::get('/lowongan/{lowongan}', [PerusahaanLokerController::class, 'show'])->name('lowongan.show');
         Route::get('/lowongan/{lowongan}/edit', [PerusahaanLokerController::class, 'edit'])->name('lowongan.edit');
         Route::put('/lowongan/{lowongan}', [PerusahaanLokerController::class, 'update'])->name('lowongan.update');
@@ -549,13 +549,10 @@ Route::middleware(['auth', 'perusahaan'])
         //lamaran yg d terima
          Route::get('/lamaran', [PerusahaanLamaranController::class, 'index'])
             ->name('lamaran.index');
-
         Route::get('/lamaran/{id}', [PerusahaanLamaranController::class, 'show'])
             ->name('lamaran.show');
-
         Route::put('/lamaran/{id}/approve', [PerusahaanLamaranController::class, 'approve'])
             ->name('lamaran.approve');
-
         Route::put('/lamaran/{id}/reject', [PerusahaanLamaranController::class, 'reject'])
             ->name('lamaran.reject');
             
@@ -622,5 +619,11 @@ Route::middleware(['auth', 'perusahaan'])
             ->name('course.participant.approve');
         Route::put('/course-registration/{registration}/reject',[CourseParticipantController::class, 'reject'])
             ->name('course.participant.reject');
+
+            //review
+        Route::get('/review', [PerusahaanReviewController::class, 'index'])
+            ->name('review.index');
+        Route::post('/review/{review}/reply', [PerusahaanReviewController::class, 'reply'])
+            ->name('review.reply');   
         });
 

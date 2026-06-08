@@ -144,6 +144,11 @@
                                 <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
                                     Course Ditolak
                                 </span>
+
+                            @elseif ($inbox->type === 'review')
+                                <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Balasan Review
+                                </span>
                             
                             @else
                                 <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-bold">

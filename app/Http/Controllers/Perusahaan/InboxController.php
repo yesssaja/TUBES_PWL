@@ -52,6 +52,8 @@ class InboxController extends Controller
                 'course_daftar',
                 'pendaftaran_course',
                 'admin_message',
+                'review',
+                'review_reply'
             ])
             ->latest()
             ->get();
