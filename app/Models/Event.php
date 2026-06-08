@@ -27,6 +27,6 @@ class Event extends Model
 
    public function perusahaan()
 {
-    return $this->belongsTo(\App\Models\User::class, 'perusahaan_id', 'id');
+    return $this->belongsTo(\App\Models\ProfilePerusahaan::class, 'perusahaan_id', 'id');
 }
 }

@@ -95,19 +95,22 @@
                         </h3>
 
                         <p class="text-yellow-200 mt-2">
-                            📍 {{ $event->lokasi }}
+                             {{ $event->lokasi }}
                         </p>
 
                         <p class="text-yellow-100 mt-1">
-                            📅 {{ $event->tanggal_event ?? '-' }}
+                             {{ $event->tanggal_event ?? '-' }}
                         </p>
                     </div>
 
                     <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
                         <span class="font-bold text-lg bg-white/10 px-4 py-2 rounded-xl">
-                            🕒 {{ $event->jam ? substr($event->jam, 0, 5) : '-' }}
+                             {{ $event->jam ? substr($event->jam, 0, 5) : '-' }}
                         </span>
-
+                         <a href="{{ route('event.show', $event->id) }}"
+                           class="bg-yellow-400 hover:bg-yellow-300 text-red-700 font-bold px-6 py-3 rounded-full transition duration-300 hover:scale-105 shadow-lg">
+                            Detail
+                        </a>
                         <a href="{{ route('rsvp.create', $event->id) }}"
                            class="bg-yellow-400 hover:bg-yellow-300 text-red-700 font-bold px-6 py-3 rounded-full transition duration-300 hover:scale-105 shadow-lg">
                             RSVP

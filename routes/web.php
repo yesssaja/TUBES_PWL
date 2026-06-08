@@ -121,8 +121,7 @@ Route::post('/review/tulis', [ReviewController::class, 'store'])
 Route::get('/event', [EventController::class, 'index'])
     ->name('event.index');
 
-Route::get('/event/{event}', [EventController::class, 'show'])
-    ->name('event.show');
+Route::get('/event/{id}', [EventController::class, 'show'])->name('event.show');
 
 /*
 |--------------------------------------------------------------------------

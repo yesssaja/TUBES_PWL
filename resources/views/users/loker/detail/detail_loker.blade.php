@@ -2,7 +2,7 @@
 
 @section('content')
     @php
-        // Menggunakan variabel tunggal $loker langsung dari controller, mengarah ke relasi profilePerusahaan
+      
         $perusahaan = $loker->profilePerusahaan ?? null;
 
         $namaPerusahaan = $perusahaan->nama_perusahaan ?? 'Perusahaan';
@@ -126,9 +126,7 @@
                              class="w-16 h-16 rounded-md border object-contain bg-white flex-shrink-0">
                         <div>
                             <h4 class="font-bold text-lg">{{ $namaPerusahaan }}</h4>
-                            <p class="text-sm text-gray-500 mb-2">
-                                {{ $bidangPerusahaan }} • {{ $jumlahKaryawan }} employees • LOKER SEEKER
-                            </p>
+        
                             <p class="text-gray-600 text-sm italic mb-4">
                                 "{{ $tentangPerusahaan }}"
                             </p>
@@ -156,12 +154,12 @@
                         </a>
                     @endif
                 </div>
-            </div> {{-- Penutup Kolom Kiri yang Benar --}}
+            </div> 
 
-            {{-- KOLOM KANAN: RINGKASAN & SOCIAL SHARE (Sumbu Samping) --}}
+           
             <div class="space-y-6">
                 
-                {{-- Box 1: Ringkasan Kerja --}}
+                
                 <div class="bg-yellow-brand p-6 rounded-2xl shadow-sm">
                     <h3 class="font-bold text-gray-800 mb-4">Ringkasan Pekerjaan</h3>
                     <div class="space-y-4 text-sm">
@@ -172,10 +170,6 @@
                         <div class="flex justify-between">
                             <span class="text-gray-700">Gaji:</span>
                             <span class="font-bold text-red-brand">{{ $gaji }}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-700">Level:</span>
-                            <span class="font-bold">-</span>
                         </div>
                     </div>
                 </div>

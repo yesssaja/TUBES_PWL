@@ -196,10 +196,10 @@
                     @endphp
 
                     <a href="{{ route('detail.loker', $loker->id) }}"
-                       class="relative bg-gray-50 p-8 rounded-[32px] border border-gray-100 text-center shadow-md transition-all duration-500 flex flex-col items-center justify-center min-h-[350px] group overflow-hidden hover:bg-[#4A0E17] hover:border-red-500 hover:shadow-2xl">
+                        class="relative bg-gray-50 p-8 rounded-[32px] border border-gray-100 text-center shadow-md transition-all duration-500 flex flex-col items-center justify-center min-h-[350px] group overflow-hidden hover:bg-[#4A0E17] hover:border-red-500 hover:shadow-2xl no-underline">
                         
                         <div class="transition-all duration-500 transform group-hover:-translate-y-12">
-                            <div class="w-28 h-28 bg-white rounded-2xl p-4 shadow-sm mb-6 flex items-center justify-center mx-auto transition-transform duration-500 group-hover:scale-95">
+                                                    <div class="w-28 h-28 bg-white rounded-2xl p-4 shadow-sm mb-6 flex items-center justify-center mx-auto transition-transform duration-500 group-hover:scale-95">
                                 <img src="{{ asset($gambarLoker) }}" alt="{{ $loker->judul_loker }}" class="max-h-full object-contain">
                             </div>
 
@@ -327,16 +327,16 @@
                 </div>
             </div>
 
-            <div class="pt-4 border-t border-amber-600/30 flex items-center justify-between mt-auto">
-                <div>
-                    <p class="text-xs text-amber-950 font-medium">Mulai dari</p>
-                    <p class="text-xl font-black text-slate-900">Rp{{ number_format($service->price, 0, ',', '.') }}</p>
-                </div>
-                
-                <a href="{{ route('service.show', $service->id) }}" class="bg-[#FDF6D8] text-slate-900 px-4 py-2 rounded-xl text-xs font-black tracking-wider hover:bg-white transition-colors uppercase no-underline hover:no-underline">
-                    Detail ➔
-                </a>
-            </div>
+           <div class="pt-4 border-t border-amber-600/30 flex items-center justify-between mt-auto relative z-10 pointer-events-auto">
+    <div>
+        <p class="text-xs text-amber-950 font-medium">Mulai dari</p>
+        <p class="text-xl font-black text-slate-900">Rp{{ number_format($service->price, 0, ',', '.') }}</p>
+    </div>
+    
+    <a href="{{ route('service.show', $service->id) }}" class="bg-[#FDF6D8] text-slate-900 px-4 py-2 rounded-xl text-xs font-black tracking-wider hover:bg-white transition-colors uppercase no-underline hover:no-underline relative z-10">
+        Detail ➔
+    </a>
+</div>
         </div>
     @empty
         <div class="w-full py-12 text-center text-gray-400">

@@ -25,7 +25,7 @@ class Loker extends Model
 
    public function perusahaan()
 {
-    return $this->belongsTo(ProfilePerusahaan::class, 'perusahaan_id', 'user_id');
+    return $this->belongsTo(ProfilePerusahaan::class, 'perusahaan_id', 'id');
 }
 
     public function lamarans()

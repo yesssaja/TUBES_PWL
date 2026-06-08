@@ -18,6 +18,6 @@ class EventController extends Controller
         $event = Event::with('perusahaan')
                     ->findOrFail($id);
 
-        return view('users.event.index', compact('events'));
+        return view('users.event.show', compact('event'));
     }
 }
