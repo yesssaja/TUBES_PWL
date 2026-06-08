@@ -38,6 +38,7 @@ class EventController extends Controller
             'kuota' => 'nullable|integer',
             'deskripsi' => 'nullable|string',
             'poster' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'link_wa_group' => 'nullable|url|max:255',
         ]);
 
         $posterPath = null;
@@ -55,6 +56,7 @@ class EventController extends Controller
     'kuota' => $request->kuota,
     'deskripsi' => $request->deskripsi,
     'poster' => $posterPath,
+    'link_wa_group' => $request->link_wa_group,
 ]);
 
         return redirect()
@@ -98,6 +100,7 @@ class EventController extends Controller
             'deskripsi' => 'nullable|string',
             'poster' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'status' => 'nullable|string|max:50',
+            'link_wa_group' => 'nullable|url|max:255',
         ]);
 
         if ($request->hasFile('poster')) {
@@ -113,6 +116,7 @@ class EventController extends Controller
             'deskripsi' => $request->deskripsi,
             'poster' => $event->poster,
             'status' => $request->status ?? 'aktif',
+            'link_wa_group' => $request->link_wa_group,
         ]);
 
         return redirect()

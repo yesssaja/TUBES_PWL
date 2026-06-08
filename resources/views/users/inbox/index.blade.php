@@ -98,53 +98,66 @@
                         <div class="flex-1 min-w-0">
 
                             {{-- BADGE --}}
-                            <div class="flex flex-wrap items-center gap-3 mb-3">
-
-                                @if ($inbox->type === 'rsvp_approved')
-                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
-                                        RSVP Diterima
-                                    </span>
-                                @elseif($inbox->type === 'rsvp_rejected')
-                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
-                                        RSVP Ditolak
-                                    </span>
-                                @elseif($inbox->type === 'lamaran_diterima')
-                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
-                                        Lamaran Diterima
-                                    </span>
-                                @elseif($inbox->type === 'lamaran_ditolak')
-                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
-                                        Lamaran Ditolak
-                                    </span>
-                                @elseif($inbox->type === 'course_payment_verified')
-                                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
-                                        Pembayaran Course
-                                    </span>
-                                @elseif($inbox->type === 'course_payment_rejected')
-                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
-                                        Pembayaran Ditolak
-                                    </span>
-                                @elseif($inbox->type === 'course_approved')
-                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
-                                        Course Disetujui
-                                    </span>
-                                @elseif($inbox->type === 'course_rejected')
-                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
-                                        Course Ditolak
-                                    </span>
-                                @else
-                                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-bold">
-                                        Informasi
-                                    </span>
-                                @endif
-
-                                @if (!$inbox->is_read)
-                                    <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold">
-                                        Baru
-                                    </span>
-                                @endif
-
-                            </div>
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                        
+                            @if ($inbox->type === 'rsvp_user')
+                                <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    RSVP Berhasil
+                                </span>
+                            
+                            @elseif ($inbox->type === 'rsvp_approved')
+                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    RSVP Diterima
+                                </span>
+                            
+                            @elseif ($inbox->type === 'rsvp_rejected')
+                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    RSVP Ditolak
+                                </span>
+                            
+                            @elseif ($inbox->type === 'lamaran_diterima')
+                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Lamaran Diterima
+                                </span>
+                            
+                            @elseif ($inbox->type === 'lamaran_ditolak')
+                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Lamaran Ditolak
+                                </span>
+                            
+                            @elseif ($inbox->type === 'course_payment_verified')
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Pembayaran Course
+                                </span>
+                            
+                            @elseif ($inbox->type === 'course_payment_rejected')
+                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Pembayaran Ditolak
+                                </span>
+                            
+                            @elseif ($inbox->type === 'course_approved')
+                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Course Disetujui
+                                </span>
+                            
+                            @elseif ($inbox->type === 'course_rejected')
+                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Course Ditolak
+                                </span>
+                            
+                            @else
+                                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Informasi
+                                </span>
+                            @endif
+                            
+                            @if (!$inbox->is_read)
+                                <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Baru
+                                </span>
+                            @endif
+                            
+                        </div>
 
                             {{-- TITLE --}}
                             <h2 class="text-2xl font-black text-gray-900 break-words">

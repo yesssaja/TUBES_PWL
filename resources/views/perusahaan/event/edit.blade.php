@@ -124,7 +124,18 @@
                         value="{{ old('kuota', $event->kuota ?? '') }}"
                         class="w-full border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition">
                 </div>
+            </div>
 
+            <div>
+                <label class="block font-semibold mb-2">
+                    Link Grup WhatsApp
+                </label>
+            
+                <input
+                    type="url"
+                    name="link_wa_group"
+                    value="{{ old('link_wa_group', $event->link_wa_group) }}"
+                    class="w-full border rounded-2xl px-4 py-3">
             </div>
 
             <div>

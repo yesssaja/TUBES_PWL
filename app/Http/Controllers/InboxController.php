@@ -13,7 +13,7 @@ class InboxController extends Controller
             ->latest()
             ->get();
 
-        return view('inbox.index', compact('inboxes'));
+        return view('users.inbox.index', compact('inboxes'));
     }
 
     public function read(Inbox $inbox)
@@ -22,8 +22,9 @@ class InboxController extends Controller
             abort(403);
         }
 
-        $inbox->is_read = true;
-        $inbox->save();
+        $inbox->update([
+            'is_read' => true,
+        ]);
 
         return back()->with(
             'success',
@@ -35,7 +36,7 @@ class InboxController extends Controller
     {
         Inbox::where('pelamar_id', Auth::id())
             ->update([
-                'is_read' => true
+                'is_read' => true,
             ]);
 
         return back()->with(

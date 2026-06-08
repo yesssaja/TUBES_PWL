@@ -4,49 +4,86 @@
 
 @section('content')
 
-<div class="max-w-7xl mx-auto">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    {{-- HEADER --}}
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-800">
-            Manajemen Perusahaan
-        </h1>
+    {{-- HERO --}}
+    <div class="relative overflow-hidden bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400 rounded-[2rem] shadow-2xl p-8 mb-8 text-white">
+        <div class="absolute -top-16 -right-16 w-52 h-52 bg-white/20 rounded-full blur-2xl"></div>
+        <div class="absolute -bottom-16 -left-16 w-52 h-52 bg-white/10 rounded-full blur-2xl"></div>
 
-        <p class="text-gray-500 mt-2">
-            Pantau informasi, aktivitas, dan performa perusahaan Anda.
-        </p>
+        <div class="relative">
+            <p class="font-bold text-white/90 mb-2">
+                Dashboard Perusahaan
+            </p>
+
+            <h1 class="text-4xl sm:text-5xl font-black leading-tight">
+                Manajemen Perusahaan
+            </h1>
+
+            <p class="text-white/90 mt-4 text-lg max-w-2xl">
+                Pantau informasi, aktivitas, dan performa perusahaan Anda dalam satu halaman.
+            </p>
+        </div>
     </div>
 
     {{-- STATISTIK --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
 
-        <div class="bg-white rounded-3xl shadow p-6 min-w-0">
-            <p class="text-gray-500 text-lg">Total Lowongan</p>
-            <h2 class="text-5xl font-black text-red-600 mt-4">12</h2>
+        <div class="bg-white rounded-[2rem] shadow-xl border border-gray-100 p-6 hover:-translate-y-1 transition">
+            <div class="w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-2xl mb-5">
+                💼
+            </div>
+
+            <p class="text-gray-500 text-lg font-semibold">Total Lowongan</p>
+
+            <h2 class="text-5xl font-black text-red-600 mt-4">
+                {{ $totalLowongan }}
+            </h2>
         </div>
 
-        <div class="bg-white rounded-3xl shadow p-6 min-w-0">
-            <p class="text-gray-500 text-lg">Lamaran Masuk</p>
-            <h2 class="text-5xl font-black text-red-600 mt-4">248</h2>
+        <div class="bg-white rounded-[2rem] shadow-xl border border-gray-100 p-6 hover:-translate-y-1 transition">
+            <div class="w-14 h-14 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center text-2xl mb-5">
+                📩
+            </div>
+
+            <p class="text-gray-500 text-lg font-semibold">Lamaran Masuk</p>
+
+            <h2 class="text-5xl font-black text-red-600 mt-4">
+                {{ $totalLamaran }}
+            </h2>
         </div>
 
-        <div class="bg-white rounded-3xl shadow p-6 min-w-0">
-            <p class="text-gray-500 text-lg">Event Dibuat</p>
-            <h2 class="text-5xl font-black text-red-600 mt-4">5</h2>
+        <div class="bg-white rounded-[2rem] shadow-xl border border-gray-100 p-6 hover:-translate-y-1 transition">
+            <div class="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center text-2xl mb-5">
+                🎤
+            </div>
+
+            <p class="text-gray-500 text-lg font-semibold">Event Dibuat</p>
+
+            <h2 class="text-5xl font-black text-red-600 mt-4">
+                {{ $totalEvent }}
+            </h2>
         </div>
 
-        <div class="bg-white rounded-3xl shadow p-6 min-w-0">
-            <p class="text-gray-500 text-lg">Review Perusahaan</p>
-            <h2 class="text-5xl font-black text-red-600 mt-4">4.8</h2>
+        <div class="bg-white rounded-[2rem] shadow-xl border border-gray-100 p-6 hover:-translate-y-1 transition">
+            <div class="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center text-2xl mb-5">
+                ⭐
+            </div>
+
+            <p class="text-gray-500 text-lg font-semibold">Review Perusahaan</p>
+
+            <h2 class="text-5xl font-black text-red-600 mt-4">
+                {{ number_format($ratingReview, 1) }}
+            </h2>
         </div>
 
     </div>
 
-    {{-- INFORMASI + PROFILE --}}
+    {{-- INFORMASI + KELENGKAPAN PROFIL --}}
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
 
-        {{-- INFORMASI --}}
-        <div class="xl:col-span-2 bg-white rounded-3xl shadow p-6 min-w-0 break-words">
+        {{-- INFORMASI PERUSAHAAN --}}
+        <div class="xl:col-span-2 bg-white rounded-[2rem] shadow-xl border border-gray-100 p-6 sm:p-8 break-words">
 
             <h2 class="text-3xl font-black text-gray-800 mb-2">
                 Informasi Perusahaan
@@ -56,33 +93,45 @@
                 Kelola identitas dan status perusahaan Anda.
             </p>
 
-            <div class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                <div>
-                    <p class="text-gray-500 text-sm mb-1">Nama Perusahaan</p>
-                    <h3 class="text-2xl font-bold break-words">
-                        PT Shopee Indonesia
+                <div class="bg-gray-50 rounded-3xl p-5">
+                    <p class="text-xs text-gray-400 font-black uppercase tracking-wide mb-2">
+                        Nama Perusahaan
+                    </p>
+
+                    <h3 class="text-2xl font-black text-gray-800 break-words">
+                        {{ $profile->nama_perusahaan ?? '-' }}
                     </h3>
                 </div>
 
-                <div>
-                    <p class="text-gray-500 text-sm mb-1">Email</p>
-                    <h3 class="text-xl font-semibold break-all">
-                        shopee@gmail.com
+                <div class="bg-gray-50 rounded-3xl p-5">
+                    <p class="text-xs text-gray-400 font-black uppercase tracking-wide mb-2">
+                        Email
+                    </p>
+
+                    <h3 class="text-xl font-bold text-gray-800 break-all">
+                        {{ Auth::user()->email }}
                     </h3>
                 </div>
 
-                <div>
-                    <p class="text-gray-500 text-sm mb-1">Website</p>
-                    <h3 class="text-xl font-semibold break-all">
-                        shopee.com
+                <div class="bg-gray-50 rounded-3xl p-5">
+                    <p class="text-xs text-gray-400 font-black uppercase tracking-wide mb-2">
+                        Website
+                    </p>
+
+                    <h3 class="text-xl font-bold text-gray-800 break-all">
+                        {{ $profile->website ?? '-' }}
                     </h3>
                 </div>
 
-                <div>
-                    <p class="text-gray-500 text-sm mb-1">Alamat</p>
-                    <h3 class="text-xl font-semibold break-words">
-                        Jakarta, Indonesia
+                <div class="bg-gray-50 rounded-3xl p-5">
+                    <p class="text-xs text-gray-400 font-black uppercase tracking-wide mb-2">
+                        Alamat
+                    </p>
+
+                    <h3 class="text-xl font-bold text-gray-800 break-words">
+                        {{ $profile->alamat ?? '-' }}
                     </h3>
                 </div>
 
@@ -91,18 +140,20 @@
         </div>
 
         {{-- KELENGKAPAN PROFIL --}}
-        <div class="bg-white rounded-3xl shadow p-6 min-w-0">
+        <div class="bg-white rounded-[2rem] shadow-xl border border-gray-100 p-6 sm:p-8">
 
             <h2 class="text-3xl font-black text-gray-800 mb-6">
                 Kelengkapan Profil
             </h2>
 
             <div class="w-full bg-gray-200 rounded-full h-5 overflow-hidden">
-                <div class="bg-red-600 h-full rounded-full" style="width: 80%"></div>
+                <div class="bg-gradient-to-r from-red-600 to-yellow-400 h-full rounded-full transition-all"
+                     style="width: {{ $kelengkapan }}%">
+                </div>
             </div>
 
             <h3 class="text-5xl font-black text-red-600 mt-6">
-                80%
+                {{ $kelengkapan }}%
             </h3>
 
             <p class="text-gray-500 mt-4 text-lg leading-relaxed">
@@ -110,7 +161,7 @@
             </p>
 
             <a href="{{ route('perusahaan.profil.index') }}"
-               class="mt-8 inline-block w-full text-center bg-red-600 hover:bg-red-700 text-white px-6 py-4 rounded-2xl font-bold transition">
+               class="mt-8 inline-block w-full text-center bg-red-600 hover:bg-red-700 text-white px-6 py-4 rounded-2xl font-black shadow-lg transition">
                 Lengkapi Profil
             </a>
 
@@ -122,47 +173,50 @@
     <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
 
         {{-- AKTIVITAS TERBARU --}}
-        <div class="bg-white rounded-3xl shadow p-6 min-w-0">
+        <div class="bg-white rounded-[2rem] shadow-xl border border-gray-100 p-6 sm:p-8">
 
             <h2 class="text-2xl font-black text-gray-800 mb-6">
                 Aktivitas Terbaru
             </h2>
 
             <div class="space-y-5">
+                @forelse($aktivitas as $item)
 
-                <div class="border-b pb-4">
-                    <h3 class="font-bold text-gray-800">
-                        Lowongan UI/UX Designer berhasil dipublish
-                    </h3>
-                    <p class="text-gray-500 text-sm mt-1">
-                        10 menit yang lalu
-                    </p>
-                </div>
+                    <div class="flex gap-4 border-b border-gray-100 pb-5 last:border-b-0 last:pb-0">
+                        <div class="w-12 h-12 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center shrink-0">
+                            🔔
+                        </div>
 
-                <div class="border-b pb-4">
-                    <h3 class="font-bold text-gray-800">
-                        5 pelamar baru masuk untuk Backend Developer
-                    </h3>
-                    <p class="text-gray-500 text-sm mt-1">
-                        1 jam yang lalu
-                    </p>
-                </div>
+                        <div>
+                            <h3 class="font-black text-gray-800">
+                                {{ $item['judul'] }}
+                            </h3>
 
-                <div>
-                    <h3 class="font-bold text-gray-800">
-                        Event Seminar Karier berhasil dibuat
-                    </h3>
-                    <p class="text-gray-500 text-sm mt-1">
-                        Kemarin
-                    </p>
-                </div>
+                            <p class="text-gray-500 text-sm mt-1">
+                                {{ $item['waktu'] }}
+                            </p>
+                        </div>
+                    </div>
 
+                @empty
+
+                    <div class="bg-gray-50 rounded-3xl p-8 text-center">
+                        <div class="w-16 h-16 bg-red-50 text-red-500 rounded-3xl flex items-center justify-center mx-auto mb-4 text-3xl">
+                            📭
+                        </div>
+
+                        <p class="text-gray-500 font-semibold">
+                            Belum ada aktivitas terbaru.
+                        </p>
+                    </div>
+
+                @endforelse
             </div>
 
         </div>
 
         {{-- QUICK ACTION --}}
-        <div class="bg-white rounded-3xl shadow p-6 min-w-0">
+        <div class="bg-white rounded-[2rem] shadow-xl border border-gray-100 p-6 sm:p-8">
 
             <h2 class="text-2xl font-black text-gray-800 mb-6">
                 Quick Action
@@ -171,18 +225,21 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                 <a href="{{ route('perusahaan.lowongan.create') }}"
-                   class="bg-red-600 hover:bg-red-700 text-white p-6 rounded-2xl text-center font-bold transition">
-                    + Tambah Lowongan
+                   class="group bg-red-600 hover:bg-red-700 text-white p-6 rounded-3xl font-black shadow-lg transition">
+                    <div class="text-3xl mb-4">➕</div>
+                    <p>Tambah Lowongan</p>
                 </a>
 
                 <a href="{{ route('perusahaan.event.create') }}"
-                   class="bg-orange-500 hover:bg-orange-600 text-white p-6 rounded-2xl text-center font-bold transition">
-                    + Tambah Event
+                   class="group bg-gradient-to-br from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white p-6 rounded-3xl font-black shadow-lg transition">
+                    <div class="text-3xl mb-4">🎤</div>
+                    <p>Tambah Event</p>
                 </a>
 
                 <a href="{{ route('perusahaan.lamaran.index') }}"
-                   class="bg-gray-800 hover:bg-gray-900 text-white p-6 rounded-2xl text-center font-bold transition sm:col-span-2">
-                    Lihat Lamaran Masuk
+                   class="bg-gray-900 hover:bg-black text-white p-6 rounded-3xl font-black shadow-lg transition sm:col-span-2">
+                    <div class="text-3xl mb-4">📩</div>
+                    <p>Lihat Lamaran Masuk</p>
                 </a>
 
             </div>

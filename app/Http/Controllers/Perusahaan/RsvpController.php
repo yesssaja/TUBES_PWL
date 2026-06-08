@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Perusahaan;
 
 use App\Http\Controllers\Controller;
-use App\Models\Perusahaan;
+use App\Models\Inbox;
+use App\Models\ProfilePerusahaan;
 use App\Models\Rsvp;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,12 +12,12 @@ class RsvpController extends Controller
 {
     public function index()
     {
-        $perusahaan = Perusahaan::where('user_id', Auth::id())->first();
+        $profile = ProfilePerusahaan::where('user_id', Auth::id())->first();
 
-        $rsvps = $perusahaan
+        $rsvps = $profile
             ? Rsvp::with(['event', 'user'])
-                ->whereHas('event', function ($query) use ($perusahaan) {
-                    $query->where('perusahaan_id', $perusahaan->id);
+                ->whereHas('event', function ($query) use ($profile) {
+                    $query->where('perusahaan_id', $profile->id);
                 })
                 ->latest()
                 ->get()
@@ -27,32 +28,72 @@ class RsvpController extends Controller
 
     public function show($id)
     {
+        $profile = ProfilePerusahaan::where('user_id', Auth::id())->firstOrFail();
+
         $rsvp = Rsvp::with(['event', 'user'])->findOrFail($id);
+
+        if (!$rsvp->event || $rsvp->event->perusahaan_id != $profile->id) {
+            abort(403);
+        }
 
         return view('perusahaan.rsvp.show', compact('rsvp'));
     }
 
     public function approve($id)
-{
-    $rsvp = Rsvp::findOrFail($id);
+    {
+        $profile = ProfilePerusahaan::where('user_id', Auth::id())->firstOrFail();
 
-    $rsvp->status_kehadiran = 'hadir';
-    $rsvp->save();
+        $rsvp = Rsvp::with(['event', 'user'])->findOrFail($id);
 
-    return redirect()
-        ->route('perusahaan.rsvp.index')
-        ->with('success', 'RSVP berhasil diterima.');
-}
+        if (!$rsvp->event || $rsvp->event->perusahaan_id != $profile->id) {
+            abort(403);
+        }
 
-public function reject($id)
-{
-    $rsvp = Rsvp::findOrFail($id);
+        $rsvp->update([
+            'status_kehadiran' => 'hadir',
+        ]);
 
-    $rsvp->status_kehadiran = 'tidak hadir';
-    $rsvp->save();
+        Inbox::create([
+            'pelamar_id' => $rsvp->pelamar_id,
+            'title' => 'RSVP Diterima',
+            'message' => 'RSVP kamu untuk event "' . ($rsvp->event->nama_event ?? '-') . '" telah diterima.',
+            'type' => 'rsvp_approved',
+            'is_read' => false,
+            'action_text' => 'Gabung Grup WhatsApp',
+            'action_url' => $rsvp->event->link_wa_group,
+        ]);
 
-    return redirect()
-        ->route('perusahaan.rsvp.index')
-        ->with('success', 'RSVP berhasil ditolak.');
-}
+        return redirect()
+            ->route('perusahaan.rsvp.index')
+            ->with('success', 'RSVP berhasil diterima.');
+    }
+
+    public function reject($id)
+    {
+        $profile = ProfilePerusahaan::where('user_id', Auth::id())->firstOrFail();
+
+        $rsvp = Rsvp::with(['event', 'user'])->findOrFail($id);
+
+        if (!$rsvp->event || $rsvp->event->perusahaan_id != $profile->id) {
+            abort(403);
+        }
+
+        $rsvp->update([
+            'status_kehadiran' => 'tidak_hadir',
+        ]);
+
+        Inbox::create([
+            'pelamar_id' => $rsvp->pelamar_id,
+            'title' => 'RSVP Ditolak',
+            'message' => 'RSVP kamu untuk event "' . ($rsvp->event->nama_event ?? '-') . '" telah ditolak.',
+            'type' => 'rsvp_rejected',
+            'is_read' => false,
+            'action_text' => 'Gabung Grup WhatsApp',
+            'action_url' => $rsvp->event->link_wa_group,
+        ]);
+
+        return redirect()
+            ->route('perusahaan.rsvp.index')
+            ->with('success', 'RSVP berhasil ditolak.');
+    }
 }

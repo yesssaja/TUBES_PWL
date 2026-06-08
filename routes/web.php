@@ -22,6 +22,7 @@ use App\Http\Controllers\GroupCommentController;
 use App\Http\Controllers\ProfileSettingsController;
 
 //PERUSAHAAN CONTROLLER
+use App\Http\Controllers\Perusahaan\ManajemenController;
 use App\Http\Controllers\Perusahaan\LokerController as PerusahaanLokerController;
 use App\Http\Controllers\Perusahaan\EventController as PerusahaanEventController;
 use App\Http\Controllers\Perusahaan\RsvpController as PerusahaanRsvpController;
@@ -275,7 +276,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('rsvp.store');
 
     Route::get('/berhasil_daftar_event', function () {
-        return view('pages.berhasil_daftar_event');
+        return view('users.event.success');
     })->name('rsvp.success');
 
 /*
@@ -577,7 +578,8 @@ Route::middleware(['auth', 'perusahaan'])
         Route::post('/profil/update',[ProfilController::class, 'update'])->name('profil.update');Route::view('/pengaturan', 'perusahaan.pengaturan.index')->name('pengaturan.index');        Route::post('/profil/update',[ProfilController::class, 'update'])->name('profil.update');
 
         //manajemen
-        Route::view('/manajemen', 'perusahaan.manajemen.index')->name('manajemen.index');
+        Route::get('/manajemen', [ManajemenController::class, 'index'])
+        ->name('manajemen.index');
 
         //rsvp perusahaan
         Route::get('/rsvp', [PerusahaanRsvpController::class, 'index'])

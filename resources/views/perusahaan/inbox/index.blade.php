@@ -13,7 +13,7 @@
             </h1>
 
             <p class="text-gray-500 mt-2">
-                Lihat pemberitahuan lamaran, RSVP, dan aktivitas perusahaan.
+                Lihat pemberitahuan lamaran, RSVP, event, course, dan aktivitas perusahaan.
             </p>
         </div>
 
@@ -29,17 +29,19 @@
         </div>
     @endif
 
-    <div class="mb-6 flex justify-end">
-        <form action="{{ route('perusahaan.inbox.readAll') }}" method="POST">
-            @csrf
-            @method('PUT')
+    @if($inboxes->count() > 0)
+        <div class="mb-6 flex justify-end">
+            <form action="{{ route('perusahaan.inbox.readAll') }}" method="POST">
+                @csrf
+                @method('PUT')
 
-            <button type="submit"
-                    class="bg-gray-800 hover:bg-black text-white px-5 py-3 rounded-2xl font-bold">
-                Tandai Semua Dibaca
-            </button>
-        </form>
-    </div>
+                <button type="submit"
+                        class="bg-gray-800 hover:bg-black text-white px-5 py-3 rounded-2xl font-bold">
+                    Tandai Semua Dibaca
+                </button>
+            </form>
+        </div>
+    @endif
 
     <div class="space-y-5">
 
@@ -53,31 +55,46 @@
 
                         <div class="flex flex-wrap items-center gap-3 mb-3">
 
-                            @if($inbox->type === 'lamaran_masuk')
-                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
-                                    Lamaran Masuk
-                                </span>
+                           @if(in_array($inbox->type, ['lamaran', 'lamaran_masuk']))
+    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
+        Lamaran Masuk
+    </span>
 
-                            @elseif($inbox->type === 'rsvp_masuk')
-                                <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold">
-                                    RSVP Masuk
-                                </span>
+@elseif(in_array($inbox->type, ['rsvp', 'rsvp_masuk']))
+    <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold">
+        RSVP Masuk
+    </span>
 
-                            @elseif($inbox->type === 'event_info')
-                                <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold">
-                                    Event
-                                </span>
+@elseif(in_array($inbox->type, ['event', 'event_info']))
+    <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold">
+        Event
+    </span>
 
-                            @elseif($inbox->type === 'admin_message')
-                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
-                                    Pesan Admin
-                                </span>
+@elseif(in_array($inbox->type, ['event_daftar', 'pendaftaran_event']))
+    <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold">
+        Pendaftaran Event
+    </span>
 
-                            @else
-                                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-bold">
-                                    Info
-                                </span>
-                            @endif
+@elseif(in_array($inbox->type, ['course', 'course_info']))
+    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
+        Course
+    </span>
+
+@elseif(in_array($inbox->type, ['course_daftar', 'pendaftaran_course']))
+    <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold">
+        Pendaftaran Course
+    </span>
+
+@elseif($inbox->type === 'admin_message')
+    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
+        Pesan Admin
+    </span>
+
+@else
+    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-bold">
+        Info
+    </span>
+@endif
 
                             @if(!$inbox->is_read)
                                 <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold">
@@ -88,11 +105,11 @@
                         </div>
 
                         <h2 class="text-2xl font-black text-gray-900 break-words">
-                            {{ $inbox->title }}
+                            {{ $inbox->title ?? 'Tanpa Judul' }}
                         </h2>
 
                         <p class="text-gray-600 mt-3 leading-relaxed break-words">
-                            {{ $inbox->message }}
+                            {{ $inbox->message ?? 'Tidak ada isi pesan.' }}
                         </p>
 
                         @if(!empty($inbox->action_url) && !empty($inbox->action_text))

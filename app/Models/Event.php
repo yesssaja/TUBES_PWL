@@ -19,6 +19,7 @@ class Event extends Model
     'kuota',
     'deskripsi',
     'poster',
+    'link_wa_group',
 ];
 
     public function rsvps()

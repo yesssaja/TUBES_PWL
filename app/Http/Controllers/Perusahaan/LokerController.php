@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Perusahaan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Loker;
+use App\Models\ProfilePerusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,10 +12,16 @@ class LokerController extends Controller
 {
     public function index()
     {
-        $lowongans = Loker::where('perusahaan_id', Auth::id())
-            ->withCount('lamarans')
-            ->latest()
-            ->get();
+        $profile = ProfilePerusahaan::where('user_id', Auth::id())->first();
+
+        if (!$profile) {
+            $lowongans = collect();
+        } else {
+            $lowongans = Loker::where('perusahaan_id', $profile->id)
+                ->withCount('lamarans')
+                ->latest()
+                ->get();
+        }
 
         return view('perusahaan.lowongan.index', compact('lowongans'));
     }
@@ -35,8 +42,10 @@ class LokerController extends Controller
             'deskripsi' => 'required|string',
         ]);
 
+        $profile = ProfilePerusahaan::where('user_id', Auth::id())->firstOrFail();
+
         Loker::create([
-            'perusahaan_id' => Auth::id(),
+            'perusahaan_id' => $profile->id,
             'judul_loker' => $request->judul_loker,
             'lokasi' => $request->lokasi,
             'tipe_pekerjaan' => $request->tipe_pekerjaan,
