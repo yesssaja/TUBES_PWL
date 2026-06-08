@@ -241,23 +241,53 @@
 
     </nav>
 
-    {{-- PROFILE ADMIN --}}
+    {{-- PROFILE ADMIN + LOGOUT --}}
     @auth
-        <div class="relative z-10 mt-5 bg-white/15 border border-white/20 rounded-2xl px-4 py-3 flex items-center gap-3 backdrop-blur">
+        <div class="relative z-10 mt-5 bg-white/15 border border-white/20 rounded-2xl px-4 py-4 backdrop-blur">
 
-            <div class="w-10 h-10 rounded-full bg-white text-primary flex items-center justify-center font-black shrink-0">
-                {{ strtoupper(substr(Auth::user()->name,0,1)) }}
+            <div class="flex items-center gap-3">
+
+                <div class="w-10 h-10 rounded-full bg-white text-primary flex items-center justify-center font-black shrink-0">
+                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                </div>
+
+                <div class="min-w-0">
+                    <p class="text-sm font-black leading-tight truncate">
+                        {{ Auth::user()->name }}
+                    </p>
+
+                    <p class="text-xs text-white/75">
+                        Super Admin
+                    </p>
+                </div>
+
             </div>
 
-            <div class="min-w-0">
-                <p class="text-sm font-black leading-tight truncate">
-                    {{ Auth::user()->name }}
-                </p>
+            <form action="{{ route('logout') }}" method="POST" class="mt-4">
+                @csrf
 
-                <p class="text-xs text-white/75">
-                    Super Admin
-                </p>
-            </div>
+                <button type="submit"
+                    class="w-full flex items-center justify-center gap-2 bg-white text-primary hover:bg-red-50 px-4 py-2.5 rounded-xl text-sm font-black shadow transition">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M17 16l4-4m0 0l-4-4m4 4H9" />
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M13 4H6a2 2 0 00-2 2v12a2 2 0 002 2h7" />
+                    </svg>
+
+                    Logout
+                </button>
+            </form>
 
         </div>
     @endauth
