@@ -88,14 +88,15 @@ class CourseController extends Controller
         );
 
         Inbox::create([
-            'perusahaan_id' => $course->perusahaan_id,
-            'title' => 'Pendaftaran Course Baru',
-            'message' => Auth::user()->name . ' mendaftar course "' . $course->title . '".',
-            'type' => 'course_daftar',
-            'is_read' => false,
-            'action_text' => 'Lihat Peserta',
-            'action_url' => route('perusahaan.course.participant.show', $course->id),
-        ]);
+    'pelamar_id' => null,
+    'perusahaan_id' => $course->perusahaan_id,
+    'title' => 'Pendaftaran Course Baru',
+    'message' => Auth::user()->name . ' mendaftar course "' . $course->title . '".',
+    'type' => 'course_daftar',
+    'is_read' => false,
+    'action_text' => 'Lihat Peserta',
+    'action_url' => route('perusahaan.course.participant.show', $course->id),
+]);
 
         if ($course->payment_required || $course->price > 0) {
             $proofPath = null;

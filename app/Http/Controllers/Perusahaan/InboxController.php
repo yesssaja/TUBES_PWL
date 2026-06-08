@@ -9,9 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class InboxController extends Controller
 {
+    private function getProfilePerusahaan()
+    {
+        return ProfilePerusahaan::where('user_id', Auth::id())->first();
+    }
+
     private function inboxOwnerIds()
     {
-        $profile = ProfilePerusahaan::where('user_id', Auth::id())->first();
+        $profile = $this->getProfilePerusahaan();
 
         $ids = [Auth::id()];
 
@@ -24,27 +29,47 @@ class InboxController extends Controller
 
     public function index()
     {
-        $inboxes = Inbox::whereIn('pelamar_id', $this->inboxOwnerIds())
-    ->whereIn('type', [
-        'lamaran',
-        'lamaran_masuk',
-        'rsvp',
-        'rsvp_masuk',
-        'event',
-        'event_info',
-        'course',
-        'course_info',
-        'admin_message',
-    ])
-    ->latest()
-    ->get();
+        $profile = $this->getProfilePerusahaan();
+
+        $inboxes = Inbox::where(function ($query) use ($profile) {
+                $query->whereIn('pelamar_id', $this->inboxOwnerIds());
+
+                if ($profile) {
+                    $query->orWhere('perusahaan_id', $profile->id);
+                }
+            })
+            ->whereIn('type', [
+                'lamaran',
+                'lamaran_masuk',
+                'rsvp',
+                'rsvp_masuk',
+                'event',
+                'event_info',
+                'event_daftar',
+                'pendaftaran_event',
+                'course',
+                'course_info',
+                'course_daftar',
+                'pendaftaran_course',
+                'admin_message',
+            ])
+            ->latest()
+            ->get();
 
         return view('perusahaan.inbox.index', compact('inboxes'));
     }
 
     public function read($id)
     {
-        $inbox = Inbox::whereIn('pelamar_id', $this->inboxOwnerIds())
+        $profile = $this->getProfilePerusahaan();
+
+        $inbox = Inbox::where(function ($query) use ($profile) {
+                $query->whereIn('pelamar_id', $this->inboxOwnerIds());
+
+                if ($profile) {
+                    $query->orWhere('perusahaan_id', $profile->id);
+                }
+            })
             ->where('id', $id)
             ->firstOrFail();
 
@@ -57,7 +82,15 @@ class InboxController extends Controller
 
     public function readAll()
     {
-        Inbox::whereIn('pelamar_id', $this->inboxOwnerIds())
+        $profile = $this->getProfilePerusahaan();
+
+        Inbox::where(function ($query) use ($profile) {
+                $query->whereIn('pelamar_id', $this->inboxOwnerIds());
+
+                if ($profile) {
+                    $query->orWhere('perusahaan_id', $profile->id);
+                }
+            })
             ->update([
                 'is_read' => true,
             ]);
