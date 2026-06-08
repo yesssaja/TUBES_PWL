@@ -5,13 +5,17 @@
 @section('content')
 
     {{-- HEADER --}}
-    <div class="bg-gradient-to-r from-primary via-red-700 to-red-800 text-white rounded-[28px] shadow-glow p-8 mb-7 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+    <div class="relative overflow-hidden bg-gradient-to-r from-primary via-red-700 to-red-900 text-white rounded-[30px] shadow-glow p-8 mb-7">
 
-        <div>
-            <div class="flex items-center gap-4 mb-3">
-                <div class="w-14 h-14 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center">
+        <div class="absolute -right-16 -top-16 w-52 h-52 bg-white/10 rounded-full"></div>
+        <div class="absolute right-32 -bottom-24 w-64 h-64 bg-white/10 rounded-full"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+
+            <div class="flex items-center gap-4">
+                <div class="w-16 h-16 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-7 h-7 text-white"
+                        class="w-8 h-8 text-white"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -33,12 +37,9 @@
                     </p>
                 </div>
             </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-3">
 
             <a href="{{ route('admin.loker.create') }}"
-                class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-primary font-black px-5 py-3 rounded-2xl shadow-lg transition">
+                class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-primary font-black px-6 py-3 rounded-2xl shadow-lg transition">
 
                 <svg xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5"
@@ -62,6 +63,7 @@
     {{-- SUCCESS MESSAGE --}}
     @if(session('success'))
         <div class="bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-2xl mb-6 shadow-soft flex items-center gap-3">
+
             <div class="w-10 h-10 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5"
@@ -79,13 +81,20 @@
             <span class="font-semibold">
                 {{ session('success') }}
             </span>
+
         </div>
     @endif
 
     {{-- STATISTIK --}}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-7">
 
-        <div class="bg-white rounded-[26px] shadow-soft p-6 border border-slate-100 flex items-center justify-between hover:-translate-y-1 hover:shadow-lg transition">
+    {{-- TOTAL LOKER --}}
+    <div class="bg-white rounded-[28px] shadow-soft p-6 border border-slate-100 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
+
+        <div class="absolute right-0 top-0 w-28 h-28 bg-red-50 rounded-bl-[60px]"></div>
+
+        <div class="relative z-10 flex items-center justify-between">
+
             <div>
                 <h2 class="text-slate-500 text-sm font-semibold">
                     Total Loker
@@ -109,9 +118,18 @@
                         d="M10 6V5a2 2 0 012-2h0a2 2 0 012 2v1m-8 0h12a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2z" />
                 </svg>
             </div>
+
         </div>
 
-        <div class="bg-white rounded-[26px] shadow-soft p-6 border border-slate-100 flex items-center justify-between hover:-translate-y-1 hover:shadow-lg transition">
+    </div>
+
+    {{-- LOKER AKTIF --}}
+    <div class="bg-white rounded-[28px] shadow-soft p-6 border border-slate-100 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
+
+        <div class="absolute right-0 top-0 w-28 h-28 bg-green-50 rounded-bl-[60px]"></div>
+
+        <div class="relative z-10 flex items-center justify-between">
+
             <div>
                 <h2 class="text-slate-500 text-sm font-semibold">
                     Loker Aktif
@@ -135,9 +153,18 @@
                         d="M5 13l4 4L19 7" />
                 </svg>
             </div>
+
         </div>
 
-        <div class="bg-white rounded-[26px] shadow-soft p-6 border border-slate-100 flex items-center justify-between hover:-translate-y-1 hover:shadow-lg transition">
+    </div>
+
+    {{-- TOTAL PERUSAHAAN --}}
+    <div class="bg-white rounded-[28px] shadow-soft p-6 border border-slate-100 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
+
+        <div class="absolute right-0 top-0 w-28 h-28 bg-yellow-50 rounded-bl-[60px]"></div>
+
+        <div class="relative z-10 flex items-center justify-between">
+
             <div>
                 <h2 class="text-slate-500 text-sm font-semibold">
                     Total Perusahaan
@@ -161,12 +188,15 @@
                         d="M4 21V5a1 1 0 011-1h6v17M13 21V9h6a1 1 0 011 1v11M8 8h1m-1 4h1m-1 4h1m7-4h1m-1 4h1" />
                 </svg>
             </div>
+
         </div>
 
     </div>
 
+</div>
+
     {{-- TABLE CARD --}}
-    <div class="bg-white rounded-[30px] shadow-soft border border-slate-100 overflow-hidden">
+    <div class="bg-white rounded-[30px] shadow-soft border border-slate-100 overflow-hidden max-w-full">
 
         <div class="px-7 py-6 border-b border-slate-100 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>

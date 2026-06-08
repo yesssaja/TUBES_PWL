@@ -4,44 +4,18 @@
 
 @section('content')
 
-    {{-- HEADER --}}
-    <div class="bg-gradient-to-r from-primary via-red-700 to-red-800 text-white rounded-[28px] shadow-glow p-8 mb-7 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+{{-- HEADER --}}
+<div class="relative overflow-hidden bg-gradient-to-r from-primary via-red-700 to-red-900 text-white rounded-[30px] shadow-glow p-8 mb-7">
 
-        <div>
-            <div class="flex items-center gap-4 mb-3">
-                <div class="w-14 h-14 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-7 h-7 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2">
+    <div class="absolute -right-16 -top-16 w-52 h-52 bg-white/10 rounded-full"></div>
+    <div class="absolute right-32 -bottom-24 w-64 h-64 bg-white/10 rounded-full"></div>
 
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z" />
-                    </svg>
-                </div>
+    <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
 
-                <div>
-                    <h1 class="text-4xl font-black tracking-wide">
-                        Data Event
-                    </h1>
-
-                    <p class="mt-1 text-white/90 font-medium">
-                        Kelola semua event yang tersedia di LOKER SEEKER.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-3">
-
-            <a href="{{ route('admin.event.create') }}"
-                class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-primary font-black px-5 py-3 rounded-2xl shadow-lg transition">
-
+        <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5"
+                    class="w-8 h-8 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -49,45 +23,76 @@
 
                     <path stroke-linecap="round"
                         stroke-linejoin="round"
-                        d="M12 4v16m8-8H4" />
+                        d="M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z" />
                 </svg>
+            </div>
 
-                Tambah Event
-            </a>
+            <div>
+                <h1 class="text-4xl font-black tracking-wide">
+                    Data Event
+                </h1>
 
+                <p class="mt-1 text-white/90 font-medium">
+                    Kelola semua event yang tersedia di LOKER SEEKER.
+                </p>
+            </div>
         </div>
+
+        <a href="{{ route('admin.event.create') }}"
+            class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-primary font-black px-6 py-3 rounded-2xl shadow-lg transition">
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2">
+
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 4v16m8-8H4" />
+            </svg>
+
+            Tambah Event
+        </a>
 
     </div>
 
-    {{-- SUCCESS MESSAGE --}}
-    @if(session('success'))
-        <div class="bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-2xl mb-6 shadow-soft flex items-center gap-3">
+</div>
 
-            <div class="w-10 h-10 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
+{{-- SUCCESS MESSAGE --}}
+@if(session('success'))
+    <div class="bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-2xl mb-6 shadow-soft flex items-center gap-3">
 
-                    <path stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M5 13l4 4L19 7" />
-                </svg>
-            </div>
+        <div class="w-10 h-10 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2">
 
-            <span class="font-semibold">
-                {{ session('success') }}
-            </span>
-
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M5 13l4 4L19 7" />
+            </svg>
         </div>
-    @endif
 
-    {{-- STATISTIK --}}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-7">
+        <span class="font-semibold">
+            {{ session('success') }}
+        </span>
 
-        <div class="bg-white rounded-[26px] shadow-soft p-6 border border-slate-100 flex items-center justify-between hover:-translate-y-1 hover:shadow-lg transition">
+    </div>
+@endif
+
+{{-- STATISTIK --}}
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-7">
+
+    <div class="bg-white rounded-[28px] shadow-soft p-6 border border-slate-100 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
+
+        <div class="absolute right-0 top-0 w-28 h-28 bg-red-50 rounded-bl-[60px]"></div>
+
+        <div class="relative z-10 flex items-center justify-between">
 
             <div>
                 <h2 class="text-slate-500 text-sm font-semibold">
@@ -116,6 +121,8 @@
         </div>
 
     </div>
+
+</div>
 
     {{-- TABLE CARD --}}
     <div class="bg-white rounded-[30px] shadow-soft border border-slate-100 overflow-hidden">
