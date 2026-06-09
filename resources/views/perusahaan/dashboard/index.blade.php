@@ -9,9 +9,27 @@
 
     $namaPerusahaan = $profile->nama_perusahaan ?? Auth::user()->name;
 
-    $logoPerusahaan = $profile && $profile->logo
-        ? asset('storage/' . $profile->logo)
-        : 'https://ui-avatars.com/api/?name=' . urlencode($namaPerusahaan) . '&size=256&background=dc2626&color=ffffff&bold=true';
+    $logoPerusahaan = 'https://ui-avatars.com/api/?name=' . urlencode($namaPerusahaan) . '&size=256&background=dc2626&color=ffffff&bold=true';
+
+    if ($profile && $profile->logo) {
+        $logo = trim(str_replace('\\', '/', $profile->logo), '/');
+
+        if (str_starts_with($logo, 'http://') || str_starts_with($logo, 'https://')) {
+            $logoPerusahaan = $logo;
+        } elseif (str_starts_with($logo, 'storage/')) {
+            $logoPerusahaan = asset($logo);
+        } elseif (str_starts_with($logo, 'foto_perusahaan/')) {
+            $logoPerusahaan = asset($logo);
+        } elseif (str_starts_with($logo, 'images/')) {
+            $logoPerusahaan = asset($logo);
+        } elseif (file_exists(public_path('storage/' . $logo))) {
+            $logoPerusahaan = asset('storage/' . $logo);
+        } elseif (file_exists(public_path('foto_perusahaan/' . $logo))) {
+            $logoPerusahaan = asset('foto_perusahaan/' . $logo);
+        } elseif (file_exists(public_path('images/' . $logo))) {
+            $logoPerusahaan = asset('images/' . $logo);
+        }
+    }
 @endphp
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
@@ -55,6 +73,7 @@
             <div class="flex justify-center lg:justify-end">
                 <div class="bg-white/20 backdrop-blur rounded-[2rem] p-5 border border-white/30 shadow-xl">
                     <img src="{{ $logoPerusahaan }}"
+                         onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name={{ urlencode($namaPerusahaan) }}&size=256&background=dc2626&color=ffffff&bold=true';"
                          alt="{{ $namaPerusahaan }}"
                          class="w-40 h-40 sm:w-48 sm:h-48 lg:w-52 lg:h-52 object-contain bg-white p-5 rounded-[1.5rem] shadow-2xl">
                 </div>

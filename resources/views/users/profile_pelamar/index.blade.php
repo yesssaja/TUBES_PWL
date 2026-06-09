@@ -9,7 +9,7 @@
     <div class="max-w-6xl mx-auto px-4">
 
         {{-- HEADER --}}
-        <div class="bg-gradient-to-r from-red-600 to-yellow-400 rounded-3xl p-8 text-white shadow-xl mb-8">
+        <div class="bg-red-600 rounded-3xl p-8 text-white shadow-lg mb-8">
 
             <div class="flex flex-col md:flex-row items-center gap-6">
 

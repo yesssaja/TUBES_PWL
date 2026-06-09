@@ -13,13 +13,12 @@
 
             <div class="absolute -top-20 -right-20 w-72 h-72 bg-white/20 rounded-full blur-3xl"></div>
             <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
-            <div class="absolute top-10 right-1/3 w-24 h-24 bg-yellow-300/20 rounded-full blur-2xl"></div>
 
             <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
 
                 <div class="max-w-3xl">
-                    <p class="inline-flex items-center gap-2 bg-white/20 border border-white/30 backdrop-blur px-5 py-2 rounded-full font-black uppercase text-sm mb-6 shadow">
-                        🎓 Course Center
+                    <p class="inline-flex items-center gap-2 bg-white/20 border border-white/30 px-5 py-2 rounded-full font-black uppercase text-sm mb-6 shadow">
+                        Course Center
                     </p>
 
                     <h1 class="font-black text-5xl md:text-7xl leading-tight tracking-tight">
@@ -35,11 +34,11 @@
 
                     <a href="{{ route('welcome') }}"
                        class="bg-white text-red-600 hover:bg-red-50 px-6 py-4 rounded-2xl font-black text-center shadow-lg transition hover:-translate-y-1">
-                        ← Home
+                        Home
                     </a>
 
                     @auth
-                        <div class="bg-white/20 text-white px-6 py-4 rounded-2xl font-black text-center border border-white/30 backdrop-blur shadow">
+                        <div class="bg-white/20 text-white px-6 py-4 rounded-2xl font-black text-center border border-white/30 shadow">
                             Hi, {{ auth()->user()->name }}
                         </div>
                     @endauth
@@ -52,16 +51,14 @@
 
         {{-- ALERT --}}
         @if(session('success'))
-            <div class="bg-green-50 text-green-700 border border-green-200 px-6 py-4 rounded-2xl mb-6 font-bold shadow-sm flex items-center gap-3">
-                <span>✅</span>
-                <span>{{ session('success') }}</span>
+            <div class="bg-green-50 text-green-700 border border-green-200 px-6 py-4 rounded-2xl mb-6 font-bold shadow-sm">
+                {{ session('success') }}
             </div>
         @endif
 
         @if(session('error'))
-            <div class="bg-red-50 text-red-700 border border-red-200 px-6 py-4 rounded-2xl mb-6 font-bold shadow-sm flex items-center gap-3">
-                <span>⚠️</span>
-                <span>{{ session('error') }}</span>
+            <div class="bg-red-50 text-red-700 border border-red-200 px-6 py-4 rounded-2xl mb-6 font-bold shadow-sm">
+                {{ session('error') }}
             </div>
         @endif
 
@@ -71,6 +68,7 @@
                 <p class="text-red-600 font-black uppercase tracking-wider text-sm">
                     Pilihan Course
                 </p>
+
                 <h2 class="text-3xl md:text-4xl font-black text-gray-900 mt-1">
                     Tingkatkan Skill Kamu
                 </h2>
@@ -88,33 +86,54 @@
 
                 @php
                     $registration = $registrations[$course->id] ?? null;
-                    $judul = $course->title ?? $course->judul ?? $course->nama_course ?? 'Course';
-                    $deskripsi = $course->description ?? $course->deskripsi ?? '-';
-                    $kategori = $course->kategori ?? $course->category ?? 'Course';
-                    $harga = $course->biaya_pendaftaran ?? $course->harga ?? $course->price ?? null;
+
+                    $judul = $course->title
+                        ?? $course->judul
+                        ?? $course->nama_course
+                        ?? 'Course';
+
+                    $deskripsi = $course->description
+                        ?? $course->deskripsi
+                        ?? '-';
+
+                    $kategori = $course->kategori
+                        ?? $course->category
+                        ?? 'Course';
+
+                    $harga = $course->biaya_pendaftaran
+                        ?? $course->harga
+                        ?? $course->price
+                        ?? null;
+
+                    $namaPerusahaan =
+                        $course->perusahaan->nama_perusahaan
+                        ?? $course->profilePerusahaan->nama_perusahaan
+                        ?? $course->company->nama_perusahaan
+                        ?? $course->company->name
+                        ?? 'Perusahaan';
                 @endphp
 
                 <div class="group bg-white rounded-[2rem] border border-gray-100 shadow-xl overflow-hidden flex flex-col transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
 
-                    {{-- IMAGE / THUMBNAIL --}}
-                    <div class="relative h-56 bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400 overflow-hidden">
+                   <div class="relative bg-red-600 px-6 py-8">
 
-                        @if(!empty($course->thumbnail))
-                            <img src="{{ asset('storage/' . $course->thumbnail) }}"
-                                 alt="{{ $judul }}"
-                                 class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
-                        @else
-                            <div class="w-full h-full flex items-center justify-center text-white text-7xl transition duration-500 group-hover:scale-110">
-                                🎓
-                            </div>
-                        @endif
-
-                        <span class="absolute top-4 right-4 bg-white text-red-600 px-4 py-2 rounded-full text-sm font-black shadow-lg">
-                            {{ $kategori }}
-                        </span>
-
+                    <span class="absolute top-4 right-4 bg-white text-red-600 px-4 py-2 rounded-full text-sm font-black shadow">
+                        {{ $kategori }}
+                    </span>
+                
+                    <div class="pr-24">
+                    
+                        <h3 class="text-2xl font-black text-white leading-tight">
+                            {{ Str::limit($judul, 40) }}
+                        </h3>
+                    
+                        <p class="text-white/80 mt-3 font-semibold">
+                            {{ $namaPerusahaan }}
+                        </p>
+                    
                     </div>
+                
+                </div>
 
                     <div class="p-6 flex flex-col flex-1">
 
@@ -124,19 +143,38 @@
                                 {{ $judul }}
                             </h2>
 
+                            {{-- NAMA PERUSAHAAN --}}
+                            <div class="flex items-start gap-3 mt-4 bg-red-50 border border-red-100 rounded-2xl p-4">
+
+                                <div class="w-10 h-10 rounded-xl bg-white text-red-600 flex items-center justify-center text-sm font-black shrink-0">
+                                    P
+                                </div>
+
+                                <div>
+                                    <p class="text-xs text-gray-400 font-black uppercase tracking-wide">
+                                        Dibuat oleh perusahaan
+                                    </p>
+
+                                    <p class="text-red-600 font-black mt-1">
+                                        {{ $namaPerusahaan }}
+                                    </p>
+                                </div>
+
+                            </div>
+
                             <div class="flex flex-wrap items-center gap-2 mt-4">
                                 @if($registration)
                                     @if($registration->status === 'pending')
                                         <span class="inline-flex bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-2 rounded-full text-sm font-black">
-                                            ⏳ Diproses
+                                            Diproses
                                         </span>
                                     @elseif($registration->status === 'approved')
                                         <span class="inline-flex bg-green-50 border border-green-200 text-green-700 px-4 py-2 rounded-full text-sm font-black">
-                                            ✅ Disetujui
+                                            Disetujui
                                         </span>
                                     @elseif($registration->status === 'rejected')
                                         <span class="inline-flex bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded-full text-sm font-black">
-                                            ❌ Ditolak
+                                            Ditolak
                                         </span>
                                     @endif
                                 @else
@@ -150,12 +188,14 @@
 
                                 <div class="flex gap-3">
                                     <div class="w-11 h-11 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center font-black">
-                                        📝
+                                        D
                                     </div>
+
                                     <div>
                                         <p class="text-xs text-gray-400 font-black uppercase tracking-wide">
                                             Deskripsi
                                         </p>
+
                                         <p class="text-gray-600 text-sm leading-relaxed mt-1">
                                             {{ Str::limit($deskripsi, 130) }}
                                         </p>
@@ -167,10 +207,12 @@
                                         <div class="w-11 h-11 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center font-black">
                                             Rp
                                         </div>
+
                                         <div>
                                             <p class="text-xs text-gray-400 font-black uppercase tracking-wide">
                                                 Biaya
                                             </p>
+
                                             <p class="text-red-600 font-black mt-1">
                                                 Rp {{ number_format($harga, 0, ',', '.') }}
                                             </p>
@@ -241,7 +283,7 @@
                 <div class="col-span-full bg-white rounded-[2.5rem] border border-gray-100 p-12 text-center shadow-xl">
 
                     <div class="w-24 h-24 rounded-3xl bg-red-50 text-red-600 flex items-center justify-center text-5xl mx-auto mb-6 shadow-sm">
-                        🎓
+                        C
                     </div>
 
                     <h2 class="text-gray-800 text-3xl md:text-4xl font-black">

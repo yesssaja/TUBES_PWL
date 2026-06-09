@@ -66,49 +66,64 @@
                 @forelse ($events as $event)
 
                     @php
-                        $judulEvent = $event->judul_event
-                            ?? $event->nama_event
-                            ?? $event->title
-                            ?? '-';
+    $judulEvent = $event->judul_event
+        ?? $event->nama_event
+        ?? $event->title
+        ?? '-';
 
-                        $deskripsiEvent = $event->deskripsi
-                            ?? $event->description
-                            ?? 'Tidak ada deskripsi.';
+    $deskripsiEvent = $event->deskripsi
+        ?? $event->description
+        ?? 'Tidak ada deskripsi.';
 
-                        $tanggalEvent = $event->tanggal_event
-                            ?? $event->tanggal
-                            ?? $event->date
-                            ?? '-';
+    $tanggalEvent = $event->tanggal_event
+        ?? $event->tanggal
+        ?? $event->date
+        ?? '-';
 
-                        $jamEvent = $event->jam
-                            ?? $event->jam_event
-                            ?? $event->time
-                            ?? null;
+    $jamEvent = $event->jam
+        ?? $event->jam_event
+        ?? $event->time
+        ?? null;
 
-                        $lokasiEvent = $event->lokasi
-                            ?? $event->location
-                            ?? '-';
+    $lokasiEvent = $event->lokasi
+        ?? $event->location
+        ?? '-';
 
-                        $kuotaEvent = $event->kuota
-                            ?? $event->quota
-                            ?? '-';
+    $kuotaEvent = $event->kuota
+        ?? $event->quota
+        ?? '-';
 
-                        $posterEvent = $event->poster
-                            ? asset('storage/' . $event->poster)
-                            : 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f';
+    $statusEvent = $event->status ?? 'aktif';
 
-                        $statusEvent = $event->status ?? 'aktif';
-                    @endphp
+    // POSTER EVENT
+    if (!empty($event->poster)) {
+
+        if (
+            str_starts_with($event->poster, 'http://') ||
+            str_starts_with($event->poster, 'https://')
+        ) {
+
+            $posterEvent = $event->poster;
+
+        } else {
+
+            $posterEvent = asset($event->poster);
+
+        }
+
+    } else {
+
+        $posterEvent = asset('images/default-event.jpg');
+
+    }
+@endphp
 
                     <tr class="hover:bg-orange-50/40 transition">
 
                         <td class="px-6 py-5">
                             <div class="flex items-center gap-4">
 
-                                <img src="{{ $posterEvent }}"
-                                     class="w-24 h-16 rounded-2xl object-cover shadow border border-gray-100"
-                                     onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f'">
-
+                                <img src="{{ $posterEvent }}" alt="{{ $judulEvent }}" class="w-24 h-16 rounded-2xl object-cover shadow border border-gray-100" onerror="this.src='{{ asset('images/default-event.jpg') }}'">
                                 <div class="min-w-0">
                                     <h3 class="font-black text-gray-800 text-lg truncate max-w-[300px]">
                                         {{ $judulEvent }}
@@ -227,47 +242,62 @@
         @forelse ($events as $event)
 
             @php
-                $judulEvent = $event->judul_event
-                    ?? $event->nama_event
-                    ?? $event->title
-                    ?? '-';
+    $judulEvent = $event->judul_event
+        ?? $event->nama_event
+        ?? $event->title
+        ?? '-';
 
-                $deskripsiEvent = $event->deskripsi
-                    ?? $event->description
-                    ?? 'Tidak ada deskripsi.';
+    $deskripsiEvent = $event->deskripsi
+        ?? $event->description
+        ?? 'Tidak ada deskripsi.';
 
-                $tanggalEvent = $event->tanggal_event
-                    ?? $event->tanggal
-                    ?? $event->date
-                    ?? '-';
+    $tanggalEvent = $event->tanggal_event
+        ?? $event->tanggal
+        ?? $event->date
+        ?? '-';
 
-                $jamEvent = $event->jam
-                    ?? $event->jam_event
-                    ?? $event->time
-                    ?? null;
+    $jamEvent = $event->jam
+        ?? $event->jam_event
+        ?? $event->time
+        ?? null;
 
-                $lokasiEvent = $event->lokasi
-                    ?? $event->location
-                    ?? '-';
+    $lokasiEvent = $event->lokasi
+        ?? $event->location
+        ?? '-';
 
-                $kuotaEvent = $event->kuota
-                    ?? $event->quota
-                    ?? '-';
+    $kuotaEvent = $event->kuota
+        ?? $event->quota
+        ?? '-';
 
-                $posterEvent = $event->poster
-                    ? asset('storage/' . $event->poster)
-                    : 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f';
+    $statusEvent = $event->status ?? 'aktif';
 
-                $statusEvent = $event->status ?? 'aktif';
-            @endphp
+    // POSTER EVENT
+    if (!empty($event->poster)) {
+
+        if (
+            str_starts_with($event->poster, 'http://') ||
+            str_starts_with($event->poster, 'https://')
+        ) {
+
+            $posterEvent = $event->poster;
+
+        } else {
+
+            $posterEvent = asset($event->poster);
+
+        }
+
+    } else {
+
+        $posterEvent = asset('images/default-event.jpg');
+
+    }
+@endphp
 
             <div class="bg-white rounded-[2rem] shadow-lg border border-gray-100 overflow-hidden">
 
                 <div class="relative">
-                    <img src="{{ $posterEvent }}"
-                         class="w-full h-52 object-cover"
-                         onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f'">
-
+                    <img src="{{ $posterEvent }}" alt="{{ $judulEvent }}" class="w-full h-52 object-cover" onerror="this.src='{{ asset('images/default-event.jpg') }}'">
                     <div class="absolute top-4 right-4">
                         @if ($statusEvent == 'aktif')
                             <span class="bg-green-50 text-green-700 border border-green-200 px-4 py-2 rounded-full text-sm font-black shadow">

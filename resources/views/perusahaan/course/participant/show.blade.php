@@ -105,26 +105,86 @@
                     </div>
 
                     <div class="bg-gray-50 rounded-2xl p-4">
-                        <p class="text-xs text-gray-400 font-black uppercase tracking-wide mb-2">
-                            Pembayaran
-                        </p>
 
-                        @if($registration->payment)
-                            @if($registration->payment->status === 'verified')
-                                <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
-                                    Terverifikasi
-                                </span>
-                            @else
-                                <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-sm font-bold">
-                                    Menunggu Verifikasi
-                                </span>
-                            @endif
-                        @else
-                            <span class="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-bold">
-                                Tidak Ada
-                            </span>
-                        @endif
-                    </div>
+    <p class="text-xs text-gray-400 font-black uppercase tracking-wide mb-3">
+        Pembayaran
+    </p>
+
+    @if($registration->payment)
+
+        @if($registration->payment->status === 'verified')
+
+            <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
+                Terverifikasi
+            </span>
+
+        @elseif($registration->payment->status === 'rejected')
+
+            <span class="bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-bold">
+                Ditolak
+            </span>
+
+        @else
+
+            <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-sm font-bold">
+                Menunggu Verifikasi
+            </span>
+
+        @endif
+
+        <div class="mt-4 space-y-2">
+
+            @if($registration->payment->proof_image)
+
+                <a href="{{ asset('storage/'.$registration->payment->proof_image) }}"
+                   target="_blank"
+                   class="block text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl text-sm font-black">
+                    Lihat Bukti Pembayaran
+                </a>
+
+            @endif
+
+            @if($registration->payment->status === 'pending')
+
+                <form action="{{ route('perusahaan.course.payment.verify', $registration->payment->id) }}"
+                      method="POST">
+
+                    @csrf
+                    @method('PUT')
+
+                    <button type="submit"
+                            class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-xl text-sm font-black">
+                        Terima Pembayaran
+                    </button>
+
+                </form>
+
+                <form action="{{ route('perusahaan.course.payment.reject', $registration->payment->id) }}"
+                      method="POST">
+
+                    @csrf
+                    @method('PUT')
+
+                    <button type="submit"
+                            class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-xl text-sm font-black">
+                        Tolak Pembayaran
+                    </button>
+
+                </form>
+
+            @endif
+
+        </div>
+
+    @else
+
+        <span class="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-bold">
+            Belum Upload Bukti
+        </span>
+
+    @endif
+
+</div>
 
                 </div>
 
@@ -243,55 +303,90 @@
                         </td>
 
                         <td class="px-6 py-5">
-                            @if($registration->payment)
-                                @if($registration->payment->status === 'verified')
-                                    <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
-                                        Terverifikasi
-                                    </span>
-                                @else
-                                    <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-sm font-bold">
-                                        Menunggu Verifikasi
-                                    </span>
-                                @endif
-                            @else
-                                <span class="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-bold">
-                                    Tidak Ada
-                                </span>
-                            @endif
-                        </td>
+
+    @if($registration->payment)
+
+        <div class="space-y-3">
+
+            @if($registration->payment->status === 'verified')
+
+                <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
+                    Terverifikasi
+                </span>
+
+            @elseif($registration->payment->status === 'rejected')
+
+                <span class="bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-bold">
+                    Ditolak
+                </span>
+
+            @else
+
+                <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-sm font-bold">
+                    Menunggu Verifikasi
+                </span>
+
+            @endif
+
+            @if($registration->payment->proof_image)
+
+                <div>
+                    <a href="{{ asset('storage/'.$registration->payment->proof_image) }}"
+                       target="_blank"
+                       class="inline-flex bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-bold">
+                        Lihat Bukti
+                    </a>
+                </div>
+
+            @endif
+
+        </div>
+
+    @else
+
+        <span class="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-bold">
+            Belum Upload Bukti
+        </span>
+
+    @endif
+
+</td>
 
                         <td class="px-6 py-5">
                             <div class="flex flex-wrap justify-center gap-2">
 
-                                @if($registration->status === 'pending')
+                                @if(
+    $registration->payment &&
+    $registration->payment->status === 'pending'
+)
 
-                                    <form action="{{ route('perusahaan.course.participant.approve', $registration->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
+<form action="{{ route('perusahaan.course.payment.verify', $registration->payment->id) }}"
+      method="POST">
 
-                                        <button type="submit"
-                                                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition">
-                                            Approve
-                                        </button>
-                                    </form>
+    @csrf
+    @method('PUT')
 
-                                    <form action="{{ route('perusahaan.course.participant.reject', $registration->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
+    <button type="submit"
+            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition">
+        Terima Bayar
+    </button>
 
-                                        <button type="submit"
-                                                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition">
-                                            Reject
-                                        </button>
-                                    </form>
+</form>
 
-                                @else
+<form action="{{ route('perusahaan.course.payment.reject', $registration->payment->id) }}"
+      method="POST">
 
-                                    <span class="bg-gray-100 text-gray-400 px-4 py-2 rounded-xl text-sm font-semibold">
-                                        Tidak ada aksi
-                                    </span>
+    @csrf
+    @method('PUT')
 
-                                @endif
+    <button type="submit"
+            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition">
+        Tolak Bayar
+    </button>
+
+</form>
+
+@endif
 
                             </div>
                         </td>

@@ -1,26 +1,21 @@
 @php
-    $title = 'Admin Course';
+    $title = 'Monitoring Course';
+
+    $verifiedPaymentCount = 0;
+
+    foreach ($registrations as $registrationItem) {
+        if ($registrationItem->payment && $registrationItem->payment->status === 'verified') {
+            $verifiedPaymentCount++;
+        }
+    }
 @endphp
 
 @extends('admin.layouts.app')
 
 @section('content')
 
-        @php
-            $verifiedPaymentCount = 0;
-
-            foreach ($registrations as $registrationItem) {
-                if ($registrationItem->payment && $registrationItem->payment->status === 'verified') {
-                    $verifiedPaymentCount++;
-                }
-            }
-        @endphp
-
     {{-- HEADER --}}
-    <div class="relative overflow-hidden bg-gradient-to-r from-red-700 via-primary to-red-900 rounded-[30px] shadow-glow p-7 md:p-8 mb-7 text-white">
-
-        <div class="absolute -right-20 -top-20 w-60 h-60 bg-white/10 rounded-full"></div>
-        <div class="absolute right-36 -bottom-28 w-72 h-72 bg-white/10 rounded-full"></div>
+    <div class="relative overflow-hidden bg-red-700 rounded-[30px] shadow-glow p-7 md:p-8 mb-7 text-white">
 
         <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
 
@@ -43,11 +38,11 @@
 
                 <div>
                     <h1 class="text-3xl md:text-4xl font-black tracking-wide">
-                        Pendaftaran Course
+                        Monitoring Course
                     </h1>
 
                     <p class="mt-2 text-white/90 font-medium">
-                        Cek data peserta, bukti pembayaran, lalu setujui akses course.
+                        Pantau data peserta course dan status pembayaran yang diproses oleh perusahaan.
                     </p>
                 </div>
             </div>
@@ -226,22 +221,11 @@
                 </h2>
 
                 <p class="text-sm text-gray-500 mt-1">
-                    Semua pendaftaran course dari user.
+                    Semua pendaftaran course dari user. Admin hanya memantau data.
                 </p>
             </div>
 
             <div class="inline-flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-2xl text-sm font-black">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-                    <path stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 14l9-5-9-5-9 5 9 5z" />
-                </svg>
-
                 {{ $registrations->count() }} Data Course
             </div>
         </div>
@@ -274,7 +258,6 @@
 
                         <tr class="hover:bg-red-50/40 transition align-top">
 
-                            {{-- Peserta --}}
                             <td class="px-6 py-5">
                                 <div class="flex items-start gap-3">
                                     <div class="w-11 h-11 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center font-black shrink-0">
@@ -297,7 +280,6 @@
                                 </div>
                             </td>
 
-                            {{-- Course --}}
                             <td class="px-6 py-5">
                                 <div class="font-bold text-gray-800">
                                     {{ $course->title ?? '-' }}
@@ -309,12 +291,10 @@
                                 </div>
                             </td>
 
-                            {{-- No HP --}}
                             <td class="px-6 py-5 text-gray-700">
                                 {{ $registration->no_hp }}
                             </td>
 
-                            {{-- Alasan --}}
                             <td class="px-6 py-5 max-w-sm">
                                 <p class="text-sm text-gray-700 leading-relaxed">
                                     {{ $registration->alasan }}
@@ -327,7 +307,6 @@
                                 @endif
                             </td>
 
-                            {{-- Pembayaran --}}
                             <td class="px-6 py-5 text-center">
 
                                 @if($isPaidCourse)
@@ -361,36 +340,9 @@
                                         @endif
 
                                         @if($payment->status !== 'verified')
-                                            <form action="{{ route('admin.course.verifyPayment', $registration->id) }}"
-                                                  method="POST"
-                                                  class="mb-2">
-
-                                                @csrf
-                                                @method('PUT')
-
-                                                <button type="submit"
-                                                        onclick="return confirm('Yakin pembayaran ini valid?')"
-                                                        class="w-full bg-green-100 hover:bg-green-200 text-green-700 px-4 py-2 rounded-xl text-sm font-black transition">
-                                                    Verifikasi Bayar
-                                                </button>
-                                            </form>
-
-                                            <form action="{{ route('admin.course.rejectPayment', $registration->id) }}"
-                                                  method="POST">
-
-                                                @csrf
-                                                @method('PUT')
-
-                                                <input type="hidden"
-                                                       name="note"
-                                                       value="Bukti pembayaran belum valid.">
-
-                                                <button type="submit"
-                                                        onclick="return confirm('Yakin menolak bukti pembayaran ini?')"
-                                                        class="w-full bg-red-100 hover:bg-red-200 text-red-600 px-4 py-2 rounded-xl text-sm font-black transition">
-                                                    Tolak Bayar
-                                                </button>
-                                            </form>
+                                            <div class="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded-xl text-sm font-bold">
+                                                Menunggu verifikasi perusahaan.
+                                            </div>
                                         @endif
 
                                     @else
@@ -411,7 +363,6 @@
 
                             </td>
 
-                            {{-- Status --}}
                             <td class="px-6 py-5 text-center">
 
                                 @if($registration->status === 'approved')
@@ -430,60 +381,13 @@
 
                             </td>
 
-                            {{-- Aksi --}}
                             <td class="px-6 py-5">
 
-                                <div class="space-y-2 min-w-[220px]">
+                                <div class="space-y-2 min-w-[180px]">
 
-                                    @if($registration->status === 'pending')
-
-                                        @if(!$isPaidCourse || ($payment && $payment->status === 'verified'))
-
-                                            <form action="{{ route('admin.course.approve', $registration->id) }}"
-                                                  method="POST">
-
-                                                @csrf
-                                                @method('PUT')
-
-                                                <textarea name="catatan_admin"
-                                                          rows="2"
-                                                          placeholder="Catatan opsional..."
-                                                          class="w-full border rounded-xl p-2 text-sm mb-2"></textarea>
-
-                                                <button type="submit"
-                                                        class="w-full bg-green-100 hover:bg-green-200 text-green-700 px-4 py-2 rounded-xl text-sm font-black transition">
-                                                    Setujui
-                                                </button>
-                                            </form>
-
-                                        @else
-
-                                            <div class="bg-yellow-100 text-yellow-700 px-4 py-3 rounded-xl text-sm font-bold text-center">
-                                                Verifikasi pembayaran dulu
-                                            </div>
-
-                                        @endif
-
-                                        <form action="{{ route('admin.course.reject', $registration->id) }}"
-                                              method="POST"
-                                              onsubmit="return confirm('Yakin ingin menolak pendaftaran ini?')">
-
-                                            @csrf
-                                            @method('PUT')
-
-                                            <button type="submit"
-                                                    class="w-full bg-red-100 hover:bg-red-200 text-red-600 px-4 py-2 rounded-xl text-sm font-black transition">
-                                                Tolak
-                                            </button>
-                                        </form>
-
-                                    @else
-
-                                        <span class="block text-center bg-gray-100 text-gray-500 px-4 py-2 rounded-xl text-sm font-bold">
-                                            Sudah diproses
-                                        </span>
-
-                                    @endif
+                                    <span class="block text-center bg-gray-100 text-gray-600 px-4 py-2 rounded-xl text-sm font-bold">
+                                        Hanya Monitoring
+                                    </span>
 
                                     <form action="{{ route('admin.course.destroy', $registration->id) }}"
                                           method="POST"

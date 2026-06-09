@@ -24,6 +24,7 @@ use App\Http\Controllers\SearchController;
 
 //PERUSAHAAN CONTROLLER
 use App\Http\Controllers\Perusahaan\ManajemenController;
+use App\Http\Controllers\Perusahaan\CoursePaymentController;
 use App\Http\Controllers\Perusahaan\ReviewController as PerusahaanReviewController;
 use App\Http\Controllers\Perusahaan\CourseParticipantController;
 use App\Http\Controllers\Perusahaan\LokerController as PerusahaanLokerController;
@@ -630,6 +631,10 @@ Route::middleware(['auth', 'perusahaan'])
             ->name('course.participant.approve');
         Route::put('/course-registration/{registration}/reject',[CourseParticipantController::class, 'reject'])
             ->name('course.participant.reject');
+        Route::put('/course/payment/{payment}/verify',[CoursePaymentController::class, 'verify'])
+            ->name('course.payment.verify');
+        Route::put('/course/payment/{payment}/reject',[CoursePaymentController::class, 'reject'])
+            ->name('course.payment.reject');
 
             //review
         Route::get('/review', [PerusahaanReviewController::class, 'index'])
