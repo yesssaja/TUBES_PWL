@@ -149,32 +149,30 @@
 
                     </div>
 
-                    {{-- RATING --}}
-                    <div class="mb-6 bg-[#FFF7E8] border border-yellow-100 p-5 rounded-[28px]">
+                   {{-- RATING --}}
+<div class="mb-6 bg-[#FFF7E8] border border-yellow-100 p-5 rounded-[28px]">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <label class="block font-black text-gray-800 text-sm mb-1">
+                Penilaian Keseluruhan
+            </label>
 
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <p class="text-xs text-gray-500">
+                Pilih jumlah bintang sesuai pengalaman Anda.
+            </p>
+        </div>
 
-                            <div>
-                                <label class="block font-black text-gray-800 text-sm mb-1">
-                                    Penilaian Keseluruhan
-                                </label>
-
-                                <p class="text-xs text-gray-500">
-                                    Pilih jumlah bintang sesuai pengalaman Anda.
-                                </p>
-                            </div>
-
-                            <div class="star-rating flex text-3xl sm:text-4xl text-gray-200 gap-2" id="star_container">
-                                <i class="fas fa-star" data-value="1"></i>
-                                <i class="fas fa-star" data-value="2"></i>
-                                <i class="fas fa-star" data-value="3"></i>
-                                <i class="fas fa-star" data-value="4"></i>
-                                <i class="fas fa-star" data-value="5"></i>
-                            </div>
-
-                        </div>
-
-                    </div>
+        <div class="flex text-4xl gap-2" id="star_container">
+            @for($i = 1; $i <= 5; $i++)
+                <button type="button"
+                        class="star-btn text-gray-300 hover:scale-110 transition"
+                        data-value="{{ $i }}">
+                    ★
+                </button>
+            @endfor
+        </div>
+    </div>
+</div>
 
                     {{-- ULASAN --}}
                     <div class="mb-8">
@@ -281,47 +279,44 @@
 </main>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const container = document.getElementById('star_container');
-        const stars = container.querySelectorAll('i');
-        const hiddenInput = document.getElementById('rating_input');
-        const form = document.getElementById('reviewForm');
+document.addEventListener('DOMContentLoaded', function () {
+    const stars = document.querySelectorAll('.star-btn');
+    const ratingInput = document.getElementById('rating_input');
+    const form = document.getElementById('reviewForm');
 
-        const oldValue = parseInt(hiddenInput.value) || 0;
+    let selectedRating = parseInt(ratingInput.value) || 0;
 
-        if (oldValue > 0) {
-            updateStars(oldValue);
-        }
-
+    function updateStars(rating) {
         stars.forEach(star => {
-            star.addEventListener('click', function() {
-                const currentRating = parseInt(this.getAttribute('data-value'));
-                hiddenInput.value = currentRating;
-                updateStars(currentRating);
-            });
-        });
+            const value = parseInt(star.dataset.value);
 
-        function updateStars(value) {
-            stars.forEach(s => {
-                const starValue = parseInt(s.getAttribute('data-value'));
-
-                if (starValue <= value) {
-                    s.classList.add('text-amber-400');
-                    s.classList.remove('text-gray-200');
-                } else {
-                    s.classList.remove('text-amber-400');
-                    s.classList.add('text-gray-200');
-                }
-            });
-        }
-
-        form.addEventListener('submit', function(e) {
-            if (!hiddenInput.value) {
-                e.preventDefault();
-                alert('Silakan tentukan penilaian bintang Anda terlebih dahulu.');
+            if (value <= rating) {
+                star.classList.remove('text-gray-300');
+                star.classList.add('text-yellow-400');
+            } else {
+                star.classList.remove('text-yellow-400');
+                star.classList.add('text-gray-300');
             }
         });
+    }
+
+    updateStars(selectedRating);
+
+    stars.forEach(star => {
+        star.addEventListener('click', function () {
+            selectedRating = parseInt(this.dataset.value);
+            ratingInput.value = selectedRating;
+            updateStars(selectedRating);
+        });
     });
+
+    form.addEventListener('submit', function (e) {
+        if (!ratingInput.value) {
+            e.preventDefault();
+            alert('Silakan tentukan penilaian bintang terlebih dahulu.');
+        }
+    });
+});
 </script>
 
 @endsection
