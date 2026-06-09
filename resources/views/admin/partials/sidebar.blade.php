@@ -14,18 +14,10 @@
     <div class="relative z-10 flex items-center justify-between mb-8">
 
         <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center border border-white/20">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="w-7 h-7 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-
-                    <path stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z" />
-                </svg>
+            <div class="w-19 h-19 flex items-center justify-center overflow-hidden">
+                <img src="{{ asset('logo/transparan.png') }}"
+                    alt="Logo Looker Seeker"
+                    class="w-full h-full object-contain p-1">
             </div>
 
             <h1 class="text-2xl font-black leading-tight tracking-wide">
