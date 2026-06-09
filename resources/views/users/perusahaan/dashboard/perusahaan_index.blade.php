@@ -8,74 +8,156 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+    :root {
+        --red: #dc2626;
+        --red-dark: #b91c1c;
+        --orange: #f97316;
+        --yellow: #facc15;
+        --dark: #111827;
+    }
 
     body {
         font-family: 'Poppins', sans-serif;
-        background: linear-gradient(to bottom, #F4D03F, #ffffff, #fef2f2);
+        background:
+            radial-gradient(circle at top left, rgba(250, 204, 21, .35), transparent 34%),
+            radial-gradient(circle at top right, rgba(220, 38, 38, .18), transparent 32%),
+            linear-gradient(180deg, #fff7ed 0%, #ffffff 45%, #fff1f2 100%);
         min-height: 100vh;
+        color: var(--dark);
     }
 
     .bg-red-brand {
-        background-color: #E74C3C;
+        background: linear-gradient(135deg, var(--red), var(--red-dark));
+    }
+
+    .hero-card {
+        background: rgba(255, 255, 255, .72);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, .65);
+        box-shadow: 0 20px 60px rgba(15, 23, 42, .08);
+    }
+
+    .section-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 9px 20px;
+        border-radius: 999px;
+        background: rgba(220, 38, 38, .08);
+        color: var(--red);
+        font-weight: 900;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        font-size: 12px;
+        border: 1px solid rgba(220, 38, 38, .12);
+    }
+
+    .shimmer-text {
+        background: linear-gradient(90deg, #dc2626, #f97316, #facc15, #dc2626);
+        background-size: 220% auto;
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: shine 5s linear infinite;
+    }
+
+    @keyframes shine {
+        to {
+            background-position: 220% center;
+        }
     }
 
     .pop-card-effect {
+        position: relative;
+        isolation: isolate;
         transition:
-            transform .35s cubic-bezier(0.25, 1, 0.5, 1),
+            transform .35s cubic-bezier(.22, 1, .36, 1),
             box-shadow .35s ease,
             border-color .35s ease;
     }
 
     .pop-card-effect:hover {
-        transform: translateY(-8px);
+        transform: translateY(-10px);
+        border-color: rgba(220, 38, 38, .18);
         box-shadow:
-            0 22px 38px rgba(0, 0, 0, .08),
-            0 10px 20px rgba(231, 76, 60, .12);
+            0 28px 60px rgba(15, 23, 42, .12),
+            0 12px 24px rgba(220, 38, 38, .10);
     }
 
     .pop-card-effect:active {
-        transform: translateY(-2px) scale(.98);
+        transform: translateY(-3px) scale(.98);
     }
 
-    .shimmer-text {
-        background: linear-gradient(to right, #E74C3C 20%, #F4D03F 40%, #F4D03F 60%, #E74C3C 80%);
-        background-size: 200% auto;
-        color: transparent;
-        -webkit-background-clip: text;
-        background-clip: text;
-        animation: shine 6s linear infinite;
+    .company-cover {
+        background:
+            radial-gradient(circle at top left, rgba(255, 255, 255, .9), transparent 35%),
+            linear-gradient(135deg, #fee2e2 0%, #ffedd5 48%, #fef3c7 100%);
     }
 
-    @keyframes shine {
-        to {
-            background-position: 200% center;
-        }
+    .company-logo-box {
+        box-shadow:
+            0 16px 30px rgba(15, 23, 42, .12),
+            0 6px 14px rgba(220, 38, 38, .10);
+    }
+
+    .verified-badge {
+        background: rgba(255, 255, 255, .88);
+        backdrop-filter: blur(10px);
+        color: #2563eb;
+        border: 1px solid rgba(255, 255, 255, .7);
+    }
+
+    .stat-card {
+        transition: all .3s ease;
+    }
+
+    .group:hover .stat-card {
+        transform: translateY(-3px);
+    }
+
+    .btn-main {
+        background: linear-gradient(135deg, #dc2626, #b91c1c);
+        box-shadow: 0 10px 20px rgba(220, 38, 38, .22);
+    }
+
+    .btn-main:hover {
+        box-shadow: 0 14px 28px rgba(220, 38, 38, .30);
+    }
+
+    .btn-review {
+        background: linear-gradient(135deg, #facc15, #f59e0b);
+        box-shadow: 0 10px 20px rgba(245, 158, 11, .22);
+    }
+
+    .btn-review:hover {
+        box-shadow: 0 14px 28px rgba(245, 158, 11, .30);
     }
 </style>
 
-<section class="pt-8 pb-10 px-6">
-    <div class="max-w-7xl mx-auto text-center">
+<section class="pt-10 pb-12 px-6">
+    <div class="max-w-7xl mx-auto text-center hero-card rounded-[36px] px-6 py-12">
 
         <p data-aos="fade-down"
            data-aos-duration="900"
-           class="text-red-600 font-black uppercase tracking-widest mb-3 text-sm">
-            — Company Partner —
+           class="section-badge mb-5">
+            Company Partner
         </p>
 
         <h2 data-aos="fade-up"
             data-aos-duration="1000"
             data-aos-delay="150"
-            class="text-4xl md:text-6xl font-black text-gray-900 mb-4 tracking-tighter leading-tight">
+            class="text-4xl md:text-6xl font-black text-gray-900 mb-5 tracking-tighter leading-tight">
 
             Daftar Perusahaan
-            <span class="text-red-600">
+            <span class="shimmer-text">
                 Bersama
             </span>
 
         </h2>
 
-        <p class="text-gray-500 font-semibold max-w-2xl mx-auto">
+        <p class="text-gray-500 font-semibold max-w-2xl mx-auto leading-relaxed">
             Temukan perusahaan terpercaya, lihat detail lowongan, event, dan review dari pelamar.
         </p>
 
@@ -86,7 +168,7 @@
 
     <div data-aos="fade-right"
          data-aos-duration="900"
-         class="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b-4 border-yellow-400 pb-5">
+         class="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white/80 backdrop-blur-xl border border-white rounded-[28px] shadow-lg px-6 py-5">
 
         <div>
             <h3 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight uppercase">
@@ -171,16 +253,16 @@
 
                 <div>
 
-                    <div class="h-32 bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 border-b border-gray-100 relative">
+                    <div class="h-32 company-cover border-b border-gray-100 relative">
 
-                        <div class="absolute -bottom-8 left-6 w-20 h-20 bg-white rounded-2xl shadow-xl border-4 border-white flex items-center justify-center overflow-hidden group-hover:scale-105 transition duration-500 ease-out">
+                        <div class="absolute -bottom-8 left-6 w-20 h-20 bg-white rounded-2xl border-4 border-white flex items-center justify-center overflow-hidden group-hover:scale-105 transition duration-500 ease-out company-logo-box">
                             <img src="{{ $logoUrl }}"
                                  onerror="this.onerror=null; this.src='{{ asset('foto_perusahaan/images.png') }}';"
                                  alt="Logo {{ $namaPerusahaan }}"
                                  class="w-full h-full object-contain p-2">
                         </div>
 
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-blue-600 rounded-full px-3 py-1 text-xs font-black shadow-sm flex items-center gap-1">
+                        <div class="absolute top-4 right-4 verified-badge rounded-full px-3 py-1 text-xs font-black shadow-sm flex items-center gap-1">
                             <i class="fas fa-check-circle"></i>
                             Verified
                         </div>
@@ -210,7 +292,7 @@
 
                         <div class="grid grid-cols-3 gap-3 mb-4">
 
-                            <div class="bg-red-50 rounded-2xl p-3 text-center border border-red-100 group-hover:bg-red-100/60 transition duration-300">
+                            <div class="stat-card bg-red-50 rounded-2xl p-3 text-center border border-red-100 group-hover:bg-red-100/70 transition duration-300">
                                 <p class="text-lg font-black text-red-600">
                                     {{ $totalLoker }}
                                 </p>
@@ -219,7 +301,7 @@
                                 </p>
                             </div>
 
-                            <div class="bg-yellow-50 rounded-2xl p-3 text-center border border-yellow-100 group-hover:bg-yellow-100/60 transition duration-300">
+                            <div class="stat-card bg-yellow-50 rounded-2xl p-3 text-center border border-yellow-100 group-hover:bg-yellow-100/70 transition duration-300">
                                 <p class="text-lg font-black text-yellow-600">
                                     {{ $totalEvent }}
                                 </p>
@@ -228,7 +310,7 @@
                                 </p>
                             </div>
 
-                            <div class="bg-orange-50 rounded-2xl p-3 text-center border border-orange-100 group-hover:bg-orange-100/60 transition duration-300">
+                            <div class="stat-card bg-orange-50 rounded-2xl p-3 text-center border border-orange-100 group-hover:bg-orange-100/70 transition duration-300">
                                 <p class="text-lg font-black text-orange-500">
                                     {{ $totalReview }}
                                 </p>
@@ -248,13 +330,13 @@
                     <div class="grid grid-cols-2 gap-3">
 
                         <a href="{{ route('perusahaan.detail', $perusahaan->id) }}"
-                           class="text-center bg-red-brand hover:bg-red-700 active:scale-95 text-white px-4 py-3 rounded-xl font-black text-sm tracking-wide shadow-md transition-all duration-150 hover:scale-[1.02] no-underline">
+                           class="text-center btn-main active:scale-95 text-white px-4 py-3 rounded-xl font-black text-sm tracking-wide transition-all duration-200 hover:scale-[1.02] no-underline">
                             <i class="fas fa-info-circle mr-1"></i>
                             Detail
                         </a>
 
                         <a href="{{ route('perusahaan.review', $perusahaan->id) }}"
-                           class="text-center bg-yellow-400 hover:bg-yellow-500 active:scale-95 text-black px-4 py-3 rounded-xl font-black text-sm tracking-wide shadow-md transition-all duration-150 hover:scale-[1.02] no-underline">
+                           class="text-center btn-review active:scale-95 text-black px-4 py-3 rounded-xl font-black text-sm tracking-wide transition-all duration-200 hover:scale-[1.02] no-underline">
                             <i class="fas fa-star mr-1"></i>
                             Review
                         </a>
@@ -264,7 +346,7 @@
                     @if($website)
                         <a href="{{ str_starts_with($website, 'http') ? $website : 'https://' . $website }}"
                            target="_blank"
-                           class="block text-center border-2 border-gray-100 hover:border-red-400 active:scale-[0.98] text-gray-700 hover:text-red-600 px-4 py-2.5 rounded-xl font-bold text-xs transition duration-200 no-underline">
+                           class="block text-center border-2 border-gray-100 bg-white hover:bg-red-50 hover:border-red-300 active:scale-[0.98] text-gray-700 hover:text-red-600 px-4 py-2.5 rounded-xl font-bold text-xs transition duration-200 no-underline">
                             Website Utama
                             <i class="fas fa-external-link-alt ml-1 text-[10px]"></i>
                         </a>
@@ -276,7 +358,11 @@
 
         @empty
 
-            <div class="col-span-full bg-white rounded-3xl shadow-xl p-12 text-center">
+            <div class="col-span-full bg-white rounded-3xl shadow-xl p-12 text-center border border-gray-100">
+                <div class="w-20 h-20 mx-auto rounded-3xl bg-red-50 text-red-600 flex items-center justify-center text-4xl mb-5">
+                    <i class="fas fa-building"></i>
+                </div>
+
                 <h3 class="text-3xl font-black text-gray-800">
                     Belum Ada Perusahaan
                 </h3>
