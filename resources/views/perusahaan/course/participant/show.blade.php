@@ -4,49 +4,55 @@
 
 @section('content')
 
-<div class="max-w-7xl mx-auto">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-    {{-- HERO --}}
-    <div class="relative overflow-hidden bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400 rounded-[2.5rem] shadow-2xl p-8 md:p-10 mb-8 text-white max-w-xl">
+    {{-- HEADER --}}
+    <div class="mb-8 bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
 
-        <div class="absolute -top-20 -right-20 w-64 h-64 bg-white/20 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 px-6 md:px-8 py-8 text-white">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
 
-        <div class="relative">
-            <p class="text-white font-black text-lg mb-5">
-                Dashboard Perusahaan
-            </p>
+                <div>
+                    <p class="font-bold text-white/90 mb-2">
+                        Dashboard Perusahaan
+                    </p>
 
-            <h1 class="text-5xl md:text-6xl font-black leading-none">
-                Peserta<br>
-                Course
-            </h1>
+                    <h1 class="text-3xl md:text-4xl font-black">
+                        Peserta Course
+                    </h1>
 
-            <p class="text-white text-xl md:text-2xl mt-7 leading-relaxed">
-                Kelola peserta yang mendaftar course perusahaan Anda.
-            </p>
+                    <p class="text-white/90 mt-2 max-w-2xl">
+                        Kelola peserta yang mendaftar course perusahaan Anda.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+            <div>
+                <p class="text-gray-400 font-black uppercase text-sm tracking-wide">
+                    Course
+                </p>
+
+                <h2 class="text-2xl md:text-3xl font-black text-gray-900 mt-1">
+                    {{ $course->title }}
+                </h2>
+            </div>
 
             <a href="{{ route('perusahaan.course.participant.index') }}"
-               class="mt-8 inline-flex w-full items-center justify-center bg-white hover:bg-red-50 text-red-600 px-6 py-5 rounded-3xl font-black text-lg shadow-xl transition">
+               class="inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-3 rounded-2xl font-bold transition">
                 ← Kembali ke Course
             </a>
+
         </div>
 
     </div>
 
-    {{-- COURSE TITLE --}}
-    <div class="mb-8 bg-white rounded-3xl shadow border border-gray-100 p-6">
-        <p class="text-gray-400 font-black uppercase text-sm tracking-wide">
-            Course
-        </p>
-
-        <h2 class="text-2xl md:text-3xl font-black text-gray-900 mt-2">
-            {{ $course->title }}
-        </h2>
-    </div>
-
+    {{-- ALERT --}}
     @if(session('success'))
-        <div class="mb-6 bg-green-100 border border-green-300 text-green-700 px-5 py-4 rounded-2xl font-semibold">
+        <div class="mb-6 bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-2xl font-semibold shadow-sm">
             {{ session('success') }}
         </div>
     @endif
@@ -56,9 +62,10 @@
 
         @forelse($registrations as $registration)
 
-            <div class="bg-white rounded-3xl shadow border border-gray-100 p-5">
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-5">
 
                 <div class="flex items-start justify-between gap-4 mb-5">
+
                     <div>
                         <h2 class="text-xl font-black text-gray-900">
                             {{ $registration->nama }}
@@ -70,21 +77,22 @@
                     </div>
 
                     @if($registration->status === 'pending')
-                        <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-xs font-bold">
+                        <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-xs font-black">
                             Pending
                         </span>
                     @elseif($registration->status === 'approved')
-                        <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-xs font-bold">
+                        <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-xs font-black">
                             Approved
                         </span>
                     @else
-                        <span class="bg-red-100 text-red-700 px-4 py-2 rounded-full text-xs font-bold">
+                        <span class="bg-red-100 text-red-700 px-4 py-2 rounded-full text-xs font-black">
                             Rejected
                         </span>
                     @endif
+
                 </div>
 
-                <div class="space-y-4">
+                <div class="grid grid-cols-1 gap-4">
 
                     <div class="bg-gray-50 rounded-2xl p-4">
                         <p class="text-xs text-gray-400 font-black uppercase tracking-wide">
@@ -97,27 +105,25 @@
                     </div>
 
                     <div class="bg-gray-50 rounded-2xl p-4">
-                        <p class="text-xs text-gray-400 font-black uppercase tracking-wide">
+                        <p class="text-xs text-gray-400 font-black uppercase tracking-wide mb-2">
                             Pembayaran
                         </p>
 
-                        <div class="mt-2">
-                            @if($registration->payment)
-                                @if($registration->payment->status === 'verified')
-                                    <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
-                                        Terverifikasi
-                                    </span>
-                                @else
-                                    <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-sm font-bold">
-                                        Menunggu Verifikasi
-                                    </span>
-                                @endif
+                        @if($registration->payment)
+                            @if($registration->payment->status === 'verified')
+                                <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
+                                    Terverifikasi
+                                </span>
                             @else
-                                <span class="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-bold">
-                                    Tidak Ada
+                                <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-sm font-bold">
+                                    Menunggu Verifikasi
                                 </span>
                             @endif
-                        </div>
+                        @else
+                            <span class="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-bold">
+                                Tidak Ada
+                            </span>
+                        @endif
                     </div>
 
                 </div>
@@ -126,26 +132,24 @@
 
                     @if($registration->status === 'pending')
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="grid grid-cols-2 gap-3">
 
-                            <form action="{{ route('perusahaan.course.participant.approve', $registration->id) }}"
-                                  method="POST">
+                            <form action="{{ route('perusahaan.course.participant.approve', $registration->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
 
                                 <button type="submit"
-                                        class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-2xl text-sm font-bold transition">
+                                        class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-2xl text-sm font-black transition">
                                     Approve
                                 </button>
                             </form>
 
-                            <form action="{{ route('perusahaan.course.participant.reject', $registration->id) }}"
-                                  method="POST">
+                            <form action="{{ route('perusahaan.course.participant.reject', $registration->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
 
                                 <button type="submit"
-                                        class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-2xl text-sm font-bold transition">
+                                        class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-2xl text-sm font-black transition">
                                     Reject
                                 </button>
                             </form>
@@ -168,12 +172,9 @@
 
         @empty
 
-            <div class="bg-white rounded-3xl shadow p-10 text-center">
-                <div class="text-5xl mb-3">
-                    👥
-                </div>
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-10 text-center">
 
-                <p class="font-bold text-gray-700 text-xl">
+                <p class="font-black text-gray-800 text-2xl">
                     Belum Ada Peserta
                 </p>
 
@@ -187,30 +188,30 @@
     </div>
 
     {{-- DESKTOP TABLE VIEW --}}
-    <div class="hidden lg:block bg-white rounded-3xl shadow overflow-hidden">
+    <div class="hidden lg:block bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
 
         <div class="overflow-x-auto">
 
             <table class="w-full text-left">
 
-                <thead class="bg-red-50">
+                <thead class="bg-gray-50 border-b border-gray-100">
                     <tr>
-                        <th class="p-5 text-gray-700">Peserta</th>
-                        <th class="p-5 text-gray-700">Kontak</th>
-                        <th class="p-5 text-gray-700">Status</th>
-                        <th class="p-5 text-gray-700">Pembayaran</th>
-                        <th class="p-5 text-gray-700 text-center">Aksi</th>
+                        <th class="px-6 py-5 text-gray-600 text-sm font-black uppercase tracking-wide">Peserta</th>
+                        <th class="px-6 py-5 text-gray-600 text-sm font-black uppercase tracking-wide">Kontak</th>
+                        <th class="px-6 py-5 text-gray-600 text-sm font-black uppercase tracking-wide">Status</th>
+                        <th class="px-6 py-5 text-gray-600 text-sm font-black uppercase tracking-wide">Pembayaran</th>
+                        <th class="px-6 py-5 text-gray-600 text-sm font-black uppercase tracking-wide text-center">Aksi</th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="divide-y divide-gray-100">
 
                 @forelse($registrations as $registration)
 
-                    <tr class="border-t hover:bg-gray-50 transition">
+                    <tr class="hover:bg-red-50/40 transition">
 
-                        <td class="p-5">
-                            <p class="font-bold text-gray-900">
+                        <td class="px-6 py-5">
+                            <p class="font-black text-gray-900">
                                 {{ $registration->nama }}
                             </p>
 
@@ -219,13 +220,13 @@
                             </p>
                         </td>
 
-                        <td class="p-5">
+                        <td class="px-6 py-5">
                             <p class="font-semibold text-gray-700">
                                 {{ $registration->no_hp }}
                             </p>
                         </td>
 
-                        <td class="p-5">
+                        <td class="px-6 py-5">
                             @if($registration->status === 'pending')
                                 <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-sm font-bold">
                                     Pending
@@ -241,7 +242,7 @@
                             @endif
                         </td>
 
-                        <td class="p-5">
+                        <td class="px-6 py-5">
                             @if($registration->payment)
                                 @if($registration->payment->status === 'verified')
                                     <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
@@ -259,13 +260,12 @@
                             @endif
                         </td>
 
-                        <td class="p-5">
+                        <td class="px-6 py-5">
                             <div class="flex flex-wrap justify-center gap-2">
 
                                 @if($registration->status === 'pending')
 
-                                    <form action="{{ route('perusahaan.course.participant.approve', $registration->id) }}"
-                                          method="POST">
+                                    <form action="{{ route('perusahaan.course.participant.approve', $registration->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
 
@@ -275,8 +275,7 @@
                                         </button>
                                     </form>
 
-                                    <form action="{{ route('perusahaan.course.participant.reject', $registration->id) }}"
-                                          method="POST">
+                                    <form action="{{ route('perusahaan.course.participant.reject', $registration->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
 
@@ -288,7 +287,7 @@
 
                                 @else
 
-                                    <span class="text-gray-400 text-sm">
+                                    <span class="bg-gray-100 text-gray-400 px-4 py-2 rounded-xl text-sm font-semibold">
                                         Tidak ada aksi
                                     </span>
 
@@ -302,12 +301,10 @@
                 @empty
 
                     <tr>
-                        <td colspan="5" class="p-10 text-center">
-                            <div class="text-5xl mb-3">
-                                👥
-                            </div>
+                        <td colspan="5" class="px-6 py-14 text-center">
+                            <div class="text-6xl mb-4">👥</div>
 
-                            <p class="font-bold text-gray-700 text-xl">
+                            <p class="font-black text-gray-800 text-2xl">
                                 Belum Ada Peserta
                             </p>
 
