@@ -272,7 +272,7 @@
 
                 @if(session('error'))
                     <div class="alert-error px-5 py-4 rounded-2xl mb-5 font-bold">
-                        ⚠️ {{ session('error') }}
+                     {{ session('error') }}
                     </div>
                 @endif
 

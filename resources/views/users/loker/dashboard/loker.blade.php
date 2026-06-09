@@ -10,12 +10,6 @@
             </div>
         @endif
 
-        @if(session('error'))
-            <div class="bg-red-100 border border-red-300 text-red-700 px-5 py-4 rounded-2xl mb-8 font-medium shadow-sm text-sm">
-                {{ session('error') }}
-            </div>
-        @endif
-
         <div class="mb-10">
             <h2 class="text-4xl font-bold text-gray-800 mb-3">
                 Lowongan Kerja

@@ -7,7 +7,7 @@ use App\Models\Service;
 use App\Models\Course;
 use App\Models\CourseRegistration;
 
-// USER / PUBLIC CONTROLLERS
+// PELAMAR CONTROLLERS
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\LokerController;
 use App\Http\Controllers\EventController;
@@ -20,6 +20,7 @@ use App\Http\Controllers\InboxController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\GroupCommentController;
 use App\Http\Controllers\ProfileSettingsController;
+use App\Http\Controllers\SearchController;
 
 //PERUSAHAAN CONTROLLER
 use App\Http\Controllers\Perusahaan\ManajemenController;
@@ -209,20 +210,28 @@ Route::middleware(['auth'])->group(function () {
 */
 
 Route::middleware(['auth'])->group(function () {
-
+    
     Route::get('/course', [CourseController::class, 'index'])
-        ->name('course.index');
-
+    ->name('course.index');
+    
     Route::get('/course/{course}/register', [CourseController::class, 'registerForm'])
-        ->name('course.register.form');
-
+    ->name('course.register.form');
+    
     Route::post('/course/{course}/register', [CourseController::class, 'register'])
-        ->name('course.register');
-
+    ->name('course.register');
+    
     Route::get('/course/{course}/access', [CourseController::class, 'access'])
-        ->name('course.access');
-
-});
+    ->name('course.access');
+    
+    });
+    
+/*
+|--------------------------------------------------------------------------
+| Search Route
+|--------------------------------------------------------------------------
+*/
+    Route::get('/search', [SearchController::class, 'index'])
+        ->name('search.global');
 
 /*
 |--------------------------------------------------------------------------
