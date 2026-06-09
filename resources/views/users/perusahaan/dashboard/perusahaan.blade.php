@@ -77,43 +77,50 @@
 </head>
 
 @php
-    $namaPerusahaan = $perusahaan->nama_perusahaan
-        ?? $perusahaan->nama
-        ?? $perusahaan->name
-        ?? 'Nama Perusahaan';
+$logo = $perusahaan->logo
+    ?? $perusahaan->foto
+    ?? $perusahaan->foto_perusahaan
+    ?? null;
 
+if ($logo) {
 
-    $deskripsi = $perusahaan->deskripsi
-        ?? $perusahaan->description
-        ?? 'Deskripsi perusahaan belum tersedia.';
+    if (str_starts_with($logo, 'http://') || str_starts_with($logo, 'https://')) {
 
-    $alamat = $perusahaan->alamat
-        ?? $perusahaan->lokasi
-        ?? $perusahaan->headquarters
-        ?? '-';
+        $logoUrl = $logo;
 
-    $website = $perusahaan->website
-        ?? $perusahaan->situs
-        ?? null;
-
-    $email = $perusahaan->email ?? '-';
-
-    $logo = $perusahaan->logo
-        ?? $perusahaan->foto
-        ?? $perusahaan->foto_perusahaan
-        ?? null;
-
-    if ($logo) {
-        if (str_starts_with($logo, 'http://') || str_starts_with($logo, 'https://')) {
-            $logoUrl = $logo;
-        } elseif (str_contains($logo, '/')) {
-            $logoUrl = asset($logo);
-        } else {
-            $logoUrl = asset('foto_perusahaan/' . $logo);
-        }
     } else {
-        $logoUrl = asset('foto_perusahaan/images.png');
+
+        $cleanLogo = ltrim($logo, '/');
+
+        if (
+            str_starts_with($cleanLogo, 'storage/') ||
+            str_starts_with($cleanLogo, 'foto_perusahaan/') ||
+            str_starts_with($cleanLogo, 'images/')
+        ) {
+
+            $logoUrl = asset($cleanLogo);
+
+        } else {
+
+            if (file_exists(public_path('storage/' . $cleanLogo))) {
+
+                $logoUrl = asset('storage/' . $cleanLogo);
+
+            } elseif (file_exists(public_path('images/' . $cleanLogo))) {
+
+                $logoUrl = asset('images/' . $cleanLogo);
+
+            } else {
+
+                $logoUrl = asset('foto_perusahaan/' . $cleanLogo);
+            }
+        }
     }
+
+} else {
+
+    $logoUrl = asset('foto_perusahaan/images.png');
+}
 @endphp
 
 <body>
@@ -124,11 +131,13 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
 
             <div class="w-44 h-44 bg-white rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden border-8 border-white glow-red transform hover:rotate-3 transition">
-                <img src="{{ $logoUrl }}"
-                     alt="Logo Perusahaan"
-                     class="object-contain w-full p-4">
-            </div>
 
+    <img src="{{ $logoUrl }}"
+         onerror="this.src='{{ asset('foto_perusahaan/images.png') }}'"
+         alt="Logo Perusahaan"
+         class="w-full h-full object-contain p-4">
+
+    </div>
             <div class="text-center md:text-left">
 
                 <p class="text-red-600 font-black uppercase tracking-widest mb-2">
@@ -268,44 +277,53 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
 
                 @forelse($events as $event)
-
-                    <div class="group bg-white rounded-[32px] overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100">
-
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop"
-                                 class="h-60 w-full object-cover group-hover:scale-110 transition duration-500">
-
-                            <div class="absolute top-4 left-4 bg-yellow-400 text-red-700 font-black px-4 py-1 rounded-full text-xs uppercase">
-                                Event
-                            </div>
+                            
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col">
+                
+                    <div class="relative overflow-hidden bg-gray-100 h-60">
+                    
+                        <img src="{{ asset($event->poster) }}"
+                             onerror="this.src='{{ asset('images/default-event.jpg') }}'"
+                             alt="{{ $event->nama_event }}"
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    
+                        <div class="absolute top-4 left-4 bg-yellow-400 text-red-700 font-black px-4 py-1 rounded-full text-xs uppercase">
+                            Event
                         </div>
-
-                        <div class="p-8">
-
-                            <h4 class="font-black text-xl mb-3 group-hover:text-red-600 transition">
-                                {{ $event->nama_event }}
-                            </h4>
-
-                            <p class="text-gray-500 text-sm leading-relaxed mb-3">
-                                {{ $event->lokasi }}
-                            </p>
-
-                            <p class="text-gray-500 text-sm leading-relaxed mb-6">
-                                {{ $event->tanggal_event ?? '-' }}
-                                @if(!empty($event->jam))
-                                    • {{ substr($event->jam, 0, 5) }}
-                                @endif
-                            </p>
-
-                            <a href="{{ route('event.index') }}"
-                               class="inline-block bg-red-600 text-white font-black px-6 py-3 rounded-2xl text-sm shadow-lg hover:bg-red-700 transition">
-                                See More →
-                            </a>
-
-                        </div>
-
+                    
                     </div>
-
+                
+                    <div class="p-6 flex flex-col flex-1">
+                    
+                        <h4 class="font-black text-xl mb-3 text-gray-900 line-clamp-2 min-h-[60px]">
+                            {{ $event->nama_event }}
+                        </h4>
+                    
+                        <p class="text-gray-500 text-sm mb-2">
+                            <i class="fas fa-map-marker-alt mr-2 text-red-500"></i>
+                            {{ $event->lokasi }}
+                        </p>
+                    
+                        <p class="text-gray-500 text-sm mb-6">
+                            <i class="fas fa-calendar-alt mr-2 text-red-500"></i>
+                            {{ \Carbon\Carbon::parse($event->tanggal_event)->format('d M Y') }}
+                        
+                            @if(!empty($event->jam))
+                                • {{ substr($event->jam,0,5) }}
+                            @endif
+                        </p>
+                    
+                        <div class="mt-auto">
+                            <a href="{{ route('event.show', $event->id) }}"
+                               class="inline-flex items-center justify-center w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition">
+                                Lihat Event
+                            </a>
+                        </div>
+                    
+                    </div>
+                
+                </div>
+                
                 @empty
 
                     <div class="md:col-span-3 bg-white rounded-3xl p-10 text-center shadow-xl">
