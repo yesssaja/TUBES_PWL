@@ -4,8 +4,22 @@
             LOKER SEEKER🔥
         </h2>
 
-        <p>Email : lokerseeker@gmail.com</p>
-        <p>Instagram : @lokerseeker</p>
+       <p>
+            Email :
+            <a href="mailto:lokerseeker@gmail.com"
+               class="text-white hover:underline">
+                lokerseeker@gmail.com
+            </a>
+        </p>
+
+        <p>
+            Instagram :
+            <a href="https://instagram.com/lokerseeker"
+               target="_blank"
+               class="text-white hover:underline">
+                @lokerseeker
+            </a>
+        </p>
 
         <p class="mt-6">
             © 2026 LOKER SEEKER🔥
