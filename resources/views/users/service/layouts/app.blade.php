@@ -50,7 +50,7 @@
 
     @include('users.layouts.footer')
 
-    @yield('scripts')
+    @yield('script')
 
 </body>
 

@@ -697,8 +697,8 @@
 @endsection
 
 @section('script')
-<!-- QUILL -->
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+   <!-- QUILL -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -820,6 +820,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // RESET INPUT
         input.value = '';
     });
+
+  
 
     // =====================================================
     // SELECT BAHASA
@@ -1072,3 +1074,14 @@ serviceForm.addEventListener('submit', function (e) {
 </script>
 
 @endsection
+
+
+
+
+
+
+
+
+
+
+
