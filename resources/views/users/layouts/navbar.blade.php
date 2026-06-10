@@ -1,7 +1,7 @@
 <header class="bg-red-600 shadow-lg relative z-50">
     <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
 
-        <a href="{{ route('welcome') }}" class="text-white text-3xl font-black no-underline">
+        <a href="{{ route('index') }}" class="text-white text-3xl font-black no-underline">
             LOKER SEEKER
         </a>
 
@@ -177,7 +177,7 @@
                         @endif
                     @endauth
                     
-                    <a href="{{ route('welcome') }}"
+                    <a href="{{ route('index') }}"
                        class="block px-4 py-3 font-bold text-black hover:bg-red-100 rounded-xl">
                         <span class="inline-flex items-center gap-3">
                             <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-red-500 to-rose-700 flex items-center justify-center shadow-md">

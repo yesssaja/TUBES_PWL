@@ -79,8 +79,8 @@ Route::get('/', function () {
             ->keyBy('course_id');
     }
     
-    return view('users.welcome', compact('lokers', 'services', 'courses', 'registrations'));
-})->name('welcome');
+    return view('users.index', compact('lokers', 'services', 'courses', 'registrations'));
+})->name('index');
 
 /*
 |--------------------------------------------------------------------------
