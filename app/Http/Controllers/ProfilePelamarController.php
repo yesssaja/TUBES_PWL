@@ -27,7 +27,11 @@ class ProfilePelamarController extends Controller
             'foto_diri' => 'required|image|max:2048',
             'nik' => 'required|digits:16',
             'tempat_lahir' => 'required|string',
-            'tgl_lahir' => 'required|date',
+            'tgl_lahir' => [
+                'required',
+                'date',
+                'before_or_equal:' . now()->subYears(17)->format('Y-m-d'),
+            ],
             'gender' => 'required|in:Laki-laki,Perempuan',
             'no_hp' => 'required|max:15',
             'foto_ktp' => 'required|image|max:2048',
