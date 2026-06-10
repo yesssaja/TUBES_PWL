@@ -111,7 +111,7 @@
             <div>
 
                 <form id="reviewForm"
-                      action="{{ route('review.store') }}"
+                      action="{{ route('review.tulis.store') }}"
                       method="POST"
                       class="bg-white rounded-[32px] border border-gray-100 shadow-lg p-5 sm:p-7 lg:p-8">
 

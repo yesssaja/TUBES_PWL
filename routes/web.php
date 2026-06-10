@@ -116,7 +116,7 @@ Route::get('/review/tulis/{perusahaan}', [ReviewController::class, 'create'])
     ->name('tulis.review');
 
 Route::post('/review/tulis', [ReviewController::class, 'store'])
-    ->name('review.store');
+    ->name('review.tulis.store');
 
 /*
 |--------------------------------------------------------------------------
