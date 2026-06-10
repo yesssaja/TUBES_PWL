@@ -250,6 +250,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/profile-pelamar', [ProfilePelamarController::class, 'index'])
         ->name('profile.pelamar.index');
 
+    Route::get('/profile-pelamar/create', [ProfilePelamarController::class, 'create'])
+        ->name('profile.pelamar.create');
+
     Route::post('/profile-pelamar', [ProfilePelamarController::class, 'store'])
         ->name('profile.pelamar.store');});
 
