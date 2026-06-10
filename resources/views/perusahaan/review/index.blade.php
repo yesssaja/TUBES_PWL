@@ -31,13 +31,13 @@
     {{-- ALERT --}}
     @if(session('success'))
         <div class="mb-6 bg-green-100 border border-green-300 text-green-700 px-5 py-4 rounded-2xl font-semibold shadow-sm">
-            ✅ {{ session('success') }}
+             {{ session('success') }}
         </div>
     @endif
 
     @if($errors->any())
         <div class="mb-6 bg-red-100 border border-red-300 text-red-700 px-5 py-4 rounded-2xl font-semibold shadow-sm">
-            ⚠️ {{ $errors->first() }}
+             {{ $errors->first() }}
         </div>
     @endif
 

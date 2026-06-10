@@ -18,7 +18,7 @@
         </div>
 
         <a href="{{ route('perusahaan.dashboard') }}"
-           class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-5 py-3 rounded-2xl font-semibold">
+           class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-5 py-3 rounded-2xl font-semibold transition">
             ← Dashboard
         </a>
     </div>
@@ -36,7 +36,7 @@
                 @method('PUT')
 
                 <button type="submit"
-                        class="bg-gray-800 hover:bg-black text-white px-5 py-3 rounded-2xl font-bold">
+                        class="bg-gray-800 hover:bg-black text-white px-5 py-3 rounded-2xl font-bold transition">
                     Tandai Semua Dibaca
                 </button>
             </form>
@@ -47,7 +47,32 @@
 
         @forelse($inboxes as $inbox)
 
-            <div class="bg-white rounded-3xl shadow border {{ $inbox->is_read ? 'border-gray-100' : 'border-yellow-300' }} p-6">
+            @php
+                $type = $inbox->type;
+
+                $isLamaran = in_array($type, [
+                    'lamaran',
+                    'lamaran_masuk'
+                ]);
+
+                $isRsvp = in_array($type, [
+                    'rsvp',
+                    'rsvp_masuk',
+                    'event_daftar',
+                    'pendaftaran_event'
+                ]);
+
+                $isCourse = in_array($type, [
+                    'course',
+                    'course_info',
+                    'course_daftar',
+                    'pendaftaran_course',
+                    'course_masuk'
+                ]);
+            @endphp
+
+            <div class="bg-white rounded-3xl shadow border p-6 transition hover:-translate-y-1 hover:shadow-lg
+                {{ $inbox->is_read ? 'border-gray-100' : 'border-yellow-300 ring-4 ring-yellow-100' }}">
 
                 <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-5">
 
@@ -55,51 +80,41 @@
 
                         <div class="flex flex-wrap items-center gap-3 mb-3">
 
-                           @if(in_array($inbox->type, ['lamaran', 'lamaran_masuk']))
-    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
-        Lamaran Masuk
-    </span>
+                            @if($isLamaran)
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Lamaran Masuk
+                                </span>
 
-@elseif(in_array($inbox->type, ['rsvp', 'rsvp_masuk']))
-    <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold">
-        RSVP Masuk
-    </span>
+                            @elseif($isRsvp)
+                                <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    RSVP Masuk
+                                </span>
 
-@elseif(in_array($inbox->type, ['event', 'event_info']))
-    <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold">
-        Event
-    </span>
+                            @elseif(in_array($type, ['event', 'event_info']))
+                                <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Event
+                                </span>
 
-@elseif(in_array($inbox->type, ['event_daftar', 'pendaftaran_event']))
-    <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold">
-        Pendaftaran Event
-    </span>
+                            @elseif($isCourse)
+                                <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Pendaftaran Course
+                                </span>
 
-@elseif(in_array($inbox->type, ['course', 'course_info']))
-    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
-        Course
-    </span>
+                            @elseif($type === 'review')
+                                <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Review Masuk
+                                </span>
 
-@elseif ($inbox->type === 'review')
-    <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold">
-        Review Masuk
-    </span>
+                            @elseif($type === 'admin_message')
+                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Pesan Admin
+                                </span>
 
-@elseif(in_array($inbox->type, ['course_daftar', 'pendaftaran_course']))
-    <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold">
-        Pendaftaran Course
-    </span>
-
-@elseif($inbox->type === 'admin_message')
-    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
-        Pesan Admin
-    </span>
-
-@else
-    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-bold">
-        Info
-    </span>
-@endif
+                            @else
+                                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-bold">
+                                    Info
+                                </span>
+                            @endif
 
                             @if(!$inbox->is_read)
                                 <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold">
@@ -117,12 +132,34 @@
                             {{ $inbox->message ?? 'Tidak ada isi pesan.' }}
                         </p>
 
-                        @if(!empty($inbox->action_url) && !empty($inbox->action_text))
-                            <a href="{{ $inbox->action_url }}"
-                               class="inline-block mt-5 bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-2xl text-sm font-bold">
-                                {{ $inbox->action_text }}
-                            </a>
-                        @endif
+                        <div class="mt-5 flex flex-wrap gap-3">
+                                                
+                            @if($isRsvp)
+                                <a href="{{ route('perusahaan.rsvp.index') }}"
+                                   class="inline-block bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-2xl text-sm font-bold transition">
+                                    Lihat Peserta
+                                </a>
+                            
+                            @elseif($isLamaran)
+                                <a href="{{ route('perusahaan.lamaran.index') }}"
+                                   class="inline-block bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-2xl text-sm font-bold transition">
+                                    Lihat Peserta
+                                </a>
+                            
+                            @elseif($isCourse)
+                                <a href="{{ route('perusahaan.course.participant.index') }}"
+                                   class="inline-block bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-2xl text-sm font-bold transition">
+                                    Lihat Peserta
+                                </a>
+                            
+                            @elseif(!empty($inbox->action_url) && !empty($inbox->action_text))
+                                <a href="{{ $inbox->action_url }}"
+                                   class="inline-block bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-2xl text-sm font-bold transition">
+                                    {{ $inbox->action_text }}
+                                </a>
+                            @endif
+                            
+                        </div>
 
                         <p class="text-sm text-gray-400 mt-4">
                             {{ $inbox->created_at ? $inbox->created_at->format('d M Y H:i') : '-' }}
@@ -140,7 +177,7 @@
                                 @method('PUT')
 
                                 <button type="submit"
-                                        class="w-full md:w-auto bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-2xl text-sm font-bold">
+                                        class="w-full md:w-auto bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-2xl text-sm font-bold transition">
                                     Tandai Dibaca
                                 </button>
                             </form>

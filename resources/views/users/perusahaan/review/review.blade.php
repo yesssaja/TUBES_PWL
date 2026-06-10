@@ -105,7 +105,7 @@
 
     @if(session('success'))
         <div class="bg-green-100 text-green-700 border border-green-300 px-5 py-4 rounded-2xl mb-6 font-semibold">
-            ✅ {{ session('success') }}
+             {{ session('success') }}
         </div>
     @endif
 

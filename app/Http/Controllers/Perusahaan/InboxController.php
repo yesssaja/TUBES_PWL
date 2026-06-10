@@ -48,6 +48,7 @@ class InboxController extends Controller
                 'event_daftar',
                 'pendaftaran_event',
                 'course',
+                'course_masuk',
                 'course_info',
                 'course_daftar',
                 'pendaftaran_course',

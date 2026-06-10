@@ -59,7 +59,7 @@ class LamaranController extends Controller
         Inbox::create([
             'pelamar_id' => $lamaran->pelamar_id,
             'title' => 'Lamaran Diterima',
-            'message' => 'Lamaran kamu untuk lowongan "' . ($lamaran->loker->judul_loker ?? '-') . '" telah diterima.',
+            'message' => 'Lamaran kamu untuk lowongan "' . ($lamaran->loker->judul_loker ?? '-') . '" telah diterima. Silahkan hubungi email yang tertera dalam detail perusahaan.',
             'type' => 'lamaran_diterima',
             'is_read' => false,
         ]);

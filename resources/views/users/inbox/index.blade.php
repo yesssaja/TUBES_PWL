@@ -43,7 +43,7 @@
             {{-- ALERT --}}
             @if (session('success'))
                 <div class="bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-2xl mb-6 shadow-sm font-semibold">
-                    ✅ {{ session('success') }}
+                     {{ session('success') }}
                 </div>
             @endif
 

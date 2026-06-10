@@ -157,10 +157,10 @@
                                 Lihat Portfolio
                             </a>
                         @else
-                            <a href="{{ asset('storage/' . $lamaran->portfolio) }}"
+                            <a href="{{$lamaran->portfolio}}"
                                target="_blank"
                                class="inline-flex justify-center w-full sm:w-auto bg-purple-100 text-purple-600 px-5 py-3 rounded-2xl font-bold hover:bg-purple-200 transition">
-                                Download Portfolio
+                                Portfolio
                             </a>
                         @endif
 
