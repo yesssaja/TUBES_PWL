@@ -30,7 +30,17 @@
         ?? $event->description
         ?? 'Tidak ada deskripsi.';
 
-    $statusEvent = $event->status ?? 'aktif';
+    $jumlahRsvp = method_exists($event, 'rsvps') ? $event->rsvps()->count() : 0;
+
+    $jumlahHadir = method_exists($event, 'rsvps')
+        ? $event->rsvps()->where('status_kehadiran', 'hadir')->count()
+        : 0;
+
+    $statusEvent = ($kuotaEvent > 0 && $jumlahHadir >= $kuotaEvent)
+        ? 'tidak_aktif'
+        : ($event->status ?? 'aktif');
+
+    $persentase = $kuotaEvent > 0 ? min(100, round(($jumlahHadir / $kuotaEvent) * 100)) : 0;
 
     if (!empty($event->poster)) {
         if (
@@ -38,20 +48,22 @@
             str_starts_with($event->poster, 'https://')
         ) {
             $posterEvent = $event->poster;
-        } else {
+        } elseif (str_starts_with($event->poster, 'poster_event/')) {
+            $posterEvent = asset('storage/' . $event->poster);
+        } elseif (str_starts_with($event->poster, 'images/')) {
             $posterEvent = asset($event->poster);
+        } else {
+            $posterEvent = file_exists(public_path('images/' . $event->poster))
+                ? asset('images/' . $event->poster)
+                : asset('storage/' . $event->poster);
         }
     } else {
         $posterEvent = asset('images/default-event.jpg');
     }
-
-    $jumlahRsvp = method_exists($event, 'rsvps') ? $event->rsvps()->count() : 0;
-    $persentase = $kuotaEvent > 0 ? min(100, round(($jumlahRsvp / $kuotaEvent) * 100)) : 0;
 @endphp
 
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    {{-- HEADER --}}
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
 
         <div class="min-w-0">
@@ -71,15 +83,13 @@
 
     </div>
 
-    {{-- CARD --}}
     <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
 
-        {{-- POSTER --}}
         <div class="relative min-h-[360px] md:min-h-[420px] bg-gray-100">
 
             <img src="{{ $posterEvent }}"
                  alt="{{ $namaEvent }}"
-                 onerror="this.src='{{ asset('images/default-event.jpg') }}'"
+                 onerror="this.onerror=null; this.src='{{ asset('images/default-event.jpg') }}'"
                  class="absolute inset-0 w-full h-full object-cover">
 
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10"></div>
@@ -97,6 +107,10 @@
                 @elseif($statusEvent == 'ditunda')
                     <span class="inline-block bg-yellow-500 text-white px-4 py-2 rounded-full text-sm font-bold">
                         Ditunda
+                    </span>
+                @elseif($statusEvent == 'tidak_aktif')
+                    <span class="inline-block bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold">
+                        Tidak Aktif
                     </span>
                 @else
                     <span class="inline-block bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-bold">
@@ -116,10 +130,8 @@
 
         </div>
 
-        {{-- CONTENT --}}
         <div class="p-5 sm:p-6 md:p-8">
 
-            {{-- INFO GRID --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
 
                 <div class="bg-red-50 rounded-3xl p-5 min-w-0">
@@ -164,7 +176,6 @@
 
             </div>
 
-            {{-- DESKRIPSI --}}
             <div class="bg-gray-50 rounded-3xl p-5 sm:p-6 mb-8 min-w-0">
 
                 <h3 class="text-xl md:text-2xl font-black text-gray-800 mb-4">
@@ -177,7 +188,6 @@
 
             </div>
 
-            {{-- RSVP --}}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
 
                 <div class="bg-white border border-gray-100 rounded-3xl p-5 sm:p-6 min-w-0 shadow-sm">
@@ -217,7 +227,7 @@
                     </div>
 
                     <p class="text-gray-500 mt-4 mb-6 break-words">
-                        {{ $jumlahRsvp }} dari {{ $kuotaEvent }} kuota telah terisi.
+                        {{ $jumlahHadir }} dari {{ $kuotaEvent }} kuota telah terisi.
                     </p>
 
                     <a href="{{ route('perusahaan.rsvp.index') }}"
@@ -229,7 +239,6 @@
 
             </div>
 
-            {{-- BUTTON --}}
             <div class="flex flex-col sm:flex-row gap-4">
 
                 <a href="{{ route('perusahaan.event.edit', $event->id) }}"

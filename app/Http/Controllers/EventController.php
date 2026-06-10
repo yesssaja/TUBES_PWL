@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use App\Models\Rsvp;
 
 class EventController extends Controller
 {
@@ -15,6 +14,7 @@ class EventController extends Controller
                     $query->where('status_kehadiran', 'hadir');
                 }
             ])
+            ->latest()
             ->get()
             ->filter(function ($event) {
                 $kuota = (int) $event->kuota;

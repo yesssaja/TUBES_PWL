@@ -106,11 +106,12 @@
                     <label class="block font-bold text-gray-700 mb-2">
                         Tanggal Event
                     </label>
-
+                
                     <input
                         type="date"
                         name="tanggal"
                         value="{{ old('tanggal') }}"
+                        min="{{ date('Y-m-d') }}"
                         class="w-full border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition">
                 </div>
 

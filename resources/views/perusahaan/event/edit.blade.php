@@ -18,17 +18,23 @@
         ?? $event->jam_event
         ?? '';
 
-    $posterEvent = asset('images/default-event.jpg');
-
     if (!empty($event->poster)) {
         if (
             str_starts_with($event->poster, 'http://') ||
             str_starts_with($event->poster, 'https://')
         ) {
             $posterEvent = $event->poster;
-        } else {
+        } elseif (str_starts_with($event->poster, 'poster_event/')) {
+            $posterEvent = asset('storage/' . $event->poster);
+        } elseif (str_starts_with($event->poster, 'images/')) {
             $posterEvent = asset($event->poster);
+        } else {
+            $posterEvent = file_exists(public_path('images/' . $event->poster))
+                ? asset('images/' . $event->poster)
+                : asset('storage/' . $event->poster);
         }
+    } else {
+        $posterEvent = asset('images/default-event.jpg');
     }
 @endphp
 
@@ -37,10 +43,6 @@
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
 
         <div>
-            <h1 class="text-3xl font-black text-gray-900">
-                Edit Event
-            </h1>
-
             <p class="text-gray-500 mt-2">
                 Perbarui informasi event perusahaan Anda.
             </p>
@@ -71,12 +73,12 @@
 
     <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
 
-        <div class="bg-red-600 p-8 text-white">
-            <h2 class="text-3xl font-black">
+        <div class="bg-red-600 p-6 sm:p-8 text-white">
+            <h2 class="text-2xl sm:text-3xl font-black">
                 Form Edit Event
             </h2>
 
-            <p class="text-white/90 mt-2">
+            <p class="text-white/90 mt-2 text-sm sm:text-base">
                 Ubah detail event sesuai kebutuhan perusahaan Anda.
             </p>
         </div>
@@ -84,47 +86,56 @@
         <form action="{{ route('perusahaan.event.update', $event->id) }}"
               method="POST"
               enctype="multipart/form-data"
-              class="p-6 md:p-8 space-y-8">
+              class="p-5 sm:p-6 md:p-8 space-y-8">
 
             @csrf
             @method('PUT')
 
             {{-- POSTER --}}
-            <div class="bg-red-50 rounded-3xl p-6 border border-red-100">
+<div class="bg-red-50 rounded-3xl p-5 sm:p-6 border border-red-100">
 
-                <label class="block font-black text-gray-800 mb-4">
-                    Poster Event
-                </label>
+    <label class="block font-black text-gray-800 mb-4">
+        Poster Event
+    </label>
 
-                <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6 items-start">
 
-                    <div class="w-40 h-40 rounded-3xl overflow-hidden border border-gray-100 bg-white shadow-sm shrink-0">
-                        <img src="{{ $posterEvent }}"
-                             onerror="this.src='{{ asset('images/default-event.jpg') }}'"
-                             alt="{{ $judulEvent }}"
-                             class="w-full h-full object-cover">
-                    </div>
-
-                    <div class="flex-1">
-
-                        <input type="file"
-                               name="poster"
-                               accept="image/png, image/jpeg, image/jpg"
-                               class="w-full border border-gray-300 rounded-2xl p-4 bg-white focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition">
-
-                        <p class="text-sm text-gray-500 mt-3">
-                            Kosongkan jika tidak ingin mengganti poster.
-                        </p>
-
-                        <p class="text-xs text-gray-400 mt-2 break-words">
-                            Poster saat ini: {{ $event->poster ?? '-' }}
-                        </p>
-
-                    </div>
-
-                </div>
-
+        <div>
+            <div class="w-full h-44 rounded-3xl overflow-hidden border border-gray-100 bg-white shadow-sm">
+                <img src="{{ $posterEvent }}"
+                     onerror="this.onerror=null; this.src='{{ asset('images/default-event.jpg') }}'"
+                     alt="{{ $judulEvent }}"
+                     class="w-full h-full object-cover">
             </div>
+
+            <p class="text-xs text-gray-500 mt-3 leading-relaxed">
+                Poster lama tetap digunakan jika tidak upload poster baru.
+            </p>
+        </div>
+
+        <div class="w-full min-w-0">
+
+            <input type="file"
+                   name="poster"
+                   accept="image/png, image/jpeg, image/jpg"
+                   class="block w-full text-sm text-gray-700 border border-gray-300 rounded-2xl bg-white cursor-pointer
+                          file:mr-4 file:py-3 file:px-5 file:rounded-xl file:border-0
+                          file:bg-red-600 file:text-white file:font-bold
+                          hover:file:bg-red-700">
+
+            <p class="text-sm text-gray-500 mt-3">
+                Kosongkan jika tidak ingin mengganti poster.
+            </p>
+
+            <p class="text-xs text-gray-400 mt-2 break-all">
+                Poster saat ini: {{ $event->poster ?? '-' }}
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
 
             {{-- FORM GRID --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -259,6 +270,10 @@
                         Ditunda
                     </option>
 
+                    <option value="tidak_aktif" {{ old('status', $event->status ?? '') == 'tidak_aktif' ? 'selected' : '' }}>
+                        Tidak Aktif
+                    </option>
+
                 </select>
             </div>
 
@@ -266,12 +281,12 @@
             <div class="flex flex-col sm:flex-row gap-4 pt-4">
 
                 <button type="submit"
-                        class="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg transition">
+                        class="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg transition">
                     Update Event
                 </button>
 
                 <a href="{{ route('perusahaan.event.index') }}"
-                   class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-8 py-4 rounded-2xl font-bold text-center transition">
+                   class="w-full sm:w-auto bg-gray-100 hover:bg-gray-200 text-gray-700 px-8 py-4 rounded-2xl font-bold text-center transition">
                     Batal
                 </a>
 
