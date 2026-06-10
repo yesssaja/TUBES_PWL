@@ -52,7 +52,7 @@
 
                 <div class="flex flex-col sm:flex-row lg:flex-col gap-3 min-w-[220px]">
 
-                    <a href="{{ route('welcome') }}"
+                    <a href="{{ route('index') }}"
                        class="bg-white text-[#3B0A12] hover:bg-[#FDF6D8] px-6 py-4 rounded-2xl font-black text-center shadow-lg transition duration-300 hover:-translate-y-1">
                         Home
                     </a>

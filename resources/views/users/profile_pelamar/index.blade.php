@@ -72,7 +72,7 @@
                             🔔 Inbox
                         </a>
 
-                        <a href="{{ route('welcome') }}"
+                        <a href="{{ route('index') }}"
                            class="block hover:bg-gray-100 px-4 py-3 rounded-2xl font-bold text-gray-700 no-underline">
                             🏠 Dashboard
                         </a>

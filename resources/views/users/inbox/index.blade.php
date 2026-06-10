@@ -31,7 +31,7 @@
                         </p>
                     </div>
 
-                    <a href="{{ route('welcome') }}"
+                    <a href="{{ route('index') }}"
                        class="inline-flex items-center justify-center bg-white/20 hover:bg-white/30 text-white font-black px-5 py-3 rounded-2xl shadow transition no-underline">
                         ← Home
                     </a>

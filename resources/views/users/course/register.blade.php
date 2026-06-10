@@ -10,7 +10,7 @@
 
         {{-- TOP NAV --}}
         <div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <a href="{{ route('welcome') }}"
+            <a href="{{ route('index') }}"
                class="text-red-600 text-3xl font-black tracking-tight">
                 LOKER SEEKER
             </a>

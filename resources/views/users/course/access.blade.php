@@ -21,7 +21,7 @@
                     ← Daftar Course
                 </a>
 
-                <a href="{{ route('welcome') }}"
+                <a href="{{ route('index') }}"
                    class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-2xl font-black shadow-lg transition text-center">
                     Home
                 </a>
