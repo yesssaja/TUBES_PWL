@@ -12,6 +12,12 @@
             ->where('event_id', $event->id)
             ->exists();
     }
+
+    $jumlahDiterima = \App\Models\Rsvp::where('event_id', $event->id)
+        ->where('status_kehadiran', 'hadir')
+        ->count();
+
+    $sisaKuota = max(($event->kuota ?? 0) - $jumlahDiterima, 0);
 @endphp
 
 <section class="relative overflow-hidden min-h-screen bg-gradient-to-br from-[#2A050A] via-[#4A0E17] to-red-100 pt-28 pb-24 px-4 sm:px-6 text-white">
@@ -117,7 +123,7 @@
                         </p>
 
                         <p class="text-base font-black text-yellow-200 mt-1">
-                            {{ $event->kuota ?? '-' }} Peserta
+                            {{ $sisaKuota }} Peserta
                         </p>
                     </div>
 

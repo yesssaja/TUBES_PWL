@@ -13,6 +13,16 @@ class RsvpController extends Controller
 {
     public function create(Event $event)
     {
+        $jumlahHadir = Rsvp::where('event_id', $event->id)
+            ->where('status_kehadiran', 'hadir')
+            ->count();
+
+        if ($event->kuota && $jumlahHadir >= $event->kuota) {
+            return redirect()
+                ->route('event.index')
+                ->with('error', 'Maaf, kuota event sudah penuh.');
+        }
+
         return view('users.event.rsvp', compact('event'));
     }
 
@@ -22,6 +32,16 @@ class RsvpController extends Controller
             return redirect()
                 ->route('login')
                 ->with('error', 'Silakan login terlebih dahulu untuk RSVP.');
+        }
+
+        $jumlahHadir = Rsvp::where('event_id', $event->id)
+            ->where('status_kehadiran', 'hadir')
+            ->count();
+
+        if ($event->kuota && $jumlahHadir >= $event->kuota) {
+            return redirect()
+                ->route('event.index')
+                ->with('error', 'Maaf, kuota event sudah penuh.');
         }
 
         $request->validate([
