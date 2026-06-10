@@ -236,10 +236,6 @@
                         <th class="px-6 py-4 text-center text-xs uppercase tracking-wider font-black">
                             Status
                         </th>
-
-                        <th class="px-6 py-4 text-center text-xs uppercase tracking-wider font-black">
-                            Action
-                        </th>
                     </tr>
                 </thead>
 
@@ -332,95 +328,6 @@
                                         <span class="w-2 h-2 rounded-full bg-slate-400"></span>
                                         {{ $rsvp->status_kehadiran }}
                                     </span>
-
-                                @endif
-
-                            </td>
-
-                            {{-- ACTION --}}
-                            <td class="px-6 py-5">
-
-                                @if($rsvp->status_kehadiran == 'pending')
-
-                                    <div class="flex justify-center items-center gap-2">
-
-                                        {{-- APPROVE --}}
-                                        <form action="{{ route('admin.rsvp.approve', $rsvp->id) }}"
-                                            method="POST">
-
-                                            @csrf
-                                            @method('PUT')
-
-                                            <button type="submit"
-                                                onclick="return confirm('Yakin ingin menyetujui RSVP ini?')"
-                                                class="inline-flex items-center gap-2 bg-green-100 hover:bg-green-200 text-green-700 px-4 py-2 rounded-xl text-sm font-black transition">
-
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="w-4 h-4"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke="currentColor"
-                                                    stroke-width="2">
-
-                                                    <path stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        d="M5 13l4 4L19 7" />
-                                                </svg>
-
-                                                Setujui
-                                            </button>
-
-                                        </form>
-
-                                        {{-- REJECT --}}
-                                        <form action="{{ route('admin.rsvp.reject', $rsvp->id) }}"
-                                            method="POST">
-
-                                            @csrf
-                                            @method('PUT')
-
-                                            <button type="submit"
-                                                onclick="return confirm('Yakin ingin menolak RSVP ini?')"
-                                                class="inline-flex items-center gap-2 bg-red-100 hover:bg-red-200 text-primary px-4 py-2 rounded-xl text-sm font-black transition">
-
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="w-4 h-4"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke="currentColor"
-                                                    stroke-width="2">
-
-                                                    <path stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        d="M6 18L18 6M6 6l12 12" />
-                                                </svg>
-
-                                                Tolak
-                                            </button>
-
-                                        </form>
-
-                                    </div>
-
-                                @else
-
-                                    <div class="text-center">
-                                        <span class="inline-flex items-center gap-2 bg-slate-100 text-slate-500 px-4 py-2 rounded-full text-sm font-black">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="w-4 h-4"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                                stroke-width="2">
-
-                                                <path stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    d="M5 13l4 4L19 7" />
-                                            </svg>
-
-                                            Done
-                                        </span>
-                                    </div>
 
                                 @endif
 
