@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\CourseRegistration;
 use App\Models\CoursePayment;
 use App\Models\Inbox;
+use App\Models\ProfilePerusahaan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -45,6 +46,12 @@ class CourseController extends Controller
 
     public function register(Request $request, Course $course)
     {
+        if (!Auth::check()) {
+            return redirect()
+                ->route('login')
+                ->with('error', 'Silakan login terlebih dahulu untuk mendaftar course.');
+        }
+
         $rules = [
             'no_hp' => 'required|string|max:30',
             'alasan' => 'required|string|min:10',
@@ -71,66 +78,67 @@ class CourseController extends Controller
             return redirect()->route('course.access', $course->id);
         }
 
-        $registration = CourseRegistration::updateOrCreate(
-            [
-                'pelamar_id' => Auth::id(),
-                'course_id' => $course->id,
-            ],
-            [
-                'nama' => Auth::user()->name,
-                'email' => Auth::user()->email,
-                'no_hp' => $request->no_hp,
-                'alasan' => $request->alasan,
-                'status' => 'pending',
-                'catatan_admin' => null,
-                'approved_at' => null,
-            ]
-        );
+        if ($existing && $existing->status === 'rejected') {
+            $oldPayment = CoursePayment::where('course_registration_id', $existing->id)->first();
 
-        Inbox::create([
-    'pelamar_id' => null,
-    'perusahaan_id' => $course->perusahaan_id,
-    'title' => 'Pendaftaran Course Baru',
-    'message' => Auth::user()->name . ' mendaftar course "' . $course->title . '".',
-    'type' => 'course_daftar',
-    'is_read' => false,
-    'action_text' => 'Lihat Peserta',
-    'action_url' => route('perusahaan.course.participant.show', $course->id),
-]);
+            if (
+                $oldPayment &&
+                $oldPayment->proof_image &&
+                Storage::disk('public')->exists($oldPayment->proof_image)
+            ) {
+                Storage::disk('public')->delete($oldPayment->proof_image);
+            }
+
+            CoursePayment::where('course_registration_id', $existing->id)->delete();
+            $existing->delete();
+        }
+
+        $registration = CourseRegistration::create([
+            'pelamar_id' => Auth::id(),
+            'course_id' => $course->id,
+            'nama' => Auth::user()->name,
+            'email' => Auth::user()->email,
+            'no_hp' => $request->no_hp,
+            'alasan' => $request->alasan,
+            'status' => 'pending',
+            'catatan_admin' => null,
+            'approved_at' => null,
+        ]);
+
+        $profile = ProfilePerusahaan::find($course->perusahaan_id);
+
+        if ($profile) {
+            Inbox::create([
+                'pelamar_id' => $profile->user_id,
+                'perusahaan_id' => $profile->id,
+                'title' => 'Pendaftaran Course Baru',
+                'message' => Auth::user()->name . ' mendaftar course "' . $course->title . '".',
+                'type' => 'course',
+                'is_read' => false,
+                'action_text' => 'Lihat Peserta',
+                'action_url' => route('perusahaan.course.participant.index'),
+            ]);
+        }
 
         if ($course->payment_required || $course->price > 0) {
             $proofPath = null;
 
             if ($request->hasFile('proof_image')) {
-                $oldPayment = CoursePayment::where('course_registration_id', $registration->id)->first();
-
-                if (
-                    $oldPayment &&
-                    $oldPayment->proof_image &&
-                    Storage::disk('public')->exists($oldPayment->proof_image)
-                ) {
-                    Storage::disk('public')->delete($oldPayment->proof_image);
-                }
-
                 $proofPath = $request->file('proof_image')
                     ->store('course/payments', 'public');
             }
 
-            CoursePayment::updateOrCreate(
-                [
-                    'course_registration_id' => $registration->id,
-                ],
-                [
-                    'pelamar_id' => Auth::id(),
-                    'course_id' => $course->id,
-                    'amount' => $course->price,
-                    'payment_method' => $request->payment_method,
-                    'proof_image' => $proofPath,
-                    'status' => 'pending',
-                    'note' => null,
-                    'verified_at' => null,
-                ]
-            );
+            CoursePayment::create([
+                'course_registration_id' => $registration->id,
+                'pelamar_id' => Auth::id(),
+                'course_id' => $course->id,
+                'amount' => $course->price,
+                'payment_method' => $request->payment_method,
+                'proof_image' => $proofPath,
+                'status' => 'pending',
+                'note' => null,
+                'verified_at' => null,
+            ]);
         }
 
         return redirect()

@@ -121,7 +121,7 @@
 
             <textarea name="payment_note"
                       rows="4"
-                      placeholder="Contoh: Transfer ke BCA 123456789 a.n LOKER SEEKER"
+                      placeholder="Contoh: Transfer ke Bank atau E-Wallet 123456789 a.n LOKER SEEKER"
                       class="w-full border border-gray-200 rounded-2xl px-4 py-3 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-400 resize-none">{{ old('payment_note') }}</textarea>
         </div>
 

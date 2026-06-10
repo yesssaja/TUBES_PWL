@@ -164,14 +164,17 @@
             <nav class="sidebar-scroll flex-1 overflow-y-auto px-4 py-3 space-y-2">
                 
                 @php
-                    $unreadInbox = \App\Models\Inbox::whereIn('pelamar_id', [
-                        Auth::id(),
-                        optional(
-                            \App\Models\ProfilePerusahaan::where('user_id', Auth::id())->first()
-                        )->id
-                    ])
-                    ->where('is_read', false)
-                    ->count();
+                    $profile = \App\Models\ProfilePerusahaan::where('user_id', Auth::id())->first();
+                            
+                    $unreadInbox = \App\Models\Inbox::where('is_read', false)
+                        ->where(function ($query) use ($profile) {
+                            $query->where('pelamar_id', Auth::id());
+                        
+                            if ($profile) {
+                                $query->orWhere('perusahaan_id', $profile->id);
+                            }
+                        })
+                        ->count();
                 @endphp
                             
                 <a href="{{ route('perusahaan.inbox.index') }}"

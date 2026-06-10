@@ -107,13 +107,15 @@ class CourseParticipantController extends Controller
     }
 
     $registration->update([
-        'status' => 'rejected',
-    ]);
+    'status' => 'rejected',
+    'approved_at' => null,
+    'catatan_admin' => 'Pendaftaran course ditolak. Silakan daftar ulang.',
+]);
 
     Inbox::create([
         'pelamar_id' => $registration->pelamar_id,
         'title' => 'Pendaftaran Course Ditolak',
-        'message' => 'Maaf, pendaftaran kamu untuk course "' . $course->title . '" belum dapat disetujui.',
+        'message' => 'Maaf, pendaftaran kamu untuk course "' . $course->title . '" belum dapat disetujui. Silakan daftar ulang.',
         'type' => 'course',
         'is_read' => false,
         'action_text' => 'Daftar Ulang',

@@ -43,7 +43,7 @@
 
             <a href="{{ route('perusahaan.course.participant.index') }}"
                class="inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-3 rounded-2xl font-bold transition">
-                ← Kembali ke Course
+                ← Kembali 
             </a>
 
         </div>
