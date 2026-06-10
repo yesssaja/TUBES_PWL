@@ -176,6 +176,10 @@ Route::get('/join-group/{group:slug}', [GroupController::class, 'show'])
 
     Route::post('/group/store', [GroupController::class, 'store'])
         ->name('groups.store');
+
+    Route::delete('/groups/comment/{id}', [GroupCommentController::class, 'destroy'])
+    ->name('groups.comment.destroy')
+    ->middleware('auth');
 });
 
 /*

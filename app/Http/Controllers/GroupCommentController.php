@@ -26,4 +26,17 @@ class GroupCommentController extends Controller
             'Komentar berhasil ditambahkan.'
         );
     }
+    public function destroy($id)
+{
+    $comment = GroupComment::findOrFail($id);
+
+    if (Auth::id() !== $comment->pelamar_id) {
+        return redirect()->back()->with('error', 'Kamu tidak punya akses untuk menghapus postingan ini.');
+    }
+
+    $comment->delete();
+
+    
+    return redirect()->back()->with('success', 'Postingan berhasil dihapus!');
+}
 }
