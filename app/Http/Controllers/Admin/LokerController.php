@@ -40,7 +40,7 @@ class LokerController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'perusahaan_id' => ['required', 'exists:perusahaans,id'],
+            'perusahaan_id' => ['required'],
             'judul_loker' => ['required', 'string', 'max:255'],
             'deskripsi' => ['required', 'string'],
             'lokasi' => ['required', 'string', 'max:255'],
@@ -66,7 +66,7 @@ class LokerController extends Controller
     public function update(Request $request, Loker $loker)
     {
         $validated = $request->validate([
-            'perusahaan_id' => ['required', 'exists:perusahaans,id'],
+            'perusahaan_id' => ['required'],
             'judul_loker' => ['required', 'string', 'max:255'],
             'deskripsi' => ['required', 'string'],
             'lokasi' => ['required', 'string', 'max:255'],
