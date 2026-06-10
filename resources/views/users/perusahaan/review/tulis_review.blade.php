@@ -107,26 +107,48 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-[1.8fr_0.9fr] gap-8 items-start">
 
-            {{-- FORM --}}
-            <div>
-
+           {{-- FORM --}}
+        <div>
+        
+            @guest
+                <div class="bg-white rounded-[32px] border border-yellow-100 shadow-lg p-8 text-center">
+                    <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 text-2xl">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                
+                    <h2 class="text-2xl font-black text-gray-900 mb-3">
+                        Belum Login
+                    </h2>
+                
+                    <p class="text-gray-500 mb-6 leading-relaxed">
+                        Login terlebih dahulu untuk memberikan ulasan dan rating terhadap perusahaan ini.
+                    </p>
+                
+                    <a href="{{ route('login') }}"
+                       class="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white font-black px-7 py-3.5 rounded-2xl transition">
+                        Login Sekarang
+                    </a>
+                </div>
+            @endguest
+            
+            @auth
                 <form id="reviewForm"
                       action="{{ route('review.tulis.store') }}"
                       method="POST"
                       class="bg-white rounded-[32px] border border-gray-100 shadow-lg p-5 sm:p-7 lg:p-8">
-
+            
                     @csrf
-
+            
                     <input type="hidden" name="perusahaan_id" value="{{ $perusahaan->id ?? '' }}">
                     <input type="hidden" name="rating" id="rating_input" value="{{ old('rating') }}">
-
+            
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
-
+                    
                         <div>
                             <label class="block font-black text-gray-800 text-sm mb-2">
                                 Nama Lengkap
                             </label>
-
+                        
                             <input type="text"
                                    name="nama"
                                    value="{{ old('nama', auth()->user()->name ?? '') }}"
@@ -134,68 +156,69 @@
                                    class="w-full px-4 py-3.5 rounded-2xl border border-gray-200 focus:border-red-600 focus:ring-4 focus:ring-red-50 outline-none transition text-sm text-gray-900"
                                    required>
                         </div>
-
+                    
                         <div>
                             <label class="block font-black text-gray-800 text-sm mb-2">
                                 Jabatan / Posisi
                             </label>
-
+                        
                             <input type="text"
                                    name="posisi"
                                    value="{{ old('posisi') }}"
                                    placeholder="Contoh: Junior Backend Developer"
                                    class="w-full px-4 py-3.5 rounded-2xl border border-gray-200 focus:border-red-600 focus:ring-4 focus:ring-red-50 outline-none transition text-sm text-gray-900">
                         </div>
-
+                    
                     </div>
-
-                   {{-- RATING --}}
-<div class="mb-6 bg-[#FFF7E8] border border-yellow-100 p-5 rounded-[28px]">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-            <label class="block font-black text-gray-800 text-sm mb-1">
-                Penilaian Keseluruhan
-            </label>
-
-            <p class="text-xs text-gray-500">
-                Pilih jumlah bintang sesuai pengalaman Anda.
-            </p>
-        </div>
-
-        <div class="flex text-4xl gap-2" id="star_container">
-            @for($i = 1; $i <= 5; $i++)
-                <button type="button"
-                        class="star-btn text-gray-300 hover:scale-110 transition"
-                        data-value="{{ $i }}">
-                    ★
-                </button>
-            @endfor
-        </div>
-    </div>
-</div>
-
+                
+                    {{-- RATING --}}
+                    <div class="mb-6 bg-[#FFF7E8] border border-yellow-100 p-5 rounded-[28px]">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                            <div>
+                                <label class="block font-black text-gray-800 text-sm mb-1">
+                                    Penilaian Keseluruhan
+                                </label>
+                            
+                                <p class="text-xs text-gray-500">
+                                    Pilih jumlah bintang sesuai pengalaman Anda.
+                                </p>
+                            </div>
+                        
+                            <div class="flex text-4xl gap-2" id="star_container">
+                                @for($i = 1; $i <= 5; $i++)
+                                    <button type="button"
+                                            class="star-btn text-gray-300 hover:scale-110 transition"
+                                            data-value="{{ $i }}">
+                                        ★
+                                    </button>
+                                @endfor
+                            </div>
+                        </div>
+                    </div>
+                
                     {{-- ULASAN --}}
                     <div class="mb-8">
                         <label class="block font-black text-gray-800 text-sm mb-2">
                             Deskripsi Ulasan
                         </label>
-
+                    
                         <textarea name="ulasan"
                                   rows="7"
                                   placeholder="Berikan pandangan objektif mengenai budaya kerja, manajemen, kompensasi, serta peluang berkembang..."
                                   class="w-full px-4 py-4 rounded-2xl border border-gray-200 focus:border-red-600 focus:ring-4 focus:ring-red-50 outline-none transition text-sm text-gray-900 resize-none"
                                   required>{{ old('ulasan') }}</textarea>
                     </div>
-
+                
                     <button type="submit"
                             class="w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-black py-4 rounded-2xl hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 text-base active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer">
                         <i class="fas fa-paper-plane text-sm"></i>
                         Submit Ulasan
                     </button>
-
+                
                 </form>
-
-            </div>
+            @endauth
+            
+        </div>
 
             {{-- SIDEBAR INFO --}}
             <div class="space-y-5">
@@ -283,6 +306,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const stars = document.querySelectorAll('.star-btn');
     const ratingInput = document.getElementById('rating_input');
     const form = document.getElementById('reviewForm');
+
+    if (!form || !ratingInput || stars.length === 0) {
+        return;
+    }
 
     let selectedRating = parseInt(ratingInput.value) || 0;
 
