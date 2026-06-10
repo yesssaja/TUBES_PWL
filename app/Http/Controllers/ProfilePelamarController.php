@@ -55,7 +55,7 @@ class ProfilePelamarController extends Controller
         );
 
         return redirect()
-            ->route('profile.pelamar.index')
+            ->route('verification.notice')
             ->with('success', 'Data diri berhasil dilengkapi!');
     }
 }
