@@ -76,7 +76,7 @@
                     </div>
                     <div>
                         <button type="submit" class="w-full bg-[#E71F25] hover:bg-red-700 text-white py-4 rounded-2xl font-bold text-sm transition duration-300">
-                            Register
+                            Verifikasi Email
                         </button>
                     </div>
                 </form>
