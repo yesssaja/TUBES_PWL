@@ -1,6 +1,7 @@
 🌐**LOKER SEEKER**
 Platform Pencarian Kerja, Event Karier, dan Pengembangan Skill Terintegrasi
 
+
 📌 Latar Belakang
 
 Saat ini banyak mahasiswa dan pencari kerja mengalami kesulitan dalam menemukan informasi lowongan pekerjaan, event karier, serta pelatihan yang relevan dalam satu platform yang terintegrasi. Informasi tersebut sering tersebar di berbagai media sehingga kurang efektif dan menyulitkan pengguna dalam mengakses peluang karier yang tersedia.
@@ -15,6 +16,7 @@ Berdasarkan analisis situasi saat ini, terdapat beberapa kendala utama yang diha
 - Menyatukan seluruh informasi lowongan, seminar, job fair, dan pelatihan dari berbagai sumber dalam satu tempat.
 - Menyediakan akses pencarian informasi pekerjaan yang jauh lebih mudah, cepat, dan terorganisir secara optimal.
 - Memudahkan pengguna menemukan peluang yang tepat demi membantu mereka memperoleh karier yang lebih baik.
+
  
 
 🎯 Tujuan
@@ -36,10 +38,14 @@ Membangun komunitas bagi sesama pencari kerja untuk saling berbagi informasi, pe
 - Ekosistem Digital Terpadu
 Menghubungkan pencari kerja, freelancer, penyedia pelatihan, dan perusahaan dalam satu wadah yang saling mendukung.
 
+
+
 💡 Manfaat
 **SDG 8 – Decent Work and Economic Growth :** Membantu pencari kerja menemukan peluang karier yang sesuai, memudahkan proses rekrutmen perusahaan, serta mendukung freelancer dalam memperoleh kesempatan kerja yang lebih luas.
 
 **SDG 4 – Quality Education :** Menyediakan fitur kursus dan pelatihan untuk membantu pengguna meningkatkan keterampilan dan kompetensi guna menghadapi kebutuhan dunia kerja modern.
+
+
 
 🚀 Fitur Utama
 **Pelamar (User)**
@@ -80,6 +86,8 @@ Menghubungkan pencari kerja, freelancer, penyedia pelatihan, dan perusahaan dala
 - Monitoring Review
 - Monitoring Group Komunitas
 - Monitoring Inbox Sistem
+
+
   
 🛠️ Teknologi yang Digunakan
 **Frontend**
@@ -107,12 +115,17 @@ Railway
 _Link dapat diakses:_
 lokerseeker.up.railway.app
 
+
+
 👥 Tim Pengembang
-1. Yessica Jaklin
+1. Yessica Jaklin 
 2. Dian Indriani
 3. Jeli Alvonzo Laia
 4. Ryan Dani Stepanus Girsang
 6. Naufal Awan harahap
+
+
+
 
 📸 Tampilan Website
 **Halaman Utama (Landing Page)**
