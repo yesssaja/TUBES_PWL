@@ -1,5 +1,5 @@
-🌐 Nama Proyek Website
-Deskripsi singkat
+🌐**LOKER SEEKER**
+Platform Pencarian Kerja, Event Karier, dan Pengembangan Skill Terintegrasi
 
 📌 Latar Belakang
 Saat ini banyak mahasiswa dan pencari kerja mengalami kesulitan dalam menemukan informasi lowongan pekerjaan, event karier, serta pelatihan yang relevan dalam satu platform yang terintegrasi. Informasi tersebut sering tersebar di berbagai media sehingga kurang efektif dan menyulitkan pengguna dalam mengakses peluang karier yang tersedia.
@@ -10,7 +10,7 @@ Berdasarkan analisis situasi saat ini, terdapat beberapa kendala utama yang diha
 - Proses pencarian informasi memerlukan waktu lebih lama karena belum ada sistem terpadu yang mudah diakses.
 - Pencari kerja kesulitan menemukan lowongan dan kegiatan pengembangan diri yang sesuai dengan minat & kualifikasi.
 
-**Solusi: Website Looker Seeker **
+**Solusi: Website Looker Seeker**
 - Menyatukan seluruh informasi lowongan, seminar, job fair, dan pelatihan dari berbagai sumber dalam satu tempat.
 - Menyediakan akses pencarian informasi pekerjaan yang jauh lebih mudah, cepat, dan terorganisir secara optimal.
 - Memudahkan pengguna menemukan peluang yang tepat demi membantu mereka memperoleh karier yang lebih baik.
@@ -135,3 +135,5 @@ Digunakan perusahaan untuk menerima notifikasi, mengelola lowongan pekerjaan, me
 **Dashboard Admin**
 Digunakan untuk memantau seluruh aktivitas, baik pelamar maupun perusahaan dan data yang terdapat dalam sistem website Loker Seeker.
 
+
+_**"Membangun Karier, Mengembangkan Skill, dan Menghubungkan Talenta dengan Peluang."**_
