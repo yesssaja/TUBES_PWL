@@ -22,8 +22,19 @@
         ?? $perusahaan->situs
         ?? null;
 
-    $email = $perusahaan->email ?? '-';
+    $email = $perusahaan->email ?? null;
 
+    $emailSubject = rawurlencode('Informasi Perusahaan ' . $namaPerusahaan);
+
+    $emailBody = rawurlencode(
+        "Halo " . $namaPerusahaan .
+        "\n\nSaya ingin mengetahui informasi lebih lanjut mengenai perusahaan Anda di Loker Seeker." .
+        "\n\nTerima kasih."
+    );
+
+$emailLink = $email
+    ? 'mailto:' . $email . '?subject=' . $emailSubject . '&body=' . $emailBody
+    : null;
     $logo = $perusahaan->logo
         ?? $perusahaan->foto
         ?? $perusahaan->foto_perusahaan
@@ -213,7 +224,10 @@ if ($logo) {
                                 Email
                             </td>
                             <td class="font-bold">
-                                {{ $email }}
+                                <a href="mailto:{{ $perusahaan->email }}"
+                                   class="text-black hover:underline">
+                                    {{ $perusahaan->email }}
+                                </a>
                             </td>
                         </tr>
 
