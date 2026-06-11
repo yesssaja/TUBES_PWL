@@ -41,6 +41,7 @@ Menghubungkan pencari kerja, freelancer, penyedia pelatihan, dan perusahaan dala
 
 
 💡 Manfaat
+
 **SDG 8 – Decent Work and Economic Growth :** Membantu pencari kerja menemukan peluang karier yang sesuai, memudahkan proses rekrutmen perusahaan, serta mendukung freelancer dalam memperoleh kesempatan kerja yang lebih luas.
 
 **SDG 4 – Quality Education :** Menyediakan fitur kursus dan pelatihan untuk membantu pengguna meningkatkan keterampilan dan kompetensi guna menghadapi kebutuhan dunia kerja modern.
@@ -48,6 +49,7 @@ Menghubungkan pencari kerja, freelancer, penyedia pelatihan, dan perusahaan dala
 
 
 🚀 Fitur Utama
+
 **Pelamar (User)**
 - Registrasi dan Login
 - Kelola Profil Pelamar
@@ -90,29 +92,47 @@ Menghubungkan pencari kerja, freelancer, penyedia pelatihan, dan perusahaan dala
 
   
 🛠️ Teknologi yang Digunakan
+
 **Frontend**
 HTML
+
 CSS
+
 Tailwind CSS
+
 Blade Template Engine
 
+
 **Backend**
+
 PHP
+
 Laravel 12
 
+
 **Database**
+
 Maria DB : MySQL
 
+
 **Tools**
-Laragon
+
+Laragon / XAMPP
+
 Visual Studio Code
+
 Git & GitHub
+
 phpMyAdmin
 
+
 **Deployment**
+
 Railway
 
+
 _Link dapat diakses:_
+
 lokerseeker.up.railway.app
 
 
@@ -128,25 +148,39 @@ lokerseeker.up.railway.app
 
 
 📸 Tampilan Website
+
 **Halaman Utama (Landing Page)**
+
 Menampilkan informasi utama website, navigasi menu, notifikasi, logo profile, lowongan kerja up to date, serta akses cepat (hamburger) menuju fitur lowongan, event, dan course.
 
+
 **Halaman Lowongan Kerja**
+
 Menampilkan daftar lowongan yang tersedia beserta detail pekerjaan dan informasi perusahaan. Apabila dalam peng-aksesan website sebagai guest maka akan diwajibkan login atau registrasi dahulu, sebelum nantinya dapat melamar.
 
+
 **Halaman Event**
+
 Menampilkan berbagai seminar, webinar, dan kegiatan karier yang dapat diikuti pengguna, serta dapat diikuti dengan mengirimkan rsvp.
 
+
 **Halaman Course**
+
 Menyediakan course atau pelatihan pengembangan skill yang dibuat oleh perusahaan secara online dan dengan sistem berbayar.
 
+
 **Halaman Group**
+
 Memfasilitasi pengguna untuk bergabung dalam komunitas dan berdiskusi dengan anggota lainnya. User dapat membuat grup dan berkomunikasi melalui chat.
 
+
 **Dashboard Perusahaan**
+
 Digunakan perusahaan untuk menerima notifikasi, mengelola lowongan pekerjaan, menerima lamaran, membuat event, menyetujui peserta event, membuat course, memverifikasi peserta yang mengikuti course, manajemen perusahaan, dan pengaturan profile perusahaan, serta dapat menghubungi admin apabila ada kendala.
 
+
 **Dashboard Admin**
+
 Digunakan untuk memantau seluruh aktivitas, baik pelamar maupun perusahaan dan data yang terdapat dalam sistem website Loker Seeker.
 
 
