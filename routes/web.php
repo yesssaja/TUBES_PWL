@@ -262,20 +262,20 @@ Route::middleware(['auth'])->group(function(){
 
 Route::middleware(['auth'])->group(function () {
 
-    /*
-    |--------------------------------------------------------------------------
-    | Course User Route
-    |--------------------------------------------------------------------------
-    */
+    // /*
+    // |--------------------------------------------------------------------------
+    // | Course User Route
+    // |--------------------------------------------------------------------------
+    // */
     
-    Route::get('/course/{course}/daftar', [CourseController::class, 'registerForm'])
-        ->name('course.register.form');
+    // Route::get('/course/{course}/daftar', [CourseController::class, 'registerForm'])
+    //     ->name('course.register.form');
     
-    Route::post('/course/{course}/daftar', [CourseController::class, 'register'])
-        ->name('course.register');
+    // Route::post('/course/{course}/daftar', [CourseController::class, 'register'])
+    //     ->name('course.register');
     
-    Route::get('/course/{course}/akses', [CourseController::class, 'access'])
-        ->name('course.access');
+    // Route::get('/course/{course}/akses', [CourseController::class, 'access'])
+    //     ->name('course.access');
     
     /*
     |--------------------------------------------------------------------------
