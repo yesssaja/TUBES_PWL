@@ -206,7 +206,7 @@
                 <a href="{{ route('perusahaan.detail', 3) }}"
                    class="smooth-card bg-gradient-to-br from-[#3B0A12] to-[#2A050A] p-8 rounded-[32px] border border-red-900/40 shadow-xl hover:border-yellow-400 text-center flex flex-col items-center justify-center min-h-[200px] text-white hover:no-underline no-underline animate-fade-scale">
                     <div class="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mb-5 shadow-lg p-3">
-                        <img src="{{ asset('images/tokopedia.png') }}" alt="Tokopedia" class="smooth-img w-full h-full object-contain">
+                        <img src="{{ asset('images/Tokopedia.png') }}" alt="Tokopedia" class="smooth-img w-full h-full object-contain">
                     </div>
                     <span class="font-black text-xl tracking-wide">Tokopedia</span>
                 </a>
