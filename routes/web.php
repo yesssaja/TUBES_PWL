@@ -206,27 +206,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('service.store');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Course Route
-|--------------------------------------------------------------------------
-*/
 
-Route::middleware(['auth'])->group(function () {
-    
-    Route::get('/course', [CourseController::class, 'index'])
-    ->name('course.index');
-    
-    Route::get('/course/{course}/register', [CourseController::class, 'registerForm'])
-    ->name('course.register.form');
-    
-    Route::post('/course/{course}/register', [CourseController::class, 'register'])
-    ->name('course.register');
-    
-    Route::get('/course/{course}/access', [CourseController::class, 'access'])
-    ->name('course.access');
-    
-    });
     
 /*
 |--------------------------------------------------------------------------
@@ -262,20 +242,23 @@ Route::middleware(['auth'])->group(function(){
 
 Route::middleware(['auth'])->group(function () {
 
-    // /*
-    // |--------------------------------------------------------------------------
-    // | Course User Route
-    // |--------------------------------------------------------------------------
-    // */
-    
-    // Route::get('/course/{course}/daftar', [CourseController::class, 'registerForm'])
-    //     ->name('course.register.form');
-    
-    // Route::post('/course/{course}/daftar', [CourseController::class, 'register'])
-    //     ->name('course.register');
-    
-    // Route::get('/course/{course}/akses', [CourseController::class, 'access'])
-    //     ->name('course.access');
+    /*
+    |--------------------------------------------------------------------------
+    | Course User Route
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/course', [CourseController::class, 'index'])
+        ->name('course.index');
+
+    Route::get('/course/{course}/daftar', [CourseController::class, 'registerForm'])
+        ->name('course.register.form');
+
+    Route::post('/course/{course}/daftar', [CourseController::class, 'register'])
+        ->name('course.register');
+
+    Route::get('/course/{course}/akses', [CourseController::class, 'access'])
+        ->name('course.access');
     
     /*
     |--------------------------------------------------------------------------
