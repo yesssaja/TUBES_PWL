@@ -245,104 +245,118 @@
             </button>
 
             <!-- HEADER -->
-            <div class="text-center mb-7">
+@guest
 
-                <div class="w-20 h-20 mx-auto mb-5 rounded-full bg-red-100 flex items-center justify-center text-primary">
+    <h2 class="text-2xl font-extrabold text-dark mb-2">
+        Login Diperlukan
+    </h2>
 
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-10 h-10"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2">
+    <p class="text-sm text-slate-500 leading-relaxed">
+        Silakan login terlebih dahulu untuk melihat informasi kontak dan menghubungi freelancer.
+    </p>
 
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4-.82L3 20l1.3-3.9A7.46 7.46 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
+@else
 
-                </div>
+    <h2 class="text-2xl font-extrabold text-dark mb-2">
+        Hubungi Freelancer
+    </h2>
 
-                <h2 class="text-2xl font-extrabold text-dark mb-2">
-                    Hubungi Freelancer
-                </h2>
+    <p class="text-sm text-slate-500 leading-relaxed">
+        Pilih metode kontak untuk menghubungi {{ $service->freelancer_name }}.
+    </p>
 
-                <p class="text-sm text-slate-500 leading-relaxed">
-                    Pilih metode kontak untuk menghubungi {{ $service->freelancer_name }}.
-                </p>
-
-            </div>
-
+@endguest
             <!-- OPTIONS -->
             <div class="space-y-4">
 
-                <!-- WHATSAPP -->
-                <a href="{{ $waLink }}"
-                    target="_blank"
-                    class="flex items-center gap-4 p-5 rounded-2xl border border-green-200 bg-green-50 hover:bg-green-100 transition">
+    @auth
 
-                    <div class="w-12 h-12 rounded-2xl bg-green-500 text-white flex items-center justify-center">
+        <!-- WHATSAPP -->
+        <a href="{{ $waLink }}"
+            target="_blank"
+            class="flex items-center gap-4 p-5 rounded-2xl border border-green-200 bg-green-50 hover:bg-green-100 transition">
 
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="w-7 h-7"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2">
+            <div class="w-12 h-12 rounded-2xl bg-green-500 text-white flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-7 h-7"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
 
-                            <path stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3 21l1.5-4.5A8.5 8.5 0 1112 20.5a8.7 8.7 0 01-4.5-1.25L3 21z" />
-                        </svg>
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 21l1.5-4.5A8.5 8.5 0 1112 20.5a8.7 8.7 0 01-4.5-1.25L3 21z" />
+                </svg>
+            </div>
 
-                    </div>
+            <div>
+                <h3 class="font-bold text-slate-800">
+                    WhatsApp
+                </h3>
 
-                    <div>
-                        <h3 class="font-bold text-slate-800">
-                            WhatsApp
-                        </h3>
+                <p class="text-xs text-slate-500">
+                    Chat langsung ke nomor freelancer
+                </p>
+            </div>
 
-                        <p class="text-xs text-slate-500">
-                            Chat langsung ke nomor freelancer
-                        </p>
-                    </div>
+        </a>
 
-                </a>
+        <!-- EMAIL -->
+        <a href="{{ $gmailLink }}"
+            target="_blank"
+            class="flex items-center gap-4 p-5 rounded-2xl border border-red-200 bg-red-50 hover:bg-red-100 transition">
 
-                <!-- EMAIL -->
-                <a href="{{ $gmailLink }}"
-                    target="_blank"
-                    class="flex items-center gap-4 p-5 rounded-2xl border border-red-200 bg-red-50 hover:bg-red-100 transition">
+            <div class="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center">
 
-                    <div class="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-7 h-7"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
 
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="w-7 h-7"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2">
-
-                            <path stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-
-                    </div>
-
-                    <div>
-                        <h3 class="font-bold text-slate-800">
-                            Email
-                        </h3>
-
-                        <p class="text-xs text-slate-500">
-                            Buka Gmail dengan email penerima otomatis
-                        </p>
-                    </div>
-
-                </a>
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
 
             </div>
+
+            <div>
+                <h3 class="font-bold text-slate-800">
+                    Email
+                </h3>
+
+                <p class="text-xs text-slate-500">
+                    Buka Gmail dengan email penerima otomatis
+                </p>
+            </div>
+
+        </a>
+
+    @else
+
+        <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 text-center">
+
+            <h3 class="font-bold text-slate-800 mb-2">
+                Login Diperlukan
+            </h3>
+
+            <p class="text-sm text-slate-500 mb-4">
+                Silakan login terlebih dahulu untuk menghubungi freelancer.
+            </p>
+
+            <a href="{{ route('login') }}"
+                class="inline-flex items-center justify-center bg-primary hover:bg-red-700 text-white px-6 py-3 rounded-2xl font-bold transition">
+                Login Sekarang
+            </a>
+
+        </div>
+
+    @endauth
+
+</div>
 
         </div>
 
