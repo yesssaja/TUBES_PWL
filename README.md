@@ -94,43 +94,28 @@ Menghubungkan pencari kerja, freelancer, penyedia pelatihan, dan perusahaan dala
 🛠️ Teknologi yang Digunakan
 
 **Frontend**
-HTML
-
-CSS
-
-Tailwind CSS
-
-Blade Template Engine
-
+- HTML
+- CSS
+- Tailwind CSS
+- Blade Template Engine
 
 **Backend**
-
-PHP
-
-Laravel 12
-
+- PHP
+- Laravel 12
 
 **Database**
-
-Maria DB : MySQL
+- Maria DB : MySQL
 
 
 **Tools**
-
-Laragon / XAMPP
-
-Visual Studio Code
-
-Git & GitHub
-
-phpMyAdmin
-
+- Laragon / XAMPP
+- Visual Studio Code
+- Git & GitHub
+- phpMyAdmin
 
 **Deployment**
-
-Railway
-
-
+- Railway
+- 
 _Link dapat diakses:_
 
 lokerseeker.up.railway.app
