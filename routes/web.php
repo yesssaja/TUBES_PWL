@@ -36,7 +36,7 @@ use App\Http\Controllers\Perusahaan\LamaranController as PerusahaanLamaranContro
 use App\Http\Controllers\Perusahaan\InboxController as PerusahaanInboxController;
 
 // ADMIN CONTROLLERS
-use App\Http\Controllers\Admin\Admincontroller;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CourseRegistrationController as AdminCourseRegistrationController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\PerusahaanController as AdminPerusahaanController;
