@@ -32,8 +32,12 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::min(8)->letters()->numbers()->symbols(),],
+            'password.min' => 'Password minimal 8 karakter.',
+            'password.letters' => 'Password harus mengandung huruf.',
+            'password.numbers' => 'Password harus mengandung angka.',
+            'password.symbols' => 'Password harus mengandung simbol.',
             'role' => ['required', 'in:user,perusahaan'],
         ]);
 

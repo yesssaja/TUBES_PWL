@@ -25,8 +25,11 @@
     <main class="min-h-screen bg-[#F7F1C8] relative overflow-hidden">
 
         {{-- BACKGROUND DECOR --}}
-        <div class="absolute -top-40 -right-40 w-[460px] h-[460px] md:w-[620px] md:h-[620px] bg-[#E71F25] rounded-full"></div>
-        <div class="absolute -bottom-44 -left-44 w-[460px] h-[460px] md:w-[600px] md:h-[600px] bg-[#E71F25] rounded-full opacity-90"></div>
+        <div class="absolute -top-40 -right-40 w-[460px] h-[460px] md:w-[620px] md:h-[620px] bg-[#E71F25] rounded-full">
+        </div>
+        <div
+            class="absolute -bottom-44 -left-44 w-[460px] h-[460px] md:w-[600px] md:h-[600px] bg-[#E71F25] rounded-full opacity-90">
+        </div>
         <div class="absolute top-10 left-6 w-60 h-60 border border-red-300 rounded-full opacity-40"></div>
 
         {{-- CONTENT --}}
@@ -39,15 +42,9 @@
 
                     <div class="flex items-center gap-3 mb-14">
                         <div class="w-12 h-12 rounded-2xl bg-[#E71F25] flex items-center justify-center shadow-glow">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="w-7 h-7 text-white"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                stroke-width="2">
-                                <path stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-white" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
                         </div>
 
@@ -68,8 +65,11 @@
                         mengikuti event, dan mengakses berbagai fitur Looker Seeker.
                     </p>
 
-                    <div class="mt-14 max-w-lg h-56 rounded-[36px] bg-white/45 border border-white/70 shadow-soft relative overflow-hidden">
-                        <div class="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-red-200/70 to-transparent"></div>
+                    <div
+                        class="mt-14 max-w-lg h-56 rounded-[36px] bg-white/45 border border-white/70 shadow-soft relative overflow-hidden">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-red-200/70 to-transparent">
+                        </div>
 
                         <div class="absolute bottom-8 left-10 flex items-end gap-4 opacity-80">
                             <div class="w-12 h-24 bg-[#E71F25]/25 rounded-t-2xl"></div>
@@ -88,19 +88,16 @@
                 {{-- REGISTER CARD --}}
                 <div class="w-full flex justify-center">
 
-                    <div class="w-full max-w-[520px] bg-white/95 backdrop-blur-xl rounded-[32px] sm:rounded-[40px] shadow-soft border border-white/80 px-6 sm:px-9 py-8 sm:py-10">
+                    <div
+                        class="w-full max-w-[520px] bg-white/95 backdrop-blur-xl rounded-[32px] sm:rounded-[40px] shadow-soft border border-white/80 px-6 sm:px-9 py-8 sm:py-10">
 
                         {{-- MOBILE BRAND --}}
                         <div class="lg:hidden flex items-center justify-center gap-3 mb-7">
-                            <div class="w-11 h-11 rounded-2xl bg-[#E71F25] flex items-center justify-center shadow-glow">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="w-6 h-6 text-white"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    stroke-width="2">
-                                    <path stroke-linecap="round"
-                                        stroke-linejoin="round"
+                            <div
+                                class="w-11 h-11 rounded-2xl bg-[#E71F25] flex items-center justify-center shadow-glow">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
                             </div>
@@ -112,8 +109,10 @@
 
                         {{-- ICON --}}
                         <div class="w-20 h-20 mx-auto rounded-full bg-red-50 flex items-center justify-center mb-6">
-                            <div class="w-14 h-14 rounded-2xl bg-[#E71F25] flex items-center justify-center shadow-glow">
-                                <img src="{{ asset('image/logo.jpg') }}" alt="Looker Seeker" class="w-full h-full object-cover rounded-full">
+                            <div
+                                class="w-14 h-14 rounded-2xl bg-[#E71F25] flex items-center justify-center shadow-glow">
+                                <img src="{{ asset('image/logo.jpg') }}" alt="Looker Seeker"
+                                    class="w-full h-full object-cover rounded-full">
                             </div>
                         </div>
 
@@ -134,35 +133,25 @@
 
                             {{-- NAME --}}
                             <div>
-                                <x-input-label for="name" :value="__('Name')"
-                                    class="block text-sm font-bold text-[#1B2540] mb-2" />
+                                <label for="name" class="block text-sm font-bold text-[#1B2540] mb-2">Name <span
+                                        class="text-red-600">*</span>
+                                </label>
 
                                 <div class="relative">
                                     <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="w-5 h-5"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            stroke-width="2">
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" />
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                            <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M4 20c0-3.314 3.582-6 8-6s8 2.686 8 6" />
                                         </svg>
                                     </span>
 
                                     <x-text-input id="name"
                                         class="block w-full pl-12 pr-5 py-4 rounded-2xl border border-red-100 bg-white text-sm text-[#1B2540] placeholder:text-slate-400 focus:border-red-300 focus:ring-4 focus:ring-red-100 transition"
-                                        type="text"
-                                        name="name"
-                                        :value="old('name')"
-                                        placeholder="Masukkan nama"
-                                        required
-                                        autofocus
-                                        autocomplete="name" />
+                                        type="text" name="name" :value="old('name')" placeholder="Masukkan nama"
+                                        required autofocus autocomplete="name" />
                                 </div>
 
                                 <x-input-error :messages="$errors->get('name')" class="mt-2 text-sm text-red-600" />
@@ -170,34 +159,25 @@
 
                             {{-- EMAIL --}}
                             <div>
-                                <x-input-label for="email" :value="__('Email')"
-                                    class="block text-sm font-bold text-[#1B2540] mb-2" />
+                                <label for="email" class="block text-sm font-bold text-[#1B2540] mb-2">
+                                    Email <span class="text-red-600">*</span>
+                                </label>
 
                                 <div class="relative">
                                     <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="w-5 h-5"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            stroke-width="2">
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8" />
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                            <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                         </svg>
                                     </span>
 
                                     <x-text-input id="email"
                                         class="block w-full pl-12 pr-5 py-4 rounded-2xl border border-red-100 bg-white text-sm text-[#1B2540] placeholder:text-slate-400 focus:border-red-300 focus:ring-4 focus:ring-red-100 transition"
-                                        type="email"
-                                        name="email"
-                                        :value="old('email')"
-                                        placeholder="you@example.com"
-                                        required
-                                        autocomplete="username" />
+                                        type="email" name="email" :value="old('email')" placeholder="you@example.com"
+                                        required autocomplete="username" />
                                 </div>
 
                                 <x-input-error :messages="$errors->get('email')" class="mt-2 text-sm text-red-600" />
@@ -205,32 +185,23 @@
 
                             {{-- PASSWORD --}}
                             <div>
-                                <x-input-label for="password" :value="__('Password')"
-                                    class="block text-sm font-bold text-[#1B2540] mb-2" />
+                                <label for="password" class="block text-sm font-bold text-[#1B2540] mb-2">
+                                    Password <span class="text-red-600">*</span>
+                                </label>
 
                                 <div class="relative">
                                     <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="w-5 h-5"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            stroke-width="2">
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M12 11c1.657 0 3-1.343 3-3V7a3 3 0 10-6 0v1c0 1.657 1.343 3 3 3z" />
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M5 11h14v9H5z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 11h14v9H5z" />
                                         </svg>
                                     </span>
 
                                     <x-text-input id="password"
                                         class="block w-full pl-12 pr-5 py-4 rounded-2xl border border-red-100 bg-white text-sm text-[#1B2540] placeholder:text-slate-400 focus:border-red-300 focus:ring-4 focus:ring-red-100 transition"
-                                        type="password"
-                                        name="password"
-                                        placeholder="Masukkan password"
-                                        required
+                                        type="password" name="password" placeholder="Masukkan password" required
                                         autocomplete="new-password" />
                                 </div>
 
@@ -239,36 +210,26 @@
 
                             {{-- CONFIRM PASSWORD --}}
                             <div>
-                                <x-input-label for="password_confirmation" :value="__('Confirm Password')"
-                                    class="block text-sm font-bold text-[#1B2540] mb-2" />
+                                <label for="password_confirmation"
+                                    class="block text-sm font-bold text-[#1B2540] mb-2">
+                                    Password Confirmation <span class="text-red-600">*</span>
+                                </label>
 
                                 <div class="relative">
                                     <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="w-5 h-5"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            stroke-width="2">
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M9 12l2 2 4-4" />
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
+                                            <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M12 11c1.657 0 3-1.343 3-3V7a3 3 0 10-6 0v1c0 1.657 1.343 3 3 3z" />
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M5 11h14v9H5z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 11h14v9H5z" />
                                         </svg>
                                     </span>
 
                                     <x-text-input id="password_confirmation"
                                         class="block w-full pl-12 pr-5 py-4 rounded-2xl border border-red-100 bg-white text-sm text-[#1B2540] placeholder:text-slate-400 focus:border-red-300 focus:ring-4 focus:ring-red-100 transition"
-                                        type="password"
-                                        name="password_confirmation"
-                                        placeholder="Konfirmasi password"
-                                        required
-                                        autocomplete="new-password" />
+                                        type="password" name="password_confirmation"
+                                        placeholder="Konfirmasi password" required autocomplete="new-password" />
                                 </div>
 
                                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-sm text-red-600" />
@@ -280,27 +241,18 @@
                                     class="block text-sm font-bold text-[#1B2540] mb-2" />
 
                                 <div class="relative">
-                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="w-5 h-5"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            stroke-width="2">
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
+                                    <span
+                                        class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M17 20h5V4H2v16h5" />
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M9 20h6" />
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M12 16v4" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 20h6" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v4" />
                                         </svg>
                                     </span>
 
-                                    <select name="role"
-                                        id="role"
+                                    <select name="role" id="role"
                                         class="block w-full pl-12 pr-5 py-4 rounded-2xl border border-red-100 bg-white text-sm text-[#1B2540] font-medium focus:outline-none focus:border-red-300 focus:ring-4 focus:ring-red-100 transition">
                                         <option value="user">User / Pencari Kerja</option>
                                         <option value="perusahaan">Perusahaan</option>
