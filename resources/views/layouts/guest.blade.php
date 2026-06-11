@@ -12,16 +12,6 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('image/favicon.ico') }}">
 
     {{-- FONT POPPINS --}}
-    @font-face {
-    font-family: 'Poppins';
-    src: url('/fonts/Poppins-Regular.ttf') format('truetype');
-    font-weight: 400;
-}
-@font-face {
-    font-family: 'Poppins';
-    src: url('/fonts/Poppins-Bold.ttf') format('truetype');
-    font-weight: 700;
-}
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
