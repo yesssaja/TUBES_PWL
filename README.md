@@ -1,4 +1,5 @@
 🌐**LOKER SEEKER**
+
 Platform Pencarian Kerja, Event Karier, dan Pengembangan Skill Terintegrasi
 
 
@@ -115,8 +116,7 @@ Menghubungkan pencari kerja, freelancer, penyedia pelatihan, dan perusahaan dala
 
 **Deployment**
 - Railway
-- 
-_Link dapat diakses:_
+- _Link dapat diakses:_
 
 lokerseeker.up.railway.app
 
