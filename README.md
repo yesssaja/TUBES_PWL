@@ -2,6 +2,7 @@
 Platform Pencarian Kerja, Event Karier, dan Pengembangan Skill Terintegrasi
 
 📌 Latar Belakang
+
 Saat ini banyak mahasiswa dan pencari kerja mengalami kesulitan dalam menemukan informasi lowongan pekerjaan, event karier, serta pelatihan yang relevan dalam satu platform yang terintegrasi. Informasi tersebut sering tersebar di berbagai media sehingga kurang efektif dan menyulitkan pengguna dalam mengakses peluang karier yang tersedia.
 Berdasarkan analisis situasi saat ini, terdapat beberapa kendala utama yang dihadapi oleh pencari kerja dalam memperoleh informasi. Untuk mengatasi permasalahan tersebut, dikembangkanlah website Looker Seeker sebagai platform solusi terintegrasi. Ringkasan perbandingan dapat dilihat pada tabel berikut: 
 
